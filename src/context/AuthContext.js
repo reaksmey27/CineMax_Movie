@@ -320,7 +320,7 @@ export const AuthProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       user,
-      loading,
+      loading: loading || Boolean(authUser && !user),
       authenticating,
       login,
       register,
@@ -331,6 +331,7 @@ export const AuthProvider = ({ children }) => {
     }),
     [
       authenticating,
+      authUser,
       loading,
       login,
       logout,

@@ -22,7 +22,14 @@ const WatchlistContext = createContext();
 
 const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
   const [watchlist, setWatchlist] = useState([]);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(() => Boolean(userId));
+  const [retryVersion, setRetryVersion] = useState(0);
+  const retry = useCallback(() => {
+    setLoading(true);
+    setError(false);
+    setRetryVersion((version) => version + 1);
+  }, []);
 
   useEffect(() => {
     if (!userId) {
@@ -34,17 +41,19 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       watchlistDocRef,
       (snapshot) => {
         setWatchlist(getWatchlistMovies(snapshot));
+        setError(false);
         setLoading(false);
       },
       (error) => {
         console.error("[watchlist] Failed to subscribe", error);
+        setError(true);
         setLoading(false);
         showNotification("We couldn't sync your watchlist right now.", "error");
       },
     );
 
     return unsubscribe;
-  }, [showNotification, userId]);
+  }, [showNotification, userId, retryVersion]);
 
   const watchlistIds = useMemo(
     () => new Set(watchlist.map((movie) => movie.id)),
@@ -129,6 +138,8 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
     () => ({
       watchlist,
       loading,
+      error,
+      retry,
       addToWatchlist,
       removeFromWatchlist,
       toggleWatchlist,
@@ -138,6 +149,8 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       addToWatchlist,
       isInWatchlist,
       loading,
+      error,
+      retry,
       removeFromWatchlist,
       toggleWatchlist,
       watchlist,

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import { useFavorites } from "../../context/FavoritesContext";
 import MovieGrid from "../../components/ui/MovieGrid";
 
@@ -17,8 +16,7 @@ const FavoritesPage = () => {
         <div className="mb-10 flex flex-col gap-6 sm:mb-16 sm:gap-10">
           <div className="space-y-3">
             <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
-              Your{" "}
-              <HeartSolidIcon className="inline h-8 w-8 text-red-500 sm:h-10 sm:w-10 md:h-14 md:w-14" />{" "}
+              Your
               <br />
               <span className="text-purple-500">Favorites</span>
             </h1>

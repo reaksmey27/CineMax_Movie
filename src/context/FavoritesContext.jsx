@@ -91,9 +91,10 @@ export const FavoritesProvider = ({ children }) => {
     () => ({
       favorites,
       toggleFavorite,
+      removeFromFavorites,
       isFavorite,
     }),
-    [favorites, isFavorite, toggleFavorite],
+    [favorites, isFavorite, toggleFavorite, removeFromFavorites],
   );
 
   return (

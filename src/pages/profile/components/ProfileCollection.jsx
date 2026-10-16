@@ -1,110 +1,241 @@
-import { Link } from "react-router-dom";
-import { ArrowRightIcon, HeartIcon, PlayIcon } from "@heroicons/react/24/solid";
+import { useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  BookmarkIcon,
+  HeartIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { useFavorites } from "../../../context/FavoritesContext";
+import { useWatchlist } from "../../../context/WatchlistContext";
+import MovieCard from "../../../components/ui/MovieCard";
+import MovieGridSkeleton from "../../../components/ui/MovieGridSkeleton";
 
-const EmptyState = () => (
-  <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-sm sm:p-10">
-    <div className="flex items-center gap-3 text-sky-300">
-      <HeartIcon className="h-5 w-5" />
-      <p className="text-[10px] font-semibold uppercase tracking-[0.24em]">
-        Collection Preview
-      </p>
-    </div>
-    <h3 className="mt-5 text-3xl font-semibold tracking-tight text-white">
-      Your shelves are waiting
-    </h3>
-    <p className="mt-3 max-w-2xl text-sm text-gray-400">
-      Save a few favorites and this space will turn into your personal movie
-      wall with genre patterns, quick picks, and recent obsessions.
-    </p>
-    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-      <Link
-        to="/movies"
-        className="flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-black transition-all hover:scale-[1.01]"
-      >
-        <PlayIcon className="h-4 w-4" />
-        Explore Movies
-      </Link>
-      <Link
-        to="/trending"
-        className="flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-white transition-all hover:bg-white/10"
-      >
-        View Trending
-        <ArrowRightIcon className="h-4 w-4" />
-      </Link>
-    </div>
-  </div>
-);
-
-const MovieCard = ({ movie }) => (
-  <Link
-    to={`/movie/${movie.id}`}
-    className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/35 transition-all hover:-translate-y-1 hover:border-white/20"
-  >
-    <div className="relative aspect-[2/3] overflow-hidden">
-      <img
-        src={movie.posterImage || movie.image}
-        alt={movie.title}
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        loading="lazy"
-        decoding="async"
-      />
-      <div className="absolute inset-0 bg-linear-to-t from-black via-black/30 to-transparent" />
-      <div className="absolute left-4 top-4 rounded-full bg-black/60 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
-        {movie.genres?.[0] || "Movie"}
-      </div>
-      <div className="absolute bottom-4 left-4 right-4">
-        <p className="line-clamp-2 text-lg font-semibold tracking-tight text-white">
-          {movie.title}
-        </p>
-        <div className="mt-2 flex items-center justify-between text-xs font-medium text-white/70">
-          <span>{movie.subtitle || "Now streaming"}</span>
-          <span className="rounded-full bg-white/10 px-3 py-1">
-            {movie.rating}
-          </span>
-        </div>
-      </div>
-    </div>
-  </Link>
-);
-
-const ProfileCollection = () => {
-  const { favorites } = useFavorites();
-  const recentFavorites = [...favorites].slice(-3).reverse();
-  const uniqueGenres = new Set(favorites.flatMap((m) => m.genres || [])).size;
-
-  if (favorites.length === 0) return <EmptyState />;
-
+const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
+  const [removing, setRemoving] = useState(false);
+  const [error, setError] = useState(false);
+  const busy = useRef(false);
+  const remove = async () => {
+    if (busy.current) return;
+    busy.current = true;
+    setRemoving(true);
+    setError(false);
+    try {
+      const result = await onRemove(movie);
+      if (result === false) setError(true);
+      else onRemoved();
+    } catch {
+      setError(true);
+    } finally {
+      busy.current = false;
+      setRemoving(false);
+    }
+  };
   return (
-    <div className="rounded-[2rem] border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-sm sm:p-10">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gray-500">
-            Collection Preview
-          </p>
-          <h3 className="mt-2 text-3xl font-semibold tracking-tight text-white">
-            Recent favorites
-          </h3>
-          <p className="mt-2 text-sm text-gray-400">
-            {favorites.length} saved titles across {uniqueGenres || 1} genres.
-          </p>
-        </div>
-        <Link
-          to="/favorites"
-          className="inline-flex items-center gap-2 self-start rounded-full border border-white/10 bg-white/5 px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-white transition-all hover:bg-white/10 lg:self-auto"
-        >
-          Open Favorites
-          <ArrowRightIcon className="h-4 w-4" />
-        </Link>
-      </div>
-
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-        {recentFavorites.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div>
-    </div>
+    <li className="min-w-0">
+      <MovieCard
+        movie={movie}
+        headingLevel="h3"
+        showActions={false}
+        hideUnrated
+      />
+      <button
+        type="button"
+        disabled={removing}
+        onClick={remove}
+        aria-label={`Remove ${movie.title} from ${listName.toLowerCase()}`}
+        className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-2 text-xs font-medium text-[var(--color-text-muted)] transition-colors hover:bg-red-500/10 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-500 disabled:cursor-wait disabled:opacity-60 sm:text-sm"
+      >
+        <TrashIcon className="h-4 w-4" aria-hidden="true" />
+        {removing ? "Removing..." : "Remove"}
+      </button>
+      {error && (
+        <p role="alert" className="mt-2 text-xs text-[var(--color-text-muted)]">
+          Could not remove this movie. Please try again.
+        </p>
+      )}
+    </li>
   );
 };
 
+const ProfileCollection = () => {
+  const { favorites, removeFromFavorites } = useFavorites();
+  const { watchlist, loading, error, retry, removeFromWatchlist } =
+    useWatchlist();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab =
+    searchParams.get("tab") === "watchlist" ? "watchlist" : "favorites";
+  const setActiveTab = (tab) =>
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current);
+        next.set("tab", tab);
+        return next;
+      },
+      { replace: true },
+    );
+  const tabRefs = useRef({});
+  const isWatchlist = activeTab === "watchlist";
+  const movies = isWatchlist ? watchlist : [...favorites].reverse();
+  const title = isWatchlist ? "Watchlist" : "Favorites";
+  const Icon = isWatchlist ? BookmarkIcon : HeartIcon;
+  const pending = isWatchlist && loading;
+  const failed = isWatchlist && error;
+  const tabs = [
+    {
+      id: "favorites",
+      title: "Favorites",
+      count: favorites.length,
+      icon: HeartIcon,
+    },
+    {
+      id: "watchlist",
+      title: "Watchlist",
+      count: loading || error ? null : watchlist.length,
+      icon: BookmarkIcon,
+    },
+  ];
+
+  const activate = (id) => {
+    setActiveTab(id);
+    tabRefs.current[id]?.focus();
+  };
+
+  return (
+    <section className="mt-8 sm:mt-10" aria-label="Saved movies">
+      <div
+        role="tablist"
+        aria-label="Movie collections"
+        className="flex gap-2 border-b border-[var(--color-border)] sm:gap-6"
+      >
+        {tabs.map((tab, index) => {
+          const TabIcon = tab.icon;
+          const selected = tab.id === activeTab;
+          return (
+            <button
+              key={tab.id}
+              ref={(node) => {
+                tabRefs.current[tab.id] = node;
+              }}
+              id={`profile-tab-${tab.id}`}
+              role="tab"
+              type="button"
+              aria-selected={selected}
+              aria-controls={`profile-panel-${tab.id}`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setActiveTab(tab.id)}
+              onKeyDown={(event) => {
+                if (
+                  !["ArrowLeft", "ArrowRight", "Home", "End"].includes(
+                    event.key,
+                  )
+                )
+                  return;
+                event.preventDefault();
+                activate(
+                  tabs[
+                    event.key === "Home"
+                      ? 0
+                      : event.key === "End"
+                        ? tabs.length - 1
+                        : (index + 1) % tabs.length
+                  ].id,
+                );
+              }}
+              className={`inline-flex min-h-14 flex-1 items-center justify-center gap-2 border-b-2 px-2 pb-3 pt-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-purple-500 sm:flex-none sm:px-4 ${selected ? "border-purple-500 text-[var(--color-text)]" : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]"}`}
+            >
+              <TabIcon
+                className="hidden h-5 w-5 min-[360px]:block"
+                aria-hidden="true"
+              />
+              {tab.title}
+              <span className="rounded-full bg-[var(--color-surface-2)] px-2 py-0.5 text-xs tabular-nums">
+                {tab.count ?? "..."}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+      <div
+        key={activeTab}
+        id={`profile-panel-${activeTab}`}
+        role="tabpanel"
+        aria-labelledby={`profile-tab-${activeTab}`}
+        tabIndex={0}
+        className="pt-6 focus-visible:outline-2 focus-visible:outline-purple-500 sm:pt-8"
+      >
+        {pending ? (
+          <div aria-busy="true" aria-label="Loading watchlist">
+            <MovieGridSkeleton />
+          </div>
+        ) : failed ? (
+          <div className="rounded-2xl border border-[var(--color-border)] p-8 text-center">
+            <h2 className="text-xl font-semibold">
+              Your watchlist could not sync
+            </h2>
+            <p
+              role="status"
+              className="mt-2 text-sm text-[var(--color-text-muted)]"
+            >
+              Please try again to load your saved movies.
+            </p>
+            <button
+              type="button"
+              onClick={retry}
+              className="mt-5 min-h-11 rounded-xl bg-purple-600 px-6 text-sm font-semibold text-white hover:bg-purple-500"
+            >
+              Try again
+            </button>
+          </div>
+        ) : movies.length === 0 ? (
+          <div className="flex min-h-80 flex-col items-center justify-center rounded-3xl border border-dashed border-[var(--color-border)] bg-[var(--color-surface-1)] px-5 py-12 text-center">
+            <div className="mb-5 rounded-2xl bg-purple-500/10 p-4">
+              <Icon className="h-8 w-8 text-purple-500" aria-hidden="true" />
+            </div>
+            <h2 className="text-xl font-semibold text-[var(--color-text)]">
+              {isWatchlist
+                ? "Your next movie is waiting"
+                : "Make room for your favorites"}
+            </h2>
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-[var(--color-text-muted)]">
+              {isWatchlist
+                ? "Save movies you want to watch and find them here whenever you are ready."
+                : "Tap the heart on a movie you love to start your personal collection."}
+            </p>
+            <Link
+              to="/movies"
+              className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-purple-600 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
+            >
+              Explore Movies
+            </Link>
+          </div>
+        ) : (
+          <>
+            <p
+              role="status"
+              className="mb-5 text-sm text-[var(--color-text-muted)]"
+            >
+              {movies.length} {movies.length === 1 ? "movie" : "movies"} in your{" "}
+              {title.toLowerCase()}
+            </p>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4 xl:grid-cols-5">
+              {movies.map((movie) => (
+                <SavedMovie
+                  key={movie.id}
+                  movie={movie}
+                  listName={title}
+                  onRemove={
+                    isWatchlist
+                      ? (item) => removeFromWatchlist(item.id)
+                      : (item) => removeFromFavorites(item.id)
+                  }
+                  onRemoved={() => tabRefs.current[activeTab]?.focus()}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </section>
+  );
+};
 export default ProfileCollection;

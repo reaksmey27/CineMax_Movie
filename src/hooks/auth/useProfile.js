@@ -11,7 +11,7 @@ const createFormState = (user) => ({
 });
 
 const useProfile = () => {
-  const { user, logout, updateProfile } = useAuth();
+  const { user, loading, logout, updateProfile } = useAuth();
   const { showNotification } = useNotification();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(() => createFormState(user));
@@ -48,6 +48,11 @@ const useProfile = () => {
       return;
     }
 
+    if (!formData.name.trim()) {
+      showNotification("Please enter a username.", "error");
+      return;
+    }
+
     if (!isDirty) {
       setIsEditing(false);
       showNotification("Your profile is already up to date.", "info");
@@ -68,6 +73,7 @@ const useProfile = () => {
   };
 
   return {
+    loading,
     user,
     logout,
     isEditing,
