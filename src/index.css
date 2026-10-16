@@ -389,3 +389,8 @@ html.theme-light .site-navbar {
     transition-delay: 0ms !important;
   }
 }
+
+.donation-dialog :is(button, a):focus-visible {
+  outline: 2px solid #d97706;
+  outline-offset: 3px;
+}

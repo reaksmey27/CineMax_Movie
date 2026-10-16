@@ -1,14 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  XMarkIcon,
-  ClipboardDocumentIcon,
-  CheckIcon,
-  ArrowDownTrayIcon,
-} from "@heroicons/react/24/solid";
+import { useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { XMarkIcon, ClipboardDocumentIcon, CheckIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { FaCoffee } from "react-icons/fa";
 import donationQr from "../../assets/images/donation-qr.png";
-
-// ─── Constants ───────────────────────────────────────────────────────────────
 
 const PAYMENT_INFO = {
   name: "SAN REAKSMEY",
@@ -17,247 +11,157 @@ const PAYMENT_INFO = {
   bank: "ABA Bank",
 };
 
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-const CopyButton = ({ text, field, copied, onCopy }) => (
-  <button
-    type="button"
-    onClick={() => onCopy(text, field)}
-    aria-label={`Copy ${field}`}
-    className="flex min-h-11 shrink-0 items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold text-gray-400 transition-all active:scale-95 hover:border-yellow-400/40 hover:bg-yellow-400/10 hover:text-yellow-400"
-  >
-    {copied === field ? (
-      <>
-        <CheckIcon className="h-3 w-3 text-green-400" />
-        <span className="text-green-400">Done</span>
-      </>
-    ) : (
-      <>
-        <ClipboardDocumentIcon className="h-3 w-3" />
-        <span>Copy</span>
-      </>
-    )}
-  </button>
-);
-
-const PaymentRow = ({
-  label,
-  value,
-  field,
-  copied,
-  onCopy,
-  copyText,
-  hasBorder,
-}) => (
-  <div className={`px-3 py-2.5 ${hasBorder ? "border-b border-white/5" : ""}`}>
-    <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-white/55">
-      {label}
-    </p>
-    <div className="flex items-center justify-between gap-2">
-      <p className="truncate text-sm font-bold text-white font-mono tracking-wider">
-        {value}
-      </p>
-      <CopyButton
-        text={copyText ?? value}
-        field={field}
-        copied={copied}
-        onCopy={onCopy}
-      />
-    </div>
+const PaymentRow = ({ label, value, copyText = value, copied, onCopy }) => (
+  <div className="space-y-1.5 py-3">
+    <dt className="text-xs font-medium text-[var(--color-text-muted)]">{label}</dt>
+    <dd className="flex items-center justify-between gap-3">
+      <span className="min-w-0 break-words text-sm font-semibold tracking-wide text-[var(--color-text)]">{value}</span>
+      <button type="button" onClick={() => onCopy(copyText, label)} aria-label={`Copy ${label.toLowerCase()}`}
+        className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-2 text-xs font-semibold text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)]">
+        {copied === label ? <CheckIcon className="h-4 w-4" aria-hidden="true" /> : <ClipboardDocumentIcon className="h-4 w-4" aria-hidden="true" />}
+        {copied === label ? "Copied" : "Copy"}
+      </button>
+    </dd>
   </div>
 );
 
-// ─── Main Component ───────────────────────────────────────────────────────────
-
 const DonationModal = ({ isOpen, onClose }) => {
-  const panelRef = useRef(null);
+  const dialogRef = useRef(null);
+  const contentRef = useRef(null);
+  const closeRef = useRef(null);
+  const copyTimer = useRef(null);
+  const copyVersion = useRef(0);
   const [copied, setCopied] = useState(null);
+  const [message, setMessage] = useState("");
 
-  // Keyboard + scroll lock
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) return;
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") onClose?.();
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    const content = contentRef.current;
+    // Measure the natural card, then fit it within the visible viewport.
+    // The content has its own width so scaling cannot create a resize loop.
+    const fitCard = () => {
+      const viewport = window.visualViewport;
+      const availableWidth = (viewport?.width || window.innerWidth) - 32;
+      const availableHeight = (viewport?.height || window.innerHeight) - 32;
+      const width = content.offsetWidth;
+      const height = content.offsetHeight;
+      if (!width || !height) return;
+      const scale = Math.min(1, (availableWidth - 2) / width, (availableHeight - 2) / height);
+      content.style.transform = `scale(${Math.max(0.1, scale)})`;
+      dialog.style.width = `${width * scale + 2}px`;
+      dialog.style.height = `${height * scale + 2}px`;
     };
-    const prevOverflow = document.body.style.overflow;
-
-    document.addEventListener("keydown", handleKeyDown);
+    fitCard();
+    const observer = new ResizeObserver(fitCard);
+    observer.observe(content);
+    window.addEventListener("resize", fitCard);
+    window.visualViewport?.addEventListener("resize", fitCard);
     document.body.style.overflow = "hidden";
-
+    closeRef.current?.focus();
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = prevOverflow;
+      observer.disconnect();
+      window.removeEventListener("resize", fitCard);
+      window.visualViewport?.removeEventListener("resize", fitCard);
+      copyVersion.current += 1;
+      window.clearTimeout(copyTimer.current);
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (opener instanceof HTMLElement && opener.isConnected) opener.focus();
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
-  const handleBackdropMouseDown = (e) => {
-    if (!panelRef.current?.contains(e.target)) onClose?.();
+  const handleCopy = async (text, label) => {
+    const version = ++copyVersion.current;
+    window.clearTimeout(copyTimer.current);
+    setCopied(null);
+    setMessage("");
+    try {
+      await navigator.clipboard.writeText(text);
+      if (version !== copyVersion.current) return;
+      setCopied(label);
+      setMessage(`${label} copied.`);
+      copyTimer.current = window.setTimeout(() => { setCopied(null); setMessage(""); }, 2500);
+    } catch {
+      if (version !== copyVersion.current) return;
+      setMessage("Copy is unavailable. Please select and copy the account details manually.");
+    }
   };
 
-  const handleCopy = (text, field) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(field);
-      setTimeout(() => setCopied(null), 2000);
-    });
-  };
-
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = donationQr;
-    link.download = "cinemax-donation-qr.png";
-    link.click();
+  const handleClose = () => {
+    setCopied(null);
+    setMessage("");
+    onClose();
   };
 
   if (!isOpen) return null;
 
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-6"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Buy Me a Coffee"
-      onMouseDown={handleBackdropMouseDown}
-    >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-[var(--color-overlay)] backdrop-blur-md" />
+  return createPortal(
+    <dialog ref={dialogRef} aria-labelledby="donation-title" aria-describedby="donation-description"
+      onCancel={(event) => { event.preventDefault(); handleClose(); }}
+      onClick={(event) => {
+        if (event.target !== event.currentTarget) return;
+        const bounds = event.currentTarget.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) handleClose();
+      }}
+      className="donation-dialog fixed inset-0 m-auto max-h-none max-w-none overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-0 text-[var(--color-text)] shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm">
+      <div ref={contentRef} className="w-[min(510px,calc(100vw-2rem-2px))] origin-top-left">
+      <header className="relative border-b border-[var(--color-border)] bg-amber-500/5 px-5 pb-3 pt-4">
+        <button ref={closeRef} type="button" onClick={handleClose} aria-label="Close donation card"
+          className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]">
+          <XMarkIcon className="h-5 w-5" />
+        </button>
+        <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-2xl bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/10">
+          <FaCoffee className="h-5 w-5" aria-hidden="true" />
+        </div>
+        <h2 id="donation-title" className="pr-8 text-xl font-bold tracking-tight sm:text-2xl">Buy me a coffee</h2>
+        <p id="donation-description" className="mt-2 max-w-lg text-sm leading-relaxed text-[var(--color-text-muted)]">
+          Enjoying CineMax? Your support helps me keep building and improving it. Every coffee is appreciated.
+        </p>
+      </header>
 
-      {/* Panel */}
-      <div
-        ref={panelRef}
-        className="relative max-h-[calc(100dvh-3rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-3xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl"
-        style={{
-          boxShadow:
-            "0 0 60px rgba(251,191,36,0.1), 0 25px 50px rgba(0,0,0,0.25)",
-        }}
-      >
-        {/* Top glow */}
-        <div className="absolute left-1/2 top-0 h-px w-64 -translate-x-1/2 bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
-        <div className="absolute left-1/2 top-0 h-8 w-40 -translate-x-1/2 rounded-full bg-yellow-400/10 blur-xl" />
-
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 pb-4 pt-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-yellow-400/20 bg-yellow-400/15">
-              <FaCoffee
-                className="h-5 w-5 text-yellow-300"
-                aria-hidden="true"
-              />
+      <div className="px-5 py-3">
+        <div className="grid items-start gap-4 sm:grid-cols-[192px_minmax(0,1fr)]">
+          <section aria-label="Scan to donate" className="text-center">
+            <div className="mx-auto w-full max-w-[192px] overflow-hidden rounded-xl bg-white p-2 shadow-sm">
+              <img src={donationQr} alt="Donation QR code for SAN REAKSMEY at ABA Bank" className="h-auto w-full" decoding="async" />
             </div>
-            <div>
-              <h2 className="text-base font-black tracking-tight text-white">
-                Buy Me a Coffee
-              </h2>
-              <p className="text-xs font-medium text-white/60">
-                Support CineMax with a coffee
-              </p>
-            </div>
-          </div>
+            <p className="mt-2 text-sm font-semibold">Scan with your banking app</p>
+            <p className="mt-1 text-xs text-[var(--color-text-muted)]">Or save the QR code to your phone</p>
+          </section>
 
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all active:scale-95 hover:border-white/20 hover:bg-white/10 hover:text-white"
-          >
-            <XMarkIcon className="h-4 w-4" />
-          </button>
+          <section aria-label="Bank transfer details" className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-amber-400" aria-hidden="true" />
+              <h3 className="text-sm font-semibold">{PAYMENT_INFO.bank}</h3>
+              <span className="ml-auto rounded-full bg-[var(--color-surface-2)] px-2.5 py-1 text-xs text-[var(--color-text-muted)]">Bank transfer</span>
+            </div>
+            <dl className="mt-2 divide-y divide-[var(--color-border)]">
+              <PaymentRow label="Account name" value={PAYMENT_INFO.name} copied={copied} onCopy={handleCopy} />
+              <PaymentRow label="Account number" value={PAYMENT_INFO.number} copyText={PAYMENT_INFO.numberRaw} copied={copied} onCopy={handleCopy} />
+            </dl>
+            <p className="text-xs leading-relaxed text-[var(--color-text-muted)]">Open your ABA app to scan the QR code or transfer using the account number above.</p>
+            <p role="status" aria-live="polite" className="mt-2 min-h-5 text-xs text-[var(--color-text)]">{message}</p>
+          </section>
         </div>
 
-        <div className="h-px bg-white/5 mx-6" />
-
-        {/* Body */}
-        <div className="space-y-4 px-6 py-5">
-          {/* Message */}
-          <div className="rounded-2xl border border-yellow-400/15 bg-gradient-to-br from-yellow-400/10 to-yellow-900/10 px-4 py-3.5">
-            <p className="text-sm font-medium leading-relaxed text-white/80">
-              <span className="font-bold text-yellow-300">Hey!</span> If you
-              enjoy using CineMax, consider buying me a coffee. It keeps me
-              motivated to build more!
-            </p>
-            <p className="mt-2 text-xs font-medium leading-relaxed text-yellow-200/70">
-              សូមអរគុណចំពោះការគាំទ្រ CineMax ❤️
-              ទឹកចិត្តរបស់អ្នកមានន័យខ្លាំងណាស់។
-            </p>
-          </div>
-
-          {/* QR + Payment */}
-          <div className="flex flex-col items-stretch gap-4 sm:flex-row">
-            {/* QR Code */}
-            <div className="flex shrink-0 flex-col items-center">
-              <div className="w-48 overflow-hidden rounded-2xl bg-white p-2">
-                <img
-                  src={donationQr}
-                  alt="Donation QR Code"
-                  className="h-auto w-full"
-                  decoding="async"
-                />
-              </div>
-              <p className="mt-2 text-[10px] font-bold uppercase tracking-widest text-white/55">
-                Scan to donate
-              </p>
-              <button
-                type="button"
-                onClick={handleDownload}
-                className="mt-2 flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-[10px] font-bold text-gray-400 transition-all active:scale-95 hover:border-yellow-400/40 hover:bg-yellow-400/10 hover:text-yellow-400"
-              >
-                <ArrowDownTrayIcon className="h-3 w-3" />
-                Download QR
-              </button>
-            </div>
-
-            {/* Payment Info */}
-            <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/8 bg-white/4">
-              <div className="flex items-center justify-between border-b border-white/5 px-3 py-2.5">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/55">
-                  Payment Info
-                </span>
-                <span className="text-[10px] font-bold uppercase tracking-wide text-yellow-400">
-                  {PAYMENT_INFO.bank}
-                </span>
-              </div>
-
-              <PaymentRow
-                label="Account Name"
-                value={PAYMENT_INFO.name}
-                field="name"
-                copied={copied}
-                onCopy={handleCopy}
-                hasBorder
-              />
-
-              <PaymentRow
-                label="Account Number"
-                value={PAYMENT_INFO.number}
-                copyText={PAYMENT_INFO.numberRaw}
-                field="number"
-                copied={copied}
-                onCopy={handleCopy}
-                hasBorder
-              />
-
-              <div className="px-3 py-2.5">
-                <p className="text-[10px] leading-relaxed text-white/60">
-                  Open your ABA app, scan the QR or enter the account number
-                  above. Every coffee counts!
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Close */}
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-yellow-400 px-4 py-3 text-sm font-bold text-gray-900 transition-all active:scale-[0.98] hover:bg-yellow-300"
-            style={{ boxShadow: "0 4px 20px rgba(251,191,36,0.3)" }}
-          >
-            <FaCoffee className="h-4 w-4" aria-hidden="true" />
-            Maybe Next Time!
-          </button>
-        </div>
+        <a href={donationQr} download="cinemax-donation-qr.png"
+          className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-amber-400 px-5 py-3 text-sm font-bold text-slate-950 transition-colors hover:bg-amber-300">
+          <ArrowDownTrayIcon className="h-5 w-5" aria-hidden="true" /> Save QR code
+        </a>
+        <button type="button" onClick={handleClose}
+          className="mt-2 flex min-h-11 w-full items-center justify-center rounded-xl text-sm font-medium text-[var(--color-text-muted)] hover:bg-[var(--color-surface-1)] hover:text-[var(--color-text)]">
+          Maybe later
+        </button>
+        <p lang="km" className="mt-3 border-t border-[var(--color-border)] pt-3 text-center text-sm leading-relaxed text-[var(--color-text-muted)]">សូមអរគុណចំពោះការគាំទ្រ CineMax ❤️
+              ទឹកចិត្តរបស់អ្នកមានន័យខ្លាំងណាស់។</p>
       </div>
-    </div>
+      </div>
+    </dialog>,
+    document.body,
   );
 };
 
