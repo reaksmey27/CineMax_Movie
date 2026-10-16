@@ -96,9 +96,10 @@ export default function NavSearch({ onOpen }) {
             <XMarkIcon className="h-4 w-4" />
           </button>}
         </div>
-        {showResults && <div className="relative sm:absolute sm:right-0 sm:top-full sm:w-96">
+        {showResults && <div className="relative sm:absolute sm:right-0 sm:top-full sm:w-[26rem] sm:max-w-[calc(100vw-3rem)]">
           {!loading && response.error ? <p role="status" className="mt-2 rounded-xl bg-[var(--color-panel-bg)] p-4 text-sm text-[var(--color-text)]">Live search is unavailable. Press Enter to try the results page.</p> :
             <LiveSearchDropdown listId="nav-live-search-results" query={trimmed} results={results} isLoading={loading}
+              onViewAll={() => { setOpen(false); inputRef.current?.blur(); navigate(`/movies?q=${encodeURIComponent(trimmed)}`); }}
               activeIndex={activeIndex} onSelect={selectMovie} onHoverIndex={setActiveIndex} />}
         </div>}
       </form>
