@@ -1,5 +1,6 @@
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY?.trim() || "";
-const READ_ACCESS_TOKEN = import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN?.trim() || "";
+const READ_ACCESS_TOKEN =
+  import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN?.trim() || "";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
 const DEFAULT_CACHE_TTL = 5 * 60 * 1000;
@@ -14,22 +15,28 @@ const INVALID_API_KEY_VALUES = new Set([
 ]);
 
 const looksLikeBearerToken = (value) => value.split(".").length === 3;
-const bearerToken = READ_ACCESS_TOKEN || (looksLikeBearerToken(API_KEY) ? API_KEY : "");
+const bearerToken =
+  READ_ACCESS_TOKEN || (looksLikeBearerToken(API_KEY) ? API_KEY : "");
 const apiKey = bearerToken ? "" : API_KEY;
 const hasTmdbCredentials =
-  Boolean(bearerToken) || (Boolean(apiKey) && !INVALID_API_KEY_VALUES.has(apiKey));
+  Boolean(bearerToken) ||
+  (Boolean(apiKey) && !INVALID_API_KEY_VALUES.has(apiKey));
 
 // Validate API key on module load
 if (!hasTmdbCredentials) {
   console.error(
     "TMDB credentials are missing or invalid. Add VITE_TMDB_API_KEY or VITE_TMDB_READ_ACCESS_TOKEN to your .env file.",
   );
-  console.error("Get your TMDB credentials from: https://www.themoviedb.org/settings/api");
+  console.error(
+    "Get your TMDB credentials from: https://www.themoviedb.org/settings/api",
+  );
 }
 
 const buildCacheKey = (endpoint, params) => {
   const sortedParams = Object.entries(params)
-    .filter(([, value]) => value !== undefined && value !== null && value !== "")
+    .filter(
+      ([, value]) => value !== undefined && value !== null && value !== "",
+    )
     .sort(([a], [b]) => a.localeCompare(b));
 
   return JSON.stringify([endpoint, sortedParams]);
@@ -133,7 +140,9 @@ const fetchFromTMDB = async (
       return data;
     } catch (error) {
       if (error.name === "AbortError") {
-        throw new Error("Request timed out. Please check your internet connection.");
+        throw new Error(
+          "Request timed out. Please check your internet connection.",
+        );
       }
       if (
         error.message.includes("Failed to fetch") ||
@@ -186,20 +195,31 @@ const getReleaseYear = (movie) => {
   return "";
 };
 
-
 export const tmdbService = {
   getTrendingMovies: async () => {
-    const data = await fetchFromTMDB("/trending/movie/day", {}, { ttl: DEFAULT_CACHE_TTL });
+    const data = await fetchFromTMDB(
+      "/trending/movie/day",
+      {},
+      { ttl: DEFAULT_CACHE_TTL },
+    );
     return data?.results || [];
   },
 
   getNowPlayingMovies: async () => {
-    const data = await fetchFromTMDB("/movie/now_playing", {}, { ttl: DEFAULT_CACHE_TTL });
+    const data = await fetchFromTMDB(
+      "/movie/now_playing",
+      {},
+      { ttl: DEFAULT_CACHE_TTL },
+    );
     return data?.results || [];
   },
 
   getPopularMovies: async () => {
-    const data = await fetchFromTMDB("/movie/popular", {}, { ttl: DEFAULT_CACHE_TTL });
+    const data = await fetchFromTMDB(
+      "/movie/popular",
+      {},
+      { ttl: DEFAULT_CACHE_TTL },
+    );
     return data?.results || [];
   },
 
@@ -222,17 +242,29 @@ export const tmdbService = {
   },
 
   getGenres: async () => {
-    const data = await fetchFromTMDB("/genre/movie/list", {}, { ttl: GENRE_CACHE_TTL });
+    const data = await fetchFromTMDB(
+      "/genre/movie/list",
+      {},
+      { ttl: GENRE_CACHE_TTL },
+    );
     return data.genres;
   },
 
   getUpcomingMovies: async () => {
-    const data = await fetchFromTMDB("/movie/upcoming", {}, { ttl: LONG_CACHE_TTL });
+    const data = await fetchFromTMDB(
+      "/movie/upcoming",
+      {},
+      { ttl: LONG_CACHE_TTL },
+    );
     return data?.results || [];
   },
 
   getTopRatedMovies: async () => {
-    const data = await fetchFromTMDB("/movie/top_rated", {}, { ttl: LONG_CACHE_TTL });
+    const data = await fetchFromTMDB(
+      "/movie/top_rated",
+      {},
+      { ttl: LONG_CACHE_TTL },
+    );
     return data?.results || [];
   },
 
@@ -254,7 +286,9 @@ export const tmdbService = {
 
   getMoviesByIds: async (movieIds) => {
     const fetchPromises = movieIds.map((id) =>
-      fetchFromTMDB(`/movie/${id}`, {}, { ttl: LONG_CACHE_TTL }).catch(() => null),
+      fetchFromTMDB(`/movie/${id}`, {}, { ttl: LONG_CACHE_TTL }).catch(
+        () => null,
+      ),
     );
     const results = await Promise.all(fetchPromises);
     return results.filter(Boolean);
@@ -310,4 +344,3 @@ export const tmdbService = {
     };
   },
 };
-

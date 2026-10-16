@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { tmdbService } from "../../services/tmdbService";
-import { DEFAULT_DISCOVER_SORT, DISCOVER_SORT_OPTIONS } from "../../pages/movies/constants";
+import {
+  DEFAULT_DISCOVER_SORT,
+  DISCOVER_SORT_OPTIONS,
+} from "../../pages/movies/constants";
 
-const DISCOVER_SORT_VALUES = new Set(DISCOVER_SORT_OPTIONS.map((option) => option.value));
+const DISCOVER_SORT_VALUES = new Set(
+  DISCOVER_SORT_OPTIONS.map((option) => option.value),
+);
 
 const useMovies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,25 +33,31 @@ const useMovies = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(null);
   const hasActiveFilters = Boolean(
-    selectedGenre || releaseYear || minRating || sortBy !== DEFAULT_DISCOVER_SORT,
+    selectedGenre ||
+    releaseYear ||
+    minRating ||
+    sortBy !== DEFAULT_DISCOVER_SORT,
   );
 
-  const updateParams = useCallback((updates) => {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        Object.entries(updates).forEach(([key, value]) => {
-          if (value === null || value === "" || value === undefined) {
-            next.delete(key);
-          } else {
-            next.set(key, String(value));
-          }
-        });
-        return next;
-      },
-      { replace: true },
-    );
-  }, [setSearchParams]);
+  const updateParams = useCallback(
+    (updates) => {
+      setSearchParams(
+        (prev) => {
+          const next = new URLSearchParams(prev);
+          Object.entries(updates).forEach(([key, value]) => {
+            if (value === null || value === "" || value === undefined) {
+              next.delete(key);
+            } else {
+              next.set(key, String(value));
+            }
+          });
+          return next;
+        },
+        { replace: true },
+      );
+    },
+    [setSearchParams],
+  );
 
   useEffect(() => {
     let ignore = false;
@@ -96,7 +107,8 @@ const useMovies = () => {
       } catch (err) {
         if (!ignore) {
           console.error("Error fetching movies:", err);
-          let errorMessage = "Unable to connect to the movie database. Please check your network.";
+          let errorMessage =
+            "Unable to connect to the movie database. Please check your network.";
 
           if (
             err.message?.includes("Invalid TMDB credentials") ||
@@ -129,39 +141,54 @@ const useMovies = () => {
     };
   }, [minRating, page, releaseYear, searchQuery, selectedGenre, sortBy]);
 
-  const handleGenreChange = useCallback((genreId) => {
-    updateParams({ genre: genreId, page: 1, q: null });
-    setError(null);
-  }, [updateParams]);
+  const handleGenreChange = useCallback(
+    (genreId) => {
+      updateParams({ genre: genreId, page: 1, q: null });
+      setError(null);
+    },
+    [updateParams],
+  );
 
-  const handleSearch = useCallback((value) => {
-    updateParams({ q: value, page: 1 });
-    setError(null);
-  }, [updateParams]);
+  const handleSearch = useCallback(
+    (value) => {
+      updateParams({ q: value, page: 1 });
+      setError(null);
+    },
+    [updateParams],
+  );
 
   const clearSearch = useCallback(() => {
     updateParams({ q: null, page: 1 });
     setError(null);
   }, [updateParams]);
 
-  const handleYearChange = useCallback((value) => {
-    updateParams({ year: value || null, page: 1, q: null });
-    setError(null);
-  }, [updateParams]);
+  const handleYearChange = useCallback(
+    (value) => {
+      updateParams({ year: value || null, page: 1, q: null });
+      setError(null);
+    },
+    [updateParams],
+  );
 
-  const handleRatingChange = useCallback((value) => {
-    updateParams({ rating: value || null, page: 1, q: null });
-    setError(null);
-  }, [updateParams]);
+  const handleRatingChange = useCallback(
+    (value) => {
+      updateParams({ rating: value || null, page: 1, q: null });
+      setError(null);
+    },
+    [updateParams],
+  );
 
-  const handleSortChange = useCallback((value) => {
-    updateParams({
-      sort: value === DEFAULT_DISCOVER_SORT ? null : value,
-      page: 1,
-      q: null,
-    });
-    setError(null);
-  }, [updateParams]);
+  const handleSortChange = useCallback(
+    (value) => {
+      updateParams({
+        sort: value === DEFAULT_DISCOVER_SORT ? null : value,
+        page: 1,
+        q: null,
+      });
+      setError(null);
+    },
+    [updateParams],
+  );
 
   const clearFilters = useCallback(() => {
     updateParams({
@@ -174,11 +201,14 @@ const useMovies = () => {
     setError(null);
   }, [updateParams]);
 
-  const handlePageChange = useCallback((newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      updateParams({ page: newPage });
-    }
-  }, [totalPages, updateParams]);
+  const handlePageChange = useCallback(
+    (newPage) => {
+      if (newPage >= 1 && newPage <= totalPages) {
+        updateParams({ page: newPage });
+      }
+    },
+    [totalPages, updateParams],
+  );
 
   return {
     movies,

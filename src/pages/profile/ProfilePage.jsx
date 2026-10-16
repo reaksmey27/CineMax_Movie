@@ -9,7 +9,6 @@ import ProfileForm from "./components/ProfileForm";
 import ProfileStats from "./components/ProfileStats";
 
 const ProfilePage = () => {
-
   const {
     user,
     logout,
@@ -33,12 +32,12 @@ const ProfilePage = () => {
         <ProBanner user={user} />
 
         <div className="grid gap-6 lg:grid-cols-12">
-          <div className="space-y-6 lg:col-span-4">
+          <div className="min-w-0 space-y-6 lg:col-span-4">
             <ProfileAvatar user={user} onLogout={logout} />
             <ProfileStats user={user} />
           </div>
 
-          <div className="space-y-6 lg:col-span-8">
+          <div className="min-w-0 space-y-6 lg:col-span-8">
             <ProfileForm
               isEditing={isEditing}
               formData={formData}

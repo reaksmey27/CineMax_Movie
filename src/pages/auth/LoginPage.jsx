@@ -9,7 +9,8 @@ import { getAuthRedirect } from "../../utils/authRedirect";
 
 const LoginPage = () => {
   const { user, loading } = useAuth();
-  const { formData, error, isBusy, handleChange, handleSubmit } = useAuthForm("login");
+  const { formData, error, isBusy, handleChange, handleSubmit } =
+    useAuthForm("login");
   const navigate = useNavigate();
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
@@ -41,7 +42,9 @@ const LoginPage = () => {
           Welcome Back
         </h1>
         <p className="mt-2 text-sm text-white/55">
-          {location.state?.returnTo ? "Log in to watch this movie." : "Enter your details."}
+          {location.state?.returnTo
+            ? "Log in to watch this movie."
+            : "Enter your details."}
         </p>
 
         <form className="mt-6 space-y-3" onSubmit={handleSubmit}>

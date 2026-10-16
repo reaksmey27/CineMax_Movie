@@ -16,10 +16,19 @@ const INPUT_CLASS =
 const GENRE_BTN_BASE =
   "rounded-xl border-2 px-5 py-2 text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all";
 
-const FilterSelect = ({ label, value, options, isOpen, onToggle, onClose, onChange }) => {
+const FilterSelect = ({
+  label,
+  value,
+  options,
+  isOpen,
+  onToggle,
+  onClose,
+  onChange,
+}) => {
   const containerRef = useRef(null);
   const triggerId = `filter-select-${label.toLowerCase().replace(/\s+/g, "-")}`;
-  const selected = options.find((option) => option.value === value) ?? options[0];
+  const selected =
+    options.find((option) => option.value === value) ?? options[0];
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -58,10 +67,14 @@ const FilterSelect = ({ label, value, options, isOpen, onToggle, onClose, onChan
             : "border-white/8 bg-white/5 hover:border-white/15 hover:bg-white/8"
         }`}
       >
-        <span className="min-w-0 truncate text-[15px] text-white">{selected.label}</span>
+        <span className="min-w-0 truncate text-[15px] text-white">
+          {selected.label}
+        </span>
         <ChevronUpDownIcon
           className={`h-3.5 w-3.5 shrink-0 transition-colors ${
-            isOpen ? "text-purple-500" : "text-gray-500 group-hover:text-gray-400"
+            isOpen
+              ? "text-purple-500"
+              : "text-gray-500 group-hover:text-gray-400"
           }`}
         />
       </button>
@@ -73,7 +86,7 @@ const FilterSelect = ({ label, value, options, isOpen, onToggle, onClose, onChan
               id={`${triggerId}-menu`}
               role="listbox"
               aria-labelledby={triggerId}
-              className="space-y-1"
+              className="max-h-64 space-y-1 overflow-y-auto overscroll-contain"
             >
               {options.map((option) => {
                 const isSelected = option.value === selected.value;
@@ -89,7 +102,9 @@ const FilterSelect = ({ label, value, options, isOpen, onToggle, onClose, onChan
                         onClose();
                       }}
                       className={`flex w-full items-center justify-between gap-3 rounded-lg px-3.5 py-2 text-left text-[13px] font-semibold transition-all ${
-                        isSelected ? "bg-purple-600 text-white" : "bg-white/5 text-white hover:bg-white/8"
+                        isSelected
+                          ? "bg-purple-600 text-white"
+                          : "bg-white/5 text-white hover:bg-white/8"
                       }`}
                     >
                       <span className="truncate">{option.label}</span>
@@ -132,7 +147,8 @@ const MoviesFilters = ({
             Discover Filters
           </p>
           <p className="mt-2 max-w-2xl text-sm font-medium text-gray-400">
-            Refine the TMDB discover feed by genre, release year, minimum vote average, and sort order.
+            Refine the TMDB discover feed by genre, release year, minimum vote
+            average, and sort order.
           </p>
         </div>
 
@@ -148,12 +164,15 @@ const MoviesFilters = ({
 
       {hasSearchQuery && (
         <div className="mt-4 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-xs font-semibold text-amber-100">
-          Changing any filter will clear the current search and switch back to TMDB discover results.
+          Changing any filter will clear the current search and switch back to
+          TMDB discover results.
         </div>
       )}
 
       <div className="mt-5">
-        <p className="mb-3 text-xs font-black uppercase tracking-[0.3em] text-gray-500">Genre</p>
+        <p className="mb-3 text-xs font-black uppercase tracking-[0.3em] text-gray-500">
+          Genre
+        </p>
         <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2 pr-1 scroll-smooth sm:pb-4">
           <button
             type="button"
@@ -183,7 +202,7 @@ const MoviesFilters = ({
         </div>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-3">
         <label className="space-y-2">
           <span className={LABEL_CLASS}>Release Year</span>
           <input
@@ -192,7 +211,9 @@ const MoviesFilters = ({
             maxLength={4}
             placeholder="e.g. 2024"
             value={yearInput}
-            onChange={(e) => setYearInput(e.target.value.replace(/\D/g, "").slice(0, 4))}
+            onChange={(e) =>
+              setYearInput(e.target.value.replace(/\D/g, "").slice(0, 4))
+            }
             className={INPUT_CLASS}
           />
         </label>

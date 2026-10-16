@@ -17,14 +17,15 @@ import { useFavorites } from "../../../context/FavoritesContext";
 
 const FEATURED_COUNT = 4;
 const SLIDE_INTERVAL = 5000;
-const FADE_DURATION  = 600;
-const DOT_DURATION   = 400;
+const FADE_DURATION = 600;
+const DOT_DURATION = 400;
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-const NavButton = ({ onClick, children }) => (
+const NavButton = ({ onClick, children, label }) => (
   <button
     onClick={onClick}
+    aria-label={label}
     className="p-3 sm:p-4 rounded-full bg-black/20 border border-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all active:scale-90"
   >
     {children}
@@ -33,8 +34,9 @@ const NavButton = ({ onClick, children }) => (
 
 const TrailerModal = ({ movie, onClose }) => (
   <div className="fixed inset-0 z-200 flex items-center justify-center p-2 sm:p-10 bg-black/95 backdrop-blur-2xl animate-in fade-in duration-300">
-    <div className="relative w-full max-w-6xl aspect-video bg-black rounded-xl sm:rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(168,85,247,0.3)] border border-white/10 animate-in zoom-in duration-500">
+    <div className="trailer-frame relative w-full max-w-6xl aspect-video bg-black rounded-xl sm:rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(168,85,247,0.3)] border border-white/10 animate-in zoom-in duration-500">
       <button
+        aria-label="Close trailer"
         onClick={onClose}
         className="absolute top-4 right-4 sm:top-6 sm:right-6 z-210 p-2 sm:p-3 bg-black/40 hover:bg-red-500 text-white rounded-full transition-all active:scale-90 backdrop-blur-md border border-white/10 group"
       >
@@ -59,8 +61,8 @@ const HeroSection = ({ trendingMovies = [] }) => {
   const { toggleFavorite, isFavorite } = useFavorites();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [fade, setFade]                 = useState(true);
-  const [showTrailer, setShowTrailer]   = useState(false);
+  const [fade, setFade] = useState(true);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   const transition = useCallback((getNext, delay = FADE_DURATION) => {
     setFade(false);
@@ -78,9 +80,12 @@ const HeroSection = ({ trendingMovies = [] }) => {
     transition((prev) => (prev === 0 ? featured.length - 1 : prev - 1));
   }, [featured.length, transition]);
 
-  const goTo = useCallback((idx) => {
-    transition(() => idx, DOT_DURATION);
-  }, [transition]);
+  const goTo = useCallback(
+    (idx) => {
+      transition(() => idx, DOT_DURATION);
+    },
+    [transition],
+  );
 
   useEffect(() => {
     if (featured.length === 0 || showTrailer) return;
@@ -94,10 +99,11 @@ const HeroSection = ({ trendingMovies = [] }) => {
   const isFav = isFavorite(movie.id);
 
   return (
-    <section className="relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-0 sm:pt-0">
-
+    <section className="relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-28 sm:pt-36">
       {/* ── Background ── */}
-      <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${fade ? "opacity-60" : "opacity-0"}`}>
+      <div
+        className={`absolute inset-0 z-0 transition-opacity duration-1000 ${fade ? "opacity-60" : "opacity-0"}`}
+      >
         <img
           src={movie.backdropImage || movie.image}
           alt=""
@@ -110,10 +116,11 @@ const HeroSection = ({ trendingMovies = [] }) => {
       </div>
 
       {/* ── Content ── */}
-      <div className={`relative z-10 w-full max-w-7xl px-4 pb-10 transition-all duration-700 ease-out transform sm:mt-16 sm:px-6 sm:pb-0 lg:px-24 xl:px-40 ${fade ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}>
+      <div
+        className={`relative z-10 mx-auto w-full max-w-[1600px] px-4 pb-10 transition-all duration-700 ease-out transform sm:px-6 sm:pb-0 lg:px-24 xl:px-40 ${fade ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}
+      >
         <h2 className="mb-4 text-4xl font-black leading-[0.9] tracking-tighter text-white drop-shadow-2xl sm:mb-6 sm:text-5xl lg:text-6xl">
-          {movie.title}{" "}
-          <br className="hidden sm:block" />
+          {movie.title} <br className="hidden sm:block" />
           <span className="mt-2 block text-base font-bold tracking-tight text-white/60 sm:mt-0 sm:inline sm:text-3xl lg:text-4xl">
             {movie.subtitle}
           </span>
@@ -145,7 +152,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
         </p>
 
         {/* Actions */}
-        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-6">
+        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           <Link
             to={`/movie/${movie.id}`}
             className="group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-6 py-4 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5 sm:text-xs sm:tracking-[0.2em]"
@@ -175,10 +182,11 @@ const HeroSection = ({ trendingMovies = [] }) => {
                   : "border-white/10 bg-white/5 text-white hover:bg-white/10"
               }`}
             >
-              {isFav
-                ? <HeartIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-                : <HeartOutline className="h-5 w-5 sm:h-6 sm:w-6" />
-              }
+              {isFav ? (
+                <HeartIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+              ) : (
+                <HeartOutline className="h-5 w-5 sm:h-6 sm:w-6" />
+              )}
               <span className="text-[10px] uppercase tracking-[0.18em] sm:text-xs sm:tracking-[0.2em]">
                 Favorite
               </span>
@@ -189,12 +197,12 @@ const HeroSection = ({ trendingMovies = [] }) => {
 
       {/* ── Nav arrows ── */}
       <div className="absolute inset-y-0 left-0 hidden lg:flex items-center px-10 z-30">
-        <NavButton onClick={handlePrev}>
+        <NavButton label="Previous featured movie" onClick={handlePrev}>
           <ChevronLeftIcon className="h-6 w-6 sm:h-8 sm:w-8" />
         </NavButton>
       </div>
       <div className="absolute inset-y-0 right-0 hidden lg:flex items-center px-10 z-30">
-        <NavButton onClick={handleNext}>
+        <NavButton label="Next featured movie" onClick={handleNext}>
           <ChevronRightIcon className="h-6 w-6 sm:h-8 sm:w-8" />
         </NavButton>
       </div>
@@ -204,8 +212,10 @@ const HeroSection = ({ trendingMovies = [] }) => {
         {featured.map((_, idx) => (
           <button
             key={idx}
+            aria-label={`Show featured movie ${idx + 1}`}
+            aria-pressed={idx === currentIndex}
             onClick={() => goTo(idx)}
-            className={`h-2 rounded-full transition-all duration-500 ${
+            className={`hero-dot h-2 rounded-full transition-all duration-500 ${
               idx === currentIndex
                 ? "w-10 sm:w-14 bg-purple-600 shadow-lg shadow-purple-500/50"
                 : "w-3 bg-white/30 sm:w-3"

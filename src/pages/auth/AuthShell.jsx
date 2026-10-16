@@ -80,16 +80,26 @@ const AuthShell = ({ children, onClose }) => {
           nowPlaying.status === "fulfilled" ? nowPlaying.value : [];
         const trendingResults =
           trending.status === "fulfilled" ? trending.value : [];
-        const upcomingResults = upcoming.status === "fulfilled" ? upcoming.value : [];
-        const mergedResults = [...nowPlayingResults, ...trendingResults, ...upcomingResults];
+        const upcomingResults =
+          upcoming.status === "fulfilled" ? upcoming.value : [];
+        const mergedResults = [
+          ...nowPlayingResults,
+          ...trendingResults,
+          ...upcomingResults,
+        ];
         const uniqueMovies = mergedResults
           .filter((movie) => movie?.poster_path || movie?.backdrop_path)
           .filter(
-            (movie, index, array) => array.findIndex((item) => item.id === movie.id) === index,
+            (movie, index, array) =>
+              array.findIndex((item) => item.id === movie.id) === index,
           )
           .sort((left, right) => {
-            const leftDate = new Date(left.release_date || left.first_air_date || 0).getTime();
-            const rightDate = new Date(right.release_date || right.first_air_date || 0).getTime();
+            const leftDate = new Date(
+              left.release_date || left.first_air_date || 0,
+            ).getTime();
+            const rightDate = new Date(
+              right.release_date || right.first_air_date || 0,
+            ).getTime();
             const leftPopularity = left.popularity || 0;
             const rightPopularity = right.popularity || 0;
 
@@ -159,7 +169,7 @@ const AuthShell = ({ children, onClose }) => {
             <XMarkIcon className="h-5 w-5" />
           </button>
 
-          <section className="relative min-h-[22rem] overflow-hidden p-2 md:min-h-[30rem]">
+          <section className="relative hidden overflow-hidden p-2 md:block md:min-h-[30rem]">
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),rgba(0,0,0,0.22))]" />
             <div className="grid h-full grid-cols-2 grid-rows-3 gap-2">
               {movieCards.map((poster, index) => (
@@ -180,7 +190,9 @@ const AuthShell = ({ children, onClose }) => {
                       className="absolute inset-0 h-full w-full object-cover scale-[1.12] transition duration-500 group-hover:scale-[1.18]"
                       loading={index === 0 ? "eager" : "lazy"}
                       decoding="async"
-                      style={{ objectPosition: poster.imagePosition || "center center" }}
+                      style={{
+                        objectPosition: poster.imagePosition || "center center",
+                      }}
                     />
                   ) : (
                     <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),rgba(0,0,0,0.3))]" />
@@ -206,7 +218,7 @@ const AuthShell = ({ children, onClose }) => {
             </div>
           </section>
 
-          <section className="flex items-center bg-[#23212b] px-5 pb-7 pt-5 sm:px-8 sm:pb-8 sm:pt-6 lg:px-10 lg:py-10">
+          <section className="flex items-center bg-[#23212b] px-5 pb-7 pt-16 sm:px-8 sm:pb-8 sm:pt-16 lg:px-10 lg:py-10">
             <div className="w-full">
               <div id="auth-modal-title" className="w-full">
                 {children}

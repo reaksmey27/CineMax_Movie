@@ -1,5 +1,5 @@
-import React from 'react';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import React from "react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
 
   render() {
@@ -27,7 +27,8 @@ class ErrorBoundary extends React.Component {
               Something went wrongs
             </h1>
             <p className="text-gray-400 mb-8">
-              We encountered an unexpected error. Please try refreshing the page or return to the homepage.
+              We encountered an unexpected error. Please try refreshing the page
+              or return to the homepage.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
@@ -53,4 +54,3 @@ class ErrorBoundary extends React.Component {
 }
 
 export default ErrorBoundary;
-

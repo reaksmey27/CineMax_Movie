@@ -17,7 +17,10 @@ const RouteTitleManager = () => {
     const isMovieDetail = pathname.startsWith("/movie/");
     const { title, description } = isMovieDetail
       ? { title: MOVIE_DETAIL_TITLE, description: MOVIE_DETAIL_DESCRIPTION }
-      : (ROUTE_META[pathname] ?? { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION });
+      : (ROUTE_META[pathname] ?? {
+          title: DEFAULT_TITLE,
+          description: DEFAULT_DESCRIPTION,
+        });
 
     applyPageMeta(title, description);
   }, [pathname]);

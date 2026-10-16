@@ -1,5 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -52,13 +59,18 @@ export const NotificationProvider = ({ children }) => {
       read: false,
     };
 
-    setNotifications((prev) => [...prev, { ...newNotification, visible: false }]);
+    setNotifications((prev) => [
+      ...prev,
+      { ...newNotification, visible: false },
+    ]);
     setHistory((prev) => [newNotification, ...prev].slice(0, 50));
 
     setTimeout(() => {
       setNotifications((prev) =>
         prev.map((notification) =>
-          notification.id === id ? { ...notification, visible: true } : notification,
+          notification.id === id
+            ? { ...notification, visible: true }
+            : notification,
         ),
       );
     }, 10);
@@ -66,7 +78,9 @@ export const NotificationProvider = ({ children }) => {
     setTimeout(() => {
       setNotifications((prev) =>
         prev.map((notification) =>
-          notification.id === id ? { ...notification, visible: false } : notification,
+          notification.id === id
+            ? { ...notification, visible: false }
+            : notification,
         ),
       );
       setTimeout(() => {
@@ -90,7 +104,9 @@ export const NotificationProvider = ({ children }) => {
   const removeNotification = useCallback((id) => {
     setNotifications((prev) =>
       prev.map((notification) =>
-        notification.id === id ? { ...notification, visible: false } : notification,
+        notification.id === id
+          ? { ...notification, visible: false }
+          : notification,
       ),
     );
     setTimeout(() => {
@@ -136,7 +152,14 @@ export const NotificationProvider = ({ children }) => {
       clearHistory,
       getIcon,
     }),
-    [clearHistory, getIcon, history, markAllAsRead, showNotification, unreadCount],
+    [
+      clearHistory,
+      getIcon,
+      history,
+      markAllAsRead,
+      showNotification,
+      unreadCount,
+    ],
   );
 
   return (
@@ -173,7 +196,9 @@ export const NotificationProvider = ({ children }) => {
 export const useNotification = () => {
   const context = useContext(NotificationContext);
   if (!context) {
-    throw new Error("useNotification must be used within a NotificationProvider");
+    throw new Error(
+      "useNotification must be used within a NotificationProvider",
+    );
   }
   return context;
 };

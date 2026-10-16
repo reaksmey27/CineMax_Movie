@@ -41,6 +41,15 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const panelRef = useRef(null);
 
   useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1280px)");
+    const closeDesktopMenu = () => {
+      if (desktop.matches) setIsMenuOpen(false);
+    };
+    desktop.addEventListener("change", closeDesktopMenu);
+    return () => desktop.removeEventListener("change", closeDesktopMenu);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
 
     return () => {
@@ -108,12 +117,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const modalState = { backgroundLocation: location };
 
   return (
-    <div className="fixed left-0 top-0 z-100 w-full px-2 sm:top-6 sm:px-6 lg:px-24 xl:px-40">
+    <div className="fixed inset-x-0 top-0 z-100 mx-auto w-full max-w-[1600px] px-2 sm:top-6 sm:px-6 lg:px-8">
       <nav className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-nav-bg)] px-3 py-2.5 text-[var(--color-text)] shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-md transition-all sm:rounded-full sm:border sm:px-6 sm:py-3">
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center gap-2"
+          className="flex min-w-0 shrink-0 items-center gap-2"
           onClick={() => setIsMenuOpen(false)}
         >
           <img
@@ -125,7 +134,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden gap-10 lg:flex">
+        <div className="hidden items-center gap-5 xl:flex 2xl:gap-8">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
@@ -154,12 +163,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </div>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-1 sm:gap-5">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-3">
           {/* Theme Button */}
           <button
             type="button"
             onClick={onToggleTheme}
-            className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-purple-400 active:scale-95 sm:p-2"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-purple-400 active:scale-95 sm:p-2"
             aria-label={themeButtonLabel}
             title={themeButtonLabel}
           >
@@ -170,6 +179,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <div className="relative" ref={panelRef}>
             <button
               type="button"
+              aria-label="Notifications"
+              aria-expanded={showNotifPanel}
               onClick={() => {
                 setShowNotifPanel(!showNotifPanel);
                 setIsMenuOpen(false);
@@ -178,7 +189,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                   markAllAsRead();
                 }
               }}
-              className={`relative rounded-full border border-transparent bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all active:scale-90 hover:text-purple-400 sm:p-2 ${
+              className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all active:scale-90 hover:text-purple-400 sm:p-2 ${
                 showNotifPanel
                   ? "border-purple-500/40 bg-[var(--color-surface-3)] text-purple-400"
                   : ""
@@ -209,7 +220,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                   </button>
                 </div>
 
-                <div className="no-scrollbar max-h-100 overflow-y-auto">
+                <div className="no-scrollbar max-h-[min(25rem,calc(100dvh-12rem))] overflow-y-auto overscroll-contain">
                   {history.length === 0 ? (
                     <div className="p-10 text-center">
                       <BellIcon className="mx-auto mb-3 h-8 w-8 text-gray-700 opacity-50" />
@@ -278,7 +289,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               <Link
                 to="/login"
                 state={modalState}
-                className="rounded-full border border-purple-500/50 px-5 py-1.5 text-sm font-bold transition-all hover:bg-purple-600"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-purple-500/50 px-5 py-1.5 text-sm font-bold transition-all hover:bg-purple-600"
               >
                 Sign In
               </Link>
@@ -299,7 +310,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <button
             type="button"
             onClick={() => setIsDonationOpen(true)}
-            className="rounded-full border border-amber-400/40 bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-amber-400/70 hover:text-amber-200 active:scale-95 sm:hidden hover:shadow-[0_0_18px_rgba(245,158,11,0.35)]"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-amber-400/40 bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-amber-400/70 hover:text-amber-200 active:scale-95 sm:hidden hover:shadow-[0_0_18px_rgba(245,158,11,0.35)]"
             aria-label="Buy me a coffee"
             title="Buy me a coffee"
           >
@@ -313,7 +324,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setIsMenuOpen(!isMenuOpen);
               setShowNotifPanel(false);
             }}
-            className="rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-purple-500 sm:p-2 lg:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-purple-500 sm:p-2 xl:hidden"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
           >
@@ -327,15 +338,15 @@ const Navbar = ({ theme, onToggleTheme }) => {
       </nav>
 
       {isMenuOpen && (
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <button
             type="button"
-            className="fixed inset-x-0 bottom-0 top-14 z-[100] bg-black/60 backdrop-blur-sm sm:top-24"
+            className="fixed inset-x-0 bottom-0 top-16 z-[100] bg-black/60 backdrop-blur-sm sm:top-24"
             aria-label="Close menu overlay"
             onClick={() => setIsMenuOpen(false)}
           />
 
-          <aside className="fixed bottom-0 right-0 top-14 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-24">
+          <aside className="fixed bottom-0 right-0 top-16 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-24">
             <div className="mb-4 rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-1)] p-3">
               {isAuthenticated ? (
                 <Link

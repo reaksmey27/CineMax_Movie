@@ -5,23 +5,51 @@
 
 const BAD_DOMAINS = [
   // Known ad networks
-  "popads.net", "popcash.net", "trafficjunky.com", "exoclick.com",
-  "juicyads.com", "plugrush.com", "adsterra.com", "hilltopads.net",
-  "propellerads.com", "clickadu.com", "adcash.com", "adskeeper.com",
-  "adspyglass.com", "bidvertiser.com", "revcontent.com", "outbrain.com",
-  "taboola.com", "mgid.com", "contentad.net", "adblade.com",
+  "popads.net",
+  "popcash.net",
+  "trafficjunky.com",
+  "exoclick.com",
+  "juicyads.com",
+  "plugrush.com",
+  "adsterra.com",
+  "hilltopads.net",
+  "propellerads.com",
+  "clickadu.com",
+  "adcash.com",
+  "adskeeper.com",
+  "adspyglass.com",
+  "bidvertiser.com",
+  "revcontent.com",
+  "outbrain.com",
+  "taboola.com",
+  "mgid.com",
+  "contentad.net",
+  "adblade.com",
 
   // Confirmed vidsrc ad redirectors
-  "proceedflow.com", "go2speed.org", "clicksfly.com", "safelink.now",
-  "shorte.st", "adf.ly", "linkvertise.com", "direct-link.net",
+  "proceedflow.com",
+  "go2speed.org",
+  "clicksfly.com",
+  "safelink.now",
+  "shorte.st",
+  "adf.ly",
+  "linkvertise.com",
+  "direct-link.net",
 
   // 18+ ad networks
-  "traffichaus.com", "ero-advertising.com", "plugrush.com",
-  "juicyads.com", "adxpansion.com", "etargetnet.com",
-  "AdultAdWorld.com", "adultforce.com",
+  "traffichaus.com",
+  "ero-advertising.com",
+  "plugrush.com",
+  "juicyads.com",
+  "adxpansion.com",
+  "etargetnet.com",
+  "AdultAdWorld.com",
+  "adultforce.com",
 
   // Crypto/malware ad networks
-  "coinzillatag.com", "coinhive.com", "cryptolinks.com",
+  "coinzillatag.com",
+  "coinhive.com",
+  "cryptolinks.com",
   "miner.pr0gramm.com",
 ];
 
@@ -84,7 +112,7 @@ self.addEventListener("fetch", (event) => {
       new Response("", {
         status: 200,
         statusText: "Blocked by CineMax AdBlocker",
-      })
+      }),
     );
     return;
   }

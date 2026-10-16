@@ -24,8 +24,8 @@ const MovieInfo = ({
   onWatchlist,
 }) => {
   return (
-    <div className="animate-in flex flex-col gap-8 duration-700 slide-in-from-left-6 sm:gap-12 lg:flex-row lg:gap-16">
-      <div className="mx-auto w-full max-w-sm shrink-0 lg:mx-0 lg:w-96 lg:max-w-none">
+    <div className="animate-in flex flex-col gap-8 duration-700 slide-in-from-left-6 sm:gap-12 lg:flex-row lg:gap-8 xl:gap-12">
+      <div className="mx-auto w-full max-w-sm shrink-0 lg:mx-0 lg:w-72 lg:max-w-none xl:w-80">
         <img
           src={movie.posterImage || movie.image}
           alt={movie.title}
@@ -35,7 +35,7 @@ const MovieInfo = ({
         />
       </div>
 
-      <div className="flex-1 space-y-6 sm:space-y-8">
+      <div className="min-w-0 flex-1 space-y-6 sm:space-y-8">
         <div className="space-y-4">
           <h1 className="text-3xl font-black leading-[0.9] tracking-tighter text-[var(--color-hero-text)] sm:text-5xl lg:text-6xl">
             {movie.title}
@@ -79,7 +79,7 @@ const MovieInfo = ({
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:gap-6 sm:pt-4">
+        <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:flex-wrap sm:gap-4 sm:pt-4">
           <button
             onClick={onPlay}
             disabled={playDisabled}
@@ -100,6 +100,7 @@ const MovieInfo = ({
             )}
 
             <button
+              aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
               onClick={onFavorite}
               className={`flex min-h-14 flex-1 items-center justify-center rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
                 isFav
@@ -115,6 +116,9 @@ const MovieInfo = ({
             </button>
 
             <button
+              aria-label={
+                isWatchlisted ? "Remove from watchlist" : "Add to watchlist"
+              }
               onClick={onWatchlist}
               className={`flex min-h-14 flex-1 items-center justify-center rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
                 isWatchlisted

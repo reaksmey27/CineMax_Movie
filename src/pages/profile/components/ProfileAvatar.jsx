@@ -70,7 +70,9 @@ const ProfileAvatar = ({ user, onLogout }) => {
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">
               Genre
             </p>
-            <p className="mt-2 text-sm text-white">{user.favoriteGenre || "Open taste"}</p>
+            <p className="mt-2 text-sm text-white">
+              {user.favoriteGenre || "Open taste"}
+            </p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">

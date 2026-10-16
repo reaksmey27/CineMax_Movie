@@ -59,7 +59,10 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       if (watchlistIds.has(movie.id)) {
-        showNotification(`${movie.title} is already in your watchlist.`, "info");
+        showNotification(
+          `${movie.title} is already in your watchlist.`,
+          "info",
+        );
         return false;
       }
 
@@ -69,7 +72,10 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
         return true;
       } catch (error) {
         console.error("[watchlist] Failed to add movie", error);
-        showNotification("We couldn't add that movie to your watchlist.", "error");
+        showNotification(
+          "We couldn't add that movie to your watchlist.",
+          "error",
+        );
         return false;
       }
     },
@@ -83,7 +89,9 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
         return false;
       }
 
-      const movie = watchlist.find((watchlistMovie) => watchlistMovie.id === movieId);
+      const movie = watchlist.find(
+        (watchlistMovie) => watchlistMovie.id === movieId,
+      );
       if (!movie) {
         return false;
       }
@@ -137,7 +145,9 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
   );
 
   return (
-    <WatchlistContext.Provider value={value}>{children}</WatchlistContext.Provider>
+    <WatchlistContext.Provider value={value}>
+      {children}
+    </WatchlistContext.Provider>
   );
 };
 

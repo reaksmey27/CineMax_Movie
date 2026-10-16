@@ -2,10 +2,17 @@ import { useState, useEffect, useCallback } from "react";
 import { tmdbService } from "../../services/tmdbService";
 import { Retrier } from "@humanwhocodes/retry";
 
-const retrier = new Retrier((error) => {
-  // Retry on network errors, timeouts, or if the browser is offline
-  return !window.navigator.onLine || error.name === 'AbortError' || error.message?.includes('fetch');
-}, { timeout: 30_000 });
+const retrier = new Retrier(
+  (error) => {
+    // Retry on network errors, timeouts, or if the browser is offline
+    return (
+      !window.navigator.onLine ||
+      error.name === "AbortError" ||
+      error.message?.includes("fetch")
+    );
+  },
+  { timeout: 30_000 },
+);
 
 const toResults = (data) => {
   if (!data) return [];
@@ -89,7 +96,7 @@ const useHomeMovies = () => {
           tmdbService.getMoviesByGenre(16),
           tmdbService.getMoviesByGenre(80),
           tmdbService.getMoviesByGenre(14),
-        ])
+        ]),
       );
 
       const [
@@ -119,7 +126,9 @@ const useHomeMovies = () => {
           upcoming,
           popular,
           topRated,
-        ]).slice(0, 6).map(tmdbService.formatMovieData),
+        ])
+          .slice(0, 6)
+          .map(tmdbService.formatMovieData),
         nowPlaying: nowPlaying.map(tmdbService.formatMovieData),
         trending: trending.map(tmdbService.formatMovieData),
         upcoming: upcoming.map(tmdbService.formatMovieData),
@@ -133,7 +142,8 @@ const useHomeMovies = () => {
       });
     } catch (err) {
       console.error("Failed to fetch movies:", err);
-      let errorMessage = err.message || "Failed to sync with cinematic database.";
+      let errorMessage =
+        err.message || "Failed to sync with cinematic database.";
 
       // Provide more helpful error messages
       if (
@@ -141,9 +151,14 @@ const useHomeMovies = () => {
         err.message?.includes("TMDB credentials are missing") ||
         err.message?.includes("401")
       ) {
-        errorMessage = "Invalid TMDB credentials. Update VITE_TMDB_API_KEY or VITE_TMDB_READ_ACCESS_TOKEN in your .env file with a valid TMDB credential from https://www.themoviedb.org/settings/api, then restart Vite.";
-      } else if (err.message?.includes('Network error') || err.message?.includes('Failed to fetch')) {
-        errorMessage = "Network error. Please check your internet connection or try using a VPN.";
+        errorMessage =
+          "Invalid TMDB credentials. Update VITE_TMDB_API_KEY or VITE_TMDB_READ_ACCESS_TOKEN in your .env file with a valid TMDB credential from https://www.themoviedb.org/settings/api, then restart Vite.";
+      } else if (
+        err.message?.includes("Network error") ||
+        err.message?.includes("Failed to fetch")
+      ) {
+        errorMessage =
+          "Network error. Please check your internet connection or try using a VPN.";
       }
 
       setError(errorMessage);

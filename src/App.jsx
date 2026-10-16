@@ -14,7 +14,12 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { WatchlistProvider } from "./context/WatchlistContext";
 import useScrollToTop from "./hooks/useScrollToTop";
-import { applyTheme, getStoredTheme, persistTheme, THEMES } from "./utils/theme";
+import {
+  applyTheme,
+  getStoredTheme,
+  persistTheme,
+  THEMES,
+} from "./utils/theme";
 
 // ─── Scroll Manager ───────────────────────────────────────────────────────────
 
@@ -36,7 +41,14 @@ const AppContent = ({ theme, toggleTheme }) => {
       <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
         <main className="relative">
-          <Suspense fallback={<PageLoader color="border-purple-500" label="Loading Experience..." />}>
+          <Suspense
+            fallback={
+              <PageLoader
+                color="border-purple-500"
+                label="Loading Experience..."
+              />
+            }
+          >
             <BaseRoutes location={backgroundLocation || location} />
             {backgroundLocation && <AuthModalRoutes location={location} />}
           </Suspense>
@@ -57,7 +69,9 @@ const App = () => {
   }, [theme]);
 
   const toggleTheme = () =>
-    setTheme((current) => (current === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK));
+    setTheme((current) =>
+      current === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK,
+    );
 
   return (
     <ErrorBoundary>

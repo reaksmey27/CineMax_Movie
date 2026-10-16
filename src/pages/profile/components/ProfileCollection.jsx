@@ -6,14 +6,16 @@ const EmptyState = () => (
   <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-sm sm:p-10">
     <div className="flex items-center gap-3 text-sky-300">
       <HeartIcon className="h-5 w-5" />
-      <p className="text-[10px] font-semibold uppercase tracking-[0.24em]">Collection Preview</p>
+      <p className="text-[10px] font-semibold uppercase tracking-[0.24em]">
+        Collection Preview
+      </p>
     </div>
     <h3 className="mt-5 text-3xl font-semibold tracking-tight text-white">
       Your shelves are waiting
     </h3>
     <p className="mt-3 max-w-2xl text-sm text-gray-400">
-      Save a few favorites and this space will turn into your personal movie wall with genre
-      patterns, quick picks, and recent obsessions.
+      Save a few favorites and this space will turn into your personal movie
+      wall with genre patterns, quick picks, and recent obsessions.
     </p>
     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
       <Link
@@ -39,7 +41,7 @@ const MovieCard = ({ movie }) => (
     to={`/movie/${movie.id}`}
     className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/35 transition-all hover:-translate-y-1 hover:border-white/20"
   >
-    <div className="relative h-64 overflow-hidden">
+    <div className="relative aspect-[2/3] overflow-hidden">
       <img
         src={movie.posterImage || movie.image}
         alt={movie.title}
@@ -57,7 +59,9 @@ const MovieCard = ({ movie }) => (
         </p>
         <div className="mt-2 flex items-center justify-between text-xs font-medium text-white/70">
           <span>{movie.subtitle || "Now streaming"}</span>
-          <span className="rounded-full bg-white/10 px-3 py-1">{movie.rating}</span>
+          <span className="rounded-full bg-white/10 px-3 py-1">
+            {movie.rating}
+          </span>
         </div>
       </div>
     </div>
@@ -94,7 +98,7 @@ const ProfileCollection = () => {
         </Link>
       </div>
 
-      <div className="mt-8 grid gap-5 md:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {recentFavorites.map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}

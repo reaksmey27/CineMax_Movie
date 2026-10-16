@@ -4,7 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 
 const buildUrl = (baseUrl, params = {}) => {
   const searchParams = new URLSearchParams(
-    Object.entries(params).filter(([, value]) => value !== undefined && value !== null),
+    Object.entries(params).filter(
+      ([, value]) => value !== undefined && value !== null,
+    ),
   );
 
   return searchParams.size ? `${baseUrl}?${searchParams.toString()}` : baseUrl;
@@ -54,14 +56,46 @@ const PLAYER_TIMEOUT_MS = 12000;
 
 // Block bad popup/redirect ads from iframe
 const BAD_URL_KEYWORDS = [
-  "porn", "xxx", "adult", "sex", "nude", "naked", "onlyfans", "cam4",
-  "chaturbate", "xvideos", "xhamster", "redtube", "brazzers",
-  "escort", "dating18", "hookup", "nsfw",
-  "casino", "poker", "betting", "slots", "gambling", "wager",
-  "popads", "popcash", "trafficjunky", "exoclick", "juicyads",
-  "adsterra", "hilltopads", "propellerads", "clickadu", "adcash",
-  "proceedflow", "go.php", "click.php", "redirect.php", "track.php",
-  "adf.ly", "shorte.st",
+  "porn",
+  "xxx",
+  "adult",
+  "sex",
+  "nude",
+  "naked",
+  "onlyfans",
+  "cam4",
+  "chaturbate",
+  "xvideos",
+  "xhamster",
+  "redtube",
+  "brazzers",
+  "escort",
+  "dating18",
+  "hookup",
+  "nsfw",
+  "casino",
+  "poker",
+  "betting",
+  "slots",
+  "gambling",
+  "wager",
+  "popads",
+  "popcash",
+  "trafficjunky",
+  "exoclick",
+  "juicyads",
+  "adsterra",
+  "hilltopads",
+  "propellerads",
+  "clickadu",
+  "adcash",
+  "proceedflow",
+  "go.php",
+  "click.php",
+  "redirect.php",
+  "track.php",
+  "adf.ly",
+  "shorte.st",
 ];
 
 const isBadUrl = (url) => {
@@ -167,7 +201,9 @@ const useMovieDetail = (id) => {
 
     const timeoutId = setTimeout(() => {
       setIframeLoading(false);
-      setPlayerMessage("This source is taking too long to respond. Try reloading or switch servers.");
+      setPlayerMessage(
+        "This source is taking too long to respond. Try reloading or switch servers.",
+      );
     }, PLAYER_TIMEOUT_MS);
 
     return () => clearTimeout(timeoutId);
@@ -196,7 +232,9 @@ const useMovieDetail = (id) => {
 
   const handleIframeError = () => {
     setIframeLoading(false);
-    setPlayerMessage("This source could not be loaded. Switch to another server.");
+    setPlayerMessage(
+      "This source could not be loaded. Switch to another server.",
+    );
   };
 
   return {

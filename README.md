@@ -53,15 +53,16 @@ Vercel also provides its CDN automatically for deployed projects and custom doma
 
 Before you redeploy, make sure these settings are in place:
 
-   1. In Vercel, open your project settings and add the same `VITE_*` variables from your local `.env`:
-   - `VITE_TMDB_API_KEY` or `VITE_TMDB_READ_ACCESS_TOKEN`
-   - `VITE_FIREBASE_API_KEY`
-   - `VITE_FIREBASE_AUTH_DOMAIN`
-   - `VITE_FIREBASE_PROJECT_ID`
-   - `VITE_FIREBASE_STORAGE_BUCKET`
-   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
-   - `VITE_FIREBASE_APP_ID`
-   - `VITE_FIREBASE_MEASUREMENT_ID`
+1.  In Vercel, open your project settings and add the same `VITE_*` variables from your local `.env`:
+
+- `VITE_TMDB_API_KEY` or `VITE_TMDB_READ_ACCESS_TOKEN`
+- `VITE_FIREBASE_API_KEY`
+- `VITE_FIREBASE_AUTH_DOMAIN`
+- `VITE_FIREBASE_PROJECT_ID`
+- `VITE_FIREBASE_STORAGE_BUCKET`
+- `VITE_FIREBASE_MESSAGING_SENDER_ID`
+- `VITE_FIREBASE_APP_ID`
+- `VITE_FIREBASE_MEASUREMENT_ID`
 
 2. In Firebase Console, open the Firebase project used by those variables and add every deployed hostname in:
 

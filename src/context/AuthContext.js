@@ -134,7 +134,9 @@ export const AuthProvider = ({ children }) => {
   const { showNotification } = useNotification();
   const [authUser, setAuthUser] = useState(null);
   const [user, setUser] = useState(null);
-  const [profileOverrides, setProfileOverrides] = useState(() => readStoredProfiles());
+  const [profileOverrides, setProfileOverrides] = useState(() =>
+    readStoredProfiles(),
+  );
   const [loading, setLoading] = useState(true);
   const [authenticating, setAuthenticating] = useState(false);
 
@@ -160,71 +162,86 @@ export const AuthProvider = ({ children }) => {
     setUser(mergeUserProfile(authUser, profileOverrides[authUser.uid]));
   }, [authUser, profileOverrides]);
 
-  const syncSignedInUser = useCallback((firebaseUser) => {
-    const nextAuthUser = normalizeUser(firebaseUser);
+  const syncSignedInUser = useCallback(
+    (firebaseUser) => {
+      const nextAuthUser = normalizeUser(firebaseUser);
 
-    if (!nextAuthUser) {
-      setAuthUser(null);
-      setUser(null);
-      return null;
-    }
-
-    const nextUser = mergeUserProfile(
-      nextAuthUser,
-      profileOverrides[nextAuthUser.uid],
-    );
-
-    setAuthUser(nextAuthUser);
-    setUser(nextUser);
-
-    return nextUser;
-  }, [profileOverrides]);
-
-  const login = useCallback(async ({ email, password }) => {
-    setAuthenticating(true);
-
-    try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      const nextUser = syncSignedInUser(result.user);
-
-      if (nextUser) {
-        showNotification(`Welcome back, ${nextUser.name}!`, "success");
+      if (!nextAuthUser) {
+        setAuthUser(null);
+        setUser(null);
+        return null;
       }
+
+      const nextUser = mergeUserProfile(
+        nextAuthUser,
+        profileOverrides[nextAuthUser.uid],
+      );
+
+      setAuthUser(nextAuthUser);
+      setUser(nextUser);
 
       return nextUser;
-    } catch (error) {
-      showNotification(getFirebaseErrorMessage(error), "error");
-      return null;
-    } finally {
-      setAuthenticating(false);
-    }
-  }, [showNotification, syncSignedInUser]);
+    },
+    [profileOverrides],
+  );
 
-  const register = useCallback(async ({ name, email, password }) => {
-    setAuthenticating(true);
+  const login = useCallback(
+    async ({ email, password }) => {
+      setAuthenticating(true);
 
-    try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      const trimmedName = name.trim();
+      try {
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const nextUser = syncSignedInUser(result.user);
 
-      if (trimmedName) {
-        await updateFirebaseProfile(result.user, { displayName: trimmedName });
+        if (nextUser) {
+          showNotification(`Welcome back, ${nextUser.name}!`, "success");
+        }
+
+        return nextUser;
+      } catch (error) {
+        showNotification(getFirebaseErrorMessage(error), "error");
+        return null;
+      } finally {
+        setAuthenticating(false);
       }
+    },
+    [showNotification, syncSignedInUser],
+  );
 
-      const nextUser = syncSignedInUser(result.user);
+  const register = useCallback(
+    async ({ name, email, password }) => {
+      setAuthenticating(true);
 
-      if (nextUser) {
-        showNotification(`Account created for ${nextUser.name}!`, "success");
+      try {
+        const result = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        );
+        const trimmedName = name.trim();
+
+        if (trimmedName) {
+          await updateFirebaseProfile(result.user, {
+            displayName: trimmedName,
+          });
+        }
+
+        const nextUser = syncSignedInUser(result.user);
+
+        if (nextUser) {
+          showNotification(`Account created for ${nextUser.name}!`, "success");
+        }
+
+        return nextUser;
+      } catch (error) {
+        showNotification(getFirebaseErrorMessage(error), "error");
+        return null;
+      } finally {
+        setAuthenticating(false);
       }
-
-      return nextUser;
-    } catch (error) {
-      showNotification(getFirebaseErrorMessage(error), "error");
-      return null;
-    } finally {
-      setAuthenticating(false);
-    }
-  }, [showNotification, syncSignedInUser]);
+    },
+    [showNotification, syncSignedInUser],
+  );
 
   const signInWithGoogle = useCallback(async () => {
     setAuthenticating(true);
@@ -252,31 +269,35 @@ export const AuthProvider = ({ children }) => {
     }
   }, [showNotification, syncSignedInUser]);
 
-  const updateProfile = useCallback((updates) => {
-    if (!authUser?.uid) {
-      return null;
-    }
+  const updateProfile = useCallback(
+    (updates) => {
+      if (!authUser?.uid) {
+        return null;
+      }
 
-    const nextSavedProfile = {
-      ...profileOverrides[authUser.uid],
-      ...updates,
-      memberSince: profileOverrides[authUser.uid]?.memberSince || authUser.memberSince,
-      updatedAt: new Date().toISOString(),
-    };
+      const nextSavedProfile = {
+        ...profileOverrides[authUser.uid],
+        ...updates,
+        memberSince:
+          profileOverrides[authUser.uid]?.memberSince || authUser.memberSince,
+        updatedAt: new Date().toISOString(),
+      };
 
-    setProfileOverrides((prev) => ({
-      ...prev,
-      [authUser.uid]: nextSavedProfile,
-    }));
+      setProfileOverrides((prev) => ({
+        ...prev,
+        [authUser.uid]: nextSavedProfile,
+      }));
 
-    if (updates.name?.trim() && auth.currentUser) {
-      updateFirebaseProfile(auth.currentUser, {
-        displayName: updates.name.trim(),
-      }).catch(() => {});
-    }
+      if (updates.name?.trim() && auth.currentUser) {
+        updateFirebaseProfile(auth.currentUser, {
+          displayName: updates.name.trim(),
+        }).catch(() => {});
+      }
 
-    return mergeUserProfile(authUser, nextSavedProfile);
-  }, [authUser, profileOverrides]);
+      return mergeUserProfile(authUser, nextSavedProfile);
+    },
+    [authUser, profileOverrides],
+  );
 
   const logout = useCallback(async () => {
     try {
@@ -295,7 +316,6 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   }, [showNotification]);
-
 
   const value = useMemo(
     () => ({

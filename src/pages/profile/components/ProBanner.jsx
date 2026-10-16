@@ -13,7 +13,8 @@ const ProBanner = ({ user }) => {
             {user?.name}
           </h1>
           <p className="mt-2 text-sm leading-6 text-gray-400">
-            Keep your account details, saved favorites, and viewing identity in one calm place.
+            Keep your account details, saved favorites, and viewing identity in
+            one calm place.
           </p>
         </div>
       </div>

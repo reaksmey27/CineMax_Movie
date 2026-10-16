@@ -5,12 +5,15 @@ import MovieCard from "../../../components/ui/MovieCard";
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const toHeadingId = (title) =>
-  `slider-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
+  `slider-${title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")}`;
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 const NAV_BTN_CLASS =
-  "absolute bottom-10 top-23 z-40 hidden w-16 cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover/slider:opacity-100 md:flex md:w-24";
+  "absolute bottom-10 top-23 z-40 hidden w-16 cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover/slider:opacity-100 focus-visible:opacity-100 md:flex md:w-24";
 
 const NavButton = ({ direction, title, onClick }) => (
   <button
@@ -20,10 +23,11 @@ const NavButton = ({ direction, title, onClick }) => (
     aria-label={`Scroll ${title} ${direction}`}
   >
     <div className="p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black transition-all">
-      {direction === "left"
-        ? <ChevronLeftIcon className="h-8 w-8" />
-        : <ChevronRightIcon className="h-8 w-8" />
-      }
+      {direction === "left" ? (
+        <ChevronLeftIcon className="h-8 w-8" />
+      ) : (
+        <ChevronRightIcon className="h-8 w-8" />
+      )}
     </div>
   </button>
 );
@@ -32,7 +36,7 @@ const NavButton = ({ direction, title, onClick }) => (
 
 const MovieSlider = ({ title, movies = [] }) => {
   const sliderRef = useRef(null);
-  const [canScrollLeft,  setCanScrollLeft]  = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const headingId = toHeadingId(title);
 
@@ -49,17 +53,23 @@ const MovieSlider = ({ title, movies = [] }) => {
     return () => window.removeEventListener("resize", checkScroll);
   }, [checkScroll, movies.length]);
 
-  const handleScroll = useCallback((direction) => {
-    const el = sliderRef.current;
-    if (!el) return;
-    el.scrollBy({ left: direction === "left" ? -el.clientWidth : el.clientWidth, behavior: "smooth" });
-    window.setTimeout(checkScroll, 500);
-  }, [checkScroll]);
+  const handleScroll = useCallback(
+    (direction) => {
+      const el = sliderRef.current;
+      if (!el) return;
+      el.scrollBy({
+        left: direction === "left" ? -el.clientWidth : el.clientWidth,
+        behavior: "smooth",
+      });
+      window.setTimeout(checkScroll, 500);
+    },
+    [checkScroll],
+  );
 
   return (
     <section
       aria-labelledby={headingId}
-      className="group/slider relative overflow-hidden bg-transparent py-4 sm:py-10"
+      className="group/slider mx-auto max-w-[1600px] relative overflow-hidden bg-transparent py-4 sm:py-10"
     >
       {/* ── Heading ── */}
       <div className="mb-4 px-4 sm:mb-8 sm:px-6 lg:px-24">
@@ -73,8 +83,20 @@ const MovieSlider = ({ title, movies = [] }) => {
       </div>
 
       {/* ── Nav buttons ── */}
-      {canScrollLeft  && <NavButton direction="left"  title={title} onClick={() => handleScroll("left")}  />}
-      {canScrollRight && <NavButton direction="right" title={title} onClick={() => handleScroll("right")} />}
+      {canScrollLeft && (
+        <NavButton
+          direction="left"
+          title={title}
+          onClick={() => handleScroll("left")}
+        />
+      )}
+      {canScrollRight && (
+        <NavButton
+          direction="right"
+          title={title}
+          onClick={() => handleScroll("right")}
+        />
+      )}
 
       {/* ── Scroll track ── */}
       <div
@@ -85,7 +107,7 @@ const MovieSlider = ({ title, movies = [] }) => {
         {movies.map((movie) => (
           <div
             key={movie.id}
-            className="w-[44vw] min-w-36 max-w-44 shrink-0 snap-start min-[380px]:w-40 min-[420px]:w-44 sm:w-56 sm:min-w-56 sm:max-w-60 lg:w-60 xl:w-64"
+            className="w-[44vw] min-w-0 max-w-44 shrink-0 snap-start min-[380px]:w-40 min-[420px]:w-44 sm:w-56 sm:min-w-56 sm:max-w-60 lg:w-60 xl:w-64 xl:max-w-64"
           >
             <MovieCard movie={movie} headingLevel="h3" />
           </div>

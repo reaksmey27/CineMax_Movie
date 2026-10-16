@@ -12,8 +12,10 @@ const ProfileStats = ({ user }) => {
 
   const averageRating = favorites.length
     ? (
-        favorites.reduce((total, movie) => total + Number(movie.rating || 0), 0) /
-        favorites.length
+        favorites.reduce(
+          (total, movie) => total + Number(movie.rating || 0),
+          0,
+        ) / favorites.length
       ).toFixed(1)
     : "0.0";
 
@@ -26,7 +28,10 @@ const ProfileStats = ({ user }) => {
   ).sort((a, b) => b[1] - a[1])[0];
 
   const profileCompletion = Math.round(
-    ([user?.name, user?.location, user?.favoriteGenre, user?.bio].filter(Boolean).length / 4) *
+    ([user?.name, user?.location, user?.favoriteGenre, user?.bio].filter(
+      Boolean,
+    ).length /
+      4) *
       100,
   );
 
@@ -50,7 +55,9 @@ const ProfileStats = ({ user }) => {
     {
       label: "Top Genre",
       value: topGenreEntry?.[0] || "Open taste",
-      detail: topGenreEntry ? `${topGenreEntry[1]} saved titles lean this way.` : "No genre trend yet.",
+      detail: topGenreEntry
+        ? `${topGenreEntry[1]} saved titles lean this way.`
+        : "No genre trend yet.",
       icon: <ChartBarIcon className="h-5 w-5 text-sky-400" />,
     },
     {
@@ -84,7 +91,9 @@ const ProfileStats = ({ user }) => {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gray-500">
                   {stat.label}
                 </p>
-                <p className="mt-1 text-xl font-semibold text-white">{stat.value}</p>
+                <p className="mt-1 text-xl font-semibold text-white">
+                  {stat.value}
+                </p>
                 <p className="mt-1 text-sm text-gray-400">{stat.detail}</p>
               </div>
             </div>

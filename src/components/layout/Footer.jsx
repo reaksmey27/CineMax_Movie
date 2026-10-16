@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="border-t border-white/5 bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
-        <div className="mb-10 grid grid-cols-1 gap-8 sm:mb-12 sm:gap-10 md:grid-cols-4">
+        <div className="mb-10 grid grid-cols-1 gap-8 sm:mb-12 sm:gap-10 sm:grid-cols-2 xl:grid-cols-4">
           <div className="space-y-4 text-center md:text-left">
             <img
               src="/images/logo.png"
@@ -57,7 +57,7 @@ const Footer = () => {
               Stay Updated
             </h3>
             <form
-              className="flex flex-col gap-2 sm:flex-row"
+              className="flex flex-col gap-2 min-[420px]:flex-row xl:flex-col"
               onSubmit={(e) => e.preventDefault()}
             >
               <label htmlFor="email" className="sr-only">
@@ -68,11 +68,11 @@ const Footer = () => {
                 type="email"
                 required
                 placeholder="Email address"
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
+                className="min-w-0 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
               />
               <button
                 type="submit"
-                className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium transition hover:bg-purple-700"
+                className="min-h-11 shrink-0 rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium transition hover:bg-purple-700"
               >
                 Join
               </button>

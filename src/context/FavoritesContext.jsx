@@ -1,5 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useNotification } from "./NotificationContext";
 
 const FavoritesContext = createContext();
@@ -55,7 +62,9 @@ export const FavoritesProvider = ({ children }) => {
         return;
       }
 
-      setFavorites((prev) => prev.filter((favorite) => favorite.id !== movieId));
+      setFavorites((prev) =>
+        prev.filter((favorite) => favorite.id !== movieId),
+      );
       showNotification(`Removed ${movie.title} from favorites.`, "info");
     },
     [favorites, showNotification],
@@ -87,7 +96,11 @@ export const FavoritesProvider = ({ children }) => {
     [favorites, isFavorite, toggleFavorite],
   );
 
-  return <FavoritesContext.Provider value={value}>{children}</FavoritesContext.Provider>;
+  return (
+    <FavoritesContext.Provider value={value}>
+      {children}
+    </FavoritesContext.Provider>
+  );
 };
 
 export const useFavorites = () => {

@@ -14,10 +14,7 @@ const WatchlistPage = () => {
 
   if (loading) {
     return (
-      <PageLoader
-        color="border-amber-500"
-        label="Syncing Your Watchlist..."
-      />
+      <PageLoader color="border-amber-500" label="Syncing Your Watchlist..." />
     );
   }
 
@@ -44,8 +41,8 @@ const WatchlistPage = () => {
               Sign in to use your watchlist
             </h3>
             <p className="mb-8 max-w-md font-medium text-gray-500">
-              Your saved movies sync in real time through Firestore, so this page
-              is only available when you are signed in.
+              Your saved movies sync in real time through Firestore, so this
+              page is only available when you are signed in.
             </p>
             <Link
               to="/login"
@@ -62,8 +59,8 @@ const WatchlistPage = () => {
               Your watchlist is empty
             </h3>
             <p className="mb-8 max-w-md font-medium text-gray-500">
-              Save movies from the catalog to build a personal queue that updates
-              instantly anywhere you sign in.
+              Save movies from the catalog to build a personal queue that
+              updates instantly anywhere you sign in.
             </p>
             <Link
               to="/movies"

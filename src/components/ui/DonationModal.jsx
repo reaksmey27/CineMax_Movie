@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { XMarkIcon, ClipboardDocumentIcon, CheckIcon, ArrowDownTrayIcon } from "@heroicons/react/24/solid";
+import {
+  XMarkIcon,
+  ClipboardDocumentIcon,
+  CheckIcon,
+  ArrowDownTrayIcon,
+} from "@heroicons/react/24/solid";
 import { FaCoffee } from "react-icons/fa";
 import donationQr from "../../assets/images/donation-qr.png";
 
@@ -19,7 +24,7 @@ const CopyButton = ({ text, field, copied, onCopy }) => (
     type="button"
     onClick={() => onCopy(text, field)}
     aria-label={`Copy ${field}`}
-    className="flex shrink-0 items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold text-gray-400 transition-all active:scale-95 hover:border-yellow-400/40 hover:bg-yellow-400/10 hover:text-yellow-400"
+    className="flex min-h-11 shrink-0 items-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold text-gray-400 transition-all active:scale-95 hover:border-yellow-400/40 hover:bg-yellow-400/10 hover:text-yellow-400"
   >
     {copied === field ? (
       <>
@@ -35,7 +40,15 @@ const CopyButton = ({ text, field, copied, onCopy }) => (
   </button>
 );
 
-const PaymentRow = ({ label, value, field, copied, onCopy, copyText, hasBorder }) => (
+const PaymentRow = ({
+  label,
+  value,
+  field,
+  copied,
+  onCopy,
+  copyText,
+  hasBorder,
+}) => (
   <div className={`px-3 py-2.5 ${hasBorder ? "border-b border-white/5" : ""}`}>
     <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-white/55">
       {label}
@@ -44,7 +57,12 @@ const PaymentRow = ({ label, value, field, copied, onCopy, copyText, hasBorder }
       <p className="truncate text-sm font-bold text-white font-mono tracking-wider">
         {value}
       </p>
-      <CopyButton text={copyText ?? value} field={field} copied={copied} onCopy={onCopy} />
+      <CopyButton
+        text={copyText ?? value}
+        field={field}
+        copied={copied}
+        onCopy={onCopy}
+      />
     </div>
   </div>
 );
@@ -59,7 +77,9 @@ const DonationModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleKeyDown = (e) => { if (e.key === "Escape") onClose?.(); };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose?.();
+    };
     const prevOverflow = document.body.style.overflow;
 
     document.addEventListener("keydown", handleKeyDown);
@@ -105,8 +125,11 @@ const DonationModal = ({ isOpen, onClose }) => {
       {/* Panel */}
       <div
         ref={panelRef}
-        className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl"
-        style={{ boxShadow: "0 0 60px rgba(251,191,36,0.1), 0 25px 50px rgba(0,0,0,0.25)" }}
+        className="relative max-h-[calc(100dvh-3rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-3xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl"
+        style={{
+          boxShadow:
+            "0 0 60px rgba(251,191,36,0.1), 0 25px 50px rgba(0,0,0,0.25)",
+        }}
       >
         {/* Top glow */}
         <div className="absolute left-1/2 top-0 h-px w-64 -translate-x-1/2 bg-gradient-to-r from-transparent via-yellow-400 to-transparent" />
@@ -116,11 +139,18 @@ const DonationModal = ({ isOpen, onClose }) => {
         <div className="flex items-center justify-between px-6 pb-4 pt-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-yellow-400/20 bg-yellow-400/15">
-              <FaCoffee className="h-5 w-5 text-yellow-300" aria-hidden="true" />
+              <FaCoffee
+                className="h-5 w-5 text-yellow-300"
+                aria-hidden="true"
+              />
             </div>
             <div>
-              <h2 className="text-base font-black tracking-tight text-white">Buy Me a Coffee</h2>
-              <p className="text-xs font-medium text-white/60">Support CineMax with a coffee</p>
+              <h2 className="text-base font-black tracking-tight text-white">
+                Buy Me a Coffee
+              </h2>
+              <p className="text-xs font-medium text-white/60">
+                Support CineMax with a coffee
+              </p>
             </div>
           </div>
 
@@ -128,7 +158,7 @@ const DonationModal = ({ isOpen, onClose }) => {
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all active:scale-95 hover:border-white/20 hover:bg-white/10 hover:text-white"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-400 transition-all active:scale-95 hover:border-white/20 hover:bg-white/10 hover:text-white"
           >
             <XMarkIcon className="h-4 w-4" />
           </button>
@@ -138,22 +168,21 @@ const DonationModal = ({ isOpen, onClose }) => {
 
         {/* Body */}
         <div className="space-y-4 px-6 py-5">
-
           {/* Message */}
           <div className="rounded-2xl border border-yellow-400/15 bg-gradient-to-br from-yellow-400/10 to-yellow-900/10 px-4 py-3.5">
             <p className="text-sm font-medium leading-relaxed text-white/80">
-              <span className="font-bold text-yellow-300">Hey!</span> If you enjoy
-              using CineMax, consider buying me a coffee. It keeps me motivated
-              to build more!
+              <span className="font-bold text-yellow-300">Hey!</span> If you
+              enjoy using CineMax, consider buying me a coffee. It keeps me
+              motivated to build more!
             </p>
             <p className="mt-2 text-xs font-medium leading-relaxed text-yellow-200/70">
-              សូមអរគុណចំពោះការគាំទ្រ CineMax ❤️ ទឹកចិត្តរបស់អ្នកមានន័យខ្លាំងណាស់។
+              សូមអរគុណចំពោះការគាំទ្រ CineMax ❤️
+              ទឹកចិត្តរបស់អ្នកមានន័យខ្លាំងណាស់។
             </p>
           </div>
 
           {/* QR + Payment */}
-          <div className="flex items-stretch gap-4">
-
+          <div className="flex flex-col items-stretch gap-4 sm:flex-row">
             {/* QR Code */}
             <div className="flex shrink-0 flex-col items-center">
               <div className="w-48 overflow-hidden rounded-2xl bg-white p-2">
@@ -178,7 +207,7 @@ const DonationModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Payment Info */}
-            <div className="flex-1 overflow-hidden rounded-2xl border border-white/8 bg-white/4">
+            <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/8 bg-white/4">
               <div className="flex items-center justify-between border-b border-white/5 px-3 py-2.5">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/55">
                   Payment Info
@@ -209,8 +238,8 @@ const DonationModal = ({ isOpen, onClose }) => {
 
               <div className="px-3 py-2.5">
                 <p className="text-[10px] leading-relaxed text-white/60">
-                  Open your ABA app, scan the QR or enter the account number above.
-                  Every coffee counts!
+                  Open your ABA app, scan the QR or enter the account number
+                  above. Every coffee counts!
                 </p>
               </div>
             </div>

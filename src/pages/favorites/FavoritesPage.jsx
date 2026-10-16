@@ -18,12 +18,13 @@ const FavoritesPage = () => {
           <div className="space-y-3">
             <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
               Your{" "}
-              <HeartSolidIcon className="inline h-8 w-8 text-red-500 sm:h-10 sm:w-10 md:h-14 md:w-14" />
-              {" "}<br />
+              <HeartSolidIcon className="inline h-8 w-8 text-red-500 sm:h-10 sm:w-10 md:h-14 md:w-14" />{" "}
+              <br />
               <span className="text-purple-500">Favorites</span>
             </h1>
             <p className="max-w-sm text-sm font-medium text-gray-400">
-              Your personal collection of cinematic masterpieces. Ready to watch whenever you are.
+              Your personal collection of cinematic masterpieces. Ready to watch
+              whenever you are.
             </p>
           </div>
         </div>
@@ -35,7 +36,8 @@ const FavoritesPage = () => {
               Your list is empty
             </h3>
             <p className="mb-8 max-w-sm font-medium text-gray-500">
-              You haven&apos;t added any movies to your favorites yet. Start exploring and click the heart icon.
+              You haven&apos;t added any movies to your favorites yet. Start
+              exploring and click the heart icon.
             </p>
             <Link
               to="/movies"

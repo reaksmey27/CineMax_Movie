@@ -1,4 +1,8 @@
-import { ClockIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ClockIcon,
+  MagnifyingGlassIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 import LiveSearchDropdown from "./LiveSearchDropdown";
 
@@ -27,7 +31,9 @@ const MoviesSearchBar = ({
     <div ref={searchRef} className="group relative w-full md:w-96">
       <MagnifyingGlassIcon
         className={`absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 transition-colors duration-300 ${
-          inputValue ? "text-purple-500" : "text-gray-500 group-focus-within:text-purple-500"
+          inputValue
+            ? "text-purple-500"
+            : "text-gray-500 group-focus-within:text-purple-500"
         }`}
       />
 
@@ -36,7 +42,9 @@ const MoviesSearchBar = ({
         aria-controls="movie-live-search-results"
         aria-expanded={shouldShowLiveDropdown}
         aria-activedescendant={
-          activeResultIndex >= 0 ? `movie-live-result-${liveResults[activeResultIndex]?.id}` : undefined
+          activeResultIndex >= 0
+            ? `movie-live-result-${liveResults[activeResultIndex]?.id}`
+            : undefined
         }
         type="text"
         placeholder="Search movies..."
@@ -126,9 +134,12 @@ const MoviesSearchBar = ({
                   <ClockIcon className="h-5 w-5 text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">No recent searches</p>
+                  <p className="text-sm font-bold text-white">
+                    No recent searches
+                  </p>
                   <p className="mt-1 text-xs font-medium text-gray-500">
-                    Your recent movie searches will appear here for quick access.
+                    Your recent movie searches will appear here for quick
+                    access.
                   </p>
                 </div>
               </div>

@@ -9,7 +9,8 @@ import { getAuthRedirect } from "../../utils/authRedirect";
 
 const SignupPage = () => {
   const { user, loading } = useAuth();
-  const { formData, error, isBusy, handleChange, handleSubmit } = useAuthForm("register");
+  const { formData, error, isBusy, handleChange, handleSubmit } =
+    useAuthForm("register");
   const navigate = useNavigate();
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
@@ -40,7 +41,9 @@ const SignupPage = () => {
         <h1 className="text-3xl font-black tracking-[-0.05em] text-white sm:text-4xl">
           Join CineMax
         </h1>
-        <p className="mt-2 text-sm text-white/55">Fill in your details to get started.</p>
+        <p className="mt-2 text-sm text-white/55">
+          Fill in your details to get started.
+        </p>
 
         <form className="mt-6 space-y-3" onSubmit={handleSubmit}>
           <label className="block">

@@ -12,14 +12,24 @@ const SEARCH_HISTORY_KEY = "cinemax-search-history";
 const SEARCH_HISTORY_LIMIT = 8;
 
 const getHeadingState = (hasSearchQuery, hasActiveFilters) => {
-  if (hasSearchQuery) return { top: "Searching", accent: "Results", suffix: "" };
-  if (hasActiveFilters) return { top: "Filtered", accent: "Selection", suffix: "" };
+  if (hasSearchQuery)
+    return { top: "Searching", accent: "Results", suffix: "" };
+  if (hasActiveFilters)
+    return { top: "Filtered", accent: "Selection", suffix: "" };
   return { top: "Explore", accent: "Cinematic", suffix: " World" };
 };
 
-const getSubtitle = (hasSearchQuery, hasActiveFilters, searchQuery, page, totalPages) => {
-  if (hasSearchQuery) return `Searching for "${searchQuery}" movies. Page ${page} of ${totalPages}.`;
-  if (hasActiveFilters) return `Discover results tailored to your filters. Page ${page} of ${totalPages}.`;
+const getSubtitle = (
+  hasSearchQuery,
+  hasActiveFilters,
+  searchQuery,
+  page,
+  totalPages,
+) => {
+  if (hasSearchQuery)
+    return `Searching for "${searchQuery}" movies. Page ${page} of ${totalPages}.`;
+  if (hasActiveFilters)
+    return `Discover results tailored to your filters. Page ${page} of ${totalPages}.`;
   return "Browse through thousands of movies by your favorite genres. Live updates from the global community.";
 };
 
@@ -58,7 +68,9 @@ const updateSearchHistory = (history, query) => {
   const normalizedQuery = normalizeSearchQuery(query);
   if (!normalizedQuery) return history;
 
-  const deduped = history.filter((item) => item.toLowerCase() !== normalizedQuery.toLowerCase());
+  const deduped = history.filter(
+    (item) => item.toLowerCase() !== normalizedQuery.toLowerCase(),
+  );
   return [normalizedQuery, ...deduped].slice(0, SEARCH_HISTORY_LIMIT);
 };
 
@@ -96,20 +108,32 @@ const MoviesHeader = ({
 
   const hasSearchQuery = Boolean(searchQuery.trim());
   const heading = getHeadingState(hasSearchQuery, hasActiveFilters);
-  const subtitle = getSubtitle(hasSearchQuery, hasActiveFilters, searchQuery, page, totalPages);
+  const subtitle = getSubtitle(
+    hasSearchQuery,
+    hasActiveFilters,
+    searchQuery,
+    page,
+    totalPages,
+  );
   const trimmedInput = inputValue.trim();
   const isTyping = inputValue !== searchQuery;
   const shouldShowLiveDropdown = isSearchFocused && trimmedInput.length >= 2;
   const shouldShowHistoryDropdown =
-    isSearchFocused && !hasTypedSinceFocus && !isTyping && trimmedInput.length < 2;
+    isSearchFocused &&
+    !hasTypedSinceFocus &&
+    !isTyping &&
+    trimmedInput.length < 2;
 
-  const toggleSelect = (key) => setOpenSelect((current) => (current === key ? null : key));
+  const toggleSelect = (key) =>
+    setOpenSelect((current) => (current === key ? null : key));
 
   const saveSearchQuery = useCallback((query) => {
     const normalizedQuery = normalizeSearchQuery(query);
     if (!normalizedQuery) return;
 
-    setSearchHistory((current) => updateSearchHistory(current, normalizedQuery));
+    setSearchHistory((current) =>
+      updateSearchHistory(current, normalizedQuery),
+    );
   }, []);
 
   const runSearch = useCallback(
@@ -139,7 +163,9 @@ const MoviesHeader = ({
 
   const handleDeleteHistoryItem = (queryToRemove) => {
     setSearchHistory((current) =>
-      current.filter((item) => item.toLowerCase() !== queryToRemove.toLowerCase()),
+      current.filter(
+        (item) => item.toLowerCase() !== queryToRemove.toLowerCase(),
+      ),
     );
   };
 
@@ -218,12 +244,16 @@ const MoviesHeader = ({
       return undefined;
     }
 
-    const id = window.setTimeout(() => runSearch(inputValue, { persistHistory: true }), SEARCH_DEBOUNCE);
+    const id = window.setTimeout(
+      () => runSearch(inputValue, { persistHistory: true }),
+      SEARCH_DEBOUNCE,
+    );
     return () => window.clearTimeout(id);
   }, [inputValue, runSearch, searchQuery]);
 
   useEffect(() => {
-    if (yearInput === releaseYear || (yearInput !== "" && yearInput.length < 4)) return undefined;
+    if (yearInput === releaseYear || (yearInput !== "" && yearInput.length < 4))
+      return undefined;
     const id = window.setTimeout(() => onYearChange(yearInput), YEAR_DEBOUNCE);
     return () => window.clearTimeout(id);
   }, [onYearChange, releaseYear, yearInput]);
@@ -237,7 +267,9 @@ const MoviesHeader = ({
             <span className="text-purple-500">{heading.accent}</span>
             {heading.suffix}
           </h1>
-          <p className="max-w-md text-sm font-medium text-gray-400">{subtitle}</p>
+          <p className="max-w-md text-sm font-medium text-gray-400">
+            {subtitle}
+          </p>
         </div>
 
         <MoviesSearchBar
@@ -276,7 +308,9 @@ const MoviesHeader = ({
             if (shouldShowLiveDropdown && liveResults.length > 0) {
               if (e.key === "ArrowDown") {
                 e.preventDefault();
-                setActiveResultIndex((current) => (current + 1) % liveResults.length);
+                setActiveResultIndex(
+                  (current) => (current + 1) % liveResults.length,
+                );
                 return;
               }
 
@@ -288,7 +322,11 @@ const MoviesHeader = ({
                 return;
               }
 
-              if (e.key === "Enter" && activeResultIndex >= 0 && liveResults[activeResultIndex]) {
+              if (
+                e.key === "Enter" &&
+                activeResultIndex >= 0 &&
+                liveResults[activeResultIndex]
+              ) {
                 e.preventDefault();
                 handleResultSelect(liveResults[activeResultIndex]);
                 return;
@@ -312,20 +350,20 @@ const MoviesHeader = ({
         />
       </div>
 
-        <MoviesFilters
-          genres={genres}
-          hasActiveFilters={hasActiveFilters}
-          hasSearchQuery={hasSearchQuery}
-          minRating={minRating}
-          onClearFilters={onClearFilters}
-          onGenreChange={onGenreChange}
-          onRatingChange={onRatingChange}
-          onSortChange={onSortChange}
-          openSelect={openSelect}
-          selectedGenre={selectedGenre}
-          sortBy={sortBy}
-          toggleSelect={toggleSelect}
-          yearInput={yearInput}
+      <MoviesFilters
+        genres={genres}
+        hasActiveFilters={hasActiveFilters}
+        hasSearchQuery={hasSearchQuery}
+        minRating={minRating}
+        onClearFilters={onClearFilters}
+        onGenreChange={onGenreChange}
+        onRatingChange={onRatingChange}
+        onSortChange={onSortChange}
+        openSelect={openSelect}
+        selectedGenre={selectedGenre}
+        sortBy={sortBy}
+        toggleSelect={toggleSelect}
+        yearInput={yearInput}
         setYearInput={setYearInput}
       />
     </div>

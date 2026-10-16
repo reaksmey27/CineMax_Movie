@@ -10,16 +10,19 @@ import Pagination from "./components/Pagination";
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const getEmptyState = (searchQuery, hasActiveFilters) => {
-  if (searchQuery) return {
-    title:   "No Search Results",
-    message: `We couldn't find any movies for "${searchQuery}". Try a different title or keyword.`,
-  };
-  if (hasActiveFilters) return {
-    title:   "No Movies Match These Filters",
-    message: "Try widening your filters or reset them to discover more results.",
-  };
+  if (searchQuery)
+    return {
+      title: "No Search Results",
+      message: `We couldn't find any movies for "${searchQuery}". Try a different title or keyword.`,
+    };
+  if (hasActiveFilters)
+    return {
+      title: "No Movies Match These Filters",
+      message:
+        "Try widening your filters or reset them to discover more results.",
+    };
   return {
-    title:   "No Movies Found",
+    title: "No Movies Found",
     message: "Try browsing a different genre or checking back for more titles.",
   };
 };
@@ -28,16 +31,38 @@ const getEmptyState = (searchQuery, hasActiveFilters) => {
 
 const MoviesPage = () => {
   const {
-    movies, genres, selectedGenre, searchQuery,
-    releaseYear, minRating, sortBy, hasActiveFilters,
-    loading, page, totalPages, error,
-    handleGenreChange, handleSearch, clearSearch, handlePageChange,
-    handleYearChange, handleRatingChange, handleSortChange, clearFilters,
+    movies,
+    genres,
+    selectedGenre,
+    searchQuery,
+    releaseYear,
+    minRating,
+    sortBy,
+    hasActiveFilters,
+    loading,
+    page,
+    totalPages,
+    error,
+    handleGenreChange,
+    handleSearch,
+    clearSearch,
+    handlePageChange,
+    handleYearChange,
+    handleRatingChange,
+    handleSortChange,
+    clearFilters,
   } = useMovies();
 
-  const resetResults = searchQuery ? clearSearch : hasActiveFilters ? clearFilters : undefined;
-  const resetLabel   = searchQuery ? "Clear Search" : "Reset Filters";
-  const { title: emptyTitle, message: emptyMessage } = getEmptyState(searchQuery, hasActiveFilters);
+  const resetResults = searchQuery
+    ? clearSearch
+    : hasActiveFilters
+      ? clearFilters
+      : undefined;
+  const resetLabel = searchQuery ? "Clear Search" : "Reset Filters";
+  const { title: emptyTitle, message: emptyMessage } = getEmptyState(
+    searchQuery,
+    hasActiveFilters,
+  );
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 px-4 pb-16 pt-22 sm:px-6 sm:pb-24 sm:pt-28 lg:px-24 lg:pt-36 xl:px-40">
@@ -86,7 +111,11 @@ const MoviesPage = () => {
               emptyMessage={emptyMessage}
             />
             {totalPages > 1 && (
-              <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+              <Pagination
+                page={page}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             )}
           </>
         )}

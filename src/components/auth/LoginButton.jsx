@@ -24,10 +24,7 @@ const GoogleIcon = () => (
   </svg>
 );
 
-const LoginButton = ({
-  className = "",
-  label = "Continue with Google",
-}) => {
+const LoginButton = ({ className = "", label = "Continue with Google" }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { signInWithGoogle, loading, authenticating } = useAuth();

@@ -72,9 +72,9 @@ const setMetaTag = (selector, content) => {
 
 export const applyPageMeta = (title, description) => {
   document.title = title;
-  setMetaTag('meta[name="description"]',         description);
-  setMetaTag('meta[property="og:title"]',        title);
-  setMetaTag('meta[property="og:description"]',  description);
-  setMetaTag('meta[name="twitter:title"]',       title);
+  setMetaTag('meta[name="description"]', description);
+  setMetaTag('meta[property="og:title"]', title);
+  setMetaTag('meta[property="og:description"]', description);
+  setMetaTag('meta[name="twitter:title"]', title);
   setMetaTag('meta[name="twitter:description"]', description);
 };
