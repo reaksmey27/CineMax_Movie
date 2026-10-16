@@ -134,7 +134,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-5 xl:flex 2xl:gap-8">
+        <div className="hidden items-center gap-7 xl:flex 2xl:gap-10">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
