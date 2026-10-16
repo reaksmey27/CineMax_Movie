@@ -128,10 +128,10 @@ const HeroSection = ({ trendingMovies = [] }) => {
 
         {/* Badges */}
         <div className="mb-6 flex flex-wrap items-center gap-2.5 sm:mb-8 sm:gap-4">
-          <span className="rounded-lg bg-purple-600 px-2 py-1 text-[9px] font-black uppercase tracking-widest text-white shadow-lg sm:text-[10px]">
+          <span className="rounded-lg bg-purple-600 px-2 py-1 text-xs font-semibold text-white shadow-lg sm:text-sm">
             Featured
           </span>
-          <div className="flex items-center gap-1 rounded-lg bg-yellow-500 px-2 py-0.5 text-[10px] font-black text-black sm:text-xs">
+          <div className="flex items-center gap-1 rounded-lg bg-yellow-500 px-2 py-0.5 text-xs font-semibold text-black sm:text-xs">
             <StarIcon className="h-3 w-3 sm:h-4 sm:w-4" />
             <span>{movie.rating}</span>
           </div>
@@ -139,7 +139,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
             {movie.genres.slice(0, 2).map((genre) => (
               <span
                 key={genre}
-                className="rounded-lg border border-white/10 bg-white/5 px-3 py-0.5 text-[9px] font-black uppercase tracking-widest text-gray-300 backdrop-blur-md sm:text-[10px]"
+                className="rounded-lg border border-white/10 bg-white/5 px-3 py-0.5 text-xs font-semibold text-gray-300 backdrop-blur-md sm:text-sm"
               >
                 {genre}
               </span>
@@ -155,17 +155,17 @@ const HeroSection = ({ trendingMovies = [] }) => {
         <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           <Link
             to={`/movie/${movie.id}`}
-            className="group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-6 py-4 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5 sm:text-xs sm:tracking-[0.2em]"
+            className="group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-6 py-4 text-sm font-semibold text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5"
           >
             <PlayCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:scale-110" />
-            <span>Watch Now</span>
+            <span>Watch now</span>
           </Link>
 
           <div className="flex w-full flex-wrap items-stretch gap-3 sm:w-auto sm:flex-nowrap sm:items-center sm:gap-4">
             {movie.trailerKey && (
               <button
                 onClick={() => setShowTrailer(true)}
-                className="group flex min-h-14 min-w-0 flex-1 items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-[10px] font-black uppercase tracking-[0.18em] text-white transition-all backdrop-blur-xl hover:bg-white/10 active:scale-95 sm:flex-none sm:gap-4 sm:px-10 sm:py-5 sm:text-xs sm:tracking-[0.2em]"
+                className="group flex min-h-14 min-w-0 flex-1 items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-semibold text-white transition-all backdrop-blur-xl hover:bg-white/10 active:scale-95 sm:flex-none sm:gap-4 sm:px-10 sm:py-5"
               >
                 <div className="rounded-full bg-purple-600/20 p-1.5 sm:p-2">
                   <PlayIcon className="h-3 w-3 sm:h-4 sm:w-4 text-purple-500 transition-transform group-hover:scale-125" />
@@ -187,7 +187,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
               ) : (
                 <HeartOutline className="h-5 w-5 sm:h-6 sm:w-6" />
               )}
-              <span className="text-[10px] uppercase tracking-[0.18em] sm:text-xs sm:tracking-[0.2em]">
+              <span className="text-sm font-semibold">
                 Favorite
               </span>
             </button>

@@ -82,14 +82,14 @@ const MoviesSearchBar = ({
         <div className="absolute left-0 right-0 top-full z-50 mt-3">
           <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#1f2023]/95 shadow-[0_24px_80px_rgba(0,0,0,0.65)] backdrop-blur-2xl">
             <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.38em] text-gray-500">
+              <p className="text-xs font-semibold text-[var(--color-text-muted)]">
                 Search history
               </p>
               {searchHistory.length > 0 && (
                 <button
                   type="button"
                   onClick={onHistoryClearAll}
-                  className="text-[11px] font-bold text-purple-400 transition-colors hover:text-purple-300"
+                  className="text-xs font-bold text-purple-400 transition-colors hover:text-purple-300"
                 >
                   Clear all
                 </button>

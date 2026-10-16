@@ -8,13 +8,13 @@ import {
 } from "../constants";
 
 const LABEL_CLASS =
-  "text-[10px] font-black uppercase tracking-[0.34em] text-gray-500";
+  "text-xs font-semibold text-[var(--color-text-muted)]";
 
 const INPUT_CLASS =
   "w-full rounded-lg border border-white/8 bg-white/5 px-3.5 py-2 text-[15px] font-semibold text-white outline-none transition-all placeholder:text-gray-600 focus:border-purple-500/45 focus:bg-white/8 sm:py-2.5";
 
 const GENRE_BTN_BASE =
-  "rounded-xl border-2 px-5 py-2 text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all";
+  "rounded-xl border-2 px-5 py-2 text-sm font-semibold  whitespace-nowrap transition-all";
 
 const FilterSelect = ({
   label,
@@ -143,12 +143,11 @@ const MoviesFilters = ({
     <div className="relative z-20">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.35em] text-purple-400">
-            Discover Filters
+          <p className="text-xs font-semibold text-purple-400">
+            Discover filters
           </p>
           <p className="mt-2 max-w-2xl text-sm font-medium text-gray-400">
-            Refine the TMDB discover feed by genre, release year, minimum vote
-            average, and sort order.
+            Find movies by genre, release year, rating, and sort order.
           </p>
         </div>
 
@@ -156,9 +155,9 @@ const MoviesFilters = ({
           type="button"
           onClick={onClearFilters}
           disabled={!hasActiveFilters}
-          className="rounded-lg border border-white/10 px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-white transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:border-purple-500/40 hover:bg-purple-500/10"
+          className="min-h-11 rounded-lg border border-white/10 px-3 py-1.5 text-sm font-semibold text-white transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:border-purple-500/40 hover:bg-purple-500/10"
         >
-          Reset Filters
+          Reset filters
         </button>
       </div>
 
@@ -170,7 +169,7 @@ const MoviesFilters = ({
       )}
 
       <div className="mt-5">
-        <p className="mb-3 text-xs font-black uppercase tracking-[0.3em] text-gray-500">
+        <p className="mb-3 text-xs font-semibold text-[var(--color-text-muted)]">
           Genre
         </p>
         <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2 pr-1 scroll-smooth sm:pb-4">
