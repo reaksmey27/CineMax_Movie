@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import MovieCard from "../../../components/ui/MovieCard";
@@ -34,7 +35,7 @@ const NavButton = ({ direction, title, onClick }) => (
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-const MovieSlider = ({ title, movies = [] }) => {
+const MovieSlider = ({ title, movies = [], viewAllTo }) => {
   const sliderRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -72,7 +73,7 @@ const MovieSlider = ({ title, movies = [] }) => {
       className="group/slider mx-auto max-w-[1600px] relative overflow-hidden bg-transparent py-4 sm:py-10"
     >
       {/* ── Heading ── */}
-      <div className="mb-4 px-4 sm:mb-8 sm:px-6 lg:px-24">
+      <div className="mb-4 flex items-center justify-between gap-4 px-4 sm:mb-8 sm:px-6 lg:px-24">
         <h2
           id={headingId}
           className="flex items-center gap-2.5 text-lg font-black tracking-tight text-white sm:gap-3 sm:text-2xl md:text-4xl"
@@ -80,6 +81,12 @@ const MovieSlider = ({ title, movies = [] }) => {
           {title}
           <span className="mt-2 hidden h-0.5 w-12 rounded-full bg-purple-600 md:block" />
         </h2>
+        {viewAllTo && (
+          <Link to={viewAllTo} aria-label={`View all ${title} movies`}
+            className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500">
+            View all <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        )}
       </div>
 
       {/* ── Nav buttons ── */}

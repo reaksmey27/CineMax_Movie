@@ -17,6 +17,9 @@ const useMovies = () => {
   const genreParam = searchParams.get("genre");
   const parsedGenre = genreParam ? parseInt(genreParam, 10) : null;
   const selectedGenre = Number.isNaN(parsedGenre) ? null : parsedGenre;
+  const collectionParam = searchParams.get("collection");
+  const collection = ["top-rated", "now-playing"].includes(collectionParam) ? collectionParam : "";
+  const collectionTitle = collection === "top-rated" ? "Top Rated" : collection === "now-playing" ? "Now Playing" : "";
   const searchQuery = searchParams.get("q") || "";
   const releaseYearParam = searchParams.get("year") || "";
   const minRatingParam = searchParams.get("rating") || "";
@@ -33,6 +36,7 @@ const useMovies = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(null);
   const hasActiveFilters = Boolean(
+    collection ||
     selectedGenre ||
     releaseYear ||
     minRating ||
@@ -44,6 +48,7 @@ const useMovies = () => {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev);
+          if (Object.keys(updates).some((key) => key !== "page")) next.delete("collection");
           Object.entries(updates).forEach(([key, value]) => {
             if (value === null || value === "" || value === undefined) {
               next.delete(key);
@@ -91,6 +96,8 @@ const useMovies = () => {
         let response;
         if (searchQuery.trim()) {
           response = await tmdbService.searchMovies(searchQuery, page);
+        } else if (collection) {
+          response = await tmdbService.getMovieCollection(collection, page);
         } else {
           response = await tmdbService.discoverMovies(page, {
             genreId: selectedGenre,
@@ -139,7 +146,7 @@ const useMovies = () => {
       ignore = true;
       clearTimeout(debounceTimer);
     };
-  }, [minRating, page, releaseYear, searchQuery, selectedGenre, sortBy]);
+  }, [collection, minRating, page, releaseYear, searchQuery, selectedGenre, sortBy]);
 
   const handleGenreChange = useCallback(
     (genreId) => {
@@ -211,6 +218,7 @@ const useMovies = () => {
   );
 
   return {
+    collectionTitle,
     movies,
     genres,
     selectedGenre,

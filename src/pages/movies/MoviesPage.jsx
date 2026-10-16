@@ -31,6 +31,7 @@ const getEmptyState = (searchQuery, hasActiveFilters) => {
 
 const MoviesPage = () => {
   const {
+    collectionTitle,
     movies,
     genres,
     selectedGenre,
@@ -72,6 +73,7 @@ const MoviesPage = () => {
 
       <div className="mx-auto max-w-350">
         <MovieHeader
+          collectionTitle={collectionTitle}
           searchQuery={searchQuery}
           page={page}
           totalPages={totalPages}

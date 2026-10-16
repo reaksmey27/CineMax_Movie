@@ -75,6 +75,7 @@ const updateSearchHistory = (history, query) => {
 };
 
 const MoviesHeader = ({
+  collectionTitle,
   searchQuery,
   page,
   totalPages,
@@ -107,8 +108,12 @@ const MoviesHeader = ({
   const skipNextDebounceRef = useRef(false);
 
   const hasSearchQuery = Boolean(searchQuery.trim());
-  const heading = getHeadingState(hasSearchQuery, hasActiveFilters);
-  const subtitle = getSubtitle(
+  const heading = collectionTitle && !hasSearchQuery
+    ? { top: collectionTitle, accent: "Movies", suffix: "" }
+    : getHeadingState(hasSearchQuery, hasActiveFilters);
+  const subtitle = collectionTitle && !hasSearchQuery
+    ? `Browse ${collectionTitle.toLowerCase()} movies. Select a filter to explore other movies.`
+    : getSubtitle(
     hasSearchQuery,
     hasActiveFilters,
     searchQuery,

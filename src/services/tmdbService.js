@@ -205,6 +205,11 @@ export const tmdbService = {
     return data?.results || [];
   },
 
+  getMovieCollection: async (collection, page = 1) => {
+    const endpoint = collection === "top-rated" ? "/movie/top_rated" : "/movie/now_playing";
+    return fetchFromTMDB(endpoint, { page }, { ttl: DEFAULT_CACHE_TTL });
+  },
+
   getNowPlayingMovies: async () => {
     const data = await fetchFromTMDB(
       "/movie/now_playing",
