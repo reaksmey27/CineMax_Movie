@@ -29,6 +29,7 @@ const LiveSearchDropdown = ({
   activeIndex,
   onSelect,
   onHoverIndex,
+  listId = "movie-live-search-results",
 }) => {
   const visibleResults = results.slice(0, LIVE_SEARCH_LIMIT);
   const hasResults = visibleResults.length > 0;
@@ -52,7 +53,7 @@ const LiveSearchDropdown = ({
           </div>
         ) : hasResults ? (
           <ul
-            id="movie-live-search-results"
+            id={listId}
             role="listbox"
             aria-label={`Search results for ${query}`}
             className="max-h-[24rem] overflow-y-auto py-2"
@@ -65,7 +66,7 @@ const LiveSearchDropdown = ({
               return (
                 <li key={movie.id}>
                   <button
-                    id={`movie-live-result-${movie.id}`}
+                    id={listId === "movie-live-search-results" ? `movie-live-result-${movie.id}` : `${listId}-${movie.id}`}
                     type="button"
                     role="option"
                     aria-selected={isActive}
