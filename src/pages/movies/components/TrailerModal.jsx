@@ -1,29 +1,47 @@
-import React from "react";
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 const TrailerModal = ({ movie, onClose }) => {
-  if (!movie.trailerKey) return null;
+  const dialogRef = useRef(null);
+  const closeRef = useRef(null);
+  const hasTrailer = Boolean(movie.trailerKey);
 
-  return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-10 bg-black/95 backdrop-blur-3xl animate-in fade-in duration-300">
-      <div className="trailer-frame relative w-full max-w-6xl aspect-video bg-black rounded-2xl sm:rounded-[3rem] overflow-hidden shadow-[0_0_120px_rgba(168,85,247,0.4)] border border-white/20 animate-in zoom-in duration-500">
-        <button
-          aria-label="Close trailer"
-          onClick={onClose}
-          className="absolute top-4 right-4 sm:top-8 sm:right-8 z-[210] p-3 sm:p-4 bg-black/60 hover:bg-red-600 text-white rounded-full transition-all active:scale-90 backdrop-blur-xl border border-white/10 group"
-        >
-          <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-90 transition-transform duration-300" />
+  useEffect(() => {
+    if (!hasTrailer) return;
+    const dialog = dialogRef.current;
+    const opener = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+      if (opener instanceof HTMLElement && opener.isConnected) opener.focus();
+    };
+  }, [hasTrailer]);
+
+  if (!hasTrailer) return null;
+
+  return createPortal(
+    <dialog ref={dialogRef} aria-label={`${movie.title} trailer`} aria-modal="true"
+      className="trailer-dialog fixed inset-0 m-auto w-[calc(100%-1.5rem)] max-w-6xl overflow-visible rounded-2xl border border-white/20 bg-black p-0 text-white shadow-2xl backdrop:bg-black/90 backdrop:backdrop-blur-md"
+      onCancel={(event) => { event.preventDefault(); onClose(); }}>
+      <div className="flex items-center justify-between gap-4 border-b border-white/20 px-4 py-2">
+        <h2 className="min-w-0 truncate text-sm font-semibold">{movie.title} trailer</h2>
+        <button ref={closeRef} type="button" aria-label="Close trailer" onClick={onClose}
+          className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400">
+          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
         </button>
-        <iframe
-          className="w-full h-full"
-          src={`https://www.youtube.com/embed/${movie.trailerKey}?autoplay=1&rel=0`}
-          title={`${movie.title} Trailer`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
       </div>
-    </div>
+      <iframe className="aspect-video w-full rounded-b-2xl"
+        src={`https://www.youtube.com/embed/${movie.trailerKey}?autoplay=1&rel=0`}
+        title={`${movie.title} trailer`}
+        allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen />
+    </dialog>,
+    document.body,
   );
 };
 

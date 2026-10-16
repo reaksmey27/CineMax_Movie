@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronLeftIcon,
@@ -7,9 +7,10 @@ import {
   PlayCircleIcon,
   PlayIcon,
   StarIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
+
+import TrailerModal from "../../movies/components/TrailerModal";
 
 import { useFavorites } from "../../../context/FavoritesContext";
 
@@ -32,30 +33,6 @@ const NavButton = ({ onClick, children, label }) => (
   </button>
 );
 
-const TrailerModal = ({ movie, onClose }) => (
-  <div className="fixed inset-0 z-200 flex items-center justify-center p-2 sm:p-10 bg-black/95 backdrop-blur-2xl animate-in fade-in duration-300">
-    <div className="trailer-frame relative w-full max-w-6xl aspect-video bg-black rounded-xl sm:rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(168,85,247,0.3)] border border-white/10 animate-in zoom-in duration-500">
-      <button
-        aria-label="Close trailer"
-        onClick={onClose}
-        className="absolute top-4 right-4 sm:top-6 sm:right-6 z-210 p-2 sm:p-3 bg-black/40 hover:bg-red-500 text-white rounded-full transition-all active:scale-90 backdrop-blur-md border border-white/10 group"
-      >
-        <XMarkIcon className="h-5 w-5 sm:h-6 sm:w-6 group-hover:rotate-90 transition-transform duration-300" />
-      </button>
-      <iframe
-        className="w-full h-full"
-        src={`https://www.youtube.com/embed/${movie.trailerKey}?autoplay=1&rel=0`}
-        title={`${movie.title} Trailer`}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-    </div>
-  </div>
-);
-
-// ─── HeroSection ──────────────────────────────────────────────────────────────
-
 const HeroSection = ({ trendingMovies = [] }) => {
   const featured = trendingMovies.slice(0, FEATURED_COUNT);
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -63,14 +40,38 @@ const HeroSection = ({ trendingMovies = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [showTrailer, setShowTrailer] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const transitionTimer = useRef(null);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(media.matches);
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => () => window.clearTimeout(transitionTimer.current), []);
+
+  const stopRotation = () => {
+    setPaused(true);
+    window.clearTimeout(transitionTimer.current);
+    setFade(true);
+  };
 
   const transition = useCallback((getNext, delay = FADE_DURATION) => {
+    window.clearTimeout(transitionTimer.current);
+    if (reducedMotion) {
+      setCurrentIndex(getNext);
+      setFade(true);
+      return;
+    }
     setFade(false);
-    setTimeout(() => {
+    transitionTimer.current = window.setTimeout(() => {
       setCurrentIndex(getNext);
       setFade(true);
     }, delay);
-  }, []);
+  }, [reducedMotion]);
 
   const handleNext = useCallback(() => {
     transition((prev) => (prev + 1) % featured.length);
@@ -88,18 +89,24 @@ const HeroSection = ({ trendingMovies = [] }) => {
   );
 
   useEffect(() => {
-    if (featured.length === 0 || showTrailer) return;
+    if (featured.length < 2 || showTrailer || paused || reducedMotion) return;
     const id = setInterval(handleNext, SLIDE_INTERVAL);
     return () => clearInterval(id);
-  }, [featured.length, showTrailer, handleNext]);
+  }, [featured.length, showTrailer, paused, reducedMotion, handleNext]);
 
   if (featured.length === 0) return null;
 
-  const movie = featured[currentIndex];
+  const movie = featured[currentIndex % featured.length];
   const isFav = isFavorite(movie.id);
 
   return (
-    <section className="relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-28 sm:pt-36">
+    <section aria-label="Featured movies" aria-roledescription="carousel"
+      onFocusCapture={(event) => {
+        if (event.target.matches(":focus-visible")) stopRotation();
+        else setPaused(false);
+      }}
+      onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}
+      className="hero-carousel relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-28 sm:pt-36">
       {/* ── Background ── */}
       <div
         className={`absolute inset-0 z-0 transition-opacity duration-1000 ${fade ? "opacity-60" : "opacity-0"}`}
@@ -175,6 +182,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
             )}
 
             <button
+              aria-pressed={isFav}
               onClick={() => toggleFavorite(movie)}
               className={`flex min-h-14 flex-1 items-center justify-center gap-3 rounded-2xl border-2 px-4 py-4 font-black transition-all backdrop-blur-xl active:scale-95 sm:flex-none sm:gap-4 sm:px-10 sm:py-5 ${
                 isFav

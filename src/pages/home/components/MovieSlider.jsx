@@ -60,7 +60,7 @@ const MovieSlider = ({ title, movies = [], viewAllTo }) => {
       if (!el) return;
       el.scrollBy({
         left: direction === "left" ? -el.clientWidth : el.clientWidth,
-        behavior: "smooth",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
       });
       window.setTimeout(checkScroll, 500);
     },
