@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://smey-dev.site/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://smey-dev.site/movies</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://smey-dev.site/trending</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://smey-dev.site/upcoming</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://smey-dev.site/</loc></url>
+  <url><loc>https://smey-dev.site/movies</loc></url>
+  <url><loc>https://smey-dev.site/trending</loc></url>
+  <url><loc>https://smey-dev.site/upcoming</loc></url>
+  <url><loc>https://smey-dev.site/movies?collection=top-rated</loc></url>
+  <url><loc>https://smey-dev.site/movies?collection=now-playing</loc></url>
 </urlset>

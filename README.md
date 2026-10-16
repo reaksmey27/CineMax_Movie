@@ -117,7 +117,7 @@ Open the local URL printed by Vite. Movie browsing needs TMDB access; sign-in an
 | `npm run format:check` | Check formatting with Prettier         |
 | `npm run format`       | Format project files with Prettier     |
 
-There is currently no automated test script in `package.json`. Build and lint checks do not verify live sign-in, Firestore access, or playback.
+SEO regression tests run with `node --test tests/seo.test.js`. There is no general automated test script in `package.json`; build and lint checks do not verify live sign-in, Firestore access, or playback.
 
 ## Saved data
 
@@ -171,7 +171,7 @@ public/           Static assets and crawler files
 
 ## Deployment
 
-The repository includes [`vercel.json`](vercel.json) with an SPA rewrite to `index.html` and cache headers for static assets.
+The repository includes [`vercel.json`](vercel.json) with route-specific HTML rewrites and cache headers for static assets. The Vite build generates these HTML files in `dist/seo/`.
 
 For Vercel, configure:
 
@@ -203,3 +203,14 @@ After deployment, verify direct navigation to `/movie/:id` and `/profile`, both 
 Movie metadata and artwork are fetched through [`tmdbService.js`](src/services/tmdbService.js). Playback sources are configured separately in [`useMovieDetail.js`](src/hooks/movies/useMovieDetail.js); TMDB does not supply the embedded video streams.
 
 Donation account details and the QR image are configured in [`DonationModal.jsx`](src/components/ui/DonationModal.jsx) and `src/assets/images/donation-qr.png`. Update both together when customizing the app. Review `public/robots.txt` and `public/sitemap.xml` for your deployment domain.
+
+## SEO
+
+- Canonical URLs, Open Graph tags, Twitter cards, and page-specific descriptions are managed in `src/config/routeMeta.js`.
+- `SITE_URL` is the canonical production origin. Change it when moving domains; rebuild to regenerate crawler files and metadata.
+- The Vite SEO plugin in `scripts/seo-build.js` generates static metadata for known routes, plus `robots.txt` and `sitemap.xml`. Vercel rewrites serve those HTML files.
+- Public collections are indexable. Account pages, saved lists, search/filter variants, and unknown routes receive `noindex`. They remain crawlable so crawlers can read that directive.
+- Movie pages receive titles, descriptions, artwork, and Movie JSON-LD from TMDB after JavaScript loads. The homepage includes WebSite JSON-LD. Pagination uses ordinary links.
+- This remains a client-rendered app: static metadata generation is not full prerendering. Movie-specific social previews require a crawler that executes JavaScript; server rendering would be needed for reliable movie previews in other crawlers. Unknown routes display a not-found page with `noindex`, but the static-host fallback does not guarantee an HTTP 404 response.
+
+Run the metadata regression checks with `node --test tests/seo.test.js`. After deployment, inspect the rendered URLs in Search Console and submit `/sitemap.xml`; local checks cannot guarantee indexing or rankings.

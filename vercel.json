@@ -31,8 +31,52 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/movies",
+      "destination": "/seo/movies.html"
+    },
+    {
+      "source": "/trending",
+      "destination": "/seo/trending.html"
+    },
+    {
+      "source": "/upcoming",
+      "destination": "/seo/upcoming.html"
+    },
+    {
+      "source": "/favorites",
+      "destination": "/seo/favorites.html"
+    },
+    {
+      "source": "/watchlist",
+      "destination": "/seo/watchlist.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/seo/profile.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/seo/login.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/seo/signup.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/seo/register.html"
+    },
+    {
+      "source": "/movie/:id",
+      "destination": "/seo/movie.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/seo/not-found.html"
     }
   ]
 }

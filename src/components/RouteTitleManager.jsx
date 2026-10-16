@@ -1,31 +1,30 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
-import {
-  applyPageMeta,
-  DEFAULT_DESCRIPTION,
-  DEFAULT_TITLE,
-  MOVIE_DETAIL_DESCRIPTION,
-  MOVIE_DETAIL_TITLE,
-  ROUTE_META,
-} from "../config/routeMeta";
+import { applyPageMeta, getPageMeta, getMovieMeta } from "../config/routeMeta";
+import { tmdbService } from "../services/tmdbService";
 
 const RouteTitleManager = () => {
-  const { pathname } = useLocation();
-
+  const { pathname, search } = useLocation();
   useEffect(() => {
-    const isMovieDetail = pathname.startsWith("/movie/");
-    const { title, description } = isMovieDetail
-      ? { title: MOVIE_DETAIL_TITLE, description: MOVIE_DETAIL_DESCRIPTION }
-      : (ROUTE_META[pathname] ?? {
-          title: DEFAULT_TITLE,
-          description: DEFAULT_DESCRIPTION,
+    let active = true;
+    const meta = getPageMeta(pathname, search);
+    applyPageMeta(meta);
+    const match = pathname.match(/^\/movie\/(\d+)\/?$/);
+    if (match) {
+      // The service shares pending requests with the movie detail page.
+      tmdbService
+        .getMovieDetails(match[1])
+        .then((movie) => {
+          if (active && movie?.id) applyPageMeta(getMovieMeta(movie));
+        })
+        .catch(() => {
+          if (active) applyPageMeta({ ...meta, noindex: true });
         });
-
-    applyPageMeta(title, description);
-  }, [pathname]);
-
+    }
+    return () => {
+      active = false;
+    };
+  }, [pathname, search]);
   return null;
 };
-
 export default RouteTitleManager;

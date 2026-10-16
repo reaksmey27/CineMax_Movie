@@ -1,10 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /favorites
-Disallow: /watchlist
-Disallow: /profile
-Disallow: /login
-Disallow: /signup
-Disallow: /register
 
 Sitemap: https://smey-dev.site/sitemap.xml

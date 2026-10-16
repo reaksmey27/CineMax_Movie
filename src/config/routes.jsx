@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 
+const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 const HomePage = lazy(() => import("../pages/home/HomePage"));
 const MoviesPage = lazy(() => import("../pages/movies/MoviesPage"));
 const MovieDetailPage = lazy(() => import("../pages/movies/MovieDetailPage"));
@@ -25,6 +26,7 @@ const BaseRoutes = ({ location }) => (
     <Route path="/signup" element={<SignupPage />} />
     <Route path="/register" element={<SignupPage />} />
     <Route path="/movie/:id" element={<MovieDetailPage />} />
+    <Route path="*" element={<NotFoundPage />} />
   </Routes>
 );
 
