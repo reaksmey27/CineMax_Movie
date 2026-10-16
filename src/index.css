@@ -337,3 +337,35 @@
     color: #0f172a !important;
   }
 }
+
+/* Opaque navigation surfaces keep text readable over changing movie backdrops. */
+.site-navbar {
+  --color-nav-bg: #0f172a;
+  --color-panel-bg: #0f172a;
+  --color-text: #f8fafc;
+  --color-text-soft: #e2e8f0;
+  --color-text-muted: #cbd5e1;
+  --color-border: #64748b;
+  --color-surface-1: #1e293b;
+  --color-surface-2: #1e293b;
+  --color-surface-3: #334155;
+  --nav-accent: #c084fc;
+}
+
+html.theme-light .site-navbar {
+  --color-nav-bg: #ffffff;
+  --color-panel-bg: #ffffff;
+  --color-text: #0f172a;
+  --color-text-soft: #334155;
+  --color-text-muted: #475569;
+  --color-border: #64748b;
+  --color-surface-1: #f1f5f9;
+  --color-surface-2: #f1f5f9;
+  --color-surface-3: #e2e8f0;
+  --nav-accent: #7e22ce;
+}
+
+.site-navbar :is(a, button, input):focus-visible {
+  outline: 2px solid var(--nav-accent);
+  outline-offset: 3px;
+}

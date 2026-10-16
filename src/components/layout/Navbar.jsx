@@ -118,7 +118,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const modalState = { backgroundLocation: location };
 
   return (
-    <div className="fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-3 sm:top-8 sm:px-8 lg:px-12">
+    <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-3 sm:top-8 sm:px-8 lg:px-12">
       <nav className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-nav-bg)] px-3 py-2.5 text-[var(--color-text)] shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-md transition-all sm:rounded-full sm:border sm:px-6 sm:py-3">
         {/* Logo */}
         <Link
@@ -145,14 +145,14 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 to={link.path}
                 className={`group relative py-1 font-bold tracking-wide transition-all duration-300 ${
                   isActive
-                    ? "scale-105 text-purple-500"
+                    ? "scale-105 text-[var(--nav-accent)]"
                     : "text-[var(--color-text-soft)] hover:scale-105 hover:text-[var(--color-text)]"
                 }`}
               >
                 {link.name}
 
                 <span
-                  className={`absolute -bottom-1 left-1/2 h-1 -translate-x-1/2 rounded-full bg-purple-500 transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-1/2 h-1 -translate-x-1/2 rounded-full bg-[var(--nav-accent)] transition-all duration-300 ${
                     isActive
                       ? "w-4 opacity-100 shadow-[0_0_8px_rgba(168,85,247,0.8)]"
                       : "w-0 opacity-0 group-hover:w-3 group-hover:opacity-100"
@@ -173,7 +173,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <button
             type="button"
             onClick={onToggleTheme}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-purple-400 active:scale-95 sm:p-2"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-[var(--nav-accent)] active:scale-95 sm:p-2"
             aria-label={themeButtonLabel}
             title={themeButtonLabel}
           >
@@ -194,9 +194,9 @@ const Navbar = ({ theme, onToggleTheme }) => {
                   markAllAsRead();
                 }
               }}
-              className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all active:scale-90 hover:text-purple-400 sm:p-2 ${
+              className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all active:scale-90 hover:text-[var(--nav-accent)] sm:p-2 ${
                 showNotifPanel
-                  ? "border-purple-500/40 bg-[var(--color-surface-3)] text-purple-400"
+                  ? "border-purple-500/40 bg-[var(--color-surface-3)] text-[var(--nav-accent)]"
                   : ""
               }`}
             >
@@ -270,8 +270,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 to="/profile"
                 className={`relative rounded-full border p-2 transition-all duration-300 active:scale-90 ${
                   location.pathname === "/profile"
-                    ? "border-purple-500/40 bg-[var(--color-surface-3)] text-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.25)]"
-                    : "border-transparent bg-[var(--color-surface-2)] text-[var(--color-text)] hover:border-purple-500/30 hover:text-purple-400"
+                    ? "border-purple-500/40 bg-[var(--color-surface-3)] text-[var(--nav-accent)] shadow-[0_0_15px_rgba(168,85,247,0.25)]"
+                    : "border-transparent bg-[var(--color-surface-2)] text-[var(--color-text)] hover:border-purple-500/30 hover:text-[var(--nav-accent)]"
                 }`}
               >
                 {user?.avatar ? (
@@ -319,7 +319,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setIsMenuOpen(!isMenuOpen);
               setShowNotifPanel(false);
             }}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-purple-500 sm:p-2 xl:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:p-2 xl:hidden"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
           >
