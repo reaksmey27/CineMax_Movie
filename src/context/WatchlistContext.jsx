@@ -110,7 +110,7 @@ const WatchlistSessionProvider = ({
   const addToWatchlist = useCallback(
     async (movie) => {
       if (!userId) {
-        onRequireSignIn("Sign in to save movies to your watchlist.");
+        onRequireSignIn("Sign in to save movies to your watchlist.", movie);
         return false;
       }
 
@@ -118,6 +118,7 @@ const WatchlistSessionProvider = ({
         showNotification(
           `${movie.title} is already in your watchlist.`,
           "info",
+          movie,
         );
         return false;
       }
@@ -134,13 +135,18 @@ const WatchlistSessionProvider = ({
             import("../firebase/watchlist"),
           ]);
         await addMovieToWatchlist(db, userId, movie);
-        showNotification(`${movie.title} added to your watchlist.`, "success");
+        showNotification(
+          `${movie.title} added to your watchlist.`,
+          "success",
+          movie,
+        );
         return true;
       } catch (error) {
         console.error("[watchlist] Failed to add movie", error);
         showNotification(
           "We couldn't add that movie to your watchlist.",
           "error",
+          movie,
         );
         return false;
       } finally {
@@ -163,7 +169,10 @@ const WatchlistSessionProvider = ({
   const removeFromWatchlist = useCallback(
     async (movieId) => {
       if (!userId) {
-        onRequireSignIn("Sign in to manage your watchlist.");
+        onRequireSignIn(
+          "Sign in to manage your watchlist.",
+          watchlist.find((watchlistMovie) => watchlistMovie.id === movieId),
+        );
         return false;
       }
 
@@ -186,11 +195,19 @@ const WatchlistSessionProvider = ({
             import("../firebase/watchlist"),
           ]);
         await removeMovieFromWatchlist(db, userId, movieId);
-        showNotification(`Removed ${movie.title} from your watchlist.`, "info");
+        showNotification(
+          `Removed ${movie.title} from your watchlist.`,
+          "info",
+          movie,
+        );
         return true;
       } catch (error) {
         console.error("[watchlist] Failed to remove movie", error);
-        showNotification("We couldn't remove that movie right now.", "error");
+        showNotification(
+          "We couldn't remove that movie right now.",
+          "error",
+          movie,
+        );
         return false;
       } finally {
         setPendingWatchlistIds((previous) => {
@@ -258,8 +275,8 @@ export const WatchlistProvider = ({ children }) => {
   const navigate = useNavigate();
   const userId = user?.uid || null;
   const onRequireSignIn = useCallback(
-    (message) => {
-      showNotification(message, "info");
+    (message, movie) => {
+      showNotification(message, "info", movie);
       navigate("/login", {
         state: { backgroundLocation: location },
       });

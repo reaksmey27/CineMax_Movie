@@ -49,14 +49,23 @@ export const NotificationProvider = ({ children }) => {
     [history],
   );
 
-  const showNotification = useCallback((message, type = "success") => {
+  const showNotification = useCallback((message, type = "success", movie) => {
     const id = crypto.randomUUID();
+    const notificationMovie =
+      movie?.id != null
+        ? {
+            id: movie.id,
+            title: movie.title || "Movie",
+            poster: movie.posterImage || movie.image || null,
+          }
+        : undefined;
     const newNotification = {
       id,
       message,
       type,
       timestamp: new Date().toISOString(),
       read: false,
+      ...(notificationMovie ? { movie: notificationMovie } : {}),
     };
 
     setNotifications((prev) => [
@@ -97,8 +106,20 @@ export const NotificationProvider = ({ children }) => {
     );
   }, []);
 
+  const markAsRead = useCallback((id) => {
+    setHistory((prev) =>
+      prev.map((notification) =>
+        notification.id === id ? { ...notification, read: true } : notification,
+      ),
+    );
+  }, []);
+
   const clearHistory = useCallback(() => {
     setHistory([]);
+  }, []);
+
+  const removeFromHistory = useCallback((id) => {
+    setHistory((prev) => prev.filter((notification) => notification.id !== id));
   }, []);
 
   const removeNotification = useCallback((id) => {
@@ -148,15 +169,19 @@ export const NotificationProvider = ({ children }) => {
       showNotification,
       history,
       unreadCount,
+      markAsRead,
       markAllAsRead,
       clearHistory,
+      removeFromHistory,
       getIcon,
     }),
     [
       clearHistory,
       getIcon,
       history,
+      markAsRead,
       markAllAsRead,
+      removeFromHistory,
       showNotification,
       unreadCount,
     ],
@@ -176,7 +201,24 @@ export const NotificationProvider = ({ children }) => {
                 : "opacity-0 translate-x-12"
             } ${getStyles(notification.type)}`}
           >
-            <div className="flex-shrink-0">{getIcon(notification.type)}</div>
+            {notification.movie?.poster ? (
+              <div className="relative h-12 w-9 flex-shrink-0 overflow-hidden rounded-lg bg-black/20">
+                <span className="absolute inset-0 flex items-center justify-center">
+                  {getIcon(notification.type, true)}
+                </span>
+                <img
+                  src={notification.movie.poster}
+                  alt=""
+                  className="relative h-full w-full object-cover"
+                  loading="lazy"
+                  onError={(event) => {
+                    event.currentTarget.hidden = true;
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex-shrink-0">{getIcon(notification.type)}</div>
+            )}
             <p className="flex-1 text-sm font-bold text-white tracking-wide">
               {notification.message}
             </p>

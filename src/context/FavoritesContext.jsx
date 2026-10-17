@@ -109,7 +109,7 @@ const FavoritesSessionProvider = ({
   const addToFavorites = useCallback(
     async (movie) => {
       if (!userId) {
-        onRequireSignIn("Sign in to save movies to your favorites.");
+        onRequireSignIn("Sign in to save movies to your favorites.", movie);
         return false;
       }
 
@@ -117,6 +117,7 @@ const FavoritesSessionProvider = ({
         showNotification(
           `${movie.title} is already in your favorites.`,
           "info",
+          movie,
         );
         return false;
       }
@@ -133,13 +134,18 @@ const FavoritesSessionProvider = ({
             import("../firebase/favorites"),
           ]);
         await addMovieToFavorites(db, userId, movie);
-        showNotification(`${movie.title} added to your favorites.`, "success");
+        showNotification(
+          `${movie.title} added to your favorites.`,
+          "success",
+          movie,
+        );
         return true;
       } catch (saveError) {
         console.error("[favorites] Failed to add movie", saveError);
         showNotification(
           "We couldn't add that movie to your favorites.",
           "error",
+          movie,
         );
         return false;
       } finally {
@@ -162,7 +168,10 @@ const FavoritesSessionProvider = ({
   const removeFromFavorites = useCallback(
     async (movieId) => {
       if (!userId) {
-        onRequireSignIn("Sign in to manage your favorites.");
+        onRequireSignIn(
+          "Sign in to manage your favorites.",
+          favorites.find((favorite) => favorite.id === movieId),
+        );
         return false;
       }
 
@@ -183,11 +192,19 @@ const FavoritesSessionProvider = ({
             import("../firebase/favorites"),
           ]);
         await removeMovieFromFavorites(db, userId, movieId);
-        showNotification(`Removed ${movie.title} from favorites.`, "info");
+        showNotification(
+          `Removed ${movie.title} from favorites.`,
+          "info",
+          movie,
+        );
         return true;
       } catch (removeError) {
         console.error("[favorites] Failed to remove movie", removeError);
-        showNotification("We couldn't remove that movie right now.", "error");
+        showNotification(
+          "We couldn't remove that movie right now.",
+          "error",
+          movie,
+        );
         return false;
       } finally {
         setPendingFavoriteIds((previous) => {
@@ -253,8 +270,8 @@ export const FavoritesProvider = ({ children }) => {
   const navigate = useNavigate();
   const userId = user?.uid || null;
   const onRequireSignIn = useCallback(
-    (message) => {
-      showNotification(message, "info");
+    (message, movie) => {
+      showNotification(message, "info", movie);
       navigate("/login", {
         state: { backgroundLocation: location },
       });

@@ -42,6 +42,11 @@ export const ROUTE_META = {
     description:
       "Track what to watch next with your CineMax watchlist and save movies for the perfect movie night.",
   },
+  "/notifications": {
+    title: "Notifications | Your CineMax Activity",
+    description:
+      "Review recent CineMax notifications about your movie collections and account activity.",
+  },
   "/profile": {
     title: "Your Profile | Manage Your CineMax Account",
     description:

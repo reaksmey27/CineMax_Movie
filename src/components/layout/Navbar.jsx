@@ -244,10 +244,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
               onClick={() => {
                 setShowNotifPanel(!showNotifPanel);
                 setIsMenuOpen(false);
-
-                if (!showNotifPanel) {
-                  markAllAsRead();
-                }
               }}
               className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all active:scale-90 hover:text-[var(--nav-accent)] sm:p-2 ${
                 showNotifPanel
@@ -258,7 +254,10 @@ const Navbar = ({ theme, onToggleTheme }) => {
               <BellIcon className="h-5 w-5 sm:h-6 sm:w-6" />
 
               {unreadCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-black text-white shadow-lg">
+                <span
+                  aria-label={`${unreadCount} unread notifications`}
+                  className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-black text-white shadow-lg"
+                >
                   {unreadCount}
                 </span>
               )}
@@ -274,6 +273,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
                   <button
                     type="button"
                     onClick={clearHistory}
+                    aria-label="Clear notification history"
+                    title="Clear notification history"
                     className="rounded-lg p-1.5 text-gray-500 hover:bg-[var(--color-surface-1)] hover:text-red-400"
                   >
                     <TrashIcon className="h-4 w-4" />
@@ -296,23 +297,79 @@ const Navbar = ({ theme, onToggleTheme }) => {
                           key={notif.id}
                           className="flex gap-4 border-b border-[var(--color-border-soft)] px-6 py-4 transition-colors hover:bg-[var(--color-surface-1)]"
                         >
-                          <div className="mt-1 shrink-0">
-                            {getIcon(notif.type, true)}
-                          </div>
+                          {notif.movie?.poster ? (
+                            <div className="relative mt-1 h-12 w-9 shrink-0 overflow-hidden rounded-lg bg-black/20">
+                              <span className="absolute inset-0 flex items-center justify-center">
+                                {getIcon(notif.type, true)}
+                              </span>
+                              <img
+                                src={notif.movie.poster}
+                                alt=""
+                                className="relative h-full w-full object-cover"
+                                loading="lazy"
+                                onError={(event) => {
+                                  event.currentTarget.hidden = true;
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div className="mt-1 shrink-0">
+                              {getIcon(notif.type, true)}
+                            </div>
+                          )}
 
-                          <div className="min-w-0 flex-1">
-                            <p className="mb-1 text-[10px] font-bold leading-relaxed text-[var(--color-text)] sm:text-xs">
-                              {notif.message}
-                            </p>
-
-                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">
-                              {formatTime(notif.timestamp)}
-                            </span>
-                          </div>
+                          {notif.movie?.id != null ? (
+                            <Link
+                              to={`/movie/${encodeURIComponent(notif.movie.id)}`}
+                              onClick={() => setShowNotifPanel(false)}
+                              className="min-w-0 flex-1 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
+                              aria-label={`Open ${notif.movie.title || "movie"} notification`}
+                            >
+                              <p className="mb-1 text-[10px] font-bold leading-relaxed text-[var(--color-text)] sm:text-xs">
+                                {notif.message}
+                              </p>
+                              <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">
+                                {formatTime(notif.timestamp)}
+                              </span>
+                            </Link>
+                          ) : (
+                            <div className="min-w-0 flex-1">
+                              <p className="mb-1 text-[10px] font-bold leading-relaxed text-[var(--color-text)] sm:text-xs">
+                                {notif.message}
+                              </p>
+                              <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">
+                                {formatTime(notif.timestamp)}
+                              </span>
+                            </div>
+                          )}
+                          {!notif.read && (
+                            <span
+                              className="mt-2 h-2 w-2 shrink-0 rounded-full bg-purple-400"
+                              aria-label="Unread"
+                              title="Unread"
+                            />
+                          )}
                         </div>
                       ))}
                     </div>
                   )}
+                </div>
+                <div className="flex items-center justify-between gap-3 border-t border-[var(--color-border-soft)] px-4 py-3">
+                  <button
+                    type="button"
+                    onClick={markAllAsRead}
+                    disabled={unreadCount === 0}
+                    className="min-h-10 rounded-xl px-3 text-xs font-bold text-[var(--color-text-soft)] transition-colors hover:bg-[var(--color-surface-1)] hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Mark all as read
+                  </button>
+                  <Link
+                    to="/notifications"
+                    onClick={() => setShowNotifPanel(false)}
+                    className="min-h-10 rounded-xl bg-purple-600 px-4 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
+                  >
+                    View all
+                  </Link>
                 </div>
               </div>
             )}

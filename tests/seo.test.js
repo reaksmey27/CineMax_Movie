@@ -14,6 +14,7 @@ test("public and private routes have the intended indexing policy", () => {
     "/profile",
     "/favorites",
     "/watchlist",
+    "/notifications",
     "/login",
     "/signup",
     "/register",
@@ -79,7 +80,10 @@ test("HTML generation escapes metadata and replaces old tags without duplicates"
 
 test("crawler files list public collections and allow noindex pages to be crawled", () => {
   assert.match(sitemapXml(), /collection=top-rated/);
-  assert.doesNotMatch(sitemapXml(), /profile|favorites|watchlist|login/);
+  assert.doesNotMatch(
+    sitemapXml(),
+    /profile|favorites|watchlist|notifications|login/,
+  );
   assert.match(robotsTxt(), /Allow: \//);
   assert.doesNotMatch(robotsTxt(), /Disallow:/);
 });
