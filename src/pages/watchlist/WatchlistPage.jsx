@@ -29,8 +29,8 @@ const WatchlistPage = () => {
             Your <span className="text-amber-400">Watchlist</span>
           </h1>
           <p className="max-w-lg text-sm font-medium text-gray-400">
-            Real-time saved movies tied to your account, ready to pick up on any
-            device where you sign in.
+            Sign in to save movies to your account and keep your watchlist
+            synced across devices.
           </p>
         </div>
 

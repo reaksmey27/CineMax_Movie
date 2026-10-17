@@ -8,7 +8,10 @@ import {
   PlayIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
-import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  HeartIcon as HeartOutline,
+} from "@heroicons/react/24/outline";
 
 import TrailerModal from "../../movies/components/TrailerModal";
 
@@ -35,13 +38,15 @@ const NavButton = ({ onClick, children, label }) => (
 
 const HeroSection = ({ trendingMovies = [] }) => {
   const featured = trendingMovies.slice(0, FEATURED_COUNT);
-  const { toggleFavorite, isFavorite } = useFavorites();
+  const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [showTrailer, setShowTrailer] = useState(false);
   const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
   const transitionTimer = useRef(null);
 
   useEffect(() => {
@@ -59,19 +64,22 @@ const HeroSection = ({ trendingMovies = [] }) => {
     setFade(true);
   };
 
-  const transition = useCallback((getNext, delay = FADE_DURATION) => {
-    window.clearTimeout(transitionTimer.current);
-    if (reducedMotion) {
-      setCurrentIndex(getNext);
-      setFade(true);
-      return;
-    }
-    setFade(false);
-    transitionTimer.current = window.setTimeout(() => {
-      setCurrentIndex(getNext);
-      setFade(true);
-    }, delay);
-  }, [reducedMotion]);
+  const transition = useCallback(
+    (getNext, delay = FADE_DURATION) => {
+      window.clearTimeout(transitionTimer.current);
+      if (reducedMotion) {
+        setCurrentIndex(getNext);
+        setFade(true);
+        return;
+      }
+      setFade(false);
+      transitionTimer.current = window.setTimeout(() => {
+        setCurrentIndex(getNext);
+        setFade(true);
+      }, delay);
+    },
+    [reducedMotion],
+  );
 
   const handleNext = useCallback(() => {
     transition((prev) => (prev + 1) % featured.length);
@@ -98,15 +106,22 @@ const HeroSection = ({ trendingMovies = [] }) => {
 
   const movie = featured[currentIndex % featured.length];
   const isFav = isFavorite(movie.id);
+  const favoritePending = isSavingFavorite(movie.id);
 
   return (
-    <section aria-label="Featured movies" aria-roledescription="carousel"
+    <section
+      aria-label="Featured movies"
+      aria-roledescription="carousel"
       onFocusCapture={(event) => {
         if (event.target.matches(":focus-visible")) stopRotation();
         else setPaused(false);
       }}
-      onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}
-      className="hero-carousel relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-28 sm:pt-36">
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          setPaused(false);
+      }}
+      className="hero-carousel relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-28 sm:pt-36"
+    >
       {/* ── Background ── */}
       <div
         className={`absolute inset-0 z-0 transition-opacity duration-1000 ${fade ? "opacity-60" : "opacity-0"}`}
@@ -183,6 +198,17 @@ const HeroSection = ({ trendingMovies = [] }) => {
 
             <button
               aria-pressed={isFav}
+              aria-busy={favoritePending}
+              aria-label={
+                favoritePending
+                  ? isFav
+                    ? "Removing from favorites"
+                    : "Adding to favorites"
+                  : isFav
+                    ? "Remove from favorites"
+                    : "Add to favorites"
+              }
+              disabled={favoritePending}
               onClick={() => toggleFavorite(movie)}
               className={`flex min-h-14 flex-1 items-center justify-center gap-3 rounded-2xl border-2 px-4 py-4 font-black transition-all backdrop-blur-xl active:scale-95 sm:flex-none sm:gap-4 sm:px-10 sm:py-5 ${
                 isFav
@@ -190,13 +216,19 @@ const HeroSection = ({ trendingMovies = [] }) => {
                   : "border-white/10 bg-white/5 text-white hover:bg-white/10"
               }`}
             >
-              {isFav ? (
+              {favoritePending ? (
+                <ArrowPathIcon className="h-5 w-5 animate-spin sm:h-6 sm:w-6" />
+              ) : isFav ? (
                 <HeartIcon className="h-5 w-5 sm:h-6 sm:w-6" />
               ) : (
                 <HeartOutline className="h-5 w-5 sm:h-6 sm:w-6" />
               )}
               <span className="text-sm font-semibold">
-                Favorite
+                {favoritePending
+                  ? isFav
+                    ? "Removing..."
+                    : "Saving..."
+                  : "Favorite"}
               </span>
             </button>
           </div>

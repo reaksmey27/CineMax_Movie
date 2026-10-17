@@ -17,8 +17,9 @@ const MovieDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, loading: authLoading } = useAuth();
-  const { toggleFavorite, isFavorite } = useFavorites();
-  const { toggleWatchlist, isInWatchlist } = useWatchlist();
+  const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
+  const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
+    useWatchlist();
 
   const {
     movie,
@@ -115,6 +116,8 @@ const MovieDetailPage = () => {
             movie={movie}
             isFav={isFavorite(movie.id)}
             isWatchlisted={isInWatchlist(movie.id)}
+            favoritePending={isSavingFavorite(movie.id)}
+            watchlistPending={isSavingToWatchlist(movie.id)}
             playLabel={
               authLoading
                 ? "Checking login..."

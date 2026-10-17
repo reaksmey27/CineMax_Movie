@@ -26,8 +26,8 @@ const FavoritesPage = () => {
               <span className="text-purple-500">Favorites</span>
             </h1>
             <p className="max-w-sm text-sm font-medium text-gray-400">
-              Your personal collection of cinematic masterpieces. Ready to watch
-              whenever you are.
+              Sign in to save your favorite movies and sync your collection
+              across devices.
             </p>
           </div>
         </div>

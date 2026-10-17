@@ -20,6 +20,9 @@ const WatchlistSessionProvider = ({
   userId,
 }) => {
   const [watchlist, setWatchlist] = useState([]);
+  const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
+    () => new Set(),
+  );
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(() => Boolean(userId));
   const [retryVersion, setRetryVersion] = useState(0);
@@ -99,6 +102,11 @@ const WatchlistSessionProvider = ({
     [watchlist],
   );
 
+  const isSavingToWatchlist = useCallback(
+    (movieId) => pendingWatchlistIds.has(movieId),
+    [pendingWatchlistIds],
+  );
+
   const addToWatchlist = useCallback(
     async (movie) => {
       if (!userId) {
@@ -114,6 +122,11 @@ const WatchlistSessionProvider = ({
         return false;
       }
 
+      if (pendingWatchlistIds.has(movie.id)) {
+        return false;
+      }
+
+      setPendingWatchlistIds((previous) => new Set(previous).add(movie.id));
       try {
         const [{ db }, { addToWatchlist: addMovieToWatchlist }] =
           await Promise.all([
@@ -130,9 +143,21 @@ const WatchlistSessionProvider = ({
           "error",
         );
         return false;
+      } finally {
+        setPendingWatchlistIds((previous) => {
+          const next = new Set(previous);
+          next.delete(movie.id);
+          return next;
+        });
       }
     },
-    [onRequireSignIn, showNotification, userId, watchlistIds],
+    [
+      onRequireSignIn,
+      pendingWatchlistIds,
+      showNotification,
+      userId,
+      watchlistIds,
+    ],
   );
 
   const removeFromWatchlist = useCallback(
@@ -149,6 +174,11 @@ const WatchlistSessionProvider = ({
         return false;
       }
 
+      if (pendingWatchlistIds.has(movieId)) {
+        return false;
+      }
+
+      setPendingWatchlistIds((previous) => new Set(previous).add(movieId));
       try {
         const [{ db }, { removeFromWatchlist: removeMovieFromWatchlist }] =
           await Promise.all([
@@ -162,9 +192,15 @@ const WatchlistSessionProvider = ({
         console.error("[watchlist] Failed to remove movie", error);
         showNotification("We couldn't remove that movie right now.", "error");
         return false;
+      } finally {
+        setPendingWatchlistIds((previous) => {
+          const next = new Set(previous);
+          next.delete(movieId);
+          return next;
+        });
       }
     },
-    [onRequireSignIn, showNotification, userId, watchlist],
+    [onRequireSignIn, pendingWatchlistIds, showNotification, userId, watchlist],
   );
 
   const isInWatchlist = useCallback(
@@ -186,6 +222,7 @@ const WatchlistSessionProvider = ({
   const value = useMemo(
     () => ({
       watchlist,
+      isSavingToWatchlist,
       loading,
       error,
       retry,
@@ -197,6 +234,7 @@ const WatchlistSessionProvider = ({
     [
       addToWatchlist,
       isInWatchlist,
+      isSavingToWatchlist,
       loading,
       error,
       retry,

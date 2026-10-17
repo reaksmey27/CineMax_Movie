@@ -6,6 +6,7 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 import {
+  ArrowPathIcon,
   FilmIcon,
   BookmarkIcon,
   HeartIcon as HeartOutline,
@@ -19,10 +20,13 @@ const MovieCard = ({
   showActions = true,
   hideUnrated = false,
 }) => {
-  const { toggleFavorite, isFavorite } = useFavorites();
-  const { toggleWatchlist, isInWatchlist } = useWatchlist();
+  const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
+  const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
+    useWatchlist();
   const isFav = isFavorite(movie.id);
   const isSaved = isInWatchlist(movie.id);
+  const favoritePending = isSavingFavorite(movie.id);
+  const watchlistPending = isSavingToWatchlist(movie.id);
   const TitleTag = headingLevel;
   const poster = movie.posterImage || movie.image;
   const [failedPoster, setFailedPoster] = useState(null);
@@ -71,6 +75,7 @@ const MovieCard = ({
           <div className="absolute right-2 top-2 z-50 flex gap-1 sm:right-3 sm:top-3 sm:gap-2">
             <button
               type="button"
+              disabled={watchlistPending}
               onClick={handleWatchlistClick}
               className={`movie-card-action grid min-h-11 min-w-11 place-items-center rounded-xl border p-2 backdrop-blur-md transition-all duration-300 active:scale-90 sm:p-2.5 ${
                 isSaved
@@ -78,11 +83,23 @@ const MovieCard = ({
                   : "border-white/10 bg-black/70 text-white opacity-100 hover:bg-white hover:text-black sm:opacity-0 sm:group-hover:opacity-100"
               }`}
               aria-pressed={isSaved}
+              aria-busy={watchlistPending}
               aria-label={
-                isSaved ? "Remove from watchlist" : "Add to watchlist"
+                watchlistPending
+                  ? isSaved
+                    ? "Removing from watchlist"
+                    : "Adding to watchlist"
+                  : isSaved
+                    ? "Remove from watchlist"
+                    : "Add to watchlist"
               }
             >
-              {isSaved ? (
+              {watchlistPending ? (
+                <ArrowPathIcon
+                  className="h-4 w-4 animate-spin sm:h-5 sm:w-5"
+                  aria-hidden="true"
+                />
+              ) : isSaved ? (
                 <BookmarkSolidIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               ) : (
                 <BookmarkIcon className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -91,6 +108,7 @@ const MovieCard = ({
 
             <button
               type="button"
+              disabled={favoritePending}
               onClick={handleFavoriteClick}
               className={`movie-card-action grid min-h-11 min-w-11 place-items-center rounded-xl border p-2 backdrop-blur-md transition-all duration-300 active:scale-90 sm:p-2.5 ${
                 isFav
@@ -98,9 +116,23 @@ const MovieCard = ({
                   : "border-white/10 bg-black/70 text-white opacity-100 hover:bg-white hover:text-black sm:opacity-0 sm:group-hover:opacity-100"
               }`}
               aria-pressed={isFav}
-              aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+              aria-busy={favoritePending}
+              aria-label={
+                favoritePending
+                  ? isFav
+                    ? "Removing from favorites"
+                    : "Adding to favorites"
+                  : isFav
+                    ? "Remove from favorites"
+                    : "Add to favorites"
+              }
             >
-              {isFav ? (
+              {favoritePending ? (
+                <ArrowPathIcon
+                  className="h-4 w-4 animate-spin sm:h-5 sm:w-5"
+                  aria-hidden="true"
+                />
+              ) : isFav ? (
                 <HeartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
               ) : (
                 <HeartOutline className="h-4 w-4 sm:h-5 sm:w-5" />

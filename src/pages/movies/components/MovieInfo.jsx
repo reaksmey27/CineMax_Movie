@@ -8,6 +8,7 @@ import {
   CalendarIcon,
 } from "@heroicons/react/24/solid";
 import {
+  ArrowPathIcon,
   BookmarkIcon,
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
@@ -16,6 +17,8 @@ const MovieInfo = ({
   movie,
   isFav,
   isWatchlisted,
+  favoritePending = false,
+  watchlistPending = false,
   onPlay,
   playLabel = "Play Movie",
   playDisabled = false,
@@ -100,37 +103,77 @@ const MovieInfo = ({
             )}
 
             <button
-              aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+              aria-label={
+                favoritePending
+                  ? isFav
+                    ? "Removing from favorites"
+                    : "Adding to favorites"
+                  : isFav
+                    ? "Remove from favorites"
+                    : "Add to favorites"
+              }
+              aria-busy={favoritePending}
+              disabled={favoritePending}
               onClick={onFavorite}
-              className={`flex min-h-14 flex-1 items-center justify-center rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
+              className={`flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
                 isFav
                   ? "border-red-500 bg-red-500/10 text-red-500 shadow-lg shadow-red-500/20"
                   : "border-[var(--color-border)] bg-[var(--color-surface-1)] text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
               }`}
             >
-              {isFav ? (
+              {favoritePending ? (
+                <ArrowPathIcon className="h-5 w-5 animate-spin" />
+              ) : isFav ? (
                 <HeartIcon className="h-5 w-5" />
               ) : (
                 <HeartOutline className="h-5 w-5" />
               )}
+              <span className="text-xs font-semibold">
+                {favoritePending
+                  ? isFav
+                    ? "Removing..."
+                    : "Saving..."
+                  : isFav
+                    ? "Favorited"
+                    : "Favorite"}
+              </span>
             </button>
 
             <button
               aria-label={
-                isWatchlisted ? "Remove from watchlist" : "Add to watchlist"
+                watchlistPending
+                  ? isWatchlisted
+                    ? "Removing from watchlist"
+                    : "Adding to watchlist"
+                  : isWatchlisted
+                    ? "Remove from watchlist"
+                    : "Add to watchlist"
               }
+              aria-busy={watchlistPending}
+              disabled={watchlistPending}
               onClick={onWatchlist}
-              className={`flex min-h-14 flex-1 items-center justify-center rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
+              className={`flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
                 isWatchlisted
                   ? "border-amber-400 bg-amber-500/10 text-amber-400 shadow-lg shadow-amber-500/20"
                   : "border-[var(--color-border)] bg-[var(--color-surface-1)] text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
               }`}
             >
-              {isWatchlisted ? (
+              {watchlistPending ? (
+                <ArrowPathIcon className="h-5 w-5 animate-spin" />
+              ) : isWatchlisted ? (
                 <BookmarkSolidIcon className="h-5 w-5" />
               ) : (
                 <BookmarkIcon className="h-5 w-5" />
               )}
+              <span className="text-xs font-semibold">
+                {watchlistPending
+                  ? isWatchlisted
+                    ? "Removing..."
+                    : "Saving..."
+                  : isWatchlisted
+                    ? "Watchlisted"
+                    : "Watchlist"}
+              </span>
             </button>
           </div>
         </div>

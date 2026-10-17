@@ -20,6 +20,7 @@ const FavoritesSessionProvider = ({
   userId,
 }) => {
   const [favorites, setFavorites] = useState([]);
+  const [pendingFavoriteIds, setPendingFavoriteIds] = useState(() => new Set());
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(() => Boolean(userId));
   const [retryVersion, setRetryVersion] = useState(0);
@@ -100,6 +101,11 @@ const FavoritesSessionProvider = ({
     [favorites],
   );
 
+  const isSavingFavorite = useCallback(
+    (movieId) => pendingFavoriteIds.has(movieId),
+    [pendingFavoriteIds],
+  );
+
   const addToFavorites = useCallback(
     async (movie) => {
       if (!userId) {
@@ -115,6 +121,11 @@ const FavoritesSessionProvider = ({
         return false;
       }
 
+      if (pendingFavoriteIds.has(movie.id)) {
+        return false;
+      }
+
+      setPendingFavoriteIds((previous) => new Set(previous).add(movie.id));
       try {
         const [{ db }, { addToFavorites: addMovieToFavorites }] =
           await Promise.all([
@@ -131,9 +142,21 @@ const FavoritesSessionProvider = ({
           "error",
         );
         return false;
+      } finally {
+        setPendingFavoriteIds((previous) => {
+          const next = new Set(previous);
+          next.delete(movie.id);
+          return next;
+        });
       }
     },
-    [favoriteIds, onRequireSignIn, showNotification, userId],
+    [
+      favoriteIds,
+      onRequireSignIn,
+      pendingFavoriteIds,
+      showNotification,
+      userId,
+    ],
   );
 
   const removeFromFavorites = useCallback(
@@ -148,6 +171,11 @@ const FavoritesSessionProvider = ({
         return false;
       }
 
+      if (pendingFavoriteIds.has(movieId)) {
+        return false;
+      }
+
+      setPendingFavoriteIds((previous) => new Set(previous).add(movieId));
       try {
         const [{ db }, { removeFromFavorites: removeMovieFromFavorites }] =
           await Promise.all([
@@ -161,9 +189,15 @@ const FavoritesSessionProvider = ({
         console.error("[favorites] Failed to remove movie", removeError);
         showNotification("We couldn't remove that movie right now.", "error");
         return false;
+      } finally {
+        setPendingFavoriteIds((previous) => {
+          const next = new Set(previous);
+          next.delete(movieId);
+          return next;
+        });
       }
     },
-    [favorites, onRequireSignIn, showNotification, userId],
+    [favorites, onRequireSignIn, pendingFavoriteIds, showNotification, userId],
   );
 
   const isFavorite = useCallback(
@@ -187,6 +221,7 @@ const FavoritesSessionProvider = ({
       favorites,
       loading,
       error,
+      isSavingFavorite,
       retry,
       toggleFavorite,
       removeFromFavorites,
@@ -196,6 +231,7 @@ const FavoritesSessionProvider = ({
       error,
       favorites,
       isFavorite,
+      isSavingFavorite,
       loading,
       removeFromFavorites,
       retry,
