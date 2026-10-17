@@ -5,11 +5,11 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "./config";
 
 export const WATCHLISTS_COLLECTION = "watchlists";
 
-const buildWatchlistDocRef = (userId) => doc(db, WATCHLISTS_COLLECTION, userId);
+const buildWatchlistDocRef = (database, userId) =>
+  doc(database, WATCHLISTS_COLLECTION, userId);
 
 const normalizeMovieForWatchlist = (movie) => ({
   id: movie.id,
@@ -38,7 +38,7 @@ export const getWatchlistMovies = (snapshot) => {
   );
 };
 
-export const addToWatchlist = async (userId, movie) => {
+export const addToWatchlist = async (database, userId, movie) => {
   if (!userId) {
     throw new Error("A signed-in user is required to save a watchlist.");
   }
@@ -47,7 +47,7 @@ export const addToWatchlist = async (userId, movie) => {
     throw new Error("A valid movie is required to save a watchlist item.");
   }
 
-  const watchlistDocRef = buildWatchlistDocRef(userId);
+  const watchlistDocRef = buildWatchlistDocRef(database, userId);
   const normalizedMovie = normalizeMovieForWatchlist(movie);
 
   await setDoc(
@@ -68,12 +68,12 @@ export const addToWatchlist = async (userId, movie) => {
   return normalizedMovie;
 };
 
-export const removeFromWatchlist = async (userId, movieId) => {
+export const removeFromWatchlist = async (database, userId, movieId) => {
   if (!userId || !movieId) {
     return false;
   }
 
-  const watchlistDocRef = buildWatchlistDocRef(userId);
+  const watchlistDocRef = buildWatchlistDocRef(database, userId);
 
   try {
     await updateDoc(watchlistDocRef, {

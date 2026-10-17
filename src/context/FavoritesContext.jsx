@@ -77,7 +77,7 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
-        await addMovieToFavorites(userId, movie);
+        await addMovieToFavorites(db, userId, movie);
         showNotification(`${movie.title} added to your favorites.`, "success");
         return true;
       } catch (saveError) {
@@ -105,7 +105,7 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
-        await removeMovieFromFavorites(userId, movieId);
+        await removeMovieFromFavorites(db, userId, movieId);
         showNotification(`Removed ${movie.title} from favorites.`, "info");
         return true;
       } catch (removeError) {

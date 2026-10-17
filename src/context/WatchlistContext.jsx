@@ -76,7 +76,7 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
-        await addMovieToWatchlist(userId, movie);
+        await addMovieToWatchlist(db, userId, movie);
         showNotification(`${movie.title} added to your watchlist.`, "success");
         return true;
       } catch (error) {
@@ -106,7 +106,7 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
-        await removeMovieFromWatchlist(userId, movieId);
+        await removeMovieFromWatchlist(db, userId, movieId);
         showNotification(`Removed ${movie.title} from your watchlist.`, "info");
         return true;
       } catch (error) {

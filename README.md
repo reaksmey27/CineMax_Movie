@@ -100,7 +100,7 @@ service cloud.firestore {
 }
 ```
 
-If you already have Firestore rules, integrate both collection rules without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
+The owner-only collection rules are also in [`firestore.rules`](firestore.rules), which the local Firestore Emulator uses for tests. If you already have Firestore rules, integrate both collection rules without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
 
 ### 4. Start development
 
@@ -112,16 +112,17 @@ Open the local URL printed by Vite. Movie browsing needs TMDB access; sign-in an
 
 ## Commands
 
-| Command                | Description                            |
-| ---------------------- | -------------------------------------- |
-| `npm run dev`          | Start the development server           |
-| `npm run build`        | Create the production build in `dist/` |
-| `npm run preview`      | Serve the production build locally     |
-| `npm run lint`         | Run ESLint                             |
-| `npm run format:check` | Check formatting with Prettier         |
-| `npm run format`       | Format project files with Prettier     |
+| Command                | Description                                    |
+| ---------------------- | ---------------------------------------------- |
+| `npm run dev`          | Start the development server                   |
+| `npm run build`        | Create the production build in `dist/`         |
+| `npm run preview`      | Serve the production build locally             |
+| `npm run lint`         | Run ESLint                                     |
+| `npm run format:check` | Check formatting with Prettier                 |
+| `npm run format`       | Format project files with Prettier             |
+| `npm test`             | Run tests against the local Firestore Emulator |
 
-SEO regression tests run with `node --test tests/seo.test.js`. There is no general automated test script in `package.json`; build and lint checks do not verify live sign-in, Firestore access, or playback.
+`npm test` runs the SEO regression tests and Firestore Emulator integration tests for saving/reloading Favorites and Watchlist and denying access from another user. It requires Java to run the emulator. The tests use a demo project and do not connect to your live Firebase project. You can run only the SEO tests with `node --test tests/seo.test.js`.
 
 ## Saved data
 

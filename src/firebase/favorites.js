@@ -5,11 +5,11 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "./config";
 
 export const FAVORITES_COLLECTION = "favorites";
 
-const buildFavoritesDocRef = (userId) => doc(db, FAVORITES_COLLECTION, userId);
+const buildFavoritesDocRef = (database, userId) =>
+  doc(database, FAVORITES_COLLECTION, userId);
 
 const normalizeMovieForFavorites = (movie) => ({
   id: movie.id,
@@ -38,7 +38,7 @@ export const getFavoriteMovies = (snapshot) => {
   );
 };
 
-export const addToFavorites = async (userId, movie) => {
+export const addToFavorites = async (database, userId, movie) => {
   if (!userId) {
     throw new Error("A signed-in user is required to save a favorite.");
   }
@@ -47,7 +47,7 @@ export const addToFavorites = async (userId, movie) => {
     throw new Error("A valid movie is required to save a favorite.");
   }
 
-  const favoritesDocRef = buildFavoritesDocRef(userId);
+  const favoritesDocRef = buildFavoritesDocRef(database, userId);
   const normalizedMovie = normalizeMovieForFavorites(movie);
 
   await setDoc(
@@ -68,12 +68,12 @@ export const addToFavorites = async (userId, movie) => {
   return normalizedMovie;
 };
 
-export const removeFromFavorites = async (userId, movieId) => {
+export const removeFromFavorites = async (database, userId, movieId) => {
   if (!userId || movieId === undefined || movieId === null) {
     return false;
   }
 
-  const favoritesDocRef = buildFavoritesDocRef(userId);
+  const favoritesDocRef = buildFavoritesDocRef(database, userId);
 
   try {
     await updateDoc(favoritesDocRef, {
