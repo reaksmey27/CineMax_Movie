@@ -66,6 +66,7 @@ Replace the placeholders with your own TMDB and Firebase web-app configuration.
 | `VITE_FIREBASE_MESSAGING_SENDER_ID` | Yes                        | Messaging sender ID from the web-app config                       |
 | `VITE_FIREBASE_APP_ID`              | Yes                        | Firebase web-app ID                                               |
 | `VITE_FIREBASE_MEASUREMENT_ID`      | No                         | Optional measurement ID; this app does not initialize Analytics   |
+| `VITE_FIREBASE_APP_CHECK_SITE_KEY`  | No                         | reCAPTCHA v3 site key; enables Firebase App Check in the web app  |
 
 TMDB credentials are available in your TMDB account API settings. Copy the Firebase values from your registered web app in Firebase Project Settings.
 
@@ -101,6 +102,19 @@ service cloud.firestore {
 ```
 
 The owner-only collection rules are also in [`firestore.rules`](firestore.rules), which the local Firestore Emulator uses for tests. If you already have Firestore rules, integrate both collection rules without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
+
+#### Protect and monitor the Firebase project
+
+Keep the owner-only Firestore rules above deployed in the Firebase Console. The app does not deploy rules automatically; emulator tests verify that Favorites and Watchlist deny access to other users and signed-out clients.
+
+To add App Check for the web app:
+
+1. In Firebase Console, open **App Check**, register the web app with **reCAPTCHA v3**, and add `localhost` and your deployed hostnames to the reCAPTCHA allowed domains.
+2. Copy the reCAPTCHA **site key** (not its secret key) into `.env` as `VITE_FIREBASE_APP_CHECK_SITE_KEY`. This is a public browser key; never put the reCAPTCHA secret key in a `VITE_*` variable.
+3. Restart the app and check App Check request metrics in Firebase Console. This project initializes the reCAPTCHA provider and refreshes App Check tokens automatically when the site key is configured.
+4. Start by monitoring requests in App Check without enforcement. Once legitimate production traffic is consistently verified, enable enforcement for Cloud Firestore in App Check. Test the deployed site after enforcement; invalid or missing App Check tokens will then be rejected. Leave enforcement off until the production key and domains are configured.
+
+For ongoing monitoring, review **Firestore > Usage** for reads, writes, deletes, and storage; **App Check** metrics for valid, invalid, and unverified requests; and **Authentication > Usage** for sign-in activity. Configure Google Cloud budget alerts for cost awareness (budgets notify but do not cap usage), and inspect Firebase/Google Cloud error metrics and application logs when failures occur.
 
 ### 4. Start development
 
