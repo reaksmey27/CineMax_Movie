@@ -62,6 +62,8 @@ const NotificationsPage = () => {
     clearHistory,
     removeFromHistory,
     getIcon,
+    syncError,
+    retrySync,
   } = useNotification();
   const [filter, setFilter] = useState("all");
   const [confirmClear, setConfirmClear] = useState(false);
@@ -121,6 +123,22 @@ const NotificationsPage = () => {
             </div>
           </div>
         </header>
+
+        {syncError && (
+          <div
+            role="alert"
+            className="mb-5 flex flex-col gap-3 rounded-2xl border border-red-400/30 bg-red-500/10 p-4 text-sm text-red-200 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <p>{syncError}</p>
+            <button
+              type="button"
+              onClick={retrySync}
+              className="min-h-10 shrink-0 rounded-xl bg-red-500/15 px-4 font-bold text-red-100 transition-colors hover:bg-red-500/25"
+            >
+              Retry sync
+            </button>
+          </div>
+        )}
 
         <div className="mb-5 flex flex-col gap-4 rounded-2xl border border-(--color-border) bg-(--color-surface-1) p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
           <div

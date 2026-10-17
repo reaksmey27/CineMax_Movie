@@ -7,6 +7,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -14,6 +15,7 @@ import {
   ExclamationTriangleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { auth } from "../firebase/config";
 
 const NotificationContext = createContext();
 
@@ -38,88 +40,260 @@ const writeStoredNotifications = (notifications) => {
 
 export const NotificationProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
-  const [history, setHistory] = useState(() => readStoredNotifications());
+  const [localHistory, setLocalHistory] = useState(() =>
+    readStoredNotifications(),
+  );
+  const [remoteHistory, setRemoteHistory] = useState({
+    userId: null,
+    notifications: [],
+  });
+  const [userId, setUserId] = useState(null);
+  const [authResolved, setAuthResolved] = useState(false);
+  const [syncError, setSyncError] = useState("");
+  const [retryVersion, setRetryVersion] = useState(0);
+  const history = useMemo(
+    () =>
+      !authResolved
+        ? []
+        : userId && remoteHistory.userId === userId
+          ? remoteHistory.notifications
+          : userId
+            ? []
+            : localHistory,
+    [authResolved, localHistory, remoteHistory, userId],
+  );
 
   useEffect(() => {
-    writeStoredNotifications(history);
-  }, [history]);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUserId(currentUser?.uid || null);
+      setAuthResolved(true);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    if (!authResolved || userId) return;
+    writeStoredNotifications(localHistory);
+  }, [authResolved, localHistory, userId]);
+
+  useEffect(() => {
+    if (!authResolved) return undefined;
+    if (!userId) {
+      setSyncError("");
+      return undefined;
+    }
+
+    let cancelled = false;
+    let unsubscribe;
+    setSyncError("");
+
+    const subscribe = async () => {
+      try {
+        const [{ db }, notificationsModule] = await Promise.all([
+          import("../firebase/firestore"),
+          import("../firebase/notifications"),
+        ]);
+        if (cancelled) return;
+
+        unsubscribe = notificationsModule.subscribeToNotifications(
+          db,
+          userId,
+          (nextHistory) => {
+            setRemoteHistory({ userId, notifications: nextHistory });
+            setSyncError("");
+          },
+          (error) => {
+            console.error("[notifications] Failed to sync history", error);
+            setSyncError(
+              "Notification history could not sync. Check your connection and retry.",
+            );
+          },
+        );
+      } catch (error) {
+        if (cancelled) return;
+        console.error("[notifications] Failed to start history sync", error);
+        setSyncError(
+          "Notification history could not sync. Check your connection and retry.",
+        );
+      }
+    };
+
+    subscribe();
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
+  }, [authResolved, retryVersion, userId]);
+
+  const runRemoteAction = useCallback(async (user, action, description) => {
+    try {
+      const [{ db }, notificationsModule] = await Promise.all([
+        import("../firebase/firestore"),
+        import("../firebase/notifications"),
+      ]);
+      await action(db, user, notificationsModule);
+      setSyncError("");
+    } catch (error) {
+      console.error(`[notifications] Failed to ${description}`, error);
+      setSyncError(
+        "Notification history could not sync. Check your connection and retry.",
+      );
+    }
+  }, []);
 
   const unreadCount = useMemo(
     () => history.filter((notification) => !notification.read).length,
     [history],
   );
 
-  const showNotification = useCallback((message, type = "success", movie) => {
-    const id = crypto.randomUUID();
-    const notificationMovie =
-      movie?.id != null
-        ? {
-            id: movie.id,
-            title: movie.title || "Movie",
-            poster: movie.posterImage || movie.image || null,
-          }
-        : undefined;
-    const newNotification = {
-      id,
-      message,
-      type,
-      timestamp: new Date().toISOString(),
-      read: false,
-      ...(notificationMovie ? { movie: notificationMovie } : {}),
-    };
+  const showNotification = useCallback(
+    (message, type = "success", movie) => {
+      const id = crypto.randomUUID();
+      const notificationMovie =
+        movie?.id != null
+          ? {
+              id: movie.id,
+              title: movie.title || "Movie",
+              poster: movie.posterImage || movie.image || null,
+            }
+          : undefined;
+      const newNotification = {
+        id,
+        message,
+        type,
+        timestamp: new Date().toISOString(),
+        read: false,
+        ...(notificationMovie ? { movie: notificationMovie } : {}),
+      };
 
-    setNotifications((prev) => [
-      ...prev,
-      { ...newNotification, visible: false },
-    ]);
-    setHistory((prev) => [newNotification, ...prev].slice(0, 50));
+      setNotifications((prev) => [
+        ...prev,
+        { ...newNotification, visible: false },
+      ]);
+      const currentUserId = auth.currentUser?.uid;
+      if (currentUserId) {
+        void runRemoteAction(
+          currentUserId,
+          (database, uid, notificationsModule) =>
+            notificationsModule.saveNotification(
+              database,
+              uid,
+              newNotification,
+            ),
+          "save notification",
+        );
+      } else {
+        setLocalHistory((prev) => [newNotification, ...prev].slice(0, 50));
+      }
 
-    setTimeout(() => {
-      setNotifications((prev) =>
-        prev.map((notification) =>
-          notification.id === id
-            ? { ...notification, visible: true }
-            : notification,
-        ),
-      );
-    }, 10);
-
-    setTimeout(() => {
-      setNotifications((prev) =>
-        prev.map((notification) =>
-          notification.id === id
-            ? { ...notification, visible: false }
-            : notification,
-        ),
-      );
       setTimeout(() => {
         setNotifications((prev) =>
-          prev.filter((notification) => notification.id !== id),
+          prev.map((notification) =>
+            notification.id === id
+              ? { ...notification, visible: true }
+              : notification,
+          ),
         );
-      }, 500);
-    }, 5000);
-  }, []);
+      }, 10);
+
+      setTimeout(() => {
+        setNotifications((prev) =>
+          prev.map((notification) =>
+            notification.id === id
+              ? { ...notification, visible: false }
+              : notification,
+          ),
+        );
+        setTimeout(() => {
+          setNotifications((prev) =>
+            prev.filter((notification) => notification.id !== id),
+          );
+        }, 500);
+      }, 5000);
+    },
+    [runRemoteAction],
+  );
 
   const markAllAsRead = useCallback(() => {
-    setHistory((prev) =>
+    if (userId) {
+      void runRemoteAction(
+        userId,
+        (database, uid, notificationsModule) =>
+          notificationsModule.markAllNotificationsAsRead(
+            database,
+            uid,
+            history,
+          ),
+        "mark notifications as read",
+      );
+      return;
+    }
+
+    setLocalHistory((prev) =>
       prev.map((notification) => ({ ...notification, read: true })),
     );
-  }, []);
+  }, [history, runRemoteAction, userId]);
 
-  const markAsRead = useCallback((id) => {
-    setHistory((prev) =>
-      prev.map((notification) =>
-        notification.id === id ? { ...notification, read: true } : notification,
-      ),
-    );
-  }, []);
+  const markAsRead = useCallback(
+    (id) => {
+      if (userId) {
+        void runRemoteAction(
+          userId,
+          (database, uid, notificationsModule) =>
+            notificationsModule.markNotificationAsRead(database, uid, id),
+          "mark notification as read",
+        );
+        return;
+      }
+
+      setLocalHistory((prev) =>
+        prev.map((notification) =>
+          notification.id === id
+            ? { ...notification, read: true }
+            : notification,
+        ),
+      );
+    },
+    [runRemoteAction, userId],
+  );
 
   const clearHistory = useCallback(() => {
-    setHistory([]);
-  }, []);
+    if (userId) {
+      void runRemoteAction(
+        userId,
+        (database, uid, notificationsModule) =>
+          notificationsModule.clearNotifications(database, uid),
+        "clear notification history",
+      );
+      return;
+    }
 
-  const removeFromHistory = useCallback((id) => {
-    setHistory((prev) => prev.filter((notification) => notification.id !== id));
+    setLocalHistory([]);
+  }, [runRemoteAction, userId]);
+
+  const removeFromHistory = useCallback(
+    (id) => {
+      if (userId) {
+        void runRemoteAction(
+          userId,
+          (database, uid, notificationsModule) =>
+            notificationsModule.removeNotification(database, uid, id),
+          "remove notification",
+        );
+        return;
+      }
+
+      setLocalHistory((prev) =>
+        prev.filter((notification) => notification.id !== id),
+      );
+    },
+    [runRemoteAction, userId],
+  );
+
+  const retrySync = useCallback(() => {
+    setSyncError("");
+    setRetryVersion((version) => version + 1);
   }, []);
 
   const removeNotification = useCallback((id) => {
@@ -169,6 +343,8 @@ export const NotificationProvider = ({ children }) => {
       showNotification,
       history,
       unreadCount,
+      syncError,
+      retrySync,
       markAsRead,
       markAllAsRead,
       clearHistory,
@@ -184,6 +360,8 @@ export const NotificationProvider = ({ children }) => {
       removeFromHistory,
       showNotification,
       unreadCount,
+      syncError,
+      retrySync,
     ],
   );
 

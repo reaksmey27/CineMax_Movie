@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 
 const seedNotifications = async (page, notifications) => {
   await page.addInitScript((items) => {
+    if (sessionStorage.getItem("notification-history-seeded")) return;
     localStorage.setItem("cinema_notifications", JSON.stringify(items));
+    sessionStorage.setItem("notification-history-seeded", "true");
   }, notifications);
 };
 
@@ -42,7 +44,7 @@ test("notification history filters and supports read, remove, and clear actions"
   await page.goto("/notifications");
 
   await expect(
-    page.getByRole("heading", { name: "Notifications" }),
+    page.getByRole("heading", { name: "Notifications", exact: true }),
   ).toBeVisible();
   await expect(
     page.locator('div[aria-label="2 unread notifications"]'),
@@ -76,6 +78,12 @@ test("notification history filters and supports read, remove, and clear actions"
     .getByRole("button", { name: "Remove notification" })
     .click();
   await expect(page.getByRole("listitem")).toHaveCount(2);
+
+  await page.reload();
+  await expect(page.getByRole("listitem")).toHaveCount(2);
+  await expect(
+    page.locator('div[aria-label="0 unread notifications"]'),
+  ).toBeVisible();
 
   await page.getByRole("button", { name: "Clear history" }).click();
   await page.getByRole("button", { name: "Confirm" }).click();

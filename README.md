@@ -97,15 +97,19 @@ service cloud.firestore {
       allow read, write: if request.auth != null
                         && request.auth.uid == userId;
     }
+    match /notifications/{userId}/history/{notificationId} {
+      allow read, write: if request.auth != null
+                        && request.auth.uid == userId;
+    }
   }
 }
 ```
 
-The owner-only collection rules are also in [`firestore.rules`](firestore.rules), which the local Firestore Emulator uses for tests. If you already have Firestore rules, integrate both collection rules without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
+The owner-only collection rules are also in [`firestore.rules`](firestore.rules), which the local Firestore Emulator uses for tests. If you already have Firestore rules, integrate all three collection rules without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
 
 #### Protect and monitor the Firebase project
 
-Keep the owner-only Firestore rules above deployed in the Firebase Console. The app does not deploy rules automatically; emulator tests verify that Favorites and Watchlist deny access to other users and signed-out clients.
+Keep the owner-only Firestore rules above deployed in the Firebase Console. The app does not deploy rules automatically; emulator tests verify that Favorites, Watchlist, and notification history deny access to other users and signed-out clients.
 
 To add App Check for the web app:
 
@@ -137,20 +141,21 @@ Open the local URL printed by Vite. Movie browsing needs TMDB access; sign-in an
 | `npm test`             | Run tests against the local Firestore Emulator |
 | `npm run test:ui`      | Run browser-based UI regression tests          |
 
-`npm test` runs the SEO regression tests and Firestore Emulator integration tests for saving/reloading Favorites and Watchlist and denying access from another user. It requires Java to run the emulator. The tests use a demo project and do not connect to your live Firebase project. You can run only the SEO tests with `node --test tests/seo.test.js`.
+`npm test` runs the SEO regression tests and Firestore Emulator integration tests for saving/reloading Favorites, Watchlist, and notification history and denying access from another user. It requires Java to run the emulator. The tests use a demo project and do not connect to your live Firebase project. You can run only the SEO tests with `node --test tests/seo.test.js`.
 
 `npm run test:ui` runs notification-history and trailer-player browser tests in Chromium. Install the browser once with `npx playwright install chromium`. The tests start a local Vite server and use mocked movie data and test-only Firebase configuration.
 
 ## Saved data
 
-| Data              | Storage                                          | Behavior                                                                              |
-| ----------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------- |
-| Favorites         | Firestore, `favorites/{uid}`                     | Account-scoped, with real-time updates while signed in                                |
-| Watchlist         | Firestore, `watchlists/{uid}`                    | Account-scoped, with real-time updates while signed in                                |
-| Profile overrides | Browser `localStorage`, `movie_user_profiles`    | Stored per user ID; username updates also attempt to update the Firebase display name |
-| Search history    | Browser `localStorage`, `cinemax-search-history` | Recent searches from the Movies page                                                  |
+| Data              | Storage                                          | Behavior                                                                                          |
+| ----------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Favorites         | Firestore, `favorites/{uid}`                     | Account-scoped, with real-time updates while signed in                                            |
+| Watchlist         | Firestore, `watchlists/{uid}`                    | Account-scoped, with real-time updates while signed in                                            |
+| Notifications     | Firestore, `notifications/{uid}/history/{id}`    | Account-scoped, real-time history while signed in; local history while signed out; latest 50 kept |
+| Profile overrides | Browser `localStorage`, `movie_user_profiles`    | Stored per user ID; username updates also attempt to update the Firebase display name             |
+| Search history    | Browser `localStorage`, `cinemax-search-history` | Recent searches from the Movies page                                                              |
 
-The profile photo comes from the signed-in account when available; otherwise the UI shows an initial. Email is read-only in the profile editor. Clearing browser storage removes search history and profile overrides, but does not delete favorites or the watchlist stored in Firestore. Sign in to save and sync either collection.
+The profile photo comes from the signed-in account when available; otherwise the UI shows an initial. Email is read-only in the profile editor. Notification history created while signed in syncs between devices; signed-out history stays in this browser and is kept separate from account history. Existing local history is not automatically imported into an account. Clearing browser storage removes local notification history, search history, and profile overrides, but does not delete Favorites, Watchlist, or signed-in notification history stored in Firestore.
 
 Favorites saved in browser storage before Firestore syncing was added are not imported automatically. Add them again while signed in if you want them in your account collection.
 
