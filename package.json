@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
-    "test": "firebase emulators:exec --project demo-movie-website --only firestore \"node --test\""
+    "test": "firebase emulators:exec --project demo-movie-website --only firestore \"node --test\"",
+    "test:ui": "playwright test"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.1",
     "@firebase/rules-unit-testing": "^5.0.2",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",

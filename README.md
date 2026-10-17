@@ -135,8 +135,11 @@ Open the local URL printed by Vite. Movie browsing needs TMDB access; sign-in an
 | `npm run format:check` | Check formatting with Prettier                 |
 | `npm run format`       | Format project files with Prettier             |
 | `npm test`             | Run tests against the local Firestore Emulator |
+| `npm run test:ui`      | Run browser-based UI regression tests          |
 
 `npm test` runs the SEO regression tests and Firestore Emulator integration tests for saving/reloading Favorites and Watchlist and denying access from another user. It requires Java to run the emulator. The tests use a demo project and do not connect to your live Firebase project. You can run only the SEO tests with `node --test tests/seo.test.js`.
+
+`npm run test:ui` runs notification-history and trailer-player browser tests in Chromium. Install the browser once with `npx playwright install chromium`. The tests start a local Vite server and use mocked movie data and test-only Firebase configuration.
 
 ## Saved data
 

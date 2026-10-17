@@ -66,8 +66,19 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
       }
     };
 
+    const handleFocusIn = (event) => {
+      if (playerRef.current?.contains(event.target)) return;
+      playerRef.current
+        ?.querySelector("button:not([disabled]), iframe")
+        ?.focus();
+    };
+
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("focusin", handleFocusIn);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("focusin", handleFocusIn);
+    };
   }, [isActive, isMinimized]);
 
   useEffect(
