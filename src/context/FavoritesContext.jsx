@@ -7,20 +7,18 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
-import { db } from "../firebase/config";
-import {
-  addToFavorites as addMovieToFavorites,
-  FAVORITES_COLLECTION,
-  getFavoriteMovies,
-  removeFromFavorites as removeMovieFromFavorites,
-} from "../firebase/favorites";
 
 const FavoritesContext = createContext();
 
-const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
+const FavoritesSessionProvider = ({
+  children,
+  onRequireSignIn,
+  showNotification,
+  userId,
+}) => {
   const [favorites, setFavorites] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(() => Boolean(userId));
@@ -37,23 +35,64 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
       return undefined;
     }
 
-    const favoritesDocRef = doc(db, FAVORITES_COLLECTION, userId);
-    const unsubscribe = onSnapshot(
-      favoritesDocRef,
-      (snapshot) => {
-        setFavorites(getFavoriteMovies(snapshot));
-        setError(false);
-        setLoading(false);
-      },
-      (subscriptionError) => {
-        console.error("[favorites] Failed to subscribe", subscriptionError);
+    let cancelled = false;
+    let unsubscribe;
+
+    const subscribe = async () => {
+      try {
+        const [firestore, { db }, favoritesModule] = await Promise.all([
+          import("firebase/firestore"),
+          import("../firebase/firestore"),
+          import("../firebase/favorites"),
+        ]);
+
+        if (cancelled) {
+          return;
+        }
+
+        const favoritesDocRef = firestore.doc(
+          db,
+          favoritesModule.FAVORITES_COLLECTION,
+          userId,
+        );
+        unsubscribe = firestore.onSnapshot(
+          favoritesDocRef,
+          (snapshot) => {
+            setFavorites(favoritesModule.getFavoriteMovies(snapshot));
+            setError(false);
+            setLoading(false);
+          },
+          (subscriptionError) => {
+            console.error("[favorites] Failed to subscribe", subscriptionError);
+            setError(true);
+            setLoading(false);
+            showNotification(
+              "We couldn't sync your favorites right now.",
+              "error",
+            );
+          },
+        );
+      } catch (subscriptionError) {
+        if (cancelled) {
+          return;
+        }
+
+        console.error(
+          "[favorites] Failed to initialize subscription",
+          subscriptionError,
+        );
         setError(true);
         setLoading(false);
         showNotification("We couldn't sync your favorites right now.", "error");
-      },
-    );
+      }
+    };
 
-    return unsubscribe;
+    subscribe();
+
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
   }, [showNotification, userId, retryVersion]);
 
   const favoriteIds = useMemo(
@@ -64,7 +103,7 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
   const addToFavorites = useCallback(
     async (movie) => {
       if (!userId) {
-        showNotification("Sign in to save movies to your favorites.", "info");
+        onRequireSignIn("Sign in to save movies to your favorites.");
         return false;
       }
 
@@ -77,6 +116,11 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
+        const [{ db }, { addToFavorites: addMovieToFavorites }] =
+          await Promise.all([
+            import("../firebase/firestore"),
+            import("../firebase/favorites"),
+          ]);
         await addMovieToFavorites(db, userId, movie);
         showNotification(`${movie.title} added to your favorites.`, "success");
         return true;
@@ -89,13 +133,13 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
         return false;
       }
     },
-    [favoriteIds, showNotification, userId],
+    [favoriteIds, onRequireSignIn, showNotification, userId],
   );
 
   const removeFromFavorites = useCallback(
     async (movieId) => {
       if (!userId) {
-        showNotification("Sign in to manage your favorites.", "info");
+        onRequireSignIn("Sign in to manage your favorites.");
         return false;
       }
 
@@ -105,6 +149,11 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
+        const [{ db }, { removeFromFavorites: removeMovieFromFavorites }] =
+          await Promise.all([
+            import("../firebase/firestore"),
+            import("../firebase/favorites"),
+          ]);
         await removeMovieFromFavorites(db, userId, movieId);
         showNotification(`Removed ${movie.title} from favorites.`, "info");
         return true;
@@ -114,7 +163,7 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
         return false;
       }
     },
-    [favorites, showNotification, userId],
+    [favorites, onRequireSignIn, showNotification, userId],
   );
 
   const isFavorite = useCallback(
@@ -164,11 +213,23 @@ const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
 export const FavoritesProvider = ({ children }) => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
+  const location = useLocation();
+  const navigate = useNavigate();
   const userId = user?.uid || null;
+  const onRequireSignIn = useCallback(
+    (message) => {
+      showNotification(message, "info");
+      navigate("/login", {
+        state: { backgroundLocation: location },
+      });
+    },
+    [location, navigate, showNotification],
+  );
 
   return (
     <FavoritesSessionProvider
       key={userId || "guest"}
+      onRequireSignIn={onRequireSignIn}
       showNotification={showNotification}
       userId={userId}
     >

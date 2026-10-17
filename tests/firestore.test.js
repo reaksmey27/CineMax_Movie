@@ -104,6 +104,19 @@ const testSavedCollection = ({ collection, addMovie, getMovies, name }) => {
       /permission-denied/i,
     );
   });
+
+  test(`${name} denies signed-out reads and writes`, async () => {
+    const database = environment.unauthenticatedContext().firestore();
+
+    await assert.rejects(
+      getDoc(doc(database, collection, OWNER_UID)),
+      /permission-denied/i,
+    );
+    await assert.rejects(
+      addMovie(database, OWNER_UID, MOVIE),
+      /permission-denied/i,
+    );
+  });
 };
 
 testSavedCollection({

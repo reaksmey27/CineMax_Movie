@@ -7,20 +7,18 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
-import { db } from "../firebase/config";
-import {
-  addToWatchlist as addMovieToWatchlist,
-  getWatchlistMovies,
-  removeFromWatchlist as removeMovieFromWatchlist,
-  WATCHLISTS_COLLECTION,
-} from "../firebase/watchlist";
 
 const WatchlistContext = createContext();
 
-const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
+const WatchlistSessionProvider = ({
+  children,
+  onRequireSignIn,
+  showNotification,
+  userId,
+}) => {
   const [watchlist, setWatchlist] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(() => Boolean(userId));
@@ -36,23 +34,64 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       return undefined;
     }
 
-    const watchlistDocRef = doc(db, WATCHLISTS_COLLECTION, userId);
-    const unsubscribe = onSnapshot(
-      watchlistDocRef,
-      (snapshot) => {
-        setWatchlist(getWatchlistMovies(snapshot));
-        setError(false);
-        setLoading(false);
-      },
-      (error) => {
-        console.error("[watchlist] Failed to subscribe", error);
+    let cancelled = false;
+    let unsubscribe;
+
+    const subscribe = async () => {
+      try {
+        const [firestore, { db }, watchlistModule] = await Promise.all([
+          import("firebase/firestore"),
+          import("../firebase/firestore"),
+          import("../firebase/watchlist"),
+        ]);
+
+        if (cancelled) {
+          return;
+        }
+
+        const watchlistDocRef = firestore.doc(
+          db,
+          watchlistModule.WATCHLISTS_COLLECTION,
+          userId,
+        );
+        unsubscribe = firestore.onSnapshot(
+          watchlistDocRef,
+          (snapshot) => {
+            setWatchlist(watchlistModule.getWatchlistMovies(snapshot));
+            setError(false);
+            setLoading(false);
+          },
+          (subscriptionError) => {
+            console.error("[watchlist] Failed to subscribe", subscriptionError);
+            setError(true);
+            setLoading(false);
+            showNotification(
+              "We couldn't sync your watchlist right now.",
+              "error",
+            );
+          },
+        );
+      } catch (subscriptionError) {
+        if (cancelled) {
+          return;
+        }
+
+        console.error(
+          "[watchlist] Failed to initialize subscription",
+          subscriptionError,
+        );
         setError(true);
         setLoading(false);
         showNotification("We couldn't sync your watchlist right now.", "error");
-      },
-    );
+      }
+    };
 
-    return unsubscribe;
+    subscribe();
+
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
   }, [showNotification, userId, retryVersion]);
 
   const watchlistIds = useMemo(
@@ -63,7 +102,7 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
   const addToWatchlist = useCallback(
     async (movie) => {
       if (!userId) {
-        showNotification("Sign in to save movies to your watchlist.", "info");
+        onRequireSignIn("Sign in to save movies to your watchlist.");
         return false;
       }
 
@@ -76,6 +115,11 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
+        const [{ db }, { addToWatchlist: addMovieToWatchlist }] =
+          await Promise.all([
+            import("../firebase/firestore"),
+            import("../firebase/watchlist"),
+          ]);
         await addMovieToWatchlist(db, userId, movie);
         showNotification(`${movie.title} added to your watchlist.`, "success");
         return true;
@@ -88,13 +132,13 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
         return false;
       }
     },
-    [showNotification, userId, watchlistIds],
+    [onRequireSignIn, showNotification, userId, watchlistIds],
   );
 
   const removeFromWatchlist = useCallback(
     async (movieId) => {
       if (!userId) {
-        showNotification("Sign in to manage your watchlist.", "info");
+        onRequireSignIn("Sign in to manage your watchlist.");
         return false;
       }
 
@@ -106,6 +150,11 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
       }
 
       try {
+        const [{ db }, { removeFromWatchlist: removeMovieFromWatchlist }] =
+          await Promise.all([
+            import("../firebase/firestore"),
+            import("../firebase/watchlist"),
+          ]);
         await removeMovieFromWatchlist(db, userId, movieId);
         showNotification(`Removed ${movie.title} from your watchlist.`, "info");
         return true;
@@ -115,7 +164,7 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
         return false;
       }
     },
-    [showNotification, userId, watchlist],
+    [onRequireSignIn, showNotification, userId, watchlist],
   );
 
   const isInWatchlist = useCallback(
@@ -167,11 +216,23 @@ const WatchlistSessionProvider = ({ children, showNotification, userId }) => {
 export const WatchlistProvider = ({ children }) => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
+  const location = useLocation();
+  const navigate = useNavigate();
   const userId = user?.uid || null;
+  const onRequireSignIn = useCallback(
+    (message) => {
+      showNotification(message, "info");
+      navigate("/login", {
+        state: { backgroundLocation: location },
+      });
+    },
+    [location, navigate, showNotification],
+  );
 
   return (
     <WatchlistSessionProvider
       key={userId || "guest"}
+      onRequireSignIn={onRequireSignIn}
       showNotification={showNotification}
       userId={userId}
     >

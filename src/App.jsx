@@ -77,13 +77,13 @@ const App = () => {
     <ErrorBoundary>
       <NotificationProvider>
         <AuthProvider>
-          <WatchlistProvider>
-            <FavoritesProvider>
-              <Router>
+          <Router>
+            <WatchlistProvider>
+              <FavoritesProvider>
                 <AppContent theme={theme} toggleTheme={toggleTheme} />
-              </Router>
-            </FavoritesProvider>
-          </WatchlistProvider>
+              </FavoritesProvider>
+            </WatchlistProvider>
+          </Router>
         </AuthProvider>
       </NotificationProvider>
     </ErrorBoundary>

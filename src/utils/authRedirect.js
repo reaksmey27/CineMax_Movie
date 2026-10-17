@@ -1,7 +1,22 @@
 export const getAuthRedirect = (state) => {
   const returnTo = state?.returnTo;
-  return typeof returnTo === "string" &&
+  if (
+    typeof returnTo === "string" &&
     (returnTo === "/profile" || /^\/movie\/\d+$/.test(returnTo))
-    ? returnTo
-    : "/";
+  ) {
+    return returnTo;
+  }
+
+  const backgroundLocation = state?.backgroundLocation;
+  const pathname = backgroundLocation?.pathname;
+  if (
+    typeof pathname === "string" &&
+    pathname.startsWith("/") &&
+    !pathname.startsWith("//") &&
+    !["/login", "/signup", "/register"].includes(pathname)
+  ) {
+    return `${pathname}${backgroundLocation.search || ""}${backgroundLocation.hash || ""}`;
+  }
+
+  return "/";
 };
