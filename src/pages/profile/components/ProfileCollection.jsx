@@ -144,7 +144,9 @@ const ProfileCollection = () => {
                       ? 0
                       : event.key === "End"
                         ? tabs.length - 1
-                        : (index + 1) % tabs.length
+                        : event.key === "ArrowRight"
+                          ? (index + 1) % tabs.length
+                          : (index - 1 + tabs.length) % tabs.length
                   ].id,
                 );
               }}

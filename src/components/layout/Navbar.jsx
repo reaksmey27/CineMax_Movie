@@ -40,6 +40,9 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const [isDonationOpen, setIsDonationOpen] = useState(false);
 
   const panelRef = useRef(null);
+  const menuToggleRef = useRef(null);
+  const menuRef = useRef(null);
+  const wasMenuOpen = useRef(false);
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1280px)");
@@ -56,6 +59,55 @@ const Navbar = ({ theme, onToggleTheme }) => {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      if (
+        wasMenuOpen.current &&
+        menuToggleRef.current?.getClientRects().length
+      ) {
+        menuToggleRef.current.focus();
+      }
+      wasMenuOpen.current = false;
+      return undefined;
+    }
+
+    wasMenuOpen.current = true;
+    const focusableElements = () =>
+      menuRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) || [];
+    focusableElements()[0]?.focus();
+
+    const handleMenuKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setIsMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = focusableElements();
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleMenuKeyDown);
+    return () => document.removeEventListener("keydown", handleMenuKeyDown);
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -167,7 +219,10 @@ const Navbar = ({ theme, onToggleTheme }) => {
         <div className="flex shrink-0 items-center gap-1 sm:gap-4">
           <NavSearch
             key={location.key}
-            onOpen={() => { setIsMenuOpen(false); setShowNotifPanel(false); }}
+            onOpen={() => {
+              setIsMenuOpen(false);
+              setShowNotifPanel(false);
+            }}
           />
           {/* Theme Button */}
           <button
@@ -303,17 +358,24 @@ const Navbar = ({ theme, onToggleTheme }) => {
 
           <button
             type="button"
-            onClick={() => { setIsMenuOpen(false); setShowNotifPanel(false); setIsDonationOpen(true); }}
+            onClick={() => {
+              setIsMenuOpen(false);
+              setShowNotifPanel(false);
+              setIsDonationOpen(true);
+            }}
             className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-amber-400/40 bg-[var(--color-surface-2)] p-2 text-[var(--color-text)] transition-all hover:border-amber-400/70 hover:bg-[var(--color-surface-3)] focus-visible:outline-2 focus-visible:outline-amber-400 2xl:px-4"
             aria-label="Buy me a coffee"
             title="Buy me a coffee"
           >
             <FaCoffee className="h-5 w-5" aria-hidden="true" />
-            <span className="hidden text-sm font-bold 2xl:inline">Buy me a coffee</span>
+            <span className="hidden text-sm font-bold 2xl:inline">
+              Buy me a coffee
+            </span>
           </button>
 
           {/* Mobile Menu */}
           <button
+            ref={menuToggleRef}
             type="button"
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
@@ -322,6 +384,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
             className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:p-2 xl:hidden"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            aria-haspopup="dialog"
           >
             {isMenuOpen ? (
               <XMarkIcon className="h-7 w-7" />
@@ -337,11 +401,19 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <button
             type="button"
             className="fixed inset-x-0 bottom-0 top-20 z-[100] bg-black/60 backdrop-blur-sm sm:top-28"
-            aria-label="Close menu overlay"
+            aria-hidden="true"
+            tabIndex={-1}
             onClick={() => setIsMenuOpen(false)}
           />
 
-          <aside className="fixed bottom-0 right-0 top-20 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-28">
+          <aside
+            ref={menuRef}
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Main navigation"
+            className="fixed bottom-0 right-0 top-20 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-28"
+          >
             <div className="mb-4 rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-1)] p-3">
               {isAuthenticated ? (
                 <Link
@@ -384,26 +456,28 @@ const Navbar = ({ theme, onToggleTheme }) => {
               )}
             </div>
 
-            <div className="flex flex-col gap-1">
-              {NAV_LINKS.map((link) => {
-                const isActive = checkActive(link.path);
+            <nav aria-label="Mobile">
+              <div className="flex flex-col gap-1">
+                {NAV_LINKS.map((link) => {
+                  const isActive = checkActive(link.path);
 
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`rounded-xl px-4 py-3 text-sm font-black transition ${
-                      isActive
-                        ? "bg-purple-600 text-white shadow-[0_0_18px_rgba(168,85,247,0.25)]"
-                        : "text-[var(--color-text-soft)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
-            </div>
+                  return (
+                    <Link
+                      key={link.name}
+                      to={link.path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`rounded-xl px-4 py-3 text-sm font-black transition ${
+                        isActive
+                          ? "bg-purple-600 text-white shadow-[0_0_18px_rgba(168,85,247,0.25)]"
+                          : "text-[var(--color-text-soft)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </nav>
 
             {isAuthenticated && (
               <button

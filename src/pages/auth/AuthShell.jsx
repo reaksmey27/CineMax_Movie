@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { tmdbService } from "../../services/tmdbService";
 
@@ -55,13 +55,59 @@ const posterCards = [
 
 const AuthShell = ({ children, onClose }) => {
   const [movieCards, setMovieCards] = useState(posterCards);
+  const dialogRef = useRef(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
+    const opener = document.activeElement;
     document.body.style.overflow = "hidden";
 
+    const getFocusableElements = () =>
+      dialogRef.current?.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) || [];
+
+    const firstInput = dialogRef.current?.querySelector(
+      "input:not([disabled])",
+    );
+    (firstInput || getFocusableElements()[0])?.focus();
+
+    const handleDialogKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onCloseRef.current?.();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = getFocusableElements();
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleDialogKeyDown);
+
     return () => {
+      document.removeEventListener("keydown", handleDialogKeyDown);
       document.body.style.overflow = previousOverflow;
+      if (opener instanceof HTMLElement && opener.isConnected) opener.focus();
     };
   }, []);
 
@@ -154,6 +200,7 @@ const AuthShell = ({ children, onClose }) => {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.05),transparent_40%)]" />
       <div className="mx-auto flex min-h-[calc(100svh-3rem)] w-full max-w-[840px] items-center">
         <div
+          ref={dialogRef}
           className="animate-auth-modal relative grid w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]"
           onClick={(event) => event.stopPropagation()}
           role="dialog"
