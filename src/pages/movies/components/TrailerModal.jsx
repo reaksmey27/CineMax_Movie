@@ -1,46 +1,186 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const TrailerModal = ({ movie, onClose }) => {
-  const dialogRef = useRef(null);
-  const closeRef = useRef(null);
+const TrailerModal = ({ movie, isOpen, onClose }) => {
+  const playerRef = useRef(null);
+  const minimizeRef = useRef(null);
+  const expandRef = useRef(null);
+  const openerRef = useRef(null);
+  const previousOverflowRef = useRef("");
+  const [isMinimized, setIsMinimized] = useState(false);
   const hasTrailer = Boolean(movie.trailerKey);
+  const isActive = hasTrailer && (isOpen || isMinimized);
 
   useEffect(() => {
-    if (!hasTrailer) return;
-    const dialog = dialogRef.current;
-    const opener = document.activeElement;
-    const previousOverflow = document.body.style.overflow;
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-    return () => {
-      dialog.close();
-      document.body.style.overflow = previousOverflow;
-      if (opener instanceof HTMLElement && opener.isConnected) opener.focus();
-    };
-  }, [hasTrailer]);
+    if (isOpen) {
+      openerRef.current = document.activeElement;
+      previousOverflowRef.current = document.body.style.overflow;
+      requestAnimationFrame(() => minimizeRef.current?.focus());
+      return undefined;
+    }
 
-  if (!hasTrailer) return null;
+    if (
+      openerRef.current instanceof HTMLElement &&
+      openerRef.current.isConnected
+    ) {
+      openerRef.current.focus();
+    }
+    return undefined;
+  }, [isOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow =
+      isOpen && !isMinimized ? "hidden" : previousOverflowRef.current;
+  }, [isOpen, isMinimized]);
+
+  useEffect(() => {
+    if (!isActive || isMinimized) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setIsMinimized(true);
+        requestAnimationFrame(() => expandRef.current?.focus());
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = playerRef.current?.querySelectorAll(
+        "button:not([disabled]), iframe",
+      );
+      if (!focusable?.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isActive, isMinimized]);
+
+  useEffect(
+    () => () => {
+      document.body.style.overflow = previousOverflowRef.current;
+    },
+    [],
+  );
+
+  if (!isActive) return null;
+
+  const minimizePlayer = () => {
+    setIsMinimized(true);
+    requestAnimationFrame(() => expandRef.current?.focus());
+  };
+
+  const expandPlayer = () => {
+    setIsMinimized(false);
+    requestAnimationFrame(() => minimizeRef.current?.focus());
+  };
+
+  const stopPlayer = () => {
+    setIsMinimized(false);
+    onClose();
+  };
 
   return createPortal(
-    <dialog ref={dialogRef} aria-label={`${movie.title} trailer`} aria-modal="true"
-      className="trailer-dialog fixed inset-0 m-auto w-[calc(100%-1.5rem)] max-w-6xl overflow-visible rounded-2xl border border-white/20 bg-black p-0 text-white shadow-2xl backdrop:bg-black/90 backdrop:backdrop-blur-md"
-      onCancel={(event) => { event.preventDefault(); onClose(); }}>
-      <div className="flex items-center justify-between gap-4 border-b border-white/20 px-4 py-2">
-        <h2 className="min-w-0 truncate text-sm font-semibold">{movie.title} trailer</h2>
-        <button ref={closeRef} type="button" aria-label="Close trailer" onClick={onClose}
-          className="flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400">
-          <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-        </button>
+    <section
+      className={
+        isMinimized
+          ? "fixed bottom-4 right-4 z-[300] w-[min(360px,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-white/20 bg-slate-950 text-white shadow-2xl shadow-black/50"
+          : "fixed inset-0 z-[300] flex items-center justify-center bg-black/90 p-3 text-white backdrop-blur-md sm:p-6"
+      }
+      role="dialog"
+      aria-label={
+        isMinimized
+          ? `${movie.title} minimized trailer player`
+          : `${movie.title} trailer player`
+      }
+      aria-modal={isMinimized ? undefined : "true"}
+      onMouseDown={(event) => {
+        if (!isMinimized && event.target === event.currentTarget) {
+          minimizePlayer();
+        }
+      }}
+    >
+      <div
+        ref={playerRef}
+        className={
+          isMinimized
+            ? "overflow-hidden rounded-2xl"
+            : "w-full max-w-6xl overflow-hidden rounded-2xl border border-white/20 bg-slate-950 shadow-2xl"
+        }
+      >
+        <div className="flex min-h-12 items-center justify-between gap-3 border-b border-white/10 px-3 py-2 sm:px-4">
+          <h2 className="min-w-0 truncate text-sm font-semibold">
+            {isMinimized
+              ? `Now playing: ${movie.title} trailer`
+              : `${movie.title} trailer`}
+          </h2>
+          <div className="flex shrink-0 items-center gap-1">
+            {isMinimized ? (
+              <>
+                <button
+                  ref={expandRef}
+                  type="button"
+                  aria-label="Expand trailer player"
+                  title="Expand player"
+                  onClick={expandPlayer}
+                  className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                >
+                  <ArrowsPointingOutIcon
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                  />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Stop trailer"
+                  title="Stop trailer"
+                  onClick={stopPlayer}
+                  className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-red-500/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+                >
+                  <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </>
+            ) : (
+              <button
+                ref={minimizeRef}
+                type="button"
+                aria-label="Minimize trailer and keep watching"
+                title="Minimize and keep watching"
+                onClick={minimizePlayer}
+                className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+              >
+                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            )}
+          </div>
+        </div>
+        <iframe
+          className={
+            isMinimized
+              ? "aspect-video w-full bg-black"
+              : "aspect-video max-h-[calc(100dvh-6rem)] w-full bg-black"
+          }
+          src={`https://www.youtube.com/embed/${movie.trailerKey}?autoplay=1&rel=0`}
+          title={`${movie.title} trailer`}
+          allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
       </div>
-      <iframe className="aspect-video w-full rounded-b-2xl"
-        src={`https://www.youtube.com/embed/${movie.trailerKey}?autoplay=1&rel=0`}
-        title={`${movie.title} trailer`}
-        allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen />
-    </dialog>,
+    </section>,
     document.body,
   );
 };

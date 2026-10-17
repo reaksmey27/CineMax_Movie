@@ -146,8 +146,12 @@ const MovieDetailPage = () => {
         )}
       </div>
 
-      {showTrailer && (
-        <TrailerModal movie={movie} onClose={() => setShowTrailer(false)} />
+      {movie.trailerKey && (
+        <TrailerModal
+          movie={movie}
+          isOpen={showTrailer}
+          onClose={() => setShowTrailer(false)}
+        />
       )}
     </div>
   );
