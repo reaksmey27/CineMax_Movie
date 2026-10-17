@@ -7,36 +7,54 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
+import { db } from "../firebase/config";
+import {
+  addToFavorites as addMovieToFavorites,
+  FAVORITES_COLLECTION,
+  getFavoriteMovies,
+  removeFromFavorites as removeMovieFromFavorites,
+} from "../firebase/favorites";
 
 const FavoritesContext = createContext();
 
-const readStoredFavorites = () => {
-  try {
-    const saved = localStorage.getItem("movie_favorites");
-    const parsed = saved ? JSON.parse(saved) : [];
+const FavoritesSessionProvider = ({ children, showNotification, userId }) => {
+  const [favorites, setFavorites] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(() => Boolean(userId));
+  const [retryVersion, setRetryVersion] = useState(0);
 
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-};
-
-const writeStoredFavorites = (favorites) => {
-  try {
-    localStorage.setItem("movie_favorites", JSON.stringify(favorites));
-  } catch {
-    // Ignore storage failures in restricted browser contexts.
-  }
-};
-
-export const FavoritesProvider = ({ children }) => {
-  const { showNotification } = useNotification();
-  const [favorites, setFavorites] = useState(() => readStoredFavorites());
+  const retry = useCallback(() => {
+    setLoading(true);
+    setError(false);
+    setRetryVersion((version) => version + 1);
+  }, []);
 
   useEffect(() => {
-    writeStoredFavorites(favorites);
-  }, [favorites]);
+    if (!userId) {
+      return undefined;
+    }
+
+    const favoritesDocRef = doc(db, FAVORITES_COLLECTION, userId);
+    const unsubscribe = onSnapshot(
+      favoritesDocRef,
+      (snapshot) => {
+        setFavorites(getFavoriteMovies(snapshot));
+        setError(false);
+        setLoading(false);
+      },
+      (subscriptionError) => {
+        console.error("[favorites] Failed to subscribe", subscriptionError);
+        setError(true);
+        setLoading(false);
+        showNotification("We couldn't sync your favorites right now.", "error");
+      },
+    );
+
+    return unsubscribe;
+  }, [showNotification, userId, retryVersion]);
 
   const favoriteIds = useMemo(
     () => new Set(favorites.map((movie) => movie.id)),
@@ -44,30 +62,59 @@ export const FavoritesProvider = ({ children }) => {
   );
 
   const addToFavorites = useCallback(
-    (movie) => {
-      if (favoriteIds.has(movie.id)) {
-        return;
+    async (movie) => {
+      if (!userId) {
+        showNotification("Sign in to save movies to your favorites.", "info");
+        return false;
       }
 
-      setFavorites((prev) => [...prev, movie]);
-      showNotification(`${movie.title} added to your collection!`, "success");
+      if (favoriteIds.has(movie.id)) {
+        showNotification(
+          `${movie.title} is already in your favorites.`,
+          "info",
+        );
+        return false;
+      }
+
+      try {
+        await addMovieToFavorites(userId, movie);
+        showNotification(`${movie.title} added to your favorites.`, "success");
+        return true;
+      } catch (saveError) {
+        console.error("[favorites] Failed to add movie", saveError);
+        showNotification(
+          "We couldn't add that movie to your favorites.",
+          "error",
+        );
+        return false;
+      }
     },
-    [favoriteIds, showNotification],
+    [favoriteIds, showNotification, userId],
   );
 
   const removeFromFavorites = useCallback(
-    (movieId) => {
-      const movie = favorites.find((favorite) => favorite.id === movieId);
-      if (!movie) {
-        return;
+    async (movieId) => {
+      if (!userId) {
+        showNotification("Sign in to manage your favorites.", "info");
+        return false;
       }
 
-      setFavorites((prev) =>
-        prev.filter((favorite) => favorite.id !== movieId),
-      );
-      showNotification(`Removed ${movie.title} from favorites.`, "info");
+      const movie = favorites.find((favorite) => favorite.id === movieId);
+      if (!movie) {
+        return false;
+      }
+
+      try {
+        await removeMovieFromFavorites(userId, movieId);
+        showNotification(`Removed ${movie.title} from favorites.`, "info");
+        return true;
+      } catch (removeError) {
+        console.error("[favorites] Failed to remove movie", removeError);
+        showNotification("We couldn't remove that movie right now.", "error");
+        return false;
+      }
     },
-    [favorites, showNotification],
+    [favorites, showNotification, userId],
   );
 
   const isFavorite = useCallback(
@@ -76,13 +123,12 @@ export const FavoritesProvider = ({ children }) => {
   );
 
   const toggleFavorite = useCallback(
-    (movie) => {
+    async (movie) => {
       if (favoriteIds.has(movie.id)) {
-        removeFromFavorites(movie.id);
-        return;
+        return removeFromFavorites(movie.id);
       }
 
-      addToFavorites(movie);
+      return addToFavorites(movie);
     },
     [addToFavorites, favoriteIds, removeFromFavorites],
   );
@@ -90,17 +136,44 @@ export const FavoritesProvider = ({ children }) => {
   const value = useMemo(
     () => ({
       favorites,
+      loading,
+      error,
+      retry,
       toggleFavorite,
       removeFromFavorites,
       isFavorite,
     }),
-    [favorites, isFavorite, toggleFavorite, removeFromFavorites],
+    [
+      error,
+      favorites,
+      isFavorite,
+      loading,
+      removeFromFavorites,
+      retry,
+      toggleFavorite,
+    ],
   );
 
   return (
     <FavoritesContext.Provider value={value}>
       {children}
     </FavoritesContext.Provider>
+  );
+};
+
+export const FavoritesProvider = ({ children }) => {
+  const { user } = useAuth();
+  const { showNotification } = useNotification();
+  const userId = user?.uid || null;
+
+  return (
+    <FavoritesSessionProvider
+      key={userId || "guest"}
+      showNotification={showNotification}
+      userId={userId}
+    >
+      {children}
+    </FavoritesSessionProvider>
   );
 };
 

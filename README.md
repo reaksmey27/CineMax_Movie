@@ -22,7 +22,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 | Routing               | React Router 7           |
 | Build tooling         | Vite 7                   |
 | Authentication        | Firebase Authentication  |
-| Watchlist storage     | Cloud Firestore          |
+| Saved movie storage   | Cloud Firestore          |
 | Movie data and images | TMDB                     |
 | Icons                 | Heroicons, React Icons   |
 | Code quality          | ESLint, Prettier         |
@@ -80,9 +80,9 @@ In the Firebase project referenced by `.env`:
 1. Enable **Email/Password** and **Google** in Authentication's sign-in providers.
 2. Add `localhost` and your deployed hostnames to Authentication's authorized domains. Use hostnames without a protocol or path.
 3. Create a **Cloud Firestore** database.
-4. Configure Firestore rules so signed-in users can access only their own `watchlists/{userId}` document.
+4. Configure Firestore rules so signed-in users can access only their own `favorites/{userId}` and `watchlists/{userId}` documents.
 
-For a dedicated project, this minimal owner-only rule matches the app's watchlist storage path:
+For a dedicated project, these minimal owner-only rules match the app's saved movie storage paths:
 
 ```text
 rules_version = '2';
@@ -92,11 +92,15 @@ service cloud.firestore {
       allow read, write: if request.auth != null
                         && request.auth.uid == userId;
     }
+    match /favorites/{userId} {
+      allow read, write: if request.auth != null
+                        && request.auth.uid == userId;
+    }
   }
 }
 ```
 
-If you already have Firestore rules, integrate the watchlist rule without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
+If you already have Firestore rules, integrate both collection rules without replacing rules for your other collections. The repository does not automatically deploy Firebase rules.
 
 ### 4. Start development
 
@@ -121,14 +125,16 @@ SEO regression tests run with `node --test tests/seo.test.js`. There is no gener
 
 ## Saved data
 
-| Data              | Storage                                          | Behavior                                                                                |
-| ----------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| Favorites         | Browser `localStorage`, `movie_favorites`        | Shared by users of the same browser origin; not account-scoped or synced across devices |
-| Watchlist         | Firestore, `watchlists/{uid}`                    | Account-scoped, with real-time updates while signed in                                  |
-| Profile overrides | Browser `localStorage`, `movie_user_profiles`    | Stored per user ID; username updates also attempt to update the Firebase display name   |
-| Search history    | Browser `localStorage`, `cinemax-search-history` | Recent searches from the Movies page                                                    |
+| Data              | Storage                                          | Behavior                                                                              |
+| ----------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| Favorites         | Firestore, `favorites/{uid}`                     | Account-scoped, with real-time updates while signed in                                |
+| Watchlist         | Firestore, `watchlists/{uid}`                    | Account-scoped, with real-time updates while signed in                                |
+| Profile overrides | Browser `localStorage`, `movie_user_profiles`    | Stored per user ID; username updates also attempt to update the Firebase display name |
+| Search history    | Browser `localStorage`, `cinemax-search-history` | Recent searches from the Movies page                                                  |
 
-The profile photo comes from the signed-in account when available; otherwise the UI shows an initial. Email is read-only in the profile editor. Clearing browser storage removes local favorites, history, and profile overrides, but does not delete the Firestore watchlist.
+The profile photo comes from the signed-in account when available; otherwise the UI shows an initial. Email is read-only in the profile editor. Clearing browser storage removes search history and profile overrides, but does not delete favorites or the watchlist stored in Firestore. Sign in to save and sync either collection.
+
+Favorites saved in browser storage before Firestore syncing was added are not imported automatically. Add them again while signed in if you want them in your account collection.
 
 ## Routes
 
@@ -194,7 +200,7 @@ After deployment, verify direct navigation to `/movie/:id` and `/profile`, both 
 | `auth/unauthorized-domain`                | Add the exact hostname to Firebase Authentication's authorized domains                           |
 | Google or password sign-in is unavailable | Enable the corresponding provider in the configured Firebase project                             |
 | Watchlist cannot sync or save             | Confirm sign-in, project configuration, Firestore database creation, and owner-only access rules |
-| Favorites differ between browsers         | Favorites are local to each browser origin                                                       |
+| Favorites or watchlist won't sync         | Sign in and confirm the Firestore owner-only rules are configured for both saved collections     |
 | Refreshing a nested route returns 404     | Configure the host's SPA fallback to `index.html`                                                |
 | Movie metadata loads but playback fails   | Player sources are separate from TMDB; try the existing reload or alternate-source controls      |
 

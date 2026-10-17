@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../context/FavoritesContext";
+import { useAuth } from "../../context/AuthContext";
 import MovieGrid from "../../components/ui/MovieGrid";
+import PageError from "../../components/ui/PageError";
+import PageLoader from "../../components/ui/PageLoader";
 
 const FavoritesPage = () => {
-  const { favorites } = useFavorites();
+  const location = useLocation();
+  const { isAuthenticated } = useAuth();
+  const { favorites, loading, error, retry } = useFavorites();
   const isEmpty = favorites.length === 0;
 
   return (
@@ -27,7 +32,35 @@ const FavoritesPage = () => {
           </div>
         </div>
 
-        {isEmpty ? (
+        {!isAuthenticated ? (
+          <div className="flex min-h-80 flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-100 sm:p-12">
+            <HeartOutlineIcon className="mb-6 h-16 w-16 text-gray-600" />
+            <h3 className="mb-2 text-2xl font-black uppercase tracking-tighter text-white">
+              Sign in to save favorites
+            </h3>
+            <p className="mb-8 max-w-sm font-medium text-gray-500">
+              Sign in to sync your favorite movies with your account and access
+              them on any device.
+            </p>
+            <Link
+              to="/login"
+              state={{ backgroundLocation: location }}
+              className="w-full rounded-2xl bg-purple-600 px-6 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:w-auto sm:px-10"
+            >
+              Sign In
+            </Link>
+          </div>
+        ) : loading ? (
+          <PageLoader
+            color="border-purple-500"
+            label="Syncing Your Favorites..."
+          />
+        ) : error ? (
+          <PageError
+            message="Your favorites could not sync. Please try again to load your saved movies."
+            onRetry={retry}
+          />
+        ) : isEmpty ? (
           <div className="flex min-h-80 flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-100 sm:p-12">
             <HeartOutlineIcon className="mb-6 h-16 w-16 text-gray-600" />
             <h3 className="mb-2 text-2xl font-black uppercase tracking-tighter text-white">

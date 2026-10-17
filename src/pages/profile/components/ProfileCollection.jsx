@@ -58,7 +58,13 @@ const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
 };
 
 const ProfileCollection = () => {
-  const { favorites, removeFromFavorites } = useFavorites();
+  const {
+    favorites,
+    loading: favoritesLoading,
+    error: favoritesError,
+    retry: retryFavorites,
+    removeFromFavorites,
+  } = useFavorites();
   const { watchlist, loading, error, retry, removeFromWatchlist } =
     useWatchlist();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -75,16 +81,17 @@ const ProfileCollection = () => {
     );
   const tabRefs = useRef({});
   const isWatchlist = activeTab === "watchlist";
-  const movies = isWatchlist ? watchlist : [...favorites].reverse();
+  const movies = isWatchlist ? watchlist : favorites;
   const title = isWatchlist ? "Watchlist" : "Favorites";
   const Icon = isWatchlist ? BookmarkIcon : HeartIcon;
-  const pending = isWatchlist && loading;
-  const failed = isWatchlist && error;
+  const pending = isWatchlist ? loading : favoritesLoading;
+  const failed = isWatchlist ? error : favoritesError;
+  const retryCollection = isWatchlist ? retry : retryFavorites;
   const tabs = [
     {
       id: "favorites",
       title: "Favorites",
-      count: favorites.length,
+      count: favoritesLoading || favoritesError ? null : favorites.length,
       icon: HeartIcon,
     },
     {
@@ -164,13 +171,13 @@ const ProfileCollection = () => {
         className="pt-6 focus-visible:outline-2 focus-visible:outline-purple-500 sm:pt-8"
       >
         {pending ? (
-          <div aria-busy="true" aria-label="Loading watchlist">
+          <div aria-busy="true" aria-label={`Loading ${title.toLowerCase()}`}>
             <MovieGridSkeleton />
           </div>
         ) : failed ? (
           <div className="rounded-2xl border border-[var(--color-border)] p-8 text-center">
             <h2 className="text-xl font-semibold">
-              Your watchlist could not sync
+              Your {title.toLowerCase()} could not sync
             </h2>
             <p
               role="status"
@@ -180,7 +187,7 @@ const ProfileCollection = () => {
             </p>
             <button
               type="button"
-              onClick={retry}
+              onClick={retryCollection}
               className="mt-5 min-h-11 rounded-xl bg-purple-600 px-6 text-sm font-semibold text-white hover:bg-purple-500"
             >
               Try again
