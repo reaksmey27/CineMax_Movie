@@ -63,6 +63,8 @@ const NotificationsPage = () => {
     removeFromHistory,
     getIcon,
     syncError,
+    isOnline,
+    isAuthenticated,
     retrySync,
   } = useNotification();
   const [filter, setFilter] = useState("all");
@@ -123,6 +125,16 @@ const NotificationsPage = () => {
             </div>
           </div>
         </header>
+
+        {isAuthenticated && !isOnline && (
+          <div
+            role="status"
+            className="mb-5 rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-100"
+          >
+            You’re offline. Firestore will queue notification changes and sync
+            them when you reconnect.
+          </div>
+        )}
 
         {syncError && (
           <div

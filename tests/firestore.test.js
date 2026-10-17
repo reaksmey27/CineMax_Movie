@@ -195,7 +195,7 @@ test("Notifications save and reload history for the signed-in owner", async () =
   assert.ok(getNotifications(updated).every(({ read }) => read));
 
   await removeNotification(database, OWNER_UID, NOTIFICATION.id);
-  await clearNotifications(database, OWNER_UID);
+  await clearNotifications(database, OWNER_UID, getNotifications(updated));
   const cleared = await getDocs(
     collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
   );

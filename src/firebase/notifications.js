@@ -7,6 +7,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
@@ -43,6 +44,7 @@ export const subscribeToNotifications = (
 
   return onSnapshot(
     historyQuery,
+    { includeMetadataChanges: true },
     (snapshot) => onNotifications(getNotifications(snapshot)),
     onError,
   );
@@ -54,22 +56,24 @@ export const saveNotification = async (database, userId, notification) => {
   }
 
   const historyCollection = getHistoryCollection(database, userId);
+  const { id, ...notificationData } = notification;
+  await setDoc(doc(historyCollection, id), notificationData);
+
   const historyQuery = query(
     historyCollection,
     orderBy("timestamp", "desc"),
-    limit(NOTIFICATION_HISTORY_LIMIT),
+    limit(NOTIFICATION_HISTORY_LIMIT + 1),
   );
   const existingNotifications = await getDocs(historyQuery);
+  const expiredNotifications = existingNotifications.docs.slice(
+    NOTIFICATION_HISTORY_LIMIT,
+  );
+  if (expiredNotifications.length === 0) return;
+
   const batch = writeBatch(database);
-  const { id, ...notificationData } = notification;
-
-  batch.set(doc(historyCollection, id), notificationData);
-  if (existingNotifications.size >= NOTIFICATION_HISTORY_LIMIT) {
-    batch.delete(
-      existingNotifications.docs[existingNotifications.docs.length - 1].ref,
-    );
-  }
-
+  expiredNotifications.forEach((expiredNotification) =>
+    batch.delete(expiredNotification.ref),
+  );
   await batch.commit();
 };
 
@@ -104,12 +108,14 @@ export const removeNotification = (database, userId, notificationId) =>
     doc(database, NOTIFICATIONS_COLLECTION, userId, "history", notificationId),
   );
 
-export const clearNotifications = async (database, userId) => {
-  const historyCollection = getHistoryCollection(database, userId);
-  const snapshot = await getDocs(historyCollection);
-  if (snapshot.empty) return;
+export const clearNotifications = async (database, userId, notifications) => {
+  if (notifications.length === 0) return;
 
   const batch = writeBatch(database);
-  snapshot.docs.forEach((notification) => batch.delete(notification.ref));
+  notifications.forEach(({ id }) =>
+    batch.delete(
+      doc(database, NOTIFICATIONS_COLLECTION, userId, "history", id),
+    ),
+  );
   await batch.commit();
 };

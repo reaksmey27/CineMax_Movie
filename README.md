@@ -145,6 +145,8 @@ Open the local URL printed by Vite. Movie browsing needs TMDB access; sign-in an
 
 `npm run test:ui` runs notification-history and trailer-player browser tests in Chromium. Install the browser once with `npx playwright install chromium`. The tests start a local Vite server and use mocked movie data and test-only Firebase configuration.
 
+Firestore uses a persistent browser cache when the browser supports it, so signed-in notification changes can queue offline and sync after reconnecting. If persistent browser storage is unavailable, the app falls back to memory cache. Sign out on shared devices because Firestore's local cache is not encrypted.
+
 ## Saved data
 
 | Data              | Storage                                          | Behavior                                                                                          |

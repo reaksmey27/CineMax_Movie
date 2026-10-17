@@ -49,6 +49,9 @@ export const NotificationProvider = ({ children }) => {
   });
   const [userId, setUserId] = useState(null);
   const [authResolved, setAuthResolved] = useState(false);
+  const [isOnline, setIsOnline] = useState(() =>
+    typeof navigator === "undefined" ? true : navigator.onLine,
+  );
   const [syncError, setSyncError] = useState("");
   const [retryVersion, setRetryVersion] = useState(0);
   const history = useMemo(
@@ -70,6 +73,21 @@ export const NotificationProvider = ({ children }) => {
     });
 
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      setRetryVersion((version) => version + 1);
+    };
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
   }, []);
 
   useEffect(() => {
@@ -263,14 +281,14 @@ export const NotificationProvider = ({ children }) => {
       void runRemoteAction(
         userId,
         (database, uid, notificationsModule) =>
-          notificationsModule.clearNotifications(database, uid),
+          notificationsModule.clearNotifications(database, uid, history),
         "clear notification history",
       );
       return;
     }
 
     setLocalHistory([]);
-  }, [runRemoteAction, userId]);
+  }, [history, runRemoteAction, userId]);
 
   const removeFromHistory = useCallback(
     (id) => {
@@ -291,10 +309,22 @@ export const NotificationProvider = ({ children }) => {
     [runRemoteAction, userId],
   );
 
-  const retrySync = useCallback(() => {
+  const retrySync = useCallback(async () => {
     setSyncError("");
     setRetryVersion((version) => version + 1);
-  }, []);
+    if (!userId) return;
+
+    try {
+      const { db } = await import("../firebase/firestore");
+      const { enableNetwork } = await import("firebase/firestore");
+      await enableNetwork(db);
+    } catch (error) {
+      console.error("[notifications] Failed to reconnect Firestore", error);
+      setSyncError(
+        "Notification history could not sync. Check your connection and retry.",
+      );
+    }
+  }, [userId]);
 
   const removeNotification = useCallback((id) => {
     setNotifications((prev) =>
@@ -344,6 +374,8 @@ export const NotificationProvider = ({ children }) => {
       history,
       unreadCount,
       syncError,
+      isOnline,
+      isAuthenticated: Boolean(userId),
       retrySync,
       markAsRead,
       markAllAsRead,
@@ -361,7 +393,9 @@ export const NotificationProvider = ({ children }) => {
       showNotification,
       unreadCount,
       syncError,
+      isOnline,
       retrySync,
+      userId,
     ],
   );
 
