@@ -55,20 +55,20 @@ cp .env.example .env
 
 Replace the placeholders with your own TMDB and Firebase web-app configuration.
 
-| Variable                            | Required                   | Purpose                                                           |
-| ----------------------------------- | -------------------------- | ----------------------------------------------------------------- |
-| `VITE_TMDB_API_KEY`                 | One TMDB credential        | TMDB API key                                                      |
-| `VITE_TMDB_READ_ACCESS_TOKEN`       | Alternative to the API key | TMDB read-access bearer token; takes precedence when both are set |
-| `VITE_FIREBASE_API_KEY`             | Yes                        | Firebase web-app API key                                          |
-| `VITE_FIREBASE_AUTH_DOMAIN`         | Yes                        | Firebase authentication domain                                    |
-| `VITE_FIREBASE_PROJECT_ID`          | Yes                        | Firebase project ID                                               |
-| `VITE_FIREBASE_STORAGE_BUCKET`      | Yes                        | Storage bucket from the web-app config                            |
-| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Yes                        | Messaging sender ID from the web-app config                       |
-| `VITE_FIREBASE_APP_ID`              | Yes                        | Firebase web-app ID                                               |
-| `VITE_FIREBASE_MEASUREMENT_ID`      | No                         | Optional measurement ID; this app does not initialize Analytics   |
-| `VITE_FIREBASE_APP_CHECK_SITE_KEY`  | No                         | reCAPTCHA v3 site key; enables Firebase App Check in the web app  |
+| Variable                            | Required                        | Purpose                                                           |
+| ----------------------------------- | ------------------------------- | ----------------------------------------------------------------- |
+| `VITE_TMDB_API_KEY`                 | One of the two TMDB credentials | TMDB API key                                                      |
+| `VITE_TMDB_READ_ACCESS_TOKEN`       | Alternative to the API key      | TMDB read-access bearer token; takes precedence when both are set |
+| `VITE_FIREBASE_API_KEY`             | Yes                             | Firebase web-app API key                                          |
+| `VITE_FIREBASE_AUTH_DOMAIN`         | Yes                             | Firebase authentication domain                                    |
+| `VITE_FIREBASE_PROJECT_ID`          | Yes                             | Firebase project ID                                               |
+| `VITE_FIREBASE_STORAGE_BUCKET`      | Yes                             | Storage bucket from the web-app config                            |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Yes                             | Messaging sender ID from the web-app config                       |
+| `VITE_FIREBASE_APP_ID`              | Yes                             | Firebase web-app ID                                               |
+| `VITE_FIREBASE_MEASUREMENT_ID`      | No                              | Optional measurement ID; this app does not initialize Analytics   |
+| `VITE_FIREBASE_APP_CHECK_SITE_KEY`  | No                              | reCAPTCHA v3 site key; enables Firebase App Check in the web app  |
 
-TMDB credentials are available in your TMDB account API settings. Copy the Firebase values from your registered web app in Firebase Project Settings.
+Set either `VITE_TMDB_API_KEY` or `VITE_TMDB_READ_ACCESS_TOKEN`; you do not need both. TMDB credentials are available in your TMDB account API settings. Copy the Firebase values from your registered web app in Firebase Project Settings.
 
 The app stops initialization if required Firebase values are missing. There is no fallback Firebase project. Restart Vite after changing `.env`.
 
