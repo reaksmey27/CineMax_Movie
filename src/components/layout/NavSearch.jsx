@@ -76,7 +76,7 @@ export default function NavSearch({ onOpen }) {
         aria-label={t("Search movies")}
         aria-expanded={open}
         aria-controls="nav-search-form"
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full text-[var(--color-text)] hover:bg-[var(--color-surface-2)] sm:hidden"
+        className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full text-[var(--color-text)] hover:bg-[var(--color-surface-2)] sm:min-h-11 sm:min-w-11 sm:hidden"
         onClick={() => {
           setOpen(!open);
           if (!open) {

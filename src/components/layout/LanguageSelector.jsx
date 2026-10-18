@@ -38,21 +38,21 @@ const LanguageSelector = ({ className = "" }) => {
         ref={summaryRef}
         aria-label={`${t("Switch language")}: ${currentLanguage.label}`}
         title={currentLanguage.label}
-        className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-0 focus-visible:outline-2 focus-visible:outline-purple-500 [&::-webkit-details-marker]:hidden"
+        className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-0 focus-visible:outline-2 focus-visible:outline-purple-500 sm:h-11 sm:w-11 [&::-webkit-details-marker]:hidden"
       >
         <img
           src={currentLanguage.flag}
           alt=""
           aria-hidden="true"
           data-testid="selected-language-flag"
-          className="h-9 w-9 shrink-0 rounded-full object-cover object-center"
+          className="h-7 w-7 shrink-0 rounded-full object-cover object-center sm:h-9 sm:w-9"
         />
         <span className="sr-only">{currentLanguage.label}</span>
       </summary>
       <div
         role="group"
         aria-label={t("Choose language")}
-        className="absolute right-0 z-50 mt-2 grid min-w-48 gap-1 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-2 shadow-xl"
+        className="absolute -right-10 z-50 mt-2 grid w-[min(18rem,calc(100vw-3rem))] max-h-[min(60dvh,24rem)] min-h-0 gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-2 shadow-xl sm:right-0"
       >
         {languages.map(({ code, label, flag }) => (
           <button
@@ -64,7 +64,7 @@ const LanguageSelector = ({ className = "" }) => {
               setLanguage(code);
               detailsRef.current.open = false;
             }}
-            className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
+            className="flex min-h-11 min-w-0 items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
           >
             <img
               src={flag}
@@ -72,7 +72,7 @@ const LanguageSelector = ({ className = "" }) => {
               aria-hidden="true"
               className="h-9 w-9 rounded-full object-cover object-center ring-1 ring-[var(--color-border)]"
             />
-            <span>{label}</span>
+            <span className="min-w-0 break-words">{label}</span>
           </button>
         ))}
       </div>

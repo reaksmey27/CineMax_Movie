@@ -216,7 +216,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </div>
 
         {/* Right Actions */}
-        <div className="flex shrink-0 items-center gap-1 sm:gap-4">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-4">
           <NavSearch
             key={location.key}
             onOpen={() => {
@@ -224,12 +224,11 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setShowNotifPanel(false);
             }}
           />
-          <LanguageSelector className="hidden xl:block" />
           {/* Theme Button */}
           <button
             type="button"
             onClick={onToggleTheme}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-[var(--nav-accent)] active:scale-95 sm:p-2"
+            className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-[var(--nav-accent)] active:scale-95 sm:min-h-11 sm:min-w-11 sm:p-2"
             aria-label={t(themeButtonLabel)}
             title={t(themeButtonLabel)}
           >
@@ -246,7 +245,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 setShowNotifPanel(!showNotifPanel);
                 setIsMenuOpen(false);
               }}
-              className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all active:scale-90 hover:text-[var(--nav-accent)] sm:p-2 ${
+              className={`relative inline-flex min-h-9 min-w-9 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1 text-[var(--color-text)] transition-all active:scale-90 hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 ${
                 showNotifPanel
                   ? "border-purple-500/40 bg-[var(--color-surface-3)] text-[var(--nav-accent)]"
                   : ""
@@ -418,6 +417,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
             )}
           </div>
 
+          <LanguageSelector className="block" />
           {/* Mobile Menu */}
           <button
             ref={menuToggleRef}
@@ -426,7 +426,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setIsMenuOpen(!isMenuOpen);
               setShowNotifPanel(false);
             }}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:p-2 xl:hidden"
+            className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full p-1 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 xl:hidden"
             aria-label={isMenuOpen ? t("Close menu") : t("Open menu")}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
@@ -523,10 +523,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 })}
               </div>
             </nav>
-
-            <div className="mt-5 border-t border-[var(--color-border-soft)] pt-4">
-              <LanguageSelector className="block" />
-            </div>
 
             {isAuthenticated && (
               <button

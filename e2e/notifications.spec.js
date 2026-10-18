@@ -217,7 +217,7 @@ test("language selection translates navigation and persists across reloads", asy
   ).toHaveClass(/rounded-full/);
   await expect(
     languageSelector.getByTestId("selected-language-flag"),
-  ).toHaveClass(/h-9 w-9/);
+  ).toHaveClass(/h-7 w-7/);
   const selectorBounds = await languageSelector
     .locator("summary")
     .boundingBox();
@@ -265,4 +265,30 @@ test("language selection translates navigation and persists across reloads", asy
   await expect(
     page.getByTestId("language-selector").locator("button"),
   ).toHaveCount(9);
+});
+
+test("language selector menu fits and scrolls on a narrow mobile screen", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto("/notifications");
+
+  const languageSelector = page.getByTestId("language-selector");
+  await expect(languageSelector).toBeVisible();
+  await expect(page.getByRole("button", { name: "Open menu" })).toBeVisible();
+  await expect(
+    page.evaluate(() => document.documentElement.scrollWidth),
+  ).resolves.toBeLessThanOrEqual(320);
+  await languageSelector.locator("summary").click();
+
+  const languageMenu = languageSelector.getByRole("group", {
+    name: "Choose language",
+  });
+  await expect(languageMenu).toBeVisible();
+  const menuBounds = await languageMenu.boundingBox();
+  expect(menuBounds).not.toBeNull();
+  expect(menuBounds.x).toBeGreaterThanOrEqual(0);
+  expect(menuBounds.x + menuBounds.width).toBeLessThanOrEqual(320);
+  expect(menuBounds.height).toBeLessThanOrEqual(24 * 16);
+  await expect(languageMenu.locator("button")).toHaveCount(9);
 });
