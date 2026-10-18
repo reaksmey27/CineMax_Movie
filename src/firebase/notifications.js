@@ -15,12 +15,47 @@ import {
 export const NOTIFICATIONS_COLLECTION = "notifications";
 export const NOTIFICATION_HISTORY_LIMIT = 50;
 
+const NOTIFICATION_ID_PATTERN = /^[A-Za-z0-9_-]+$/;
+
 const getHistoryCollection = (database, userId) => {
   if (!userId) {
     throw new Error("A signed-in user is required to sync notifications.");
   }
 
   return collection(database, NOTIFICATIONS_COLLECTION, userId, "history");
+};
+
+const normalizeLocalNotification = (notification) => {
+  const isValid =
+    typeof notification?.id === "string" &&
+    NOTIFICATION_ID_PATTERN.test(notification.id) &&
+    typeof notification.message === "string" &&
+    typeof notification.type === "string" &&
+    typeof notification.timestamp === "string" &&
+    Number.isFinite(Date.parse(notification.timestamp)) &&
+    typeof notification.read === "boolean";
+
+  if (!isValid) return null;
+
+  const normalized = {
+    message: notification.message,
+    type: notification.type,
+    timestamp: new Date(notification.timestamp).toISOString(),
+    read: notification.read,
+  };
+  if (notification.movie && typeof notification.movie === "object") {
+    const { id, title, poster } = notification.movie;
+    normalized.movie = {
+      ...(typeof id === "string" ||
+      (typeof id === "number" && Number.isFinite(id))
+        ? { id }
+        : {}),
+      ...(typeof title === "string" ? { title } : {}),
+      ...(typeof poster === "string" ? { poster } : {}),
+    };
+  }
+
+  return normalized;
 };
 
 export const getNotifications = (snapshot) =>
@@ -86,43 +121,15 @@ export const importNotifications = async (
   const importedById = new Map();
   let skippedCount = 0;
 
-  localNotifications.forEach((notification) => {
-    if (
-      typeof notification?.id !== "string" ||
-      !/^[A-Za-z0-9_-]+$/.test(notification.id) ||
-      typeof notification.message !== "string" ||
-      typeof notification.type !== "string" ||
-      typeof notification.timestamp !== "string" ||
-      !Number.isFinite(Date.parse(notification.timestamp)) ||
-      typeof notification.read !== "boolean"
-    ) {
+  for (const notification of localNotifications) {
+    const normalized = normalizeLocalNotification(notification);
+    if (!normalized) {
       skippedCount += 1;
-      return;
+      continue;
     }
+    importedById.set(notification.id, normalized);
+  }
 
-    const normalizedNotification = {
-      message: notification.message,
-      type: notification.type,
-      timestamp: new Date(notification.timestamp).toISOString(),
-      read: notification.read,
-    };
-    if (notification.movie && typeof notification.movie === "object") {
-      const movieId = notification.movie.id;
-      normalizedNotification.movie = {
-        ...(typeof movieId === "string" ||
-        (typeof movieId === "number" && Number.isFinite(movieId))
-          ? { id: movieId }
-          : {}),
-        ...(typeof notification.movie.title === "string"
-          ? { title: notification.movie.title }
-          : {}),
-        ...(typeof notification.movie.poster === "string"
-          ? { poster: notification.movie.poster }
-          : {}),
-      };
-    }
-    importedById.set(notification.id, normalizedNotification);
-  });
   const existingSnapshot = await getDocs(
     query(
       historyCollection,
@@ -145,6 +152,9 @@ export const importNotifications = async (
     )
     .slice(0, NOTIFICATION_HISTORY_LIMIT);
   const retainedIds = new Set(retainedNotifications.map(([id]) => id));
+  const retainedImportedIds = [...importedById.keys()].filter((id) =>
+    retainedIds.has(id),
+  );
   const batch = writeBatch(database);
 
   retainedNotifications.forEach(([id, notification]) => {
@@ -162,11 +172,8 @@ export const importNotifications = async (
 
   return {
     consumedIds: [...importedById.keys()],
-    importedCount: [...importedById.keys()].filter((id) => retainedIds.has(id))
-      .length,
+    importedCount: retainedImportedIds.length,
     skippedCount,
-    trimmedCount: [...importedById.keys()].filter((id) => !retainedIds.has(id))
-      .length,
   };
 };
 

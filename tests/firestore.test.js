@@ -66,6 +66,17 @@ const NOTIFICATION = {
 
 let environment;
 
+const getAuthenticatedDatabase = (userId = OWNER_UID) =>
+  environment.authenticatedContext(userId).firestore();
+
+const getNotificationHistoryCollection = (database, userId = OWNER_UID) =>
+  collection(database, NOTIFICATIONS_COLLECTION, userId, "history");
+
+const readNotificationHistory = async (database, userId = OWNER_UID) =>
+  getNotifications(
+    await getDocs(getNotificationHistoryCollection(database, userId)),
+  );
+
 before(async () => {
   const rules = await readFile(new URL("../firestore.rules", import.meta.url), {
     encoding: "utf8",
@@ -163,7 +174,7 @@ testSavedCollection({
 });
 
 test("Notifications save and reload history for the signed-in owner", async () => {
-  const database = environment.authenticatedContext(OWNER_UID).firestore();
+  const database = getAuthenticatedDatabase();
   const secondNotification = {
     ...NOTIFICATION,
     id: "notification-2",
@@ -174,10 +185,7 @@ test("Notifications save and reload history for the signed-in owner", async () =
   await saveNotification(database, OWNER_UID, NOTIFICATION);
   await saveNotification(database, OWNER_UID, secondNotification);
 
-  const snapshot = await getDocs(
-    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-  );
-  const notifications = getNotifications(snapshot);
+  const notifications = await readNotificationHistory(database);
   assert.equal(notifications.length, 2);
   assert.deepEqual(notifications.map(({ id }) => id).sort(), [
     "notification-1",
@@ -190,17 +198,12 @@ test("Notifications save and reload history for the signed-in owner", async () =
 
   await markNotificationAsRead(database, OWNER_UID, NOTIFICATION.id);
   await markAllNotificationsAsRead(database, OWNER_UID, notifications);
-  const updated = await getDocs(
-    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-  );
-  assert.ok(getNotifications(updated).every(({ read }) => read));
+  const updated = await readNotificationHistory(database);
+  assert.ok(updated.every(({ read }) => read));
 
   await removeNotification(database, OWNER_UID, NOTIFICATION.id);
-  await clearNotifications(database, OWNER_UID, getNotifications(updated));
-  const cleared = await getDocs(
-    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-  );
-  assert.equal(cleared.size, 0);
+  await clearNotifications(database, OWNER_UID, updated);
+  assert.deepEqual(await readNotificationHistory(database), []);
 });
 
 test("Notifications keep only the 50 most recent history entries", async () => {
@@ -223,17 +226,14 @@ test("Notifications keep only the 50 most recent history entries", async () => {
     await batch.commit();
   });
 
-  const database = environment.authenticatedContext(OWNER_UID).firestore();
+  const database = getAuthenticatedDatabase();
   await saveNotification(database, OWNER_UID, {
     ...NOTIFICATION,
     id: "notification-50",
     timestamp: new Date(Date.UTC(2026, 0, 1, 0, 50)).toISOString(),
   });
 
-  const snapshot = await getDocs(
-    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-  );
-  const notifications = getNotifications(snapshot);
+  const notifications = await readNotificationHistory(database);
   assert.equal(notifications.length, 50);
   assert.equal(
     notifications.some(({ id }) => id === "notification-00"),
@@ -246,7 +246,7 @@ test("Notifications keep only the 50 most recent history entries", async () => {
 });
 
 test("Notifications import local history into the account without losing valid data", async () => {
-  const database = environment.authenticatedContext(OWNER_UID).firestore();
+  const database = getAuthenticatedDatabase();
   const localNotifications = [
     NOTIFICATION,
     {
@@ -270,10 +270,7 @@ test("Notifications import local history into the account without losing valid d
     OWNER_UID,
     localNotifications,
   );
-  const snapshot = await getDocs(
-    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-  );
-  const importedNotifications = getNotifications(snapshot);
+  const importedNotifications = await readNotificationHistory(database);
 
   assert.equal(result.importedCount, 2);
   assert.equal(result.skippedCount, 1);
@@ -292,19 +289,12 @@ test("Notifications import local history into the account without losing valid d
   );
 
   await importNotifications(database, OWNER_UID, localNotifications);
-  const afterRetry = await getDocs(
-    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-  );
-  assert.equal(afterRetry.size, 3);
+  assert.equal((await readNotificationHistory(database)).length, 3);
 });
 
 test("Notifications stream new history to other signed-in sessions", async () => {
-  const listenerDatabase = environment
-    .authenticatedContext(OWNER_UID)
-    .firestore();
-  const writerDatabase = environment
-    .authenticatedContext(OWNER_UID)
-    .firestore();
+  const listenerDatabase = getAuthenticatedDatabase();
+  const writerDatabase = getAuthenticatedDatabase();
   let resolveInitialSnapshot;
   let resolveNewNotification;
   let rejectListener;
@@ -343,22 +333,15 @@ test("Notifications stream new history to other signed-in sessions", async () =>
 });
 
 test("Notifications deny another user and signed-out reads and writes", async () => {
-  const ownerDatabase = environment.authenticatedContext(OWNER_UID).firestore();
-  const otherDatabase = environment.authenticatedContext(OTHER_UID).firestore();
+  const ownerDatabase = getAuthenticatedDatabase();
+  const otherDatabase = getAuthenticatedDatabase(OTHER_UID);
   const signedOutDatabase = environment.unauthenticatedContext().firestore();
-  const signedOutHistory = collection(
-    signedOutDatabase,
-    NOTIFICATIONS_COLLECTION,
-    OWNER_UID,
-    "history",
-  );
+  const signedOutHistory = getNotificationHistoryCollection(signedOutDatabase);
 
   await saveNotification(ownerDatabase, OWNER_UID, NOTIFICATION);
 
   await assert.rejects(
-    getDocs(
-      collection(otherDatabase, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
-    ),
+    getDocs(getNotificationHistoryCollection(otherDatabase)),
     /permission-denied/i,
   );
   await assert.rejects(
