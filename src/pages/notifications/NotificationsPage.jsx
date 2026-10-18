@@ -56,6 +56,7 @@ const getTypeLabel = (type) => {
 const NotificationsPage = () => {
   const {
     history,
+    localHistoryCount,
     unreadCount,
     markAsRead,
     markAllAsRead,
@@ -66,6 +67,12 @@ const NotificationsPage = () => {
     isOnline,
     isAuthenticated,
     retrySync,
+    shouldOfferLocalImport,
+    isImportingHistory,
+    importMessage,
+    importError,
+    importLocalHistory,
+    keepLocalHistory,
   } = useNotification();
   const [filter, setFilter] = useState("all");
   const [confirmClear, setConfirmClear] = useState(false);
@@ -134,6 +141,55 @@ const NotificationsPage = () => {
             You’re offline. Firestore will queue notification changes and sync
             them when you reconnect.
           </div>
+        )}
+
+        {shouldOfferLocalImport && (
+          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-purple-400/30 bg-purple-500/10 p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="font-bold text-purple-100">
+                Import browser notification history?
+              </h2>
+              <p className="mt-1 text-sm text-purple-100/75">
+                {`${localHistoryCount} notification${localHistoryCount === 1 ? "" : "s"} are stored on this device. Import them into your account? Only the 50 newest will be kept.`}
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={importLocalHistory}
+                disabled={!isOnline || isImportingHistory}
+                className="min-h-10 rounded-xl bg-purple-600 px-4 text-sm font-bold text-white transition-colors hover:bg-purple-500 disabled:cursor-wait disabled:opacity-60"
+              >
+                {isImportingHistory ? "Importing..." : "Import history"}
+              </button>
+              <button
+                type="button"
+                onClick={keepLocalHistory}
+                disabled={isImportingHistory}
+                className="min-h-10 rounded-xl border border-purple-200/20 px-4 text-sm font-bold text-purple-100 transition-colors hover:bg-purple-200/10 disabled:opacity-60"
+              >
+                Keep on this device
+              </button>
+            </div>
+          </div>
+        )}
+
+        {importMessage && (
+          <p
+            role="status"
+            className="mb-3 rounded-xl border border-emerald-400/20 bg-emerald-500/10 p-3 text-sm text-emerald-100"
+          >
+            {importMessage}
+          </p>
+        )}
+
+        {importError && (
+          <p
+            role="alert"
+            className="mb-5 rounded-xl border border-red-400/20 bg-red-500/10 p-3 text-sm text-red-100"
+          >
+            {importError}
+          </p>
         )}
 
         {syncError && (

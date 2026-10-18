@@ -54,6 +54,10 @@ export const NotificationProvider = ({ children }) => {
   );
   const [syncError, setSyncError] = useState("");
   const [retryVersion, setRetryVersion] = useState(0);
+  const [importDismissedFor, setImportDismissedFor] = useState(null);
+  const [isImportingHistory, setIsImportingHistory] = useState(false);
+  const [importMessage, setImportMessage] = useState("");
+  const [importError, setImportError] = useState("");
   const history = useMemo(
     () =>
       !authResolved
@@ -326,6 +330,65 @@ export const NotificationProvider = ({ children }) => {
     }
   }, [userId]);
 
+  const shouldOfferLocalImport = Boolean(
+    userId &&
+    remoteHistory.userId === userId &&
+    localHistory.length > 0 &&
+    importDismissedFor !== userId,
+  );
+
+  const importLocalHistory = useCallback(async () => {
+    if (!userId || !shouldOfferLocalImport || isImportingHistory) return;
+
+    setIsImportingHistory(true);
+    setImportError("");
+    setImportMessage("");
+
+    try {
+      const [{ db }, notificationsModule] = await Promise.all([
+        import("../firebase/firestore"),
+        import("../firebase/notifications"),
+      ]);
+      const result = await notificationsModule.importNotifications(
+        db,
+        userId,
+        localHistory,
+      );
+      const consumedIds = new Set(result.consumedIds);
+
+      setLocalHistory((previous) =>
+        previous.filter((notification) => !consumedIds.has(notification.id)),
+      );
+      writeStoredNotifications(
+        localHistory.filter(
+          (notification) => !consumedIds.has(notification.id),
+        ),
+      );
+      setImportDismissedFor(userId);
+      setImportMessage(
+        `Imported ${result.importedCount} notification${result.importedCount === 1 ? "" : "s"}. Your account keeps the 50 most recent.`,
+      );
+      if (result.skippedCount > 0) {
+        setImportError(
+          `${result.skippedCount} invalid local notification${result.skippedCount === 1 ? " was" : "s were"} left on this device.`,
+        );
+      }
+    } catch (error) {
+      console.error("[notifications] Failed to import local history", error);
+      setImportError(
+        "Local notification history could not be imported. It remains on this device; check your connection and retry.",
+      );
+    } finally {
+      setIsImportingHistory(false);
+    }
+  }, [isImportingHistory, localHistory, shouldOfferLocalImport, userId]);
+
+  const keepLocalHistory = useCallback(() => {
+    setImportDismissedFor(userId);
+    setImportError("");
+    setImportMessage("Your older notifications will remain on this device.");
+  }, [userId]);
+
   const removeNotification = useCallback((id) => {
     setNotifications((prev) =>
       prev.map((notification) =>
@@ -372,11 +435,18 @@ export const NotificationProvider = ({ children }) => {
     () => ({
       showNotification,
       history,
+      localHistoryCount: localHistory.length,
       unreadCount,
       syncError,
       isOnline,
       isAuthenticated: Boolean(userId),
       retrySync,
+      shouldOfferLocalImport,
+      isImportingHistory,
+      importMessage,
+      importError,
+      importLocalHistory,
+      keepLocalHistory,
       markAsRead,
       markAllAsRead,
       clearHistory,
@@ -387,6 +457,7 @@ export const NotificationProvider = ({ children }) => {
       clearHistory,
       getIcon,
       history,
+      localHistory.length,
       markAsRead,
       markAllAsRead,
       removeFromHistory,
@@ -395,6 +466,12 @@ export const NotificationProvider = ({ children }) => {
       syncError,
       isOnline,
       retrySync,
+      shouldOfferLocalImport,
+      isImportingHistory,
+      importMessage,
+      importError,
+      importLocalHistory,
+      keepLocalHistory,
       userId,
     ],
   );

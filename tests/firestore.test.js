@@ -22,6 +22,7 @@ import {
 import {
   clearNotifications,
   getNotifications,
+  importNotifications,
   markAllNotificationsAsRead,
   markNotificationAsRead,
   NOTIFICATIONS_COLLECTION,
@@ -242,6 +243,59 @@ test("Notifications keep only the 50 most recent history entries", async () => {
     notifications.some(({ id }) => id === "notification-50"),
     true,
   );
+});
+
+test("Notifications import local history into the account without losing valid data", async () => {
+  const database = environment.authenticatedContext(OWNER_UID).firestore();
+  const localNotifications = [
+    NOTIFICATION,
+    {
+      ...NOTIFICATION,
+      id: "notification-local-2",
+      message: "A second local notification.",
+      timestamp: "2026-10-17T01:00:00.000Z",
+      read: true,
+    },
+    { id: "invalid-local-notification", message: "Missing required fields." },
+  ];
+
+  await saveNotification(database, OWNER_UID, {
+    ...NOTIFICATION,
+    id: "notification-cloud",
+    message: "An existing account notification.",
+  });
+
+  const result = await importNotifications(
+    database,
+    OWNER_UID,
+    localNotifications,
+  );
+  const snapshot = await getDocs(
+    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
+  );
+  const importedNotifications = getNotifications(snapshot);
+
+  assert.equal(result.importedCount, 2);
+  assert.equal(result.skippedCount, 1);
+  assert.deepEqual(
+    result.consumedIds.sort(),
+    [NOTIFICATION.id, "notification-local-2"].sort(),
+  );
+  assert.equal(importedNotifications.length, 3);
+  assert.equal(
+    importedNotifications.find(({ id }) => id === NOTIFICATION.id).movie.poster,
+    MOVIE.posterImage,
+  );
+  assert.equal(
+    importedNotifications.find(({ id }) => id === "notification-local-2").read,
+    true,
+  );
+
+  await importNotifications(database, OWNER_UID, localNotifications);
+  const afterRetry = await getDocs(
+    collection(database, NOTIFICATIONS_COLLECTION, OWNER_UID, "history"),
+  );
+  assert.equal(afterRetry.size, 3);
 });
 
 test("Notifications stream new history to other signed-in sessions", async () => {

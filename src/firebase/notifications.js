@@ -77,6 +77,99 @@ export const saveNotification = async (database, userId, notification) => {
   await batch.commit();
 };
 
+export const importNotifications = async (
+  database,
+  userId,
+  localNotifications,
+) => {
+  const historyCollection = getHistoryCollection(database, userId);
+  const importedById = new Map();
+  let skippedCount = 0;
+
+  localNotifications.forEach((notification) => {
+    if (
+      typeof notification?.id !== "string" ||
+      !/^[A-Za-z0-9_-]+$/.test(notification.id) ||
+      typeof notification.message !== "string" ||
+      typeof notification.type !== "string" ||
+      typeof notification.timestamp !== "string" ||
+      !Number.isFinite(Date.parse(notification.timestamp)) ||
+      typeof notification.read !== "boolean"
+    ) {
+      skippedCount += 1;
+      return;
+    }
+
+    const normalizedNotification = {
+      message: notification.message,
+      type: notification.type,
+      timestamp: new Date(notification.timestamp).toISOString(),
+      read: notification.read,
+    };
+    if (notification.movie && typeof notification.movie === "object") {
+      const movieId = notification.movie.id;
+      normalizedNotification.movie = {
+        ...(typeof movieId === "string" ||
+        (typeof movieId === "number" && Number.isFinite(movieId))
+          ? { id: movieId }
+          : {}),
+        ...(typeof notification.movie.title === "string"
+          ? { title: notification.movie.title }
+          : {}),
+        ...(typeof notification.movie.poster === "string"
+          ? { poster: notification.movie.poster }
+          : {}),
+      };
+    }
+    importedById.set(notification.id, normalizedNotification);
+  });
+  const existingSnapshot = await getDocs(
+    query(
+      historyCollection,
+      orderBy("timestamp", "desc"),
+      limit(NOTIFICATION_HISTORY_LIMIT),
+    ),
+  );
+  const existingById = new Map(
+    existingSnapshot.docs.map((snapshot) => [snapshot.id, snapshot.data()]),
+  );
+  const mergedNotifications = new Map(existingById);
+  importedById.forEach((notification, id) => {
+    mergedNotifications.set(id, notification);
+  });
+
+  const retainedNotifications = [...mergedNotifications.entries()]
+    .sort(
+      ([, first], [, second]) =>
+        Date.parse(second.timestamp) - Date.parse(first.timestamp),
+    )
+    .slice(0, NOTIFICATION_HISTORY_LIMIT);
+  const retainedIds = new Set(retainedNotifications.map(([id]) => id));
+  const batch = writeBatch(database);
+
+  retainedNotifications.forEach(([id, notification]) => {
+    if (importedById.has(id)) {
+      batch.set(doc(historyCollection, id), notification);
+    }
+  });
+  existingSnapshot.docs.forEach((snapshot) => {
+    if (!retainedIds.has(snapshot.id)) batch.delete(snapshot.ref);
+  });
+
+  if (retainedNotifications.length > 0 || existingSnapshot.size > 0) {
+    await batch.commit();
+  }
+
+  return {
+    consumedIds: [...importedById.keys()],
+    importedCount: [...importedById.keys()].filter((id) => retainedIds.has(id))
+      .length,
+    skippedCount,
+    trimmedCount: [...importedById.keys()].filter((id) => !retainedIds.has(id))
+      .length,
+  };
+};
+
 export const markNotificationAsRead = (database, userId, notificationId) =>
   updateDoc(
     doc(database, NOTIFICATIONS_COLLECTION, userId, "history", notificationId),
