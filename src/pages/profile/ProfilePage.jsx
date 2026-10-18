@@ -8,8 +8,10 @@ import useProfile from "../../hooks/auth/useProfile";
 import PageLoader from "../../components/ui/PageLoader";
 import ProfileCollection from "./components/ProfileCollection";
 import ProfileForm from "./components/ProfileForm";
+import { useLanguage } from "../../context/LanguageContext";
 
 const ProfilePage = () => {
+  const { t } = useLanguage();
   const profile = useProfile();
   const navigate = useNavigate();
   const [signingOut, setSigningOut] = useState(false);
@@ -24,7 +26,7 @@ const ProfilePage = () => {
     }
   };
   const { user, loading, isEditing, setIsEditing } = profile;
-  if (loading) return <PageLoader label="Loading your profile..." />;
+  if (loading) return <PageLoader label={t("Loading your profile...")} />;
   if (!user)
     return <Navigate to="/login" state={{ returnTo: "/profile" }} replace />;
 
@@ -38,14 +40,14 @@ const ProfilePage = () => {
             {avatar && failedAvatar !== avatar ? (
               <img
                 src={avatar}
-                alt={`${user.name}'s profile photo`}
+                alt={t("{name}'s profile photo", { name: user.name })}
                 referrerPolicy="no-referrer"
                 onError={() => setFailedAvatar(avatar)}
                 className="h-16 w-16 shrink-0 rounded-full border border-[var(--color-border)] object-cover sm:h-20 sm:w-20"
               />
             ) : (
               <div
-                aria-label="Profile avatar"
+                aria-label={t("Profile avatar")}
                 className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-purple-600 text-2xl font-bold text-white sm:h-20 sm:w-20"
               >
                 {(user.name || user.email || "U")
@@ -69,8 +71,8 @@ const ProfilePage = () => {
               onClick={() => setIsEditing(true)}
               className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-purple-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
             >
-              <PencilSquareIcon className="h-4 w-4" aria-hidden="true" /> Edit
-              Profile
+              <PencilSquareIcon className="h-4 w-4" aria-hidden="true" />
+              {t("Edit Profile")}
             </button>
             <button
               type="button"
@@ -82,7 +84,7 @@ const ProfilePage = () => {
                 className="h-4 w-4"
                 aria-hidden="true"
               />
-              {signingOut ? "Logging out..." : "Log out"}
+              {signingOut ? t("Logging out...") : t("Log out")}
             </button>
           </div>
         </header>

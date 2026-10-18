@@ -11,8 +11,10 @@ import TrailerModal from "./components/TrailerModal";
 import MovieDetailSkeleton from "./components/MovieDetailSkeleton";
 import PageError from "../../components/ui/PageError";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../context/LanguageContext";
 
 const MovieDetailPage = () => {
+  const { t } = useLanguage();
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -51,8 +53,8 @@ const MovieDetailPage = () => {
     return (
       <div className="pt-32 pb-20 px-6 sm:px-12 lg:px-24 xl:px-40 min-h-screen bg-[var(--color-bg)] flex flex-col items-center justify-center">
         <PageError
-          message="Movie not found"
-          buttonLabel="Go Back"
+          message={t("Movie not found")}
+          buttonLabel={t("Go Back")}
           icon={XMarkIcon}
         />
       </div>
@@ -90,7 +92,7 @@ const MovieDetailPage = () => {
         >
           <ChevronLeftIcon className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:-translate-x-1" />
           <span className="font-bold uppercase tracking-widest text-[10px] sm:text-xs">
-            {isPlaying ? "Close Player" : "Return"}
+            {isPlaying ? t("Close Player") : t("Return")}
           </span>
         </button>
 
@@ -120,10 +122,10 @@ const MovieDetailPage = () => {
             watchlistPending={isSavingToWatchlist(movie.id)}
             playLabel={
               authLoading
-                ? "Checking login..."
+                ? t("Checking login...")
                 : isAuthenticated
-                  ? "Play Movie"
-                  : "Log in to Watch"
+                  ? t("Play Movie")
+                  : t("Log in to Watch")
             }
             playDisabled={authLoading}
             onPlay={() => {

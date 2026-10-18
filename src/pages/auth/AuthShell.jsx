@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../context/LanguageContext";
 import { tmdbService } from "../../services/tmdbService";
 
 const posterCards = [
@@ -54,6 +55,7 @@ const posterCards = [
 ];
 
 const AuthShell = ({ children, onClose }) => {
+  const { t } = useLanguage();
   const [movieCards, setMovieCards] = useState(posterCards);
   const dialogRef = useRef(null);
   const onCloseRef = useRef(onClose);
@@ -211,7 +213,7 @@ const AuthShell = ({ children, onClose }) => {
             type="button"
             onClick={onClose}
             className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-black/35 text-white/80 backdrop-blur transition hover:border-purple-500/40 hover:bg-purple-500/20 hover:text-white"
-            aria-label="Close auth popup"
+            aria-label={t("Close auth popup")}
           >
             <XMarkIcon className="h-5 w-5" />
           </button>

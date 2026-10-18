@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const ProfileForm = ({
   formData,
@@ -9,6 +10,7 @@ const ProfileForm = ({
   onCancelEditing,
   onSubmit,
 }) => {
+  const { t } = useLanguage();
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
   useEffect(() => {
@@ -36,12 +38,12 @@ const ProfileForm = ({
     >
       <div className="mb-6 flex items-center justify-between gap-4">
         <h2 id="edit-profile-title" className="text-xl font-bold">
-          Edit profile
+          {t("Edit profile")}
         </h2>
         <button
           type="button"
           onClick={onCancelEditing}
-          aria-label="Close edit profile"
+          aria-label={t("Close edit profile")}
           className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
         >
           <XMarkIcon className="h-5 w-5" />
@@ -49,7 +51,7 @@ const ProfileForm = ({
       </div>
       <form onSubmit={onSubmit} className="space-y-5">
         <label className="block space-y-2">
-          <span className="text-sm font-medium">Username</span>
+          <span className="text-sm font-medium">{t("Username")}</span>
           <input
             ref={inputRef}
             name="name"
@@ -62,7 +64,7 @@ const ProfileForm = ({
           />
         </label>
         <label className="block space-y-2">
-          <span className="text-sm font-medium">Email</span>
+          <span className="text-sm font-medium">{t("Email")}</span>
           <input
             name="email"
             type="email"
@@ -75,7 +77,7 @@ const ProfileForm = ({
             id="profile-email-help"
             className="block text-xs text-[var(--color-text-muted)]"
           >
-            Your email is managed by your sign-in account.
+            {t("Your email is managed by your sign-in account.")}
           </span>
         </label>
         <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
@@ -84,14 +86,14 @@ const ProfileForm = ({
             onClick={onCancelEditing}
             className="min-h-11 rounded-xl border border-[var(--color-border)] px-5 text-sm font-semibold hover:bg-[var(--color-surface-2)]"
           >
-            Cancel
+            {t("Cancel")}
           </button>
           <button
             type="submit"
             disabled={!isDirty || !formData.name.trim()}
             className="min-h-11 rounded-xl bg-purple-600 px-5 text-sm font-semibold text-white hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Save changes
+            {t("Save changes")}
           </button>
         </div>
       </form>

@@ -8,17 +8,18 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useNotification } from "../../context/NotificationContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 const FILTERS = ["all", "unread"];
 
-const formatRelativeTime = (timestamp) => {
+const formatRelativeTime = (timestamp, language) => {
   const date = new Date(timestamp);
   if (Number.isNaN(date.getTime())) return "Recently";
 
   const seconds = Math.round((date.getTime() - Date.now()) / 1000);
   if (Math.abs(seconds) < 60) return "Just now";
 
-  const formatter = new Intl.RelativeTimeFormat(undefined, {
+  const formatter = new Intl.RelativeTimeFormat(language, {
     numeric: "auto",
     style: "short",
   });
@@ -40,20 +41,21 @@ const formatRelativeTime = (timestamp) => {
   return formatter.format(Math.round(seconds / (365 * 24 * 60 * 60)), "year");
 };
 
-const getTypeLabel = (type) => {
+const getTypeLabel = (type, t) => {
   switch (type) {
     case "success":
-      return "Success";
+      return t("Success");
     case "error":
-      return "Error";
+      return t("Error");
     case "warning":
-      return "Warning";
+      return t("Warning");
     default:
-      return "Update";
+      return t("Update");
   }
 };
 
 const NotificationsPage = () => {
+  const { language, t } = useLanguage();
   const {
     history,
     localHistoryCount,
@@ -100,26 +102,28 @@ const NotificationsPage = () => {
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-500/10 px-3 py-1.5 text-xs font-bold text-purple-300">
               <BellAlertIcon className="h-4 w-4" aria-hidden="true" />
-              Your activity
+              {t("Your activity")}
             </div>
             <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
-              Notifications
+              {t("Notifications")}
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-6 text-(--color-text-subtle) sm:text-base">
-              Keep up with updates from your CineMax movie experience.
+              {t("Keep up with updates from your CineMax movie experience.")}
             </p>
           </div>
 
           <div
             className="flex items-center gap-3"
-            aria-label={`${unreadCount} unread notifications`}
+            aria-label={t("{count} unread notifications", {
+              count: unreadCount,
+            })}
           >
             <div className="rounded-2xl border border-(--color-border) bg-(--color-surface-1) px-4 py-3">
               <span className="block text-2xl font-black leading-none">
                 {unreadCount}
               </span>
               <span className="mt-1 block text-[10px] font-bold uppercase tracking-widest text-(--color-text-subtle)">
-                Unread
+                {t("Unread")}
               </span>
             </div>
             <div className="rounded-2xl border border-(--color-border) bg-(--color-surface-1) px-4 py-3">
@@ -127,7 +131,7 @@ const NotificationsPage = () => {
                 {history.length}
               </span>
               <span className="mt-1 block text-[10px] font-bold uppercase tracking-widest text-(--color-text-subtle)">
-                Total
+                {t("Total")}
               </span>
             </div>
           </div>
@@ -138,8 +142,9 @@ const NotificationsPage = () => {
             role="status"
             className="mb-5 rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-100"
           >
-            You’re offline. Firestore will queue notification changes and sync
-            them when you reconnect.
+            {t(
+              "You’re offline. Firestore will queue notification changes and sync them when you reconnect.",
+            )}
           </div>
         )}
 
@@ -147,10 +152,13 @@ const NotificationsPage = () => {
           <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-purple-400/30 bg-purple-500/10 p-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="font-bold text-purple-100">
-                Import browser notification history?
+                {t("Import browser notification history?")}
               </h2>
               <p className="mt-1 text-sm text-purple-100/75">
-                {`${localHistoryCount} notification${localHistoryCount === 1 ? "" : "s"} are stored on this device. Import them into your account? Only the 50 newest will be kept.`}
+                {t(
+                  "{count} notification(s) are stored on this device. Import them into your account? Only the 50 newest will be kept.",
+                  { count: localHistoryCount },
+                )}
               </p>
             </div>
             <div className="flex shrink-0 flex-wrap gap-2">
@@ -160,7 +168,7 @@ const NotificationsPage = () => {
                 disabled={!isOnline || isImportingHistory}
                 className="min-h-10 rounded-xl bg-purple-600 px-4 text-sm font-bold text-white transition-colors hover:bg-purple-500 disabled:cursor-wait disabled:opacity-60"
               >
-                {isImportingHistory ? "Importing..." : "Import history"}
+                {isImportingHistory ? t("Importing...") : t("Import history")}
               </button>
               <button
                 type="button"
@@ -168,7 +176,7 @@ const NotificationsPage = () => {
                 disabled={isImportingHistory}
                 className="min-h-10 rounded-xl border border-purple-200/20 px-4 text-sm font-bold text-purple-100 transition-colors hover:bg-purple-200/10 disabled:opacity-60"
               >
-                Keep on this device
+                {t("Keep on this device")}
               </button>
             </div>
           </div>
@@ -197,13 +205,13 @@ const NotificationsPage = () => {
             role="alert"
             className="mb-5 flex flex-col gap-3 rounded-2xl border border-red-400/30 bg-red-500/10 p-4 text-sm text-red-200 sm:flex-row sm:items-center sm:justify-between"
           >
-            <p>{syncError}</p>
+            <p>{t(syncError)}</p>
             <button
               type="button"
               onClick={retrySync}
               className="min-h-10 shrink-0 rounded-xl bg-red-500/15 px-4 font-bold text-red-100 transition-colors hover:bg-red-500/25"
             >
-              Retry sync
+              {t("Retry sync")}
             </button>
           </div>
         )}
@@ -212,7 +220,7 @@ const NotificationsPage = () => {
           <div
             className="flex w-fit rounded-xl bg-(--color-surface-2) p-1"
             role="group"
-            aria-label="Filter notifications"
+            aria-label={t("Filter notifications")}
           >
             {FILTERS.map((filterOption) => (
               <button
@@ -226,7 +234,7 @@ const NotificationsPage = () => {
                     : "text-(--color-text-subtle) hover:text-(--color-text)"
                 }`}
               >
-                {filterOption === "all" ? "All" : "Unread"}
+                {filterOption === "all" ? t("All") : t("Unread")}
                 {filterOption === "unread" && ` (${unreadCount})`}
               </button>
             ))}
@@ -240,25 +248,25 @@ const NotificationsPage = () => {
               className="inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-bold text-(--color-text-soft) transition-colors hover:bg-(--color-surface-2) hover:text-(--color-text) disabled:cursor-not-allowed disabled:opacity-50"
             >
               <CheckIcon className="h-4 w-4" aria-hidden="true" />
-              Mark all read
+              {t("Mark all read")}
             </button>
             {confirmClear ? (
               <>
                 <span className="px-1 text-xs text-(--color-text-subtle)">
-                  Clear all notifications?
+                  {t("Clear all notifications?")}
                 </span>
                 <button
                   type="button"
                   onClick={handleClearHistory}
                   className="min-h-10 rounded-xl bg-red-500/15 px-3 text-xs font-bold text-red-400 transition-colors hover:bg-red-500/25"
                 >
-                  Confirm
+                  {t("Confirm")}
                 </button>
                 <button
                   type="button"
                   onClick={() => setConfirmClear(false)}
                   className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-(--color-text-subtle) transition-colors hover:bg-(--color-surface-2) hover:text-(--color-text)"
-                  aria-label="Cancel clearing notifications"
+                  aria-label={t("Cancel clearing notifications")}
                 >
                   <XMarkIcon className="h-4 w-4" aria-hidden="true" />
                 </button>
@@ -271,7 +279,7 @@ const NotificationsPage = () => {
                 className="inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-bold text-(--color-text-subtle) transition-colors hover:bg-red-500/10 hover:text-red-400 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <TrashIcon className="h-4 w-4" aria-hidden="true" />
-                Clear history
+                {t("Clear history")}
               </button>
             )}
           </div>
@@ -291,20 +299,24 @@ const NotificationsPage = () => {
               </div>
               <h2 className="text-xl font-black">
                 {filter === "unread"
-                  ? "You’re all caught up"
-                  : "No notifications yet"}
+                  ? t("You’re all caught up")
+                  : t("No notifications yet")}
               </h2>
               <p className="mt-2 max-w-md text-sm leading-6 text-(--color-text-subtle)">
                 {filter === "unread"
-                  ? "There are no unread updates. New activity will show up here."
-                  : "Updates about your saved movies and account activity will appear here."}
+                  ? t(
+                      "There are no unread updates. New activity will show up here.",
+                    )
+                  : t(
+                      "Updates about your saved movies and account activity will appear here.",
+                    )}
               </p>
               {filter === "all" && (
                 <Link
                   to="/movies"
                   className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-purple-600 px-5 text-sm font-bold text-white transition-colors hover:bg-purple-500"
                 >
-                  Explore movies
+                  {t("Explore movies")}
                 </Link>
               )}
             </div>
@@ -315,11 +327,11 @@ const NotificationsPage = () => {
                   <>
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-[10px] font-black uppercase tracking-widest text-(--color-text-subtle)">
-                        {getTypeLabel(notification.type)}
+                        {getTypeLabel(notification.type, t)}
                       </span>
                       {!notification.read && (
                         <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-[10px] font-bold text-purple-300">
-                          New
+                          {t("New")}
                         </span>
                       )}
                     </div>
@@ -331,7 +343,7 @@ const NotificationsPage = () => {
                       dateTime={notification.timestamp}
                       title={new Date(notification.timestamp).toLocaleString()}
                     >
-                      {formatRelativeTime(notification.timestamp)}
+                      {formatRelativeTime(notification.timestamp, language)}
                     </time>
                   </>
                 );
@@ -350,7 +362,9 @@ const NotificationsPage = () => {
                     {notification.movie?.poster ? (
                       <Link
                         to={moviePath}
-                        aria-label={`View ${notification.movie.title}`}
+                        aria-label={t("View {title}", {
+                          title: notification.movie.title,
+                        })}
                         className="group relative h-20 w-14 shrink-0 overflow-hidden rounded-xl border border-(--color-border-soft) bg-(--color-surface-1) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 sm:h-24 sm:w-16"
                       >
                         <span className="absolute inset-0 flex items-center justify-center">
@@ -376,7 +390,9 @@ const NotificationsPage = () => {
                       <Link
                         to={moviePath}
                         className="min-w-0 flex-1 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
-                        aria-label={`Open ${notification.movie.title || "movie"} notification`}
+                        aria-label={t("Open {title} notification", {
+                          title: notification.movie.title || t("movie"),
+                        })}
                       >
                         {details}
                       </Link>
@@ -390,8 +406,8 @@ const NotificationsPage = () => {
                           type="button"
                           onClick={() => markAsRead(notification.id)}
                           className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg text-(--color-text-subtle) transition-colors hover:bg-purple-500/10 hover:text-purple-300"
-                          aria-label="Mark notification as read"
-                          title="Mark as read"
+                          aria-label={t("Mark notification as read")}
+                          title={t("Mark as read")}
                         >
                           <CheckIcon className="h-4 w-4" aria-hidden="true" />
                         </button>
@@ -400,8 +416,8 @@ const NotificationsPage = () => {
                         type="button"
                         onClick={() => removeFromHistory(notification.id)}
                         className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-lg text-(--color-text-subtle) transition-colors hover:bg-red-500/10 hover:text-red-400"
-                        aria-label="Remove notification"
-                        title="Remove notification"
+                        aria-label={t("Remove notification")}
+                        title={t("Remove notification")}
                       >
                         <XMarkIcon className="h-4 w-4" aria-hidden="true" />
                       </button>

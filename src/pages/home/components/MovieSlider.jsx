@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import MovieCard from "../../../components/ui/MovieCard";
+import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -16,12 +17,15 @@ const toHeadingId = (title) =>
 const NAV_BTN_CLASS =
   "absolute bottom-10 top-23 z-40 hidden w-16 cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover/slider:opacity-100 focus-visible:opacity-100 md:flex md:w-24";
 
-const NavButton = ({ direction, title, onClick }) => (
+const NavButton = ({ direction, title, onClick, t }) => (
   <button
     type="button"
     onClick={onClick}
     className={`${NAV_BTN_CLASS} ${direction === "left" ? "left-0" : "right-0"}`}
-    aria-label={`Scroll ${title} ${direction}`}
+    aria-label={t("Scroll {direction} through {title}", {
+      direction: t(direction === "left" ? "Left" : "Right"),
+      title,
+    })}
   >
     <div className="p-3 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black transition-all">
       {direction === "left" ? (
@@ -36,6 +40,7 @@ const NavButton = ({ direction, title, onClick }) => (
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const MovieSlider = ({ title, movies = [], viewAllTo }) => {
+  const { t } = useLanguage();
   const sliderRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -60,7 +65,9 @@ const MovieSlider = ({ title, movies = [], viewAllTo }) => {
       if (!el) return;
       el.scrollBy({
         left: direction === "left" ? -el.clientWidth : el.clientWidth,
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
       });
       window.setTimeout(checkScroll, 500);
     },
@@ -82,9 +89,13 @@ const MovieSlider = ({ title, movies = [], viewAllTo }) => {
           <span className="mt-2 hidden h-0.5 w-12 rounded-full bg-purple-600 md:block" />
         </h2>
         {viewAllTo && (
-          <Link to={viewAllTo} aria-label={`View all ${title} movies`}
-            className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500">
-            View all <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
+          <Link
+            to={viewAllTo}
+            aria-label={t("View all {title} movies", { title })}
+            className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-lg px-2 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
+          >
+            {t("View all")}{" "}
+            <ChevronRightIcon className="h-4 w-4" aria-hidden="true" />
           </Link>
         )}
       </div>
@@ -94,6 +105,7 @@ const MovieSlider = ({ title, movies = [], viewAllTo }) => {
         <NavButton
           direction="left"
           title={title}
+          t={t}
           onClick={() => handleScroll("left")}
         />
       )}
@@ -101,6 +113,7 @@ const MovieSlider = ({ title, movies = [], viewAllTo }) => {
         <NavButton
           direction="right"
           title={title}
+          t={t}
           onClick={() => handleScroll("right")}
         />
       )}

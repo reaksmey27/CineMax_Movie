@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
+import { useLanguage } from "../../context/LanguageContext";
 
 const SCROLL_THRESHOLD = 500;
 
 const BackToTopButton = () => {
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -33,8 +35,8 @@ const BackToTopButton = () => {
     <button
       type="button"
       onClick={handleClick}
-      aria-label="Back to top"
-      title="Back to top"
+      aria-label={t("Back to top")}
+      title={t("Back to top")}
       className={`fixed bottom-5 right-5 z-[120] flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-panel-bg)] text-[var(--color-text)] shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:text-purple-300 hover:shadow-[0_0_24px_rgba(168,85,247,0.24)] active:scale-95 sm:bottom-6 sm:right-6 ${
         isVisible
           ? "pointer-events-auto translate-y-0 opacity-100"

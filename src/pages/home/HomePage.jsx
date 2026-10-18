@@ -3,6 +3,7 @@ import HeroSection from "./components/HeroSection";
 import HeroSkeleton from "./components/HeroSkeleton";
 import MovieSlider from "./components/MovieSlider";
 import MovieSliderSkeleton from "../../components/ui/MovieSliderSkeleton";
+import { useLanguage } from "../../context/LanguageContext";
 import useHomeMovies from "../../hooks/movies/useHomeMovies";
 
 const ROWS = [
@@ -18,24 +19,29 @@ const ROWS = [
   ["fantasy", "Fantasy", "/movies?genre=14"],
 ];
 
-const SectionError = ({ title, onRetry }) => (
-  <section className="mx-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-6 sm:mx-6 lg:mx-24">
-    <h2 className="text-xl font-bold text-[var(--color-text)]">{title}</h2>
-    <p role="status" className="mt-2 text-sm text-[var(--color-text-muted)]">
-      These movies could not load. You can keep browsing or try again.
-    </p>
-    <button
-      type="button"
-      onClick={onRetry}
-      aria-label={`Retry ${title}`}
-      className="mt-4 min-h-11 rounded-xl bg-purple-600 px-5 py-2 font-semibold text-white hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
-    >
-      Try again
-    </button>
-  </section>
-);
+const SectionError = ({ title, onRetry }) => {
+  const { t } = useLanguage();
+
+  return (
+    <section className="mx-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-6 sm:mx-6 lg:mx-24">
+      <h2 className="text-xl font-bold text-[var(--color-text)]">{title}</h2>
+      <p role="status" className="mt-2 text-sm text-[var(--color-text-muted)]">
+        {t("These movies could not load. You can keep browsing or try again.")}
+      </p>
+      <button
+        type="button"
+        onClick={onRetry}
+        aria-label={t("Retry {title}", { title })}
+        className="mt-4 min-h-11 rounded-xl bg-purple-600 px-5 py-2 font-semibold text-white hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
+      >
+        {t("Try again")}
+      </button>
+    </section>
+  );
+};
 
 const HomePage = () => {
+  const { t } = useLanguage();
   const { sections, retrySection } = useHomeMovies();
   const trending = sections.trending;
   const [showAllGenres, setShowAllGenres] = useState(false);
@@ -43,16 +49,19 @@ const HomePage = () => {
   return (
     <main id="home" className="min-h-screen bg-slate-950">
       <h1 className="sr-only">
-        CineMax - discover movies, trailers, and your next favorite
+        {t("CineMax - discover movies, trailers, and your next favorite")}
       </h1>
       {trending.loading ? (
-        <div aria-busy="true" aria-label="Loading featured movies">
+        <div
+          aria-busy="true"
+          aria-label={t("Loading {title}", { title: t("Featured movies") })}
+        >
           <HeroSkeleton />
         </div>
       ) : trending.error ? (
         <div className="pb-6 pt-28 sm:pt-40">
           <SectionError
-            title="Featured movies"
+            title={t("Featured movies")}
             onRetry={() => retrySection("trending")}
           />
         </div>
@@ -60,8 +69,9 @@ const HomePage = () => {
         <HeroSection trendingMovies={trending.movies} />
       ) : (
         <div className="px-4 pb-6 pt-28 text-[var(--color-text-muted)] sm:px-6 sm:pt-40">
-          No featured movies are available right now. Explore the collections
-          below.
+          {t(
+            "No featured movies are available right now. Explore the collections below.",
+          )}
         </div>
       )}
 
@@ -71,7 +81,11 @@ const HomePage = () => {
             const section = sections[key];
             if (section.loading)
               return (
-                <div key={key} aria-busy="true" aria-label={`Loading ${title}`}>
+                <div
+                  key={key}
+                  aria-busy="true"
+                  aria-label={t("Loading {title}", { title: t(title) })}
+                >
                   <MovieSliderSkeleton />
                 </div>
               );
@@ -79,7 +93,7 @@ const HomePage = () => {
               return (
                 <SectionError
                   key={key}
-                  title={title}
+                  title={t(title)}
                   onRetry={() => retrySection(key)}
                 />
               );
@@ -87,7 +101,7 @@ const HomePage = () => {
             return (
               <MovieSlider
                 key={key}
-                title={title}
+                title={t(title)}
                 movies={section.movies}
                 viewAllTo={viewAllTo}
               />
@@ -101,7 +115,7 @@ const HomePage = () => {
             onClick={() => setShowAllGenres((current) => !current)}
             className="min-h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-6 py-3 text-sm font-semibold text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
           >
-            {showAllGenres ? "Show fewer genres" : "Explore more genres"}
+            {showAllGenres ? t("Show fewer genres") : t("Explore more genres")}
           </button>
         </div>
       </div>

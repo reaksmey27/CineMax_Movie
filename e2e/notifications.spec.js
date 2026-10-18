@@ -136,3 +136,74 @@ test("movie notification poster opens the linked movie on a narrow viewport", as
     ),
   ).toBe(true);
 });
+
+test("language selection translates navigation and persists across reloads", async ({
+  page,
+}) => {
+  await page.goto("/notifications");
+  const languageSelector = page.getByTestId("language-selector");
+  const chooseLanguage = async (code, label, heading) => {
+    await languageSelector.locator("summary").click();
+    await languageSelector.getByRole("button", { name: label }).click();
+    await expect(page.locator("html")).toHaveAttribute("lang", code);
+    await expect(
+      page.getByRole("heading", { name: heading, exact: true }),
+    ).toBeVisible();
+  };
+
+  await chooseLanguage("km", "ខ្មែរ", "ការជូនដំណឹង");
+  await chooseLanguage("zh-TW", "繁體中文", "通知");
+  await chooseLanguage("es", "Español", "Notificaciones");
+  await chooseLanguage("fr", "Français", "Notifications");
+  await chooseLanguage("ja", "日本語", "通知");
+  await chooseLanguage("ko", "한국어", "알림");
+  await chooseLanguage("vi", "Tiếng Việt", "Thông báo");
+  await chooseLanguage("id", "Bahasa Indonesia", "Notifikasi");
+
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("lang", "id");
+  await expect(
+    page.getByRole("heading", { name: "Notifikasi", exact: true }),
+  ).toBeVisible();
+
+  await chooseLanguage("en", "English", "Notifications");
+  await expect(
+    languageSelector.getByTestId("selected-language-flag"),
+  ).toHaveAttribute("src", /\.png(?:$|\?)/);
+  await expect(
+    languageSelector
+      .getByTestId("selected-language-flag")
+      .evaluate((image) => image.decode()),
+  ).resolves.toBeUndefined();
+  await languageSelector.locator("summary").click();
+  const languageFlags = languageSelector.locator("button img");
+  await expect(languageFlags).toHaveCount(9);
+  for (const flag of await languageFlags.all()) {
+    await expect(flag).toHaveAttribute("src", /\.png(?:$|\?)/);
+    await flag.evaluate((image) => image.decode());
+  }
+  await languageSelector.locator("summary").click();
+  await expect(languageSelector.locator("button")).toHaveCount(9);
+  await expect(languageSelector.locator('[aria-label="简体中文"]')).toHaveCount(
+    0,
+  );
+  await expect(languageSelector.locator('[aria-label="ไทย"]')).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Notifications", exact: true }),
+  ).toBeVisible();
+
+  await page.evaluate(() => localStorage.setItem("cinemax_language", "zh-CN"));
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("lang", "zh-TW");
+  await expect(
+    languageSelector.getByTestId("selected-language-flag"),
+  ).toHaveAttribute("src", /\.png(?:$|\?)/);
+  await expect(
+    languageSelector
+      .getByTestId("selected-language-flag")
+      .evaluate((image) => image.decode()),
+  ).resolves.toBeUndefined();
+  await expect(
+    page.getByTestId("language-selector").locator("button"),
+  ).toHaveCount(9);
+});

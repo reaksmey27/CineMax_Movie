@@ -12,6 +12,7 @@ import {
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../context/FavoritesContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useWatchlist } from "../../context/WatchlistContext";
 
 const MovieCard = ({
@@ -20,6 +21,7 @@ const MovieCard = ({
   showActions = true,
   hideUnrated = false,
 }) => {
+  const { t } = useLanguage();
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
   const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
     useWatchlist();
@@ -44,7 +46,7 @@ const MovieCard = ({
   };
 
   const year =
-    movie.subtitle || movie.release_date?.slice(0, 4) || "Year unavailable";
+    movie.subtitle || movie.release_date?.slice(0, 4) || t("Year unavailable");
   const rating = Number(movie.rating);
 
   return (
@@ -52,7 +54,7 @@ const MovieCard = ({
       <div className="relative aspect-[2/3]">
         <Link
           to={`/movie/${movie.id}`}
-          aria-label={`View ${movie.title}`}
+          aria-label={t("View {title}", { title: movie.title })}
           className="block h-full overflow-hidden rounded-2xl border border-[var(--color-border)] shadow-lg transition-shadow hover:shadow-purple-500/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
         >
           {poster && failedPoster !== poster ? (
@@ -67,7 +69,7 @@ const MovieCard = ({
           ) : (
             <div className="flex h-full flex-col items-center justify-center gap-2 bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
               <FilmIcon className="h-10 w-10" aria-hidden="true" />
-              <span className="text-xs">Poster unavailable</span>
+              <span className="text-xs">{t("Poster unavailable")}</span>
             </div>
           )}
         </Link>
@@ -87,10 +89,10 @@ const MovieCard = ({
               aria-label={
                 watchlistPending
                   ? isSaved
-                    ? "Removing from watchlist"
+                    ? t("Removing from watchlist")
                     : "Adding to watchlist"
                   : isSaved
-                    ? "Remove from watchlist"
+                    ? t("Remove from watchlist")
                     : "Add to watchlist"
               }
             >
@@ -120,10 +122,10 @@ const MovieCard = ({
               aria-label={
                 favoritePending
                   ? isFav
-                    ? "Removing from favorites"
+                    ? t("Removing from favorites")
                     : "Adding to favorites"
                   : isFav
-                    ? "Remove from favorites"
+                    ? t("Remove from favorites")
                     : "Add to favorites"
               }
             >
@@ -159,14 +161,16 @@ const MovieCard = ({
               className="inline-flex items-center gap-1 font-semibold text-[var(--color-text)]"
               aria-label={
                 Number.isFinite(rating) && rating > 0
-                  ? `Rated ${rating.toFixed(1)} out of 10`
-                  : "Not yet rated"
+                  ? t("Rated {rating} out of 10", {
+                      rating: rating.toFixed(1),
+                    })
+                  : t("Not yet rated")
               }
             >
               <StarIcon className="h-4 w-4 text-amber-500" aria-hidden="true" />
               {Number.isFinite(rating) && rating > 0
                 ? rating.toFixed(1)
-                : "Not rated"}
+                : t("Not rated")}
             </span>
           )}
         </div>

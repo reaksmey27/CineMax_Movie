@@ -6,9 +6,9 @@ import {
   DISCOVER_SORT_OPTIONS,
   MIN_RATING_OPTIONS,
 } from "../constants";
+import { useLanguage } from "../../../context/LanguageContext";
 
-const LABEL_CLASS =
-  "text-xs font-semibold text-[var(--color-text-muted)]";
+const LABEL_CLASS = "text-xs font-semibold text-[var(--color-text-muted)]";
 
 const INPUT_CLASS =
   "w-full rounded-lg border border-white/8 bg-white/5 px-3.5 py-2 text-[15px] font-semibold text-white outline-none transition-all placeholder:text-gray-600 focus:border-purple-500/45 focus:bg-white/8 sm:py-2.5";
@@ -25,6 +25,7 @@ const FilterSelect = ({
   onClose,
   onChange,
 }) => {
+  const { t } = useLanguage();
   const containerRef = useRef(null);
   const triggerId = `filter-select-${label.toLowerCase().replace(/\s+/g, "-")}`;
   const selected =
@@ -52,7 +53,7 @@ const FilterSelect = ({
 
   return (
     <div ref={containerRef} className="relative space-y-2">
-      <span className={LABEL_CLASS}>{label}</span>
+      <span className={LABEL_CLASS}>{t(label)}</span>
 
       <button
         id={triggerId}
@@ -68,7 +69,7 @@ const FilterSelect = ({
         }`}
       >
         <span className="min-w-0 truncate text-[15px] text-white">
-          {selected.label}
+          {t(selected.label)}
         </span>
         <ChevronUpDownIcon
           className={`h-3.5 w-3.5 shrink-0 transition-colors ${
@@ -107,7 +108,7 @@ const FilterSelect = ({
                           : "bg-white/5 text-white hover:bg-white/8"
                       }`}
                     >
-                      <span className="truncate">{option.label}</span>
+                      <span className="truncate">{t(option.label)}</span>
                       <CheckIcon
                         className={`h-3.5 w-3.5 shrink-0 ${isSelected ? "opacity-100" : "opacity-0"}`}
                       />
@@ -139,15 +140,16 @@ const MoviesFilters = ({
   yearInput,
   setYearInput,
 }) => {
+  const { t } = useLanguage();
   return (
     <div className="relative z-20">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-xs font-semibold text-purple-400">
-            Discover filters
+            {t("Discover filters")}
           </p>
           <p className="mt-2 max-w-2xl text-sm font-medium text-gray-400">
-            Find movies by genre, release year, rating, and sort order.
+            {t("Find movies by genre, release year, rating, and sort order.")}
           </p>
         </div>
 
@@ -157,20 +159,21 @@ const MoviesFilters = ({
           disabled={!hasActiveFilters}
           className="min-h-11 rounded-lg border border-white/10 px-3 py-1.5 text-sm font-semibold text-white transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:border-purple-500/40 hover:bg-purple-500/10"
         >
-          Reset filters
+          {t("Reset filters")}
         </button>
       </div>
 
       {hasSearchQuery && (
         <div className="mt-4 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-xs font-semibold text-amber-100">
-          Changing any filter will clear the current search and switch back to
-          TMDB discover results.
+          {t(
+            "Changing any filter will clear the current search and switch back to TMDB discover results.",
+          )}
         </div>
       )}
 
       <div className="mt-5">
         <p className="mb-3 text-xs font-semibold text-[var(--color-text-muted)]">
-          Genre
+          {t("Genre")}
         </p>
         <div className="no-scrollbar flex gap-2 overflow-x-auto pb-2 pr-1 scroll-smooth sm:pb-4">
           <button
@@ -182,7 +185,7 @@ const MoviesFilters = ({
                 : "border-white/5 bg-white/5 text-gray-400 hover:border-white/20 hover:bg-white/10"
             }`}
           >
-            All
+            {t("All")}
           </button>
           {genres.map((genre) => (
             <button
@@ -195,7 +198,7 @@ const MoviesFilters = ({
                   : "border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:bg-white/10"
               }`}
             >
-              {genre.name}
+              {t(genre.name)}
             </button>
           ))}
         </div>
@@ -203,12 +206,12 @@ const MoviesFilters = ({
 
       <div className="grid gap-3 sm:grid-cols-3">
         <label className="space-y-2">
-          <span className={LABEL_CLASS}>Release Year</span>
+          <span className={LABEL_CLASS}>{t("Release Year")}</span>
           <input
             type="text"
             inputMode="numeric"
             maxLength={4}
-            placeholder="e.g. 2024"
+            placeholder={t("e.g. 2024")}
             value={yearInput}
             onChange={(e) =>
               setYearInput(e.target.value.replace(/\D/g, "").slice(0, 4))

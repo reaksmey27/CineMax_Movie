@@ -3,33 +3,41 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import MovieGrid from "../../components/ui/MovieGrid";
 import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import PageError from "../../components/ui/PageError";
+import { useLanguage } from "../../context/LanguageContext";
 import useMovies from "../../hooks/movies/useMovies";
 import MovieHeader from "./components/MoviesHeader";
 import Pagination from "./components/Pagination";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-const getEmptyState = (searchQuery, hasActiveFilters) => {
+const getEmptyState = (t, searchQuery, hasActiveFilters) => {
   if (searchQuery)
     return {
-      title: "No Search Results",
-      message: `We couldn't find any movies for "${searchQuery}". Try a different title or keyword.`,
+      title: t("No Search Results"),
+      message: t(
+        'We couldn’t find any movies for "{query}". Try a different title or keyword.',
+        { query: searchQuery },
+      ),
     };
   if (hasActiveFilters)
     return {
-      title: "No Movies Match These Filters",
-      message:
+      title: t("No Movies Match These Filters"),
+      message: t(
         "Try widening your filters or reset them to discover more results.",
+      ),
     };
   return {
-    title: "No Movies Found",
-    message: "Try browsing a different genre or checking back for more titles.",
+    title: t("No Movies Found"),
+    message: t(
+      "Try browsing a different genre or checking back for more titles.",
+    ),
   };
 };
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const MoviesPage = () => {
+  const { t } = useLanguage();
   const {
     collectionTitle,
     movies,
@@ -59,8 +67,9 @@ const MoviesPage = () => {
     : hasActiveFilters
       ? clearFilters
       : undefined;
-  const resetLabel = searchQuery ? "Clear Search" : "Reset Filters";
+  const resetLabel = searchQuery ? t("Clear Search") : t("Reset Filters");
   const { title: emptyTitle, message: emptyMessage } = getEmptyState(
+    t,
     searchQuery,
     hasActiveFilters,
   );
@@ -95,7 +104,7 @@ const MoviesPage = () => {
         {error ? (
           <PageError
             message={error}
-            buttonLabel="Retry Connection"
+            buttonLabel={t("Retry Connection")}
             buttonColor="bg-white text-black hover:bg-red-500 hover:text-white"
             icon={XMarkIcon}
             iconColor="text-red-500"

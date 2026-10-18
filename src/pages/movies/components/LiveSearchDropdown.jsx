@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { ArrowPathIcon, FilmIcon, StarIcon } from "@heroicons/react/24/outline";
 
 import { tmdbService } from "../../../services/tmdbService";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const LIVE_SEARCH_LIMIT = 6;
 
@@ -33,9 +34,12 @@ const LiveSearchDropdown = ({
   onViewAll,
   listId = "movie-live-search-results",
 }) => {
+  const { t } = useLanguage();
   const listRef = useRef(null);
   useEffect(() => {
-    listRef.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest" });
+    listRef.current
+      ?.querySelector('[aria-selected="true"]')
+      ?.scrollIntoView({ block: "nearest" });
   }, [activeIndex]);
   const visibleResults = results.slice(0, LIVE_SEARCH_LIMIT);
   const hasResults = visibleResults.length > 0;
@@ -45,24 +49,29 @@ const LiveSearchDropdown = ({
       <div className="overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-[var(--color-text)] shadow-[0_18px_48px_rgba(0,0,0,0.35)]">
         <div className="flex items-center justify-between border-b border-[var(--color-border-soft)] px-4 py-3">
           <p className="text-xs font-semibold text-[var(--color-text-soft)]">
-            Movie suggestions
+            {t("Movie suggestions")}
           </p>
           <span className="text-xs text-[var(--color-text-muted)]">
-            {isLoading ? "Searching?" : `${visibleResults.length} matches`}
+            {isLoading
+              ? t("Searching...")
+              : t("{count} matches", { count: visibleResults.length })}
           </span>
         </div>
 
         {isLoading ? (
-          <div role="status" className="flex items-center gap-3 px-4 py-6 text-sm text-[var(--color-text-muted)]">
+          <div
+            role="status"
+            className="flex items-center gap-3 px-4 py-6 text-sm text-[var(--color-text-muted)]"
+          >
             <ArrowPathIcon className="h-4 w-4 animate-spin text-purple-400" />
-            Searching movies...
+            {t("Searching movies...")}
           </div>
         ) : hasResults ? (
           <ul
             ref={listRef}
             id={listId}
             role="listbox"
-            aria-label={`Search results for ${query}`}
+            aria-label={t("Search results for {query}", { query })}
             className="max-h-[min(23rem,calc(100dvh-16rem))] overflow-y-auto overscroll-contain p-1.5 [scrollbar-width:thin] [scrollbar-color:var(--color-text-subtle)_transparent]"
           >
             {visibleResults.map((movie, index) => {
@@ -73,7 +82,11 @@ const LiveSearchDropdown = ({
               return (
                 <li key={movie.id} role="presentation">
                   <button
-                    id={listId === "movie-live-search-results" ? `movie-live-result-${movie.id}` : `${listId}-${movie.id}`}
+                    id={
+                      listId === "movie-live-search-results"
+                        ? `movie-live-result-${movie.id}`
+                        : `${listId}-${movie.id}`
+                    }
                     type="button"
                     role="option"
                     aria-selected={isActive}
@@ -107,7 +120,7 @@ const LiveSearchDropdown = ({
                       </div>
 
                       <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-muted)]">
-                        <span>{year || "Year unavailable"}</span>
+                        <span>{year || t("Year unavailable")}</span>
                         <span aria-hidden="true">?</span>
                         <span className="inline-flex items-center gap-1.5">
                           <StarIcon className="h-3.5 w-3.5 text-yellow-400" />
@@ -127,21 +140,27 @@ const LiveSearchDropdown = ({
             </div>
             <div>
               <p className="text-sm font-semibold text-[var(--color-text)]">
-                No results found for &quot;{query}&quot;
+                {t("No results found for {query}", { query })}
               </p>
               <p className="mt-1 text-xs text-[var(--color-text-muted)]">
-                Try a different title or a shorter keyword.
+                {t("Try a different title or a shorter keyword.")}
               </p>
             </div>
           </div>
         )}
         {onViewAll && (
           <div className="border-t border-[var(--color-border-soft)] p-2">
-            <button type="button" onClick={onViewAll}
-              className="flex min-h-11 w-full items-center justify-between gap-3 rounded-xl px-3 text-sm font-semibold text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500">
-              <span>View all results</span><span aria-hidden="true">?</span>
+            <button
+              type="button"
+              onClick={onViewAll}
+              className="flex min-h-11 w-full items-center justify-between gap-3 rounded-xl px-3 text-sm font-semibold text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
+            >
+              <span>{t("View all results")}</span>
+              <span aria-hidden="true">→</span>
             </button>
-            <p className="px-3 pb-1 text-xs text-[var(--color-text-muted)]">? ? to browse ? Enter to select ? Esc to close</p>
+            <p className="px-3 pb-1 text-xs text-[var(--color-text-muted)]">
+              {t("Use arrow keys to browse, Enter to select, Esc to close")}
+            </p>
           </div>
         )}
       </div>

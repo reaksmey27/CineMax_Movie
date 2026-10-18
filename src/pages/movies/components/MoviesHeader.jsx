@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { tmdbService } from "../../../services/tmdbService";
+import { useLanguage } from "../../../context/LanguageContext";
 import MoviesFilters from "./MoviesFilters";
 import MoviesSearchBar from "./MoviesSearchBar";
 
@@ -20,6 +21,7 @@ const getHeadingState = (hasSearchQuery, hasActiveFilters) => {
 };
 
 const getSubtitle = (
+  t,
   hasSearchQuery,
   hasActiveFilters,
   searchQuery,
@@ -27,10 +29,22 @@ const getSubtitle = (
   totalPages,
 ) => {
   if (hasSearchQuery)
-    return `Searching for "${searchQuery}" movies. Page ${page} of ${totalPages}.`;
+    return t('Searching for "{query}" movies. Page {page} of {totalPages}.', {
+      query: searchQuery,
+      page,
+      totalPages,
+    });
   if (hasActiveFilters)
-    return `Discover results tailored to your filters. Page ${page} of ${totalPages}.`;
-  return "Browse through thousands of movies by your favorite genres. Live updates from the global community.";
+    return t(
+      "Discover results tailored to your filters. Page {page} of {totalPages}.",
+      {
+        page,
+        totalPages,
+      },
+    );
+  return t(
+    "Browse through thousands of movies by your favorite genres. Live updates from the global community.",
+  );
 };
 
 const normalizeSearchQuery = (query) => query.trim();
@@ -93,6 +107,7 @@ const MoviesHeader = ({
   onSortChange,
   onClearFilters,
 }) => {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState(searchQuery);
   const [yearInput, setYearInput] = useState(releaseYear);
@@ -108,18 +123,26 @@ const MoviesHeader = ({
   const skipNextDebounceRef = useRef(false);
 
   const hasSearchQuery = Boolean(searchQuery.trim());
-  const heading = collectionTitle && !hasSearchQuery
-    ? { top: collectionTitle, accent: "Movies", suffix: "" }
-    : getHeadingState(hasSearchQuery, hasActiveFilters);
-  const subtitle = collectionTitle && !hasSearchQuery
-    ? `Browse ${collectionTitle.toLowerCase()} movies. Select a filter to explore other movies.`
-    : getSubtitle(
-    hasSearchQuery,
-    hasActiveFilters,
-    searchQuery,
-    page,
-    totalPages,
-  );
+  const heading =
+    collectionTitle && !hasSearchQuery
+      ? { top: collectionTitle, accent: "Movies", suffix: "" }
+      : getHeadingState(hasSearchQuery, hasActiveFilters);
+  const subtitle =
+    collectionTitle && !hasSearchQuery
+      ? t(
+          "Browse {collection} movies. Select a filter to explore other movies.",
+          {
+            collection: t(collectionTitle),
+          },
+        )
+      : getSubtitle(
+          t,
+          hasSearchQuery,
+          hasActiveFilters,
+          searchQuery,
+          page,
+          totalPages,
+        );
   const trimmedInput = inputValue.trim();
   const isTyping = inputValue !== searchQuery;
   const shouldShowLiveDropdown = isSearchFocused && trimmedInput.length >= 2;
@@ -268,9 +291,9 @@ const MoviesHeader = ({
       <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end md:gap-8">
         <div className="space-y-3">
           <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
-            {heading.top} <br />
-            <span className="text-purple-500">{heading.accent}</span>
-            {heading.suffix}
+            {t(heading.top)} <br />
+            <span className="text-purple-500">{t(heading.accent)}</span>
+            {t(heading.suffix)}
           </h1>
           <p className="max-w-md text-sm font-medium text-gray-400">
             {subtitle}

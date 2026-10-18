@@ -1,0 +1,49 @@
+import en from "./locales/en";
+import km from "./locales/km";
+import zhTW from "./locales/zh-TW";
+import es from "./locales/es";
+import fr from "./locales/fr";
+import ja from "./locales/ja";
+import ko from "./locales/ko";
+import vi from "./locales/vi";
+import id from "./locales/id";
+import flagUS from "../assets/flags/us.png";
+import flagKH from "../assets/flags/kh.png";
+import flagCN from "../assets/flags/cn.png";
+import flagES from "../assets/flags/es.png";
+import flagFR from "../assets/flags/fr.png";
+import flagJP from "../assets/flags/jp.png";
+import flagKR from "../assets/flags/kr.png";
+import flagVN from "../assets/flags/vn.png";
+import flagID from "../assets/flags/id.png";
+
+export const LANGUAGES = [
+  { code: "en", label: "English", flag: flagUS },
+  { code: "km", label: "ខ្មែរ", flag: flagKH },
+  { code: "zh-TW", label: "繁體中文", flag: flagCN },
+  { code: "es", label: "Español", flag: flagES },
+  { code: "fr", label: "Français", flag: flagFR },
+  { code: "ja", label: "日本語", flag: flagJP },
+  { code: "ko", label: "한국어", flag: flagKR },
+  { code: "vi", label: "Tiếng Việt", flag: flagVN },
+  { code: "id", label: "Bahasa Indonesia", flag: flagID },
+];
+
+const translations = {
+  en,
+  km,
+  "zh-TW": zhTW,
+  es,
+  fr,
+  ja,
+  ko,
+  vi,
+  id,
+};
+
+export const translate = (language, key, values = {}) => {
+  const message = translations[language]?.[key] || key;
+  return message.replace(/\{(\w+)\}/g, (match, name) =>
+    Object.hasOwn(values, name) ? String(values[name]) : match,
+  );
+};

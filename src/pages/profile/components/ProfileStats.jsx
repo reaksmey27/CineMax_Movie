@@ -6,8 +6,10 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 import { useFavorites } from "../../../context/FavoritesContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const ProfileStats = ({ user }) => {
+  const { t } = useLanguage();
   const { favorites } = useFavorites();
 
   const averageRating = favorites.length
@@ -37,33 +39,35 @@ const ProfileStats = ({ user }) => {
 
   const stats = [
     {
-      label: "Saved Favorites",
+      label: t("Saved Favorites"),
       value: favorites.length,
       detail: favorites.length
-        ? "Your personal collection is growing."
-        : "Start building your list.",
+        ? t("Your personal collection is growing.")
+        : t("Start building your list."),
       icon: <HeartIcon className="h-5 w-5 text-rose-400" />,
     },
     {
-      label: "Average Rating",
+      label: t("Average Rating"),
       value: averageRating,
       detail: favorites.length
-        ? "Across the movies you saved."
-        : "Add favorites to unlock insights.",
+        ? t("Across the movies you saved.")
+        : t("Add favorites to unlock insights."),
       icon: <StarIcon className="h-5 w-5 text-amber-400" />,
     },
     {
-      label: "Top Genre",
+      label: t("Top Genre"),
       value: topGenreEntry?.[0] || "Open taste",
       detail: topGenreEntry
-        ? `${topGenreEntry[1]} saved titles lean this way.`
-        : "No genre trend yet.",
+        ? t("{count} saved titles lean this way.", {
+            count: topGenreEntry[1],
+          })
+        : t("No genre trend yet."),
       icon: <ChartBarIcon className="h-5 w-5 text-sky-400" />,
     },
     {
-      label: "Profile Complete",
+      label: t("Profile Complete"),
       value: `${profileCompletion}%`,
-      detail: "Add a location, genre, and bio to finish your identity.",
+      detail: t("Add a location, genre, and bio to finish your identity."),
       icon: <SparklesIcon className="h-5 w-5 text-violet-400" />,
     },
   ];
@@ -72,10 +76,10 @@ const ProfileStats = ({ user }) => {
     <div className="rounded-[2rem] border border-white/10 bg-white/5 p-5 shadow-lg backdrop-blur-sm sm:p-7">
       <div className="mb-5">
         <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gray-500">
-          Account Snapshot
+          {t("Account Snapshot")}
         </p>
         <h3 className="mt-2 text-2xl font-semibold tracking-tight text-white">
-          Your movie DNA
+          {t("Your movie DNA")}
         </h3>
       </div>
 

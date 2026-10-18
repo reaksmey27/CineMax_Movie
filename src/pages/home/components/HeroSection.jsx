@@ -16,6 +16,7 @@ import {
 import TrailerModal from "../../movies/components/TrailerModal";
 
 import { useFavorites } from "../../../context/FavoritesContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -37,6 +38,7 @@ const NavButton = ({ onClick, children, label }) => (
 );
 
 const HeroSection = ({ trendingMovies = [] }) => {
+  const { t } = useLanguage();
   const featured = trendingMovies.slice(0, FEATURED_COUNT);
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
 
@@ -110,7 +112,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
 
   return (
     <section
-      aria-label="Featured movies"
+      aria-label={t("Featured movies")}
       aria-roledescription="carousel"
       onFocusCapture={(event) => {
         if (event.target.matches(":focus-visible")) stopRotation();
@@ -151,7 +153,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
         {/* Badges */}
         <div className="mb-6 flex flex-wrap items-center gap-2.5 sm:mb-8 sm:gap-4">
           <span className="rounded-lg bg-purple-600 px-2 py-1 text-xs font-semibold text-white shadow-lg sm:text-sm">
-            Featured
+            {t("Featured")}
           </span>
           <div className="flex items-center gap-1 rounded-lg bg-yellow-500 px-2 py-0.5 text-xs font-semibold text-black sm:text-xs">
             <StarIcon className="h-3 w-3 sm:h-4 sm:w-4" />
@@ -180,7 +182,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
             className="group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-6 py-4 text-sm font-semibold text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5"
           >
             <PlayCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:scale-110" />
-            <span>Watch now</span>
+            <span>{t("Watch now")}</span>
           </Link>
 
           <div className="flex w-full flex-wrap items-stretch gap-3 sm:w-auto sm:flex-nowrap sm:items-center sm:gap-4">
@@ -192,7 +194,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
                 <div className="rounded-full bg-purple-600/20 p-1.5 sm:p-2">
                   <PlayIcon className="h-3 w-3 sm:h-4 sm:w-4 text-purple-500 transition-transform group-hover:scale-125" />
                 </div>
-                <span>Trailer</span>
+                <span>{t("Trailer")}</span>
               </button>
             )}
 
@@ -202,11 +204,11 @@ const HeroSection = ({ trendingMovies = [] }) => {
               aria-label={
                 favoritePending
                   ? isFav
-                    ? "Removing from favorites"
-                    : "Adding to favorites"
+                    ? t("Removing from favorites")
+                    : t("Adding to favorites")
                   : isFav
-                    ? "Remove from favorites"
-                    : "Add to favorites"
+                    ? t("Remove from favorites")
+                    : t("Add to favorites")
               }
               disabled={favoritePending}
               onClick={() => toggleFavorite(movie)}
@@ -226,9 +228,9 @@ const HeroSection = ({ trendingMovies = [] }) => {
               <span className="text-sm font-semibold">
                 {favoritePending
                   ? isFav
-                    ? "Removing..."
-                    : "Saving..."
-                  : "Favorite"}
+                    ? t("Removing...")
+                    : t("Saving...")
+                  : t("Favorite")}
               </span>
             </button>
           </div>
@@ -237,12 +239,12 @@ const HeroSection = ({ trendingMovies = [] }) => {
 
       {/* ── Nav arrows ── */}
       <div className="absolute inset-y-0 left-0 hidden lg:flex items-center px-10 z-30">
-        <NavButton label="Previous featured movie" onClick={handlePrev}>
+        <NavButton label={t("Previous featured movie")} onClick={handlePrev}>
           <ChevronLeftIcon className="h-6 w-6 sm:h-8 sm:w-8" />
         </NavButton>
       </div>
       <div className="absolute inset-y-0 right-0 hidden lg:flex items-center px-10 z-30">
-        <NavButton label="Next featured movie" onClick={handleNext}>
+        <NavButton label={t("Next featured movie")} onClick={handleNext}>
           <ChevronRightIcon className="h-6 w-6 sm:h-8 sm:w-8" />
         </NavButton>
       </div>
@@ -252,7 +254,9 @@ const HeroSection = ({ trendingMovies = [] }) => {
         {featured.map((_, idx) => (
           <button
             key={idx}
-            aria-label={`Show featured movie ${idx + 1}`}
+            aria-label={t("Show featured movie {number}", {
+              number: idx + 1,
+            })}
             aria-pressed={idx === currentIndex}
             onClick={() => goTo(idx)}
             className={`hero-dot h-2 rounded-full transition-all duration-500 ${

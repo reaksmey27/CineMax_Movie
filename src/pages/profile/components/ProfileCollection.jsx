@@ -7,10 +7,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useWatchlist } from "../../../context/WatchlistContext";
+import { useLanguage } from "../../../context/LanguageContext";
 import MovieCard from "../../../components/ui/MovieCard";
 import MovieGridSkeleton from "../../../components/ui/MovieGridSkeleton";
 
 const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
+  const { t } = useLanguage();
   const [removing, setRemoving] = useState(false);
   const [error, setError] = useState(false);
   const busy = useRef(false);
@@ -42,15 +44,18 @@ const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
         type="button"
         disabled={removing}
         onClick={remove}
-        aria-label={`Remove ${movie.title} from ${listName.toLowerCase()}`}
+        aria-label={t("Remove {title} from {list}", {
+          title: movie.title,
+          list: t(listName),
+        })}
         className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-2 text-xs font-medium text-[var(--color-text-muted)] transition-colors hover:bg-red-500/10 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-500 disabled:cursor-wait disabled:opacity-60 sm:text-sm"
       >
         <TrashIcon className="h-4 w-4" aria-hidden="true" />
-        {removing ? "Removing..." : "Remove"}
+        {removing ? t("Removing...") : t("Remove")}
       </button>
       {error && (
         <p role="alert" className="mt-2 text-xs text-[var(--color-text-muted)]">
-          Could not remove this movie. Please try again.
+          {t("Could not remove this movie. Please try again.")}
         </p>
       )}
     </li>
@@ -58,6 +63,7 @@ const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
 };
 
 const ProfileCollection = () => {
+  const { t } = useLanguage();
   const {
     favorites,
     loading: favoritesLoading,
@@ -82,7 +88,7 @@ const ProfileCollection = () => {
   const tabRefs = useRef({});
   const isWatchlist = activeTab === "watchlist";
   const movies = isWatchlist ? watchlist : favorites;
-  const title = isWatchlist ? "Watchlist" : "Favorites";
+  const title = t(isWatchlist ? "Watchlist" : "Favorites");
   const Icon = isWatchlist ? BookmarkIcon : HeartIcon;
   const pending = isWatchlist ? loading : favoritesLoading;
   const failed = isWatchlist ? error : favoritesError;
@@ -90,13 +96,13 @@ const ProfileCollection = () => {
   const tabs = [
     {
       id: "favorites",
-      title: "Favorites",
+      title: t("Favorites"),
       count: favoritesLoading || favoritesError ? null : favorites.length,
       icon: HeartIcon,
     },
     {
       id: "watchlist",
-      title: "Watchlist",
+      title: t("Watchlist"),
       count: loading || error ? null : watchlist.length,
       icon: BookmarkIcon,
     },
@@ -108,10 +114,10 @@ const ProfileCollection = () => {
   };
 
   return (
-    <section className="mt-8 sm:mt-10" aria-label="Saved movies">
+    <section className="mt-8 sm:mt-10" aria-label={t("Saved movies")}>
       <div
         role="tablist"
-        aria-label="Movie collections"
+        aria-label={t("Movie collections")}
         className="flex gap-2 border-b border-[var(--color-border)] sm:gap-6"
       >
         {tabs.map((tab, index) => {

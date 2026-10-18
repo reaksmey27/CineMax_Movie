@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const TrailerModal = ({ movie, isOpen, onClose }) => {
+  const { t } = useLanguage();
   const playerRef = useRef(null);
   const minimizeRef = useRef(null);
   const expandRef = useRef(null);
@@ -145,8 +147,8 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
                 <button
                   ref={expandRef}
                   type="button"
-                  aria-label="Expand trailer player"
-                  title="Expand player"
+                  aria-label={t("Expand trailer player")}
+                  title={t("Expand player")}
                   onClick={expandPlayer}
                   className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
                 >
@@ -157,8 +159,8 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
                 </button>
                 <button
                   type="button"
-                  aria-label="Stop trailer"
-                  title="Stop trailer"
+                  aria-label={t("Stop trailer")}
+                  title={t("Stop trailer")}
                   onClick={stopPlayer}
                   className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-red-500/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
                 >
@@ -169,8 +171,8 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
               <button
                 ref={minimizeRef}
                 type="button"
-                aria-label="Minimize trailer and keep watching"
-                title="Minimize and keep watching"
+                aria-label={t("Minimize trailer and keep watching")}
+                title={t("Minimize and keep watching")}
                 onClick={minimizePlayer}
                 className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
               >

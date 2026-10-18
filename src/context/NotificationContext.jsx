@@ -16,6 +16,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { auth } from "../firebase/config";
+import { useLanguage } from "./LanguageContext";
 
 const NotificationContext = createContext();
 
@@ -39,6 +40,7 @@ const writeStoredNotifications = (notifications) => {
 };
 
 export const NotificationProvider = ({ children }) => {
+  const { t } = useLanguage();
   const [notifications, setNotifications] = useState([]);
   const [localHistory, setLocalHistory] = useState(() =>
     readStoredNotifications(),
@@ -366,28 +368,37 @@ export const NotificationProvider = ({ children }) => {
       );
       setImportDismissedFor(userId);
       setImportMessage(
-        `Imported ${result.importedCount} notification${result.importedCount === 1 ? "" : "s"}. Your account keeps the 50 most recent.`,
+        t(
+          "Imported {count} notification(s). Your account keeps the 50 most recent.",
+          {
+            count: result.importedCount,
+          },
+        ),
       );
       if (result.skippedCount > 0) {
         setImportError(
-          `${result.skippedCount} invalid local notification${result.skippedCount === 1 ? " was" : "s were"} left on this device.`,
+          t("{count} invalid local notification(s) were left on this device.", {
+            count: result.skippedCount,
+          }),
         );
       }
     } catch (error) {
       console.error("[notifications] Failed to import local history", error);
       setImportError(
-        "Local notification history could not be imported. It remains on this device; check your connection and retry.",
+        t(
+          "Local notification history could not be imported. It remains on this device; check your connection and retry.",
+        ),
       );
     } finally {
       setIsImportingHistory(false);
     }
-  }, [isImportingHistory, localHistory, shouldOfferLocalImport, userId]);
+  }, [isImportingHistory, localHistory, shouldOfferLocalImport, t, userId]);
 
   const keepLocalHistory = useCallback(() => {
     setImportDismissedFor(userId);
     setImportError("");
-    setImportMessage("Your older notifications will remain on this device.");
-  }, [userId]);
+    setImportMessage(t("Your older notifications will remain on this device."));
+  }, [t, userId]);
 
   const removeNotification = useCallback((id) => {
     setNotifications((prev) =>

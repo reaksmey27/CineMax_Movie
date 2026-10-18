@@ -12,6 +12,7 @@ import {
   BookmarkIcon,
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const MovieInfo = ({
   movie,
@@ -26,6 +27,7 @@ const MovieInfo = ({
   onFavorite,
   onWatchlist,
 }) => {
+  const { t } = useLanguage();
   return (
     <div className="animate-in flex flex-col gap-8 duration-700 slide-in-from-left-6 sm:gap-12 lg:flex-row lg:gap-8 xl:gap-12">
       <div className="mx-auto w-full max-w-sm shrink-0 lg:mx-0 lg:w-72 lg:max-w-none xl:w-80">
@@ -75,7 +77,7 @@ const MovieInfo = ({
 
         <div className="space-y-3">
           <h3 className="text-xs font-semibold text-[var(--color-hero-muted)]">
-            Storyline
+            {t("Storyline")}
           </h3>
           <p className="max-w-4xl text-base font-medium leading-relaxed text-[var(--color-hero-text)] sm:text-lg">
             {movie.description}
@@ -98,7 +100,7 @@ const MovieInfo = ({
                 onClick={onTrailer}
                 className="flex min-h-14 min-w-35 flex-1 items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-6 py-4 text-sm font-semibold text-[var(--color-text)] transition-all backdrop-blur-md hover:bg-[var(--color-surface-2)] active:scale-95 sm:px-8 sm:py-5"
               >
-                Watch Trailer
+                {t("Watch Trailer")}
               </button>
             )}
 
@@ -106,11 +108,11 @@ const MovieInfo = ({
               aria-label={
                 favoritePending
                   ? isFav
-                    ? "Removing from favorites"
+                    ? t("Removing from favorites")
                     : "Adding to favorites"
                   : isFav
-                    ? "Remove from favorites"
-                    : "Add to favorites"
+                    ? t("Remove from favorites")
+                    : t("Add to favorites")
               }
               aria-busy={favoritePending}
               disabled={favoritePending}
@@ -131,11 +133,11 @@ const MovieInfo = ({
               <span className="text-xs font-semibold">
                 {favoritePending
                   ? isFav
-                    ? "Removing..."
-                    : "Saving..."
+                    ? t("Removing...")
+                    : t("Saving...")
                   : isFav
-                    ? "Favorited"
-                    : "Favorite"}
+                    ? t("Favorited")
+                    : t("Favorite")}
               </span>
             </button>
 
@@ -143,11 +145,11 @@ const MovieInfo = ({
               aria-label={
                 watchlistPending
                   ? isWatchlisted
-                    ? "Removing from watchlist"
+                    ? t("Removing from watchlist")
                     : "Adding to watchlist"
                   : isWatchlisted
-                    ? "Remove from watchlist"
-                    : "Add to watchlist"
+                    ? t("Remove from watchlist")
+                    : t("Add to watchlist")
               }
               aria-busy={watchlistPending}
               disabled={watchlistPending}
@@ -168,11 +170,11 @@ const MovieInfo = ({
               <span className="text-xs font-semibold">
                 {watchlistPending
                   ? isWatchlisted
-                    ? "Removing..."
-                    : "Saving..."
+                    ? t("Removing...")
+                    : t("Saving...")
                   : isWatchlisted
-                    ? "Watchlisted"
-                    : "Watchlist"}
+                    ? t("Watchlisted")
+                    : t("Watchlist")}
               </span>
             </button>
           </div>

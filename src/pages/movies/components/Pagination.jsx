@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const PageControl = ({ disabled, href, onClick, ...props }) =>
   disabled ? (
@@ -25,6 +26,7 @@ const PageControl = ({ disabled, href, onClick, ...props }) =>
   );
 
 const Pagination = ({ page, totalPages, onPageChange }) => {
+  const { t } = useLanguage();
   const { pathname, search } = useLocation();
   const pageUrl = (number) => {
     const params = new URLSearchParams(search);
@@ -45,12 +47,12 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
 
   return (
     <nav
-      aria-label="Movie pages"
+      aria-label={t("Movie pages")}
       className="mt-12 flex flex-wrap items-center justify-center gap-2 px-1 py-2 sm:mt-24 sm:gap-3"
     >
       <PageControl
         href={pageUrl(page - 1)}
-        aria-label="Previous page"
+        aria-label={t("Previous page")}
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
         className={`inline-flex items-center justify-center min-h-11 min-w-11 shrink-0 rounded-xl border-2 border-white/10 p-2.5 transition-all sm:p-3 ${page === 1 ? "cursor-not-allowed opacity-20" : "opacity-100 text-white hover:border-white/20 hover:bg-white/10"}`}
@@ -62,14 +64,14 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
         aria-live="polite"
         className="min-w-0 px-3 text-sm font-bold text-white sm:hidden"
       >
-        Page {page} of {totalPages}
+        {t("Page {page} of {totalPages}", { page, totalPages })}
       </span>
 
       {startPage > 1 && (
         <>
           <PageControl
             href={pageUrl(1)}
-            aria-label="Go to page 1"
+            aria-label={t("Go to page {page}", { page: 1 })}
             onClick={() => onPageChange(1)}
             className="hidden h-11 w-11 shrink-0 rounded-xl border-2 border-white/10 text-sm font-black text-white transition-all hover:border-white/20 hover:bg-white/10 sm:inline-flex sm:items-center sm:justify-center lg:h-14 lg:w-14 lg:text-lg"
           >
@@ -87,7 +89,7 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
         <PageControl
           key={num}
           href={pageUrl(num)}
-          aria-label={`Go to page ${num}`}
+          aria-label={t("Go to page {page}", { page: num })}
           aria-current={page === num ? "page" : undefined}
           onClick={() => onPageChange(num)}
           className={`hidden h-11 w-11 shrink-0 rounded-xl text-sm font-black transition-all sm:inline-flex sm:items-center sm:justify-center lg:h-14 lg:w-14 lg:text-lg ${
@@ -109,7 +111,7 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
           )}
           <PageControl
             href={pageUrl(totalPages)}
-            aria-label={`Go to page ${totalPages}`}
+            aria-label={t("Go to page {page}", { page: totalPages })}
             onClick={() => onPageChange(totalPages)}
             className="hidden h-11 w-11 shrink-0 rounded-xl border-2 border-white/10 text-sm font-black text-white transition-all hover:border-white/20 hover:bg-white/10 sm:inline-flex sm:items-center sm:justify-center lg:h-14 lg:w-14 lg:text-lg"
           >
@@ -120,7 +122,7 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
 
       <PageControl
         href={pageUrl(page + 1)}
-        aria-label="Next page"
+        aria-label={t("Next page")}
         onClick={() => onPageChange(page + 1)}
         disabled={page >= totalPages}
         className={`inline-flex items-center justify-center min-h-11 min-w-11 shrink-0 rounded-xl border-2 border-white/10 p-2.5 transition-all sm:p-3 ${page === totalPages ? "cursor-not-allowed opacity-20" : "opacity-100 text-white hover:border-white/20 hover:bg-white/10"}`}

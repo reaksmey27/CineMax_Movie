@@ -11,9 +11,11 @@ import {
 } from "@heroicons/react/24/solid";
 
 import { useAuth } from "../../context/AuthContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useNotification } from "../../context/NotificationContext";
 import { THEMES } from "../../utils/theme";
 import NavSearch from "./NavSearch";
+import LanguageSelector from "./LanguageSelector";
 import { FaCoffee } from "react-icons/fa";
 import DonationModal from "../ui/DonationModal.jsx";
 
@@ -31,6 +33,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const navigate = useNavigate();
 
   const { user, logout, isAuthenticated } = useAuth();
+  const { language, t } = useLanguage();
 
   const { history, unreadCount, markAllAsRead, clearHistory, getIcon } =
     useNotification();
@@ -142,7 +145,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const formatTime = (isoString) => {
     const date = new Date(isoString);
 
-    return date.toLocaleTimeString([], {
+    return date.toLocaleTimeString(language, {
       hour: "2-digit",
       minute: "2-digit",
     });
@@ -180,7 +183,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         >
           <img
             src="/images/logo.png"
-            alt="CineMax Logo"
+            alt={t("CineMax Logo")}
             className="h-8 w-auto sm:h-10"
             decoding="async"
           />
@@ -201,7 +204,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                     : "text-[var(--color-text-soft)] hover:scale-105 hover:text-[var(--color-text)]"
                 }`}
               >
-                {link.name}
+                {t(link.name)}
 
                 <span
                   className={`absolute -bottom-1 left-1/2 h-1 -translate-x-1/2 rounded-full bg-[var(--nav-accent)] transition-all duration-300 ${
@@ -224,13 +227,14 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setShowNotifPanel(false);
             }}
           />
+          <LanguageSelector className="hidden xl:block" />
           {/* Theme Button */}
           <button
             type="button"
             onClick={onToggleTheme}
             className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1.5 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-[var(--nav-accent)] active:scale-95 sm:p-2"
-            aria-label={themeButtonLabel}
-            title={themeButtonLabel}
+            aria-label={t(themeButtonLabel)}
+            title={t(themeButtonLabel)}
           >
             <ThemeIcon className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -239,7 +243,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <div className="relative" ref={panelRef}>
             <button
               type="button"
-              aria-label="Notifications"
+              aria-label={t("Notifications")}
               aria-expanded={showNotifPanel}
               onClick={() => {
                 setShowNotifPanel(!showNotifPanel);
@@ -255,7 +259,9 @@ const Navbar = ({ theme, onToggleTheme }) => {
 
               {unreadCount > 0 && (
                 <span
-                  aria-label={`${unreadCount} unread notifications`}
+                  aria-label={t("{count} unread notifications", {
+                    count: unreadCount,
+                  })}
                   className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-black text-white shadow-lg"
                 >
                   {unreadCount}
@@ -267,14 +273,14 @@ const Navbar = ({ theme, onToggleTheme }) => {
               <div className="fixed left-2 right-2 top-20 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl backdrop-blur-2xl duration-300 animate-in fade-in slide-in-from-top-4 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-4 sm:w-80 sm:rounded-4xl">
                 <div className="flex items-center justify-between border-b border-[var(--color-border-soft)] px-6 py-5">
                   <h3 className="text-sm font-black uppercase tracking-tighter italic">
-                    Notifications
+                    {t("Notifications")}
                   </h3>
 
                   <button
                     type="button"
                     onClick={clearHistory}
-                    aria-label="Clear notification history"
-                    title="Clear notification history"
+                    aria-label={t("Clear notification history")}
+                    title={t("Clear notification history")}
                     className="rounded-lg p-1.5 text-gray-500 hover:bg-[var(--color-surface-1)] hover:text-red-400"
                   >
                     <TrashIcon className="h-4 w-4" />
@@ -287,7 +293,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                       <BellIcon className="mx-auto mb-3 h-8 w-8 text-gray-700 opacity-50" />
 
                       <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                        No new alerts.
+                        {t("No new alerts.")}
                       </p>
                     </div>
                   ) : (
@@ -323,7 +329,9 @@ const Navbar = ({ theme, onToggleTheme }) => {
                               to={`/movie/${encodeURIComponent(notif.movie.id)}`}
                               onClick={() => setShowNotifPanel(false)}
                               className="min-w-0 flex-1 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
-                              aria-label={`Open ${notif.movie.title || "movie"} notification`}
+                              aria-label={t("Open {title} notification", {
+                                title: notif.movie.title || t("movie"),
+                              })}
                             >
                               <p className="mb-1 text-[10px] font-bold leading-relaxed text-[var(--color-text)] sm:text-xs">
                                 {notif.message}
@@ -345,8 +353,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
                           {!notif.read && (
                             <span
                               className="mt-2 h-2 w-2 shrink-0 rounded-full bg-purple-400"
-                              aria-label="Unread"
-                              title="Unread"
+                              aria-label={t("Unread")}
+                              title={t("Unread")}
                             />
                           )}
                         </div>
@@ -361,14 +369,14 @@ const Navbar = ({ theme, onToggleTheme }) => {
                     disabled={unreadCount === 0}
                     className="min-h-10 rounded-xl px-3 text-xs font-bold text-[var(--color-text-soft)] transition-colors hover:bg-[var(--color-surface-1)] hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Mark all as read
+                    {t("Mark all as read")}
                   </button>
                   <Link
                     to="/notifications"
                     onClick={() => setShowNotifPanel(false)}
                     className="min-h-10 rounded-xl bg-purple-600 px-4 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
                   >
-                    View all
+                    {t("View all notifications")}
                   </Link>
                 </div>
               </div>
@@ -408,7 +416,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 state={modalState}
                 className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-purple-500/50 px-5 py-1.5 text-sm font-bold transition-all hover:bg-purple-600"
               >
-                Sign In
+                {t("Sign In")}
               </Link>
             )}
           </div>
@@ -421,12 +429,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setIsDonationOpen(true);
             }}
             className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-amber-400/40 bg-[var(--color-surface-2)] p-2 text-[var(--color-text)] transition-all hover:border-amber-400/70 hover:bg-[var(--color-surface-3)] focus-visible:outline-2 focus-visible:outline-amber-400 2xl:px-4"
-            aria-label="Buy me a coffee"
-            title="Buy me a coffee"
+            aria-label={t("Buy me a coffee")}
+            title={t("Buy me a coffee")}
           >
             <FaCoffee className="h-5 w-5" aria-hidden="true" />
             <span className="hidden text-sm font-bold 2xl:inline">
-              Buy me a coffee
+              {t("Buy me a coffee")}
             </span>
           </button>
 
@@ -439,7 +447,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setShowNotifPanel(false);
             }}
             className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1.5 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:p-2 xl:hidden"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMenuOpen ? t("Close menu") : t("Open menu")}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
             aria-haspopup="dialog"
@@ -468,7 +476,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
             id="mobile-navigation"
             role="dialog"
             aria-modal="true"
-            aria-label="Main navigation"
+            aria-label={t("Main navigation")}
             className="fixed bottom-0 right-0 top-20 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-28"
           >
             <div className="mb-4 rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-1)] p-3">
@@ -493,7 +501,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
 
                   <div className="min-w-0">
                     <p className="truncate text-sm font-black">
-                      {user?.name || "Profile"}
+                      {user?.name || t("Profile")}
                     </p>
                     <p className="truncate text-xs text-[var(--color-text-muted)]">
                       {user?.email}
@@ -507,13 +515,13 @@ const Navbar = ({ theme, onToggleTheme }) => {
                   className="flex items-center justify-between rounded-xl bg-purple-600 px-4 py-3 text-sm font-black text-white transition hover:bg-purple-500"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Sign In
+                  {t("Sign In")}
                   <ArrowRightOnRectangleIcon className="h-5 w-5" />
                 </Link>
               )}
             </div>
 
-            <nav aria-label="Mobile">
+            <nav aria-label={t("Mobile navigation")}>
               <div className="flex flex-col gap-1">
                 {NAV_LINKS.map((link) => {
                   const isActive = checkActive(link.path);
@@ -529,12 +537,16 @@ const Navbar = ({ theme, onToggleTheme }) => {
                           : "text-[var(--color-text-soft)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]"
                       }`}
                     >
-                      {link.name}
+                      {t(link.name)}
                     </Link>
                   );
                 })}
               </div>
             </nav>
+
+            <div className="mt-5 border-t border-[var(--color-border-soft)] pt-4">
+              <LanguageSelector className="block" />
+            </div>
 
             {isAuthenticated && (
               <button
@@ -545,7 +557,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 }}
                 className="mt-5 flex w-full items-center justify-between rounded-xl border border-red-500/30 px-4 py-3 text-sm font-black text-red-300 transition hover:bg-red-500/10 hover:text-red-200"
               >
-                Logout
+                {t("Logout")}
                 <ArrowRightOnRectangleIcon className="h-5 w-5" />
               </button>
             )}

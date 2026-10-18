@@ -1,5 +1,6 @@
 import React from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../context/LanguageContext";
 
 const PageError = ({
   message,
@@ -10,6 +11,7 @@ const PageError = ({
   iconColor = "text-red-500",
   borderColor = "border-red-500/10 bg-red-500/5",
 }) => {
+  const { t } = useLanguage();
   const handleClick = () => {
     if (onRetry) {
       onRetry();
@@ -30,14 +32,14 @@ const PageError = ({
         )}
       </div>
       <h3 className="text-2xl font-black text-white mb-2 uppercase italic tracking-tighter">
-        Error
+        {t("Error")}
       </h3>
       <p className="text-gray-500 font-medium max-w-sm">{message}</p>
       <button
         onClick={handleClick}
         className={`mt-8 w-full rounded-2xl px-6 py-4 text-xs font-black uppercase tracking-widest text-black transition-all shadow-xl active:scale-95 sm:w-auto sm:px-10 ${buttonColor}`}
       >
-        {buttonLabel}
+        {t(buttonLabel)}
       </button>
     </div>
   );

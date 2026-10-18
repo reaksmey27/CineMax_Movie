@@ -11,6 +11,7 @@ import PageLoader from "./components/ui/PageLoader";
 import { AuthModalRoutes, BaseRoutes } from "./config/routes";
 import { AuthProvider } from "./context/AuthContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
+import { LanguageProvider, useLanguage } from "./context/LanguageContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { WatchlistProvider } from "./context/WatchlistContext";
 import useScrollToTop from "./hooks/useScrollToTop";
@@ -32,6 +33,7 @@ const ScrollManager = () => {
 
 const AppContent = ({ theme, toggleTheme }) => {
   const location = useLocation();
+  const { t } = useLanguage();
   const backgroundLocation = location.state?.backgroundLocation;
 
   return (
@@ -45,7 +47,7 @@ const AppContent = ({ theme, toggleTheme }) => {
             fallback={
               <PageLoader
                 color="border-purple-500"
-                label="Loading Experience..."
+                label={t("Loading Experience...")}
               />
             }
           >
@@ -75,17 +77,19 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <NotificationProvider>
-        <AuthProvider>
-          <Router>
-            <WatchlistProvider>
-              <FavoritesProvider>
-                <AppContent theme={theme} toggleTheme={toggleTheme} />
-              </FavoritesProvider>
-            </WatchlistProvider>
-          </Router>
-        </AuthProvider>
-      </NotificationProvider>
+      <LanguageProvider>
+        <NotificationProvider>
+          <AuthProvider>
+            <Router>
+              <WatchlistProvider>
+                <FavoritesProvider>
+                  <AppContent theme={theme} toggleTheme={toggleTheme} />
+                </FavoritesProvider>
+              </WatchlistProvider>
+            </Router>
+          </AuthProvider>
+        </NotificationProvider>
+      </LanguageProvider>
     </ErrorBoundary>
   );
 };

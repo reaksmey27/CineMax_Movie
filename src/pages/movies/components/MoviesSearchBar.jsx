@@ -3,6 +3,7 @@ import {
   MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useLanguage } from "../../../context/LanguageContext";
 
 import LiveSearchDropdown from "./LiveSearchDropdown";
 
@@ -27,6 +28,7 @@ const MoviesSearchBar = ({
   shouldShowLiveDropdown,
   setHasTypedSinceFocus,
 }) => {
+  const { t } = useLanguage();
   return (
     <div ref={searchRef} className="group relative w-full md:w-96">
       <MagnifyingGlassIcon
@@ -47,7 +49,7 @@ const MoviesSearchBar = ({
             : undefined
         }
         type="text"
-        placeholder="Search movies..."
+        placeholder={`${t("Search movies")}...`}
         value={inputValue}
         onFocus={onInputFocus}
         onBlur={onInputBlur}
@@ -83,7 +85,7 @@ const MoviesSearchBar = ({
           <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#1f2023]/95 shadow-[0_24px_80px_rgba(0,0,0,0.65)] backdrop-blur-2xl">
             <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
               <p className="text-xs font-semibold text-[var(--color-text-muted)]">
-                Search history
+                {t("Search history")}
               </p>
               {searchHistory.length > 0 && (
                 <button
@@ -91,7 +93,7 @@ const MoviesSearchBar = ({
                   onClick={onHistoryClearAll}
                   className="text-xs font-bold text-purple-400 transition-colors hover:text-purple-300"
                 >
-                  Clear all
+                  {t("Clear all")}
                 </button>
               )}
             </div>
@@ -121,7 +123,9 @@ const MoviesSearchBar = ({
                         onDeleteHistoryItem(item);
                       }}
                       className="shrink-0 rounded-full p-2 text-gray-500 opacity-0 transition-all hover:bg-white/8 hover:text-white group-hover:opacity-100"
-                      aria-label={`Delete ${item} from search history`}
+                      aria-label={t("Delete {query} from search history", {
+                        query: item,
+                      })}
                     >
                       <XMarkIcon className="h-4 w-4" />
                     </button>
@@ -135,11 +139,12 @@ const MoviesSearchBar = ({
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">
-                    No recent searches
+                    {t("No recent searches")}
                   </p>
                   <p className="mt-1 text-xs font-medium text-gray-500">
-                    Your recent movie searches will appear here for quick
-                    access.
+                    {t(
+                      "Your recent movie searches will appear here for quick access.",
+                    )}
                   </p>
                 </div>
               </div>

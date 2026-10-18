@@ -4,8 +4,10 @@ import useTrendingMovies from "../../hooks/movies/useTrendingMovies";
 import MovieGrid from "../../components/ui/MovieGrid";
 import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import PageError from "../../components/ui/PageError";
+import { useLanguage } from "../../context/LanguageContext";
 
 const TrendingPage = () => {
+  const { t } = useLanguage();
   const { movies, loading, error } = useTrendingMovies();
 
   return (
@@ -20,25 +22,26 @@ const TrendingPage = () => {
               <FireIcon className="h-6 w-6 text-orange-500" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-[0.24em] text-orange-500 sm:tracking-[0.3em]">
-              On Fire Today
+              {t("On Fire Today")}
             </span>
           </div>
           <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-6xl">
-            Trending <br />
+            {t("Trending")} <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-500 to-purple-500">
-              Masterpieces
+              {t("Masterpieces")}
             </span>
           </h1>
           <p className="max-w-sm text-sm font-medium text-gray-400">
-            The most watched and talked about movies in the last 24 hours.
-            Updated in real-time.
+            {t(
+              "The most watched and talked about movies in the last 24 hours. Updated in real-time.",
+            )}
           </p>
         </div>
 
         {error ? (
           <PageError
             message={error}
-            buttonLabel="Retry Sync"
+            buttonLabel={t("Retry Sync")}
             buttonColor="bg-orange-500 text-white hover:bg-orange-600"
             icon={FireIcon}
             iconColor="text-orange-500"

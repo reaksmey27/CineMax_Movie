@@ -4,8 +4,10 @@ import useUpcomingMovies from "../../hooks/movies/useUpcomingMovies";
 import MovieGrid from "../../components/ui/MovieGrid";
 import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import PageError from "../../components/ui/PageError";
+import { useLanguage } from "../../context/LanguageContext";
 
 const UpcomingPage = () => {
+  const { t } = useLanguage();
   const { movies, loading, error } = useUpcomingMovies();
 
   return (
@@ -20,25 +22,26 @@ const UpcomingPage = () => {
               <SparklesIcon className="h-6 w-6 text-blue-500" />
             </div>
             <span className="text-[10px] font-black uppercase tracking-[0.24em] text-blue-500 sm:tracking-[0.3em]">
-              Future Releases
+              {t("Future Releases")}
             </span>
           </div>
           <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-6xl">
-            Stay <br />
+            {t("Stay")} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-500">
-              Ahead of Time
+              {t("Ahead of Time")}
             </span>
           </h1>
           <p className="max-w-sm text-sm font-medium text-gray-400">
-            The most anticipated cinematic experiences soon to hit the screens.
-            Mark your calendars.
+            {t(
+              "The most anticipated cinematic experiences soon to hit the screens. Mark your calendars.",
+            )}
           </p>
         </div>
 
         {error ? (
           <PageError
             message={error}
-            buttonLabel="Retry Loading"
+            buttonLabel={t("Retry Loading")}
             buttonColor="bg-blue-500 text-white hover:bg-blue-600"
             icon={CalendarDaysIcon}
             iconColor="text-blue-500"

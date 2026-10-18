@@ -1,4 +1,5 @@
 import React from "react";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const resolveValue = (value, movie) => {
   if (typeof value === "function") {
@@ -29,6 +30,7 @@ const MoviePlayer = ({
   onNextServer,
   onReloadPlayer,
 }) => {
+  const { t } = useLanguage();
   const movieVideoUrl = resolveValue(movie?.videoUrl, movie);
   const serverVideoUrl = resolveValue(currentServer?.videoUrl, movie);
   const activeVideoUrl = serverVideoUrl || movieVideoUrl;
@@ -60,22 +62,22 @@ const MoviePlayer = ({
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
           <div className="space-y-1">
             <p className="text-sm font-semibold text-white">
-              Now playing on {activeServer}
+              {t("Now playing on {server}", { server: activeServer })}
             </p>
             <p className="text-sm font-bold text-gray-400">
-              {currentServer.description}
+              {t(currentServer.description)}
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">
-              {currentServer.qualityLabel}
+              {t(currentServer.qualityLabel)}
             </span>
             <button
               onClick={onReloadPlayer}
               className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 active:scale-95"
             >
-              Reload player
+              {t("Reload player")}
             </button>
           </div>
         </div>
@@ -101,7 +103,7 @@ const MoviePlayer = ({
                     kind={track.kind || "subtitles"}
                     src={track.src}
                     srcLang={track.lang || track.srclang || "en"}
-                    label={track.label || track.lang || "Subtitles"}
+                    label={track.label || track.lang || t("Subtitles")}
                     default={track.default}
                   />
                 ))}
@@ -117,7 +119,7 @@ const MoviePlayer = ({
                 allowFullScreen
                 loading="eager"
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="Cinema Player"
+                title={t("Cinema Player")}
                 onLoad={onIframeLoad}
                 onError={onIframeError}
               />
@@ -132,13 +134,17 @@ const MoviePlayer = ({
 
         <p className="text-center text-sm font-bold text-[var(--color-text-muted)]">
           {hasDirectVideo
-            ? "Use the caption button in the player controls if subtitle tracks are available."
-            : "Softer streams usually look better at this size or in fullscreen than stretched edge to edge."}
+            ? t(
+                "Use the caption button in the player controls if subtitle tracks are available.",
+              )
+            : t(
+                "Softer streams usually look better at this size or in fullscreen than stretched edge to edge.",
+              )}
         </p>
 
         {hasDirectVideo && subtitleTracks.length === 0 && (
           <p className="text-center text-sm font-bold text-amber-300">
-            This video source does not include subtitle tracks yet.
+            {t("This video source does not include subtitle tracks yet.")}
           </p>
         )}
       </div>
@@ -146,27 +152,27 @@ const MoviePlayer = ({
       <div className="p-4 bg-purple-600/10 border border-purple-500/20 rounded-2xl flex items-center gap-3">
         <div className="h-2 w-2 bg-purple-500 rounded-full animate-pulse" />
         <p className="text-sm sm:text-sm text-purple-300 font-bold">
-          Tip: Switch servers if the picture looks soft or the stream is slow.
+          {t(
+            "Tip: Switch servers if the picture looks soft or the stream is slow.",
+          )}
         </p>
       </div>
 
       {playerMessage && (
         <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p className="text-sm text-red-300 font-bold">
-            {playerMessage}
-          </p>
+          <p className="text-sm text-red-300 font-bold">{t(playerMessage)}</p>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={onReloadPlayer}
               className="px-4 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-white text-sm font-semibold active:scale-95"
             >
-              Reload
+              {t("Reload")}
             </button>
             <button
               onClick={onNextServer}
               className="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-400 text-white text-sm font-semibold active:scale-95"
             >
-              Try {nextServerName}
+              {t("Try {server}", { server: nextServerName })}
             </button>
           </div>
         </div>
