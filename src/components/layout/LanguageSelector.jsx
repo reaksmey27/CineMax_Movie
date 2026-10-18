@@ -38,14 +38,14 @@ const LanguageSelector = ({ className = "" }) => {
         ref={summaryRef}
         aria-label={`${t("Switch language")}: ${currentLanguage.label}`}
         title={currentLanguage.label}
-        className="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] px-3 text-xl focus-visible:outline-2 focus-visible:outline-purple-500 [&::-webkit-details-marker]:hidden"
+        className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-0 focus-visible:outline-2 focus-visible:outline-purple-500 [&::-webkit-details-marker]:hidden"
       >
         <img
           src={currentLanguage.flag}
           alt=""
           aria-hidden="true"
           data-testid="selected-language-flag"
-          className="h-5 w-7 rounded-sm object-contain shadow-sm"
+          className="h-9 w-9 shrink-0 rounded-full object-cover object-center"
         />
         <span className="sr-only">{currentLanguage.label}</span>
       </summary>
@@ -70,7 +70,7 @@ const LanguageSelector = ({ className = "" }) => {
               src={flag}
               alt=""
               aria-hidden="true"
-              className="h-5 w-7 rounded-sm object-contain shadow-sm"
+              className="h-9 w-9 rounded-full object-cover object-center ring-1 ring-[var(--color-border)]"
             />
             <span>{label}</span>
           </button>

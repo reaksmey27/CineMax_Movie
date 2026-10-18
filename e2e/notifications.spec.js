@@ -213,6 +213,20 @@ test("language selection translates navigation and persists across reloads", asy
     languageSelector.getByTestId("selected-language-flag"),
   ).toHaveAttribute("src", /\.png(?:$|\?)/);
   await expect(
+    languageSelector.getByTestId("selected-language-flag"),
+  ).toHaveClass(/rounded-full/);
+  await expect(
+    languageSelector.getByTestId("selected-language-flag"),
+  ).toHaveClass(/h-9 w-9/);
+  const selectorBounds = await languageSelector
+    .locator("summary")
+    .boundingBox();
+  expect(selectorBounds).not.toBeNull();
+  expect(selectorBounds.width).toBe(selectorBounds.height);
+  await expect(
+    languageSelector.getByTestId("selected-language-flag"),
+  ).toHaveCSS("object-fit", "cover");
+  await expect(
     languageSelector
       .getByTestId("selected-language-flag")
       .evaluate((image) => image.decode()),
@@ -222,6 +236,9 @@ test("language selection translates navigation and persists across reloads", asy
   await expect(languageFlags).toHaveCount(9);
   for (const flag of await languageFlags.all()) {
     await expect(flag).toHaveAttribute("src", /\.png(?:$|\?)/);
+    await expect(flag).toHaveClass(/rounded-full/);
+    await expect(flag).toHaveClass(/h-9 w-9/);
+    await expect(flag).toHaveCSS("object-fit", "cover");
     await flag.evaluate((image) => image.decode());
   }
   await languageSelector.locator("summary").click();
