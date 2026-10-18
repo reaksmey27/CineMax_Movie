@@ -16,8 +16,6 @@ import { useNotification } from "../../context/NotificationContext";
 import { THEMES } from "../../utils/theme";
 import NavSearch from "./NavSearch";
 import LanguageSelector from "./LanguageSelector";
-import { FaCoffee } from "react-icons/fa";
-import DonationModal from "../ui/DonationModal.jsx";
 
 const NAV_LINKS = [
   { name: "Home", path: "/" },
@@ -40,7 +38,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
 
   const [showNotifPanel, setShowNotifPanel] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDonationOpen, setIsDonationOpen] = useState(false);
 
   const panelRef = useRef(null);
   const menuToggleRef = useRef(null);
@@ -421,23 +418,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              setIsMenuOpen(false);
-              setShowNotifPanel(false);
-              setIsDonationOpen(true);
-            }}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-amber-400/40 bg-[var(--color-surface-2)] p-2 text-[var(--color-text)] transition-all hover:border-amber-400/70 hover:bg-[var(--color-surface-3)] focus-visible:outline-2 focus-visible:outline-amber-400 2xl:px-4"
-            aria-label={t("Buy me a coffee")}
-            title={t("Buy me a coffee")}
-          >
-            <FaCoffee className="h-5 w-5" aria-hidden="true" />
-            <span className="hidden text-sm font-bold 2xl:inline">
-              {t("Buy me a coffee")}
-            </span>
-          </button>
-
           {/* Mobile Menu */}
           <button
             ref={menuToggleRef}
@@ -564,11 +544,6 @@ const Navbar = ({ theme, onToggleTheme }) => {
           </aside>
         </div>
       )}
-
-      <DonationModal
-        isOpen={isDonationOpen}
-        onClose={() => setIsDonationOpen(false)}
-      />
     </div>
   );
 };

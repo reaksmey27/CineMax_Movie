@@ -37,6 +37,48 @@ const notifications = [
   },
 ];
 
+test("donation button floats above back-to-top on the right and opens its card", async ({
+  page,
+}) => {
+  await page.goto("/notifications");
+
+  const donationButton = page.getByRole("button", {
+    name: "Buy me a coffee",
+  });
+  const backToTopButton = page.getByRole("button", { name: "Back to top" });
+
+  await expect(donationButton).toHaveCSS("position", "fixed");
+  const donationBounds = await donationButton.boundingBox();
+  const backToTopBounds = await backToTopButton.boundingBox();
+  expect(donationBounds).not.toBeNull();
+  expect(backToTopBounds).not.toBeNull();
+  expect(donationBounds.width).toBeGreaterThan(48);
+  expect(
+    Math.abs(
+      donationBounds.x +
+        donationBounds.width -
+        backToTopBounds.x -
+        backToTopBounds.width,
+    ),
+  ).toBeLessThanOrEqual(1);
+  expect(donationBounds.y + donationBounds.height).toBeLessThanOrEqual(
+    backToTopBounds.y,
+  );
+
+  await page.setViewportSize({ width: 320, height: 720 });
+  const mobileDonationBounds = await donationButton.boundingBox();
+  expect(mobileDonationBounds).not.toBeNull();
+  expect(mobileDonationBounds.x).toBeGreaterThanOrEqual(0);
+  expect(
+    mobileDonationBounds.x + mobileDonationBounds.width,
+  ).toBeLessThanOrEqual(320);
+
+  await donationButton.click();
+  await expect(
+    page.getByRole("dialog", { name: "Buy me a coffee" }),
+  ).toBeVisible();
+});
+
 test("notification history filters and supports read, remove, and clear actions", async ({
   page,
 }) => {

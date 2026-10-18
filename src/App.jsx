@@ -7,6 +7,7 @@ import RouteTitleManager from "./components/RouteTitleManager.jsx";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import BackToTopButton from "./components/ui/BackToTopButton";
+import DonationButton from "./components/ui/DonationButton";
 import PageLoader from "./components/ui/PageLoader";
 import { AuthModalRoutes, BaseRoutes } from "./config/routes";
 import { AuthProvider } from "./context/AuthContext";
@@ -55,6 +56,7 @@ const AppContent = ({ theme, toggleTheme }) => {
             {backgroundLocation && <AuthModalRoutes location={location} />}
           </Suspense>
         </main>
+        <DonationButton />
         <BackToTopButton />
         <Footer />
       </div>
