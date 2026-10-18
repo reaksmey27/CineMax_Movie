@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
 import { useLanguage } from "../../context/LanguageContext";
 
-const SCROLL_THRESHOLD = 500;
+const SCROLL_THRESHOLD = 300;
 
 const BackToTopButton = () => {
   const { t } = useLanguage();
@@ -37,7 +37,7 @@ const BackToTopButton = () => {
       onClick={handleClick}
       aria-label={t("Back to top")}
       title={t("Back to top")}
-      className={`fixed bottom-5 right-5 z-[120] flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-panel-bg)] text-[var(--color-text)] shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:text-purple-300 hover:shadow-[0_0_24px_rgba(168,85,247,0.24)] active:scale-95 sm:bottom-6 sm:right-6 ${
+      className={`fixed bottom-5 right-5 z-[120] flex h-12 w-12 items-center justify-center rounded-full border border-purple-300/70 bg-gradient-to-br from-purple-600 to-indigo-700 text-white shadow-[0_8px_28px_rgba(124,58,237,0.45)] ring-2 ring-purple-300/40 transition-all duration-300 hover:-translate-y-1 hover:from-purple-500 hover:to-indigo-600 hover:shadow-[0_10px_32px_rgba(124,58,237,0.6)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-300 sm:bottom-6 sm:right-6 ${
         isVisible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0"

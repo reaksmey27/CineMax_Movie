@@ -457,7 +457,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
             role="dialog"
             aria-modal="true"
             aria-label={t("Main navigation")}
-            className="fixed bottom-0 right-0 top-20 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-28"
+            className="no-scrollbar fixed bottom-0 right-0 top-20 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-28"
           >
             <div className="mb-4 rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-1)] p-3">
               {isAuthenticated ? (

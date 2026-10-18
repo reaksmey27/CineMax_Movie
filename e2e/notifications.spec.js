@@ -52,7 +52,8 @@ test("donation button floats above back-to-top on the right and opens its card",
   const backToTopBounds = await backToTopButton.boundingBox();
   expect(donationBounds).not.toBeNull();
   expect(backToTopBounds).not.toBeNull();
-  expect(donationBounds.width).toBeGreaterThan(48);
+  expect(donationBounds.width).toBe(48);
+  expect(donationBounds.height).toBe(48);
   expect(
     Math.abs(
       donationBounds.x +
@@ -77,6 +78,21 @@ test("donation button floats above back-to-top on the right and opens its card",
   await expect(
     page.getByRole("dialog", { name: "Buy me a coffee" }),
   ).toBeVisible();
+});
+
+test("back-to-top becomes visible after scrolling and returns to the page top", async ({
+  page,
+}) => {
+  await page.goto("/notifications");
+  const backToTopButton = page.getByRole("button", { name: "Back to top" });
+
+  await expect(backToTopButton).toHaveCSS("opacity", "0");
+  await page.evaluate(() => window.scrollTo(0, 400));
+  await expect(backToTopButton).toHaveCSS("opacity", "1");
+  await expect(backToTopButton).toHaveCSS("background-image", /gradient/);
+
+  await backToTopButton.click();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
 });
 
 test("notification history filters and supports read, remove, and clear actions", async ({
@@ -291,4 +307,29 @@ test("language selector menu fits and scrolls on a narrow mobile screen", async 
   expect(menuBounds.x + menuBounds.width).toBeLessThanOrEqual(320);
   expect(menuBounds.height).toBeLessThanOrEqual(24 * 16);
   await expect(languageMenu.locator("button")).toHaveCount(9);
+});
+
+test("mobile navigation drawer hides its scrollbar but remains scrollable", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 568 });
+  await page.goto("/notifications");
+  await page.getByRole("button", { name: "Open menu" }).click();
+
+  const drawer = page.getByRole("dialog", { name: "Main navigation" });
+  await expect(drawer).toBeVisible();
+  await expect
+    .poll(() =>
+      drawer.evaluate((element) => {
+        const scrollbar = getComputedStyle(element, "::-webkit-scrollbar");
+        return {
+          overflowY: getComputedStyle(element).overflowY,
+          scrollbarDisplay: scrollbar.display,
+        };
+      }),
+    )
+    .toEqual({
+      overflowY: "auto",
+      scrollbarDisplay: "none",
+    });
 });
