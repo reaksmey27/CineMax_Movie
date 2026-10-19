@@ -14,9 +14,13 @@ const LOADERS = {
   fantasy: () => tmdbService.getMoviesByGenre(14),
 };
 
-const initialSections = () => Object.fromEntries(
-  Object.keys(LOADERS).map((key) => [key, { movies: [], loading: true, error: false }]),
-);
+const initialSections = () =>
+  Object.fromEntries(
+    Object.keys(LOADERS).map((key) => [
+      key,
+      { movies: [], loading: true, error: false },
+    ]),
+  );
 
 const useHomeMovies = () => {
   const [sections, setSections] = useState(initialSections);
@@ -27,7 +31,8 @@ const useHomeMovies = () => {
     if (!LOADERS[key] || !mounted.current) return;
     const request = Symbol(key);
     requests.current[key] = request;
-    const isCurrent = () => mounted.current && requests.current[key] === request;
+    const isCurrent = () =>
+      mounted.current && requests.current[key] === request;
     setSections((current) => ({
       ...current,
       [key]: { ...current[key], loading: true, error: false },
@@ -36,19 +41,25 @@ const useHomeMovies = () => {
       const data = await LOADERS[key]();
       const results = Array.isArray(data) ? data : data?.results || [];
       const movies = results.map(tmdbService.formatMovieData);
-      if (isCurrent()) setSections((current) => ({
-        ...current, [key]: { movies, loading: false, error: false },
-      }));
+      if (isCurrent())
+        setSections((current) => ({
+          ...current,
+          [key]: { movies, loading: false, error: false },
+        }));
     } catch {
-      if (isCurrent()) setSections((current) => ({
-        ...current, [key]: { ...current[key], loading: false, error: true },
-      }));
+      if (isCurrent())
+        setSections((current) => ({
+          ...current,
+          [key]: { ...current[key], loading: false, error: true },
+        }));
     }
   }, []);
 
   useEffect(() => {
     mounted.current = true;
-    Object.keys(LOADERS).forEach((key) => { void loadSection(key); });
+    Object.keys(LOADERS).forEach((key) => {
+      void loadSection(key);
+    });
     return () => {
       mounted.current = false;
       requests.current = {};

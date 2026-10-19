@@ -18,8 +18,15 @@ const useMovies = () => {
   const parsedGenre = genreParam ? parseInt(genreParam, 10) : null;
   const selectedGenre = Number.isNaN(parsedGenre) ? null : parsedGenre;
   const collectionParam = searchParams.get("collection");
-  const collection = ["top-rated", "now-playing"].includes(collectionParam) ? collectionParam : "";
-  const collectionTitle = collection === "top-rated" ? "Top Rated" : collection === "now-playing" ? "Now Playing" : "";
+  const collection = ["top-rated", "now-playing"].includes(collectionParam)
+    ? collectionParam
+    : "";
+  const collectionTitle =
+    collection === "top-rated"
+      ? "Top Rated"
+      : collection === "now-playing"
+        ? "Now Playing"
+        : "";
   const searchQuery = searchParams.get("q") || "";
   const releaseYearParam = searchParams.get("year") || "";
   const minRatingParam = searchParams.get("rating") || "";
@@ -48,7 +55,8 @@ const useMovies = () => {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev);
-          if (Object.keys(updates).some((key) => key !== "page")) next.delete("collection");
+          if (Object.keys(updates).some((key) => key !== "page"))
+            next.delete("collection");
           Object.entries(updates).forEach(([key, value]) => {
             if (value === null || value === "" || value === undefined) {
               next.delete(key);
@@ -146,7 +154,15 @@ const useMovies = () => {
       ignore = true;
       clearTimeout(debounceTimer);
     };
-  }, [collection, minRating, page, releaseYear, searchQuery, selectedGenre, sortBy]);
+  }, [
+    collection,
+    minRating,
+    page,
+    releaseYear,
+    searchQuery,
+    selectedGenre,
+    sortBy,
+  ]);
 
   const handleGenreChange = useCallback(
     (genreId) => {

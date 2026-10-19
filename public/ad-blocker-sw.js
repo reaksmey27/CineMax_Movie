@@ -94,7 +94,7 @@ const isBadRequest = (url) => {
 
 self.addEventListener("install", (event) => {
   console.log("[AdBlocker SW] Installed");
-  self.skipWaiting();
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener("activate", (event) => {
