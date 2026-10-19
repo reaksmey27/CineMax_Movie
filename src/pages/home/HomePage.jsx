@@ -17,6 +17,11 @@ const ROWS = [
   ["animation", "Animation", "/movies?genre=16"],
   ["crime", "Crime", "/movies?genre=80"],
   ["fantasy", "Fantasy", "/movies?genre=14"],
+  ["drama", "Drama", "/movies?genre=18"],
+  ["romance", "Romance", "/movies?genre=10749"],
+  ["horror", "Horror", "/movies?genre=27"],
+  ["mystery", "Mystery", "/movies?genre=9648"],
+  ["family", "Family", "/movies?genre=10751"],
 ];
 
 const SectionError = ({ title, onRetry }) => {
@@ -44,7 +49,7 @@ const HomePage = () => {
   const { t } = useLanguage();
   const { sections, retrySection } = useHomeMovies();
   const trending = sections.trending;
-  const [showAllGenres, setShowAllGenres] = useState(false);
+  const [showAllGenres, setShowAllGenres] = useState(true);
 
   return (
     <main id="home" className="min-h-screen bg-slate-950">

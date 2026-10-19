@@ -12,6 +12,11 @@ const LOADERS = {
   animation: () => tmdbService.getMoviesByGenre(16),
   crime: () => tmdbService.getMoviesByGenre(80),
   fantasy: () => tmdbService.getMoviesByGenre(14),
+  drama: () => tmdbService.getMoviesByGenre(18),
+  romance: () => tmdbService.getMoviesByGenre(10749),
+  horror: () => tmdbService.getMoviesByGenre(27),
+  mystery: () => tmdbService.getMoviesByGenre(9648),
+  family: () => tmdbService.getMoviesByGenre(10751),
 };
 
 const initialSections = () =>

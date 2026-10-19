@@ -1,5 +1,21 @@
 const zhTW = {
   Home: "首頁",
+  "The CineMax guide": "CineMax 觀影指南",
+  "A better way to choose what to watch": "更輕鬆地挑選想看的電影",
+  "Finding a film should feel like the start of an evening, not another task on your list. CineMax brings current releases, popular picks, upcoming titles, and genre collections together so you can move from a quick browse to a confident choice. Take a look around, follow a story that catches your attention, and keep the details you need close at hand.":
+    "尋找電影應該是愉快夜晚的開始，而不是待辦清單上的另一件事。CineMax 將院線新片、熱門推薦、即將上映的作品和各類型片單集中在一起，讓你從隨意瀏覽到安心做出選擇。逛逛片單、跟著感興趣的故事探索，並隨手查看所需資訊。",
+  "Choose by mood, then explore": "依照心情開始探索",
+  "Start with what sounds good tonight. Browse action, comedy, animation, science fiction, and more, or compare collections to find stories with different styles. Ratings and concise summaries offer helpful context while leaving room for surprise. Whether you have a genre in mind or just a few spare minutes, you can explore without needing a perfect search term.":
+    "從今晚想看的類型開始吧。瀏覽動作、喜劇、動畫、科幻等電影，或比較不同片單，發掘各種風格的故事。評分和簡短簡介能提供參考，也保留驚喜。不論你已經想好類型，或只是有幾分鐘空檔，都能輕鬆探索，不必先想好精確的搜尋詞。",
+  "Get to know a film before pressing play": "播放前先了解電影",
+  "Once a title catches your eye, open its details to see the synopsis, release year, runtime, genres, and available trailer. That extra context helps you decide if a film fits your mood or the time you have. Compare a few options, revisit a familiar favorite, or let an unexpected story change your plans.":
+    "看到感興趣的片名後，開啟詳細資訊，查看劇情簡介、上映年份、片長、類型和預告片。這些資訊能幫助你判斷電影是否符合當下心情或可用時間。比較幾部作品、重溫熟悉的最愛，或讓意外發現的故事改變你的計畫。",
+  "Keep your next pick within reach": "隨時找得到下一部想看的電影",
+  "Found a film you might watch later? Add it to your watchlist so it is easy to find when the moment is right. Save favorites to build a personal collection of stories you love. Your lists keep possibilities organized across visits, making it easier to plan a movie night, remember a recommendation, or keep track of what you want to see.":
+    "找到之後想看的電影了嗎？將它加入待看清單，等到適合的時候就能輕鬆找到。收藏喜愛的電影，建立專屬於你的故事清單。每次造訪都能繼續整理片單，方便規劃電影之夜、記住別人的推薦，或追蹤自己想看的作品。",
+  "Discover at your own pace": "按照自己的步調發掘電影",
+  "CineMax brings featured picks, trending titles, new releases, and genre collections into one place. Browse a little or stay awhile; skip between categories and follow whatever catches your attention. There is no required order and no pressure to choose quickly. The goal is simple: make it easier to discover a film you are excited to watch.":
+    "CineMax 將精選推薦、熱門作品、新片和各類型片單集中在同一處。你可以快速瀏覽，也可以慢慢探索；在不同分類間切換，追隨吸引你的作品。不必遵循特定順序，也不用急著決定。目標很簡單：讓你更容易找到真正期待觀看的電影。",
   Movies: "電影",
   Trending: "熱門",
   Favorites: "收藏",
@@ -62,6 +78,11 @@ const zhTW = {
   Animation: "動畫",
   Crime: "犯罪",
   Fantasy: "奇幻",
+  Drama: "劇情",
+  Romance: "愛情",
+  Horror: "恐怖",
+  Mystery: "懸疑",
+  Family: "家庭",
   "Release Year": "上映年份",
   "e.g. 2024": "例如：2024",
   "View all results": "查看所有結果",

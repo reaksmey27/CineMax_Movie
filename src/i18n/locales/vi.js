@@ -1,5 +1,21 @@
 const vi = {
   Home: "Trang chủ",
+  "The CineMax guide": "Cẩm nang CineMax",
+  "A better way to choose what to watch": "Cách chọn phim phù hợp dễ dàng hơn",
+  "Finding a film should feel like the start of an evening, not another task on your list. CineMax brings current releases, popular picks, upcoming titles, and genre collections together so you can move from a quick browse to a confident choice. Take a look around, follow a story that catches your attention, and keep the details you need close at hand.":
+    "Tìm một bộ phim nên là khởi đầu cho buổi tối thú vị, không phải thêm một việc cần làm. CineMax tập hợp phim đang chiếu, phim nổi bật, tác phẩm sắp ra mắt và bộ sưu tập theo thể loại để bạn dễ dàng chọn được bộ phim ưng ý. Hãy khám phá, theo dõi câu chuyện thu hút bạn và xem nhanh những thông tin cần thiết.",
+  "Choose by mood, then explore": "Chọn theo tâm trạng rồi khám phá",
+  "Start with what sounds good tonight. Browse action, comedy, animation, science fiction, and more, or compare collections to find stories with different styles. Ratings and concise summaries offer helpful context while leaving room for surprise. Whether you have a genre in mind or just a few spare minutes, you can explore without needing a perfect search term.":
+    "Bắt đầu với điều bạn muốn xem tối nay. Khám phá phim hành động, hài, hoạt hình, khoa học viễn tưởng và nhiều thể loại khác, hoặc so sánh các bộ sưu tập để tìm những câu chuyện đa dạng. Điểm đánh giá và phần tóm tắt ngắn cung cấp thông tin hữu ích mà vẫn giữ lại sự bất ngờ. Bạn có thể tìm phim theo thể loại yêu thích hoặc chỉ tranh thủ vài phút rảnh.",
+  "Get to know a film before pressing play": "Tìm hiểu phim trước khi xem",
+  "Once a title catches your eye, open its details to see the synopsis, release year, runtime, genres, and available trailer. That extra context helps you decide if a film fits your mood or the time you have. Compare a few options, revisit a familiar favorite, or let an unexpected story change your plans.":
+    "Khi chú ý đến một tựa phim, hãy mở phần chi tiết để xem tóm tắt, năm phát hành, thời lượng, thể loại và trailer nếu có. Những thông tin này giúp bạn chọn phim phù hợp với tâm trạng và thời gian của mình. Hãy so sánh vài lựa chọn, xem lại bộ phim quen thuộc hoặc thử một câu chuyện bất ngờ.",
+  "Keep your next pick within reach": "Lưu phim bạn muốn xem tiếp theo",
+  "Found a film you might watch later? Add it to your watchlist so it is easy to find when the moment is right. Save favorites to build a personal collection of stories you love. Your lists keep possibilities organized across visits, making it easier to plan a movie night, remember a recommendation, or keep track of what you want to see.":
+    "Tìm thấy phim muốn xem sau? Thêm phim vào danh sách xem để dễ tìm lại khi thích hợp. Lưu phim yêu thích để tạo bộ sưu tập những câu chuyện dành riêng cho bạn. Danh sách giúp sắp xếp các lựa chọn qua nhiều lần truy cập, thuận tiện lên kế hoạch xem phim, nhớ lời giới thiệu hoặc theo dõi những phim bạn muốn xem.",
+  "Discover at your own pace": "Khám phá theo nhịp độ của riêng bạn",
+  "CineMax brings featured picks, trending titles, new releases, and genre collections into one place. Browse a little or stay awhile; skip between categories and follow whatever catches your attention. There is no required order and no pressure to choose quickly. The goal is simple: make it easier to discover a film you are excited to watch.":
+    "CineMax tập hợp phim nổi bật, phim thịnh hành, phim mới và bộ sưu tập theo thể loại ở cùng một nơi. Bạn có thể xem nhanh hoặc khám phá lâu hơn, chuyển giữa các danh mục và chọn điều mình quan tâm. Không có thứ tự bắt buộc hay áp lực phải quyết định ngay. Mục tiêu rất đơn giản: giúp bạn dễ tìm thấy bộ phim thật sự muốn xem.",
   Movies: "Phim",
   Trending: "Thịnh hành",
   Favorites: "Yêu thích",
@@ -54,6 +70,11 @@ const vi = {
   Animation: "Hoạt hình",
   Crime: "Tội phạm",
   Fantasy: "Giả tưởng",
+  Drama: "Chính kịch",
+  Romance: "Lãng mạn",
+  Horror: "Kinh dị",
+  Mystery: "Bí ẩn",
+  Family: "Gia đình",
   "Release Year": "Năm phát hành",
   "View all results": "Xem tất cả kết quả",
   "Your activity": "Hoạt động của bạn",
