@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-import { Link } from "react-router-dom";
 import HeroSection from "./components/HeroSection";
 import HeroSkeleton from "./components/HeroSkeleton";
 import MovieSlider from "./components/MovieSlider";
@@ -18,37 +17,6 @@ const ROWS = [
   ["animation", "Animation", "/movies?genre=16"],
   ["crime", "Crime", "/movies?genre=80"],
   ["fantasy", "Fantasy", "/movies?genre=14"],
-];
-
-const DISCOVERY_GUIDE = [
-  {
-    title: "Start with a collection",
-    description:
-      "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.",
-    link: "/trending",
-    linkLabel: "Explore trending movies",
-  },
-  {
-    title: "Find a movie for your mood",
-    description:
-      "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.",
-    link: "/movies",
-    linkLabel: "Browse and filter movies",
-  },
-  {
-    title: "Look ahead and compare",
-    description:
-      "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.",
-    link: "/upcoming",
-    linkLabel: "See upcoming releases",
-  },
-  {
-    title: "Keep your discoveries",
-    description:
-      "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.",
-    link: "/watchlist",
-    linkLabel: "Open your watchlist",
-  },
 ];
 
 const SectionError = ({ title, onRetry }) => {
@@ -151,45 +119,6 @@ const HomePage = () => {
           </button>
         </div>
       </div>
-
-      <section
-        aria-labelledby="home-discovery-guide"
-        className="mx-auto max-w-350 px-4 pb-16 sm:px-6 sm:pb-24 lg:px-24 xl:px-40"
-      >
-        <div className="max-w-3xl">
-          <h2
-            id="home-discovery-guide"
-            className="text-2xl font-black tracking-tight text-white sm:text-3xl"
-          >
-            {t("Discover movies your way")}
-          </h2>
-          <p className="mt-4 text-base leading-7 text-gray-300">
-            {t(
-              "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.",
-            )}
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {DISCOVERY_GUIDE.map(({ title, description, link, linkLabel }) => (
-            <article
-              key={title}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6"
-            >
-              <h3 className="text-lg font-bold text-white">{t(title)}</h3>
-              <p className="mt-3 text-sm leading-7 text-gray-400">
-                {t(description)}
-              </p>
-              <Link
-                to={link}
-                className="mt-4 inline-flex min-h-11 items-center font-semibold text-purple-300 underline-offset-4 hover:text-purple-200 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-400"
-              >
-                {t(linkLabel)}
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
     </main>
   );
 };

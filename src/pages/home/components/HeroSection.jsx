@@ -31,7 +31,7 @@ const NavButton = ({ onClick, children, label }) => (
   <button
     onClick={onClick}
     aria-label={label}
-    className="p-3 sm:p-4 rounded-full bg-black/20 border border-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all active:scale-90"
+    className="hero-nav-button p-3 sm:p-4 rounded-full bg-black/20 border border-white/10 backdrop-blur-md text-white hover:bg-white/20 transition-all active:scale-90"
   >
     {children}
   </button>
@@ -163,7 +163,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
             {movie.genres.slice(0, 2).map((genre) => (
               <span
                 key={genre}
-                className="rounded-lg border border-white/10 bg-white/5 px-3 py-0.5 text-xs font-semibold text-gray-300 backdrop-blur-md sm:text-sm"
+                className="hero-genre-chip rounded-lg border border-white/10 bg-white/5 px-3 py-0.5 text-xs font-semibold text-gray-300 backdrop-blur-md sm:text-sm"
               >
                 {genre}
               </span>
@@ -212,7 +212,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
               }
               disabled={favoritePending}
               onClick={() => toggleFavorite(movie)}
-              className={`flex min-h-14 flex-1 items-center justify-center gap-3 rounded-2xl border-2 px-4 py-4 font-black transition-all backdrop-blur-xl active:scale-95 sm:flex-none sm:gap-4 sm:px-10 sm:py-5 ${
+              className={`hero-favorite flex min-h-14 flex-1 items-center justify-center gap-3 rounded-2xl border-2 px-4 py-4 font-black transition-all backdrop-blur-xl active:scale-95 sm:flex-none sm:gap-4 sm:px-10 sm:py-5 ${
                 isFav
                   ? "border-red-500 bg-red-500/20 text-red-500 shadow-lg shadow-red-500/20"
                   : "border-white/10 bg-white/5 text-white hover:bg-white/10"

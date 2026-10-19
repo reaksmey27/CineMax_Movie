@@ -179,9 +179,9 @@ const Navbar = ({ theme, onToggleTheme }) => {
           onClick={() => setIsMenuOpen(false)}
         >
           <img
-            src="/images/logo.png"
+            src="/images/logo.svg"
             alt={t("CineMax Logo")}
-            className="h-8 w-auto sm:h-10"
+            className="h-10 w-auto sm:h-12"
             decoding="async"
           />
         </Link>

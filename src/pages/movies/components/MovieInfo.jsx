@@ -88,7 +88,7 @@ const MovieInfo = ({
           <button
             onClick={onPlay}
             disabled={playDisabled}
-            className="group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-8 py-4 text-sm font-semibold text-white shadow-xl shadow-purple-600/30 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5"
+            className="movie-play-button group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-8 py-4 text-sm font-semibold text-white shadow-xl shadow-purple-600/30 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5"
           >
             <PlayIcon className="h-5 w-5 transition-transform group-hover:scale-125" />
             {playLabel}
@@ -105,6 +105,7 @@ const MovieInfo = ({
             )}
 
             <button
+              aria-pressed={isFav}
               aria-label={
                 favoritePending
                   ? isFav
@@ -117,7 +118,7 @@ const MovieInfo = ({
               aria-busy={favoritePending}
               disabled={favoritePending}
               onClick={onFavorite}
-              className={`flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
+              className={`movie-favorite-button flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
                 isFav
                   ? "border-red-500 bg-red-500/10 text-red-500 shadow-lg shadow-red-500/20"
                   : "border-[var(--color-border)] bg-[var(--color-surface-1)] text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
@@ -142,6 +143,7 @@ const MovieInfo = ({
             </button>
 
             <button
+              aria-pressed={isWatchlisted}
               aria-label={
                 watchlistPending
                   ? isWatchlisted
@@ -154,7 +156,7 @@ const MovieInfo = ({
               aria-busy={watchlistPending}
               disabled={watchlistPending}
               onClick={onWatchlist}
-              className={`flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
+              className={`movie-watchlist-button flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
                 isWatchlisted
                   ? "border-amber-400 bg-amber-500/10 text-amber-400 shadow-lg shadow-amber-500/20"
                   : "border-[var(--color-border)] bg-[var(--color-surface-1)] text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"

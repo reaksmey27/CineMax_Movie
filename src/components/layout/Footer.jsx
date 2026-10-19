@@ -13,9 +13,9 @@ const Footer = () => {
         <div className="mb-10 grid grid-cols-1 gap-8 sm:mb-12 sm:gap-10 sm:grid-cols-2 xl:grid-cols-4">
           <div className="space-y-4 text-center md:text-left">
             <img
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt={t("CineMax Logo")}
-              className="mx-auto h-8 w-auto sm:h-10 md:mx-0"
+              className="mx-auto h-10 w-auto sm:h-12 md:mx-0"
               loading="lazy"
               decoding="async"
             />

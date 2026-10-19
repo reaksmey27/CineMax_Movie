@@ -22,25 +22,6 @@ const zhTW = {
   "View {title} notification": "查看{title}通知",
   "Start exploring and click the heart icon.": "開始探索並點擊愛心圖示。",
   Explore: "探索",
-  "Discover movies your way": "用自己的方式探索電影",
-  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
-    "尋找電影也應該充滿樂趣。CineMax 將片單、類型、搜尋與個人清單整合在一起，陪你從瀏覽一路找到好片。無論你心中已有喜愛的演員，或只是想利用一點空閒時間，都可以從任何地方開始，跟著好奇心探索。",
-  "Start with a collection": "從片單開始探索",
-  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
-    "先從精選輪播快速看看大家正在討論的電影，再瀏覽熱門作品、高分佳片與目前上映的電影。每個片單都提供不同的探索起點，讓你即使還不確定想看什麼，也能從廣受好評的作品一路發現最新上映電影。",
-  "Explore trending movies": "探索熱門電影",
-  "Find a movie for your mood": "依照心情尋找電影",
-  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
-    "依照心情瀏覽不同類型，或前往電影頁面，使用上映年份、最低評分與排序縮小範圍。已有目標電影時，也可以直接搜尋片名。篩選條件能搭配使用，讓你更輕鬆地瀏覽大量片單，找到符合當下時間的選擇。",
-  "Browse and filter movies": "瀏覽並篩選電影",
-  "Look ahead and compare": "掌握新片並比較作品",
-  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
-    "查看即將上映的作品，掌握接下來的新片；想找熱門話題時，也能瀏覽近期受關注的電影。開啟電影頁面即可閱讀簡介、查看詳細資訊，並確認是否有預告片。評分、上映日期與類型能幫助你比較選項，找到下一部想探索的電影。",
-  "See upcoming releases": "查看即將上映",
-  "Keep your discoveries": "收藏你的電影發現",
-  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
-    "將想重看的電影加入收藏，或把感興趣的作品存入待看清單。登入後即可將片單連結到帳戶，下次回來時繼續使用。透過這些清單記下喜歡的電影、想了解的作品，以及不想忘記的推薦片單。",
-  "Open your watchlist": "開啟待看清單",
   Legal: "法律資訊",
   "Privacy Policy": "隱私權政策",
   "Terms of Use": "使用條款",

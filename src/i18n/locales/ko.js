@@ -20,25 +20,6 @@ const ko = {
   'We couldn’t find any movies for "{query}". Try a different title or keyword.':
     '"{query}"에 해당하는 영화를 찾지 못했습니다. 다른 제목이나 키워드를 입력해 보세요.',
   Explore: "둘러보기",
-  "Discover movies your way": "나만의 방식으로 영화 찾기",
-  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
-    "영화를 찾는 과정도 즐거워야 합니다. CineMax는 컬렉션, 장르, 검색, 개인 목록을 한곳에 모아 마음에 드는 영화를 찾도록 도와줍니다. 좋아하는 배우가 있거나 잠깐 시간이 날 때도 원하는 곳에서 시작해 호기심을 따라 둘러보세요.",
-  "Start with a collection": "컬렉션부터 둘러보기",
-  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
-    "추천 캐러셀에서 화제가 되는 영화를 빠르게 확인한 다음 인기작, 평점 높은 영화, 현재 상영작을 둘러보세요. 각 컬렉션은 새로운 출발점이 되어 원하는 영화가 아직 정해지지 않았어도 많은 사랑을 받은 작품부터 신작까지 찾아볼 수 있습니다.",
-  "Explore trending movies": "인기 영화 둘러보기",
-  "Find a movie for your mood": "기분에 맞는 영화 찾기",
-  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
-    "기분에 맞는 장르를 선택하거나 영화 페이지에서 개봉 연도, 최소 평점, 정렬 순서로 결과를 좁혀보세요. 원하는 영화가 있다면 제목으로 검색할 수 있습니다. 필터를 함께 사용하면 넓은 영화 목록에서 지금 볼 만한 작품을 쉽게 찾을 수 있습니다.",
-  "Browse and filter movies": "영화 둘러보고 필터링하기",
-  "Look ahead and compare": "개봉 예정작 확인하고 비교하기",
-  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
-    "개봉 예정작에서 곧 만날 영화를 확인하고, 요즘 화제가 되는 작품에서 새로운 아이디어를 얻어보세요. 영화 페이지에서 줄거리와 주요 정보, 예고편을 확인할 수 있습니다. 평점과 개봉일, 장르를 비교해 다음에 볼 영화를 골라보세요.",
-  "See upcoming releases": "개봉 예정작 보기",
-  "Keep your discoveries": "찾은 영화 저장하기",
-  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
-    "다시 보고 싶은 영화는 즐겨찾기에, 나중에 볼 영화는 보고 싶은 목록에 저장하세요. 로그인하면 목록이 계정에 연결되어 다음에 돌아왔을 때도 그대로 확인할 수 있습니다. 좋아했던 영화와 궁금한 작품, 잊고 싶지 않은 추천을 정리해 보세요.",
-  "Open your watchlist": "보고 싶은 목록 열기",
   Legal: "법률 정보",
   "Privacy Policy": "개인정보 처리방침",
   "Terms of Use": "이용 약관",

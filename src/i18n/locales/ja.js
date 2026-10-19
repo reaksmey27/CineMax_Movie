@@ -20,25 +20,6 @@ const ja = {
   'We couldn’t find any movies for "{query}". Try a different title or keyword.':
     "「{query}」の映画が見つかりません。別のタイトルやキーワードをお試しください。",
   Explore: "探す",
-  "Discover movies your way": "自分らしい方法で映画を見つけよう",
-  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
-    "映画探しも楽しみのひとつです。CineMaxではコレクション、ジャンル検索、キーワード検索、お気に入りのリストをまとめて、次の一本探しをお手伝いします。好きな俳優が決まっていても、少し時間が空いただけでも、気になるところから自由に見つけてください。",
-  "Start with a collection": "コレクションから探す",
-  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
-    "まずは注目のカルーセルで話題の映画をチェックし、人気作品、高評価作品、現在上映中の作品を見てみましょう。それぞれのコレクションが異なる入口になるので、見たい作品が決まっていなくても、評判の映画から新作まで気軽に探せます。",
-  "Explore trending movies": "人気の映画を見る",
-  "Find a movie for your mood": "気分に合う映画を探す",
-  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
-    "気分に合わせてジャンルを選ぶか、映画ページで公開年、最低評価、並び順を指定して絞り込みましょう。作品が決まっている場合はタイトル検索もできます。複数の条件を組み合わせて、膨大な作品の中から今の時間に合う一本を見つけられます。",
-  "Browse and filter movies": "映画を検索・絞り込む",
-  "Look ahead and compare": "公開予定をチェックして比較",
-  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
-    "近日公開作品でこれからの予定を確認したり、話題のタイトルから今のおすすめを探したりできます。作品を開くとあらすじや詳細、予告編の有無を確認できます。評価、公開日、ジャンルを比べながら、次に見る作品を選びましょう。",
-  "See upcoming releases": "近日公開作品を見る",
-  "Keep your discoveries": "見つけた作品を保存",
-  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
-    "もう一度見たい作品はお気に入りに、あとで見たい作品はウォッチリストに保存しましょう。ログインするとリストがアカウントに保存され、次回も続きから利用できます。気に入った作品、気になる作品、忘れたくないおすすめをまとめて管理できます。",
-  "Open your watchlist": "ウォッチリストを開く",
   Legal: "法的情報",
   "Privacy Policy": "プライバシーポリシー",
   "Terms of Use": "利用規約",

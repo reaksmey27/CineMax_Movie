@@ -20,25 +20,6 @@ const es = {
   'We couldn’t find any movies for "{query}". Try a different title or keyword.':
     'No encontramos películas para "{query}". Prueba con otro título o palabra clave.',
   Explore: "Explorar",
-  "Discover movies your way": "Descubre películas a tu manera",
-  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
-    "Encontrar una película también debería ser divertido. CineMax reúne colecciones, géneros, búsqueda y listas personales para ayudarte a pasar de explorar a elegir una gran película. Tanto si tienes en mente a tu actor favorito como si solo dispones de un rato, empieza donde quieras y sigue tu curiosidad.",
-  "Start with a collection": "Empieza por una colección",
-  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
-    "Empieza por el carrusel destacado para descubrir rápidamente las películas de las que todos hablan. Después, explora títulos populares, favoritos con las mejores puntuaciones y películas actualmente en cartelera. Cada colección ofrece un punto de partida distinto: puedes pasar de una película aclamada a un estreno reciente sin tener que saber exactamente qué buscas.",
-  "Explore trending movies": "Explorar películas populares",
-  "Find a movie for your mood": "Encuentra una película para cada momento",
-  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
-    "Elige una fila de género según tu estado de ánimo o abre la página de películas para filtrar por año de estreno, puntuación mínima y orden. Si ya tienes una película en mente, búscala por título. Los filtros se combinan para que puedas recorrer un catálogo amplio y encontrar algo que encaje con el tiempo del que dispones.",
-  "Browse and filter movies": "Explorar y filtrar películas",
-  "Look ahead and compare": "Descubre próximos estrenos y compara",
-  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
-    "Consulta los próximos estrenos para saber qué llegará pronto y explora las tendencias si buscas ideas de las que se habla ahora. Abre una película para leer su sinopsis, ver los datos principales y comprobar si tiene tráiler. Las puntuaciones, fechas de estreno y géneros te ayudan a comparar opciones antes de decidir qué descubrir.",
-  "See upcoming releases": "Ver próximos estrenos",
-  "Keep your discoveries": "Guarda tus descubrimientos",
-  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
-    "Guarda en Favoritos las películas que quieras volver a ver o añade opciones a tu Lista para ver más tarde. Inicia sesión para vincular tus colecciones a tu cuenta y tenerlas disponibles cuando regreses. Usa estas listas para recordar las películas que disfrutaste, las que te interesan y las recomendaciones que no quieres olvidar.",
-  "Open your watchlist": "Abrir tu lista para ver",
   Legal: "Información legal",
   "Privacy Policy": "Política de privacidad",
   "Terms of Use": "Términos de uso",

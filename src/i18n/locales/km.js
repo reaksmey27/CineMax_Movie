@@ -20,25 +20,6 @@ const km = {
   'We couldn’t find any movies for "{query}". Try a different title or keyword.':
     'រកមិនឃើញភាពយន្តសម្រាប់ "{query}" ទេ។ សាកល្បងចំណងជើង ឬពាក្យគន្លឹះផ្សេង។',
   Explore: "ស្វែងយល់",
-  "Discover movies your way": "ស្វែងរកភាពយន្តតាមរបៀបដែលអ្នកចូលចិត្ត",
-  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
-    "ការស្វែងរកភាពយន្តគួរតែជាផ្នែកមួយនៃភាពរីករាយ។ CineMax រួមបញ្ចូលបញ្ជីភាពយន្ត ប្រភេទ ការស្វែងរក និងបញ្ជីផ្ទាល់ខ្លួន ដើម្បីជួយអ្នកស្វែងរកភាពយន្តដែលសមស្រប។ មិនថាអ្នកមានតារាសម្តែងដែលចូលចិត្ត ឬមានពេលទំនេរបន្តិចទេ អ្នកអាចចាប់ផ្តើមតាមចំណង់ចំណូលចិត្តរបស់អ្នក។",
-  "Start with a collection": "ចាប់ផ្តើមពីបញ្ជីភាពយន្ត",
-  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
-    "ចាប់ផ្តើមពីរូបភាពភាពយន្តពិសេស ដើម្បីមើលរហ័សនូវភាពយន្តដែលមនុស្សកំពុងនិយាយពីវា បន្ទាប់មកស្វែងរកចំណងជើងពេញនិយម ភាពយន្តពិន្ទុខ្ពស់ និងភាពយន្តដែលកំពុងចាក់បញ្ចាំង។ បញ្ជីនីមួយៗផ្តល់ចំណុចចាប់ផ្តើមខុសៗគ្នា ដូច្នេះអ្នកអាចរកឃើញភាពយន្តថ្មីដោយមិនចាំបាច់ដឹងជាមុនថាចង់មើលអ្វី។",
-  "Explore trending movies": "ស្វែងរកភាពយន្តកំពុងពេញនិយម",
-  "Find a movie for your mood": "ស្វែងរកភាពយន្តតាមអារម្មណ៍",
-  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
-    "ជ្រើសរើសប្រភេទភាពយន្តតាមអារម្មណ៍របស់អ្នក ឬបើកទំព័រភាពយន្តដើម្បីត្រងតាមឆ្នាំចេញផ្សាយ ពិន្ទុអប្បបរមា និងលំដាប់។ ប្រសិនបើអ្នកមានចំណងជើងក្នុងចិត្ត សូមស្វែងរកតាមចំណងជើង។ តម្រងអាចប្រើរួមគ្នា ដើម្បីជួយអ្នកស្វែងរកភាពយន្តក្នុងបញ្ជីធំៗបានងាយស្រួល។",
-  "Browse and filter movies": "រកមើល និងត្រងភាពយន្ត",
-  "Look ahead and compare": "មើលភាពយន្តនាពេលខាងមុខ",
-  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
-    "ពិនិត្យមើលភាពយន្តដែលនឹងចេញផ្សាយឆាប់ៗ និងស្វែងរកចំណងជើងកំពុងពេញនិយម ដើម្បីទទួលបានគំនិតថ្មីៗ។ បើកភាពយន្តដើម្បីអានសេចក្តីសង្ខេប មើលព័ត៌មានសំខាន់ៗ និងពិនិត្យមើលឈុតខ្លី។ ពិន្ទុ កាលបរិច្ឆេទចេញផ្សាយ និងប្រភេទអាចជួយអ្នកប្រៀបធៀបមុនពេលសម្រេចចិត្ត។",
-  "See upcoming releases": "មើលភាពយន្តចេញផ្សាយឆាប់ៗ",
-  "Keep your discoveries": "រក្សាទុកភាពយន្តដែលអ្នករកឃើញ",
-  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
-    "រក្សាទុកភាពយន្តដែលអ្នកចង់មើលម្តងទៀតក្នុងចំណូលចិត្ត ឬបន្ថែមភាពយន្តដែលចាប់អារម្មណ៍ទៅក្នុងបញ្ជីមើលពេលក្រោយ។ ចូលគណនីដើម្បីភ្ជាប់បញ្ជីទៅគណនីរបស់អ្នក ហើយអាចប្រើបាននៅពេលត្រឡប់មកវិញ។ ប្រើបញ្ជីទាំងនេះដើម្បីចងចាំភាពយន្តដែលអ្នកចូលចិត្ត និងការណែនាំដែលអ្នកមិនចង់ភ្លេច។",
-  "Open your watchlist": "បើកបញ្ជីមើលរបស់អ្នក",
   Legal: "ព័ត៌មានផ្លូវច្បាប់",
   "Privacy Policy": "គោលការណ៍ឯកជនភាព",
   "Terms of Use": "លក្ខខណ្ឌប្រើប្រាស់",

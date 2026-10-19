@@ -132,3 +132,32 @@ test("trailer modal and minimized player fit a 320px mobile viewport", async ({
   expect(miniBounds.x + miniBounds.width).toBeLessThanOrEqual(320);
   expect(miniBounds.y + miniBounds.height).toBeLessThanOrEqual(740);
 });
+
+test("movie actions keep strong contrast in light theme", async ({ page }) => {
+  await mockMovieDetails(page);
+  await page.goto("/movie/42");
+  await page.getByRole("button", { name: "Switch to light mode" }).click();
+
+  await expect(page.locator(".movie-play-button")).toHaveCSS(
+    "color",
+    "rgb(255, 255, 255)",
+  );
+  await expect(page.getByRole("button", { name: "Watch Trailer" })).toHaveCSS(
+    "color",
+    "rgb(15, 23, 42)",
+  );
+
+  const favoriteButton = page.locator(".movie-favorite-button");
+  await expect(favoriteButton).toHaveAttribute("aria-pressed", "false");
+  await favoriteButton.evaluate((button) =>
+    button.setAttribute("aria-pressed", "true"),
+  );
+  await expect(favoriteButton).toHaveCSS("color", "rgb(185, 28, 28)");
+
+  const watchlistButton = page.locator(".movie-watchlist-button");
+  await expect(watchlistButton).toHaveAttribute("aria-pressed", "false");
+  await watchlistButton.evaluate((button) =>
+    button.setAttribute("aria-pressed", "true"),
+  );
+  await expect(watchlistButton).toHaveCSS("color", "rgb(146, 64, 14)");
+});

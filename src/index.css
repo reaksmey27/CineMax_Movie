@@ -357,22 +357,16 @@
   --nav-accent: #c084fc;
 }
 
-html.theme-light .site-navbar {
-  --color-nav-bg: #ffffff;
-  --color-panel-bg: #ffffff;
-  --color-text: #0f172a;
-  --color-text-soft: #334155;
-  --color-text-muted: #475569;
-  --color-border: #64748b;
-  --color-surface-1: #f1f5f9;
-  --color-surface-2: #f1f5f9;
-  --color-surface-3: #e2e8f0;
-  --nav-accent: #7e22ce;
-}
-
 .site-navbar :is(a, button, input):focus-visible {
   outline: 2px solid var(--nav-accent);
   outline-offset: 3px;
+}
+
+.hero-carousel {
+  --color-text: #f8fafc;
+  --color-text-soft: rgba(226, 232, 240, 0.82);
+  --color-text-muted: #cbd5e1;
+  --color-text-subtle: #94a3b8;
 }
 
 .trailer-dialog {
@@ -401,4 +395,63 @@ html.theme-light .site-navbar {
 .donation-dialog :is(button, a):focus-visible {
   outline: 2px solid #d97706;
   outline-offset: 3px;
+}
+
+@layer utilities {
+  html.theme-light .hero-carousel .hero-nav-button {
+    background-color: rgba(248, 250, 252, 0.96) !important;
+    border-color: rgba(203, 213, 225, 0.9) !important;
+    color: #334155 !important;
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.24);
+  }
+
+  html.theme-light .hero-carousel .hero-nav-button:hover {
+    background-color: #e2e8f0 !important;
+  }
+
+  html.theme-light .hero-carousel .hero-genre-chip {
+    background-color: rgba(248, 250, 252, 0.94) !important;
+    border-color: rgba(203, 213, 225, 0.9) !important;
+    color: #334155 !important;
+    box-shadow: 0 2px 8px rgba(2, 6, 23, 0.16);
+  }
+
+  html.theme-light .hero-carousel .hero-favorite:not([aria-pressed="true"]) {
+    background-color: rgba(248, 250, 252, 0.96) !important;
+    border-color: rgba(203, 213, 225, 0.9) !important;
+    color: #334155 !important;
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.2);
+  }
+
+  html.theme-light
+    .hero-carousel
+    .hero-favorite:not([aria-pressed="true"]):hover {
+    background-color: #e2e8f0 !important;
+  }
+
+  html.theme-light .movie-play-button {
+    color: #fff !important;
+  }
+
+  html.theme-light .movie-favorite-button[aria-pressed="true"] {
+    background-color: #fef2f2 !important;
+    border-color: #fca5a5 !important;
+    color: #b91c1c !important;
+    box-shadow: 0 6px 18px rgba(185, 28, 28, 0.12);
+  }
+
+  html.theme-light .movie-favorite-button[aria-pressed="true"]:hover {
+    background-color: #fee2e2 !important;
+  }
+
+  html.theme-light .movie-watchlist-button[aria-pressed="true"] {
+    background-color: #fffbeb !important;
+    border-color: #fcd34d !important;
+    color: #92400e !important;
+    box-shadow: 0 6px 18px rgba(146, 64, 14, 0.12);
+  }
+
+  html.theme-light .movie-watchlist-button[aria-pressed="true"]:hover {
+    background-color: #fef3c7 !important;
+  }
 }
