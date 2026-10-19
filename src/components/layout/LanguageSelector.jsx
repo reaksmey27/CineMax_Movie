@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 
 const LanguageSelector = ({ className = "" }) => {
@@ -38,21 +39,25 @@ const LanguageSelector = ({ className = "" }) => {
         ref={summaryRef}
         aria-label={`${t("Switch language")}: ${currentLanguage.label}`}
         title={currentLanguage.label}
-        className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-0 focus-visible:outline-2 focus-visible:outline-purple-500 sm:h-11 sm:w-11 [&::-webkit-details-marker]:hidden"
+        className="flex min-h-9 cursor-pointer list-none items-center justify-center gap-1 rounded-md px-1 text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500 sm:min-h-11 sm:gap-1.5 sm:px-2 [&::-webkit-details-marker]:hidden"
       >
         <img
           src={currentLanguage.flag}
           alt=""
           aria-hidden="true"
           data-testid="selected-language-flag"
-          className="h-7 w-7 shrink-0 rounded-full object-cover object-center sm:h-9 sm:w-9"
+          className="aspect-[3/2] w-7 shrink-0 rounded-sm object-contain object-center sm:w-8"
+        />
+        <ChevronDownIcon
+          className="h-4 w-4 shrink-0 text-[var(--color-text-muted)]"
+          aria-hidden="true"
         />
         <span className="sr-only">{currentLanguage.label}</span>
       </summary>
       <div
         role="group"
         aria-label={t("Choose language")}
-        className="absolute -right-10 z-50 mt-2 grid w-[min(18rem,calc(100vw-3rem))] max-h-[min(60dvh,24rem)] min-h-0 gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-2 shadow-xl sm:right-0"
+        className="no-scrollbar absolute -right-10 z-50 mt-2 grid w-[min(18rem,calc(100vw-3rem))] max-h-[min(60dvh,24rem)] min-h-0 gap-1 overflow-y-auto overscroll-contain rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-2 shadow-xl sm:right-0"
       >
         {languages.map(({ code, label, flag }) => (
           <button
@@ -70,7 +75,7 @@ const LanguageSelector = ({ className = "" }) => {
               src={flag}
               alt=""
               aria-hidden="true"
-              className="h-9 w-9 rounded-full object-cover object-center ring-1 ring-[var(--color-border)]"
+              className="aspect-[3/2] w-8 shrink-0 rounded-sm object-contain object-center"
             />
             <span className="min-w-0 break-words">{label}</span>
           </button>

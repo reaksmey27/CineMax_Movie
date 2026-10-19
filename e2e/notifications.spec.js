@@ -233,18 +233,33 @@ test("language selection translates navigation and persists across reloads", asy
   ).toHaveAttribute("src", /\.png(?:$|\?)/);
   await expect(
     languageSelector.getByTestId("selected-language-flag"),
-  ).toHaveClass(/rounded-full/);
+  ).toHaveClass(/aspect-\[3\/2\]/);
   await expect(
     languageSelector.getByTestId("selected-language-flag"),
-  ).toHaveClass(/h-7 w-7/);
+  ).toHaveClass(/w-7/);
   const selectorBounds = await languageSelector
     .locator("summary")
     .boundingBox();
   expect(selectorBounds).not.toBeNull();
-  expect(selectorBounds.width).toBe(selectorBounds.height);
+  await expect(languageSelector.locator("summary")).toHaveCSS(
+    "border-top-width",
+    "0px",
+  );
+  await expect(
+    languageSelector.locator("summary").locator("svg"),
+  ).toBeVisible();
   await expect(
     languageSelector.getByTestId("selected-language-flag"),
-  ).toHaveCSS("object-fit", "cover");
+  ).toHaveCSS("object-fit", "contain");
+  expect(
+    await languageSelector
+      .getByTestId("selected-language-flag")
+      .evaluate(
+        (image) =>
+          image.getBoundingClientRect().width /
+          image.getBoundingClientRect().height,
+      ),
+  ).toBeCloseTo(1.5, 2);
   await expect(
     languageSelector
       .getByTestId("selected-language-flag")
@@ -255,9 +270,9 @@ test("language selection translates navigation and persists across reloads", asy
   await expect(languageFlags).toHaveCount(9);
   for (const flag of await languageFlags.all()) {
     await expect(flag).toHaveAttribute("src", /\.png(?:$|\?)/);
-    await expect(flag).toHaveClass(/rounded-full/);
-    await expect(flag).toHaveClass(/h-9 w-9/);
-    await expect(flag).toHaveCSS("object-fit", "cover");
+    await expect(flag).toHaveClass(/aspect-\[3\/2\]/);
+    await expect(flag).toHaveClass(/w-8/);
+    await expect(flag).toHaveCSS("object-fit", "contain");
     await flag.evaluate((image) => image.decode());
   }
   await languageSelector.locator("summary").click();
@@ -310,6 +325,8 @@ test("language selector menu fits and scrolls on a narrow mobile screen", async 
   expect(menuBounds.x + menuBounds.width).toBeLessThanOrEqual(320);
   expect(menuBounds.height).toBeLessThanOrEqual(24 * 16);
   await expect(languageMenu.locator("button")).toHaveCount(9);
+  await expect(languageMenu).toHaveClass(/no-scrollbar/);
+  await expect(languageMenu).toHaveCSS("overflow-y", "auto");
 });
 
 test("mobile navigation drawer hides its scrollbar but remains scrollable", async ({
