@@ -42,6 +42,7 @@ const ja = {
   "Watch now": "今すぐ見る",
   Trailer: "予告編",
   "Try again": "再試行",
+  "Could not load genres.": "ジャンルを読み込めませんでした。",
   "Show fewer genres": "ジャンルを減らす",
   "Explore more genres": "他のジャンルを見る",
   "Featured movies": "注目の映画",

@@ -43,6 +43,7 @@ const id = {
   "Watch now": "Tonton sekarang",
   Trailer: "Cuplikan",
   "Try again": "Coba lagi",
+  "Could not load genres.": "Genre film tidak dapat dimuat.",
   "Show fewer genres": "Tampilkan lebih sedikit genre",
   "Explore more genres": "Jelajahi genre lainnya",
   "Featured movies": "Film pilihan",

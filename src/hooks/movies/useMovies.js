@@ -39,6 +39,9 @@ const useMovies = () => {
 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [genresLoading, setGenresLoading] = useState(true);
+  const [genresError, setGenresError] = useState(false);
+  const [genreRetry, setGenreRetry] = useState(0);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(null);
@@ -72,18 +75,29 @@ const useMovies = () => {
     [setSearchParams],
   );
 
+  const retryGenres = useCallback(() => {
+    setGenreRetry((current) => current + 1);
+  }, []);
+
   useEffect(() => {
     let ignore = false;
 
     const fetchGenres = async () => {
+      setGenresLoading(true);
       try {
         const genreData = await tmdbService.getGenres();
         if (!ignore) {
           setGenres(genreData);
+          setGenresError(false);
         }
       } catch (err) {
         if (!ignore) {
           console.error("Error fetching genres:", err);
+          setGenresError(true);
+        }
+      } finally {
+        if (!ignore) {
+          setGenresLoading(false);
         }
       }
     };
@@ -92,7 +106,7 @@ const useMovies = () => {
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [genreRetry]);
 
   useEffect(() => {
     let ignore = false;
@@ -237,6 +251,8 @@ const useMovies = () => {
     collectionTitle,
     movies,
     genres,
+    genresLoading,
+    genresError,
     selectedGenre,
     searchQuery,
     releaseYear,
@@ -255,6 +271,7 @@ const useMovies = () => {
     handleSortChange,
     clearFilters,
     handlePageChange,
+    retryGenres,
   };
 };
 

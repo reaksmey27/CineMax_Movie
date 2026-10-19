@@ -42,6 +42,7 @@ const es = {
   "Watch now": "Ver ahora",
   Trailer: "Tráiler",
   "Try again": "Intentar de nuevo",
+  "Could not load genres.": "No se pudieron cargar los géneros.",
   "Show fewer genres": "Mostrar menos géneros",
   "Explore more genres": "Explorar más géneros",
   "Featured movies": "Películas destacadas",

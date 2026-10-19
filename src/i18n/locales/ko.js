@@ -42,6 +42,7 @@ const ko = {
   "Watch now": "지금 보기",
   Trailer: "예고편",
   "Try again": "다시 시도",
+  "Could not load genres.": "장르를 불러오지 못했습니다.",
   "Show fewer genres": "장르 적게 보기",
   "Explore more genres": "장르 더 보기",
   "Featured movies": "추천 영화",

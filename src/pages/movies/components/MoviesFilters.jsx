@@ -126,12 +126,15 @@ const FilterSelect = ({
 
 const MoviesFilters = ({
   genres,
+  genresLoading,
+  genresError,
   hasActiveFilters,
   hasSearchQuery,
   minRating,
   onClearFilters,
   onGenreChange,
   onRatingChange,
+  onRetryGenres,
   onSortChange,
   openSelect,
   selectedGenre,
@@ -202,6 +205,29 @@ const MoviesFilters = ({
             </button>
           ))}
         </div>
+        {genresError && (
+          <div
+            role="alert"
+            aria-busy={genresLoading}
+            className="mt-2 flex flex-wrap items-center gap-3 text-sm text-red-300"
+          >
+            <span>{t("Could not load genres.")}</span>
+            <button
+              type="button"
+              onClick={onRetryGenres}
+              disabled={genresLoading}
+              className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-red-300/30 px-3 font-semibold text-white transition-colors hover:bg-red-300/10 disabled:cursor-wait disabled:opacity-70"
+            >
+              {genresLoading && (
+                <span
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-r-transparent"
+                />
+              )}
+              {t("Try again")}
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">

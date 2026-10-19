@@ -46,6 +46,7 @@ const zhTW = {
   "Watch now": "立即觀看",
   Trailer: "預告片",
   "Try again": "重試",
+  "Could not load genres.": "無法載入電影類型。",
   "Show fewer genres": "收起類型",
   "Explore more genres": "探索更多類型",
   "Featured movies": "精選電影",

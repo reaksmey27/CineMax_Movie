@@ -44,6 +44,7 @@ const km = {
   "Watch now": "មើលឥឡូវនេះ",
   Trailer: "ឈុតខ្លី",
   "Try again": "ព្យាយាមម្តងទៀត",
+  "Could not load genres.": "មិនអាចផ្ទុកប្រភេទភាពយន្តបានទេ។",
   "Show fewer genres": "បង្ហាញប្រភេទតិចជាងនេះ",
   "Explore more genres": "ស្វែងយល់ប្រភេទភាពយន្តបន្ថែម",
   "Featured movies": "ភាពយន្តពិសេស",

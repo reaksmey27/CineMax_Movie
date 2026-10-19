@@ -42,6 +42,8 @@ const MoviesPage = () => {
     collectionTitle,
     movies,
     genres,
+    genresLoading,
+    genresError,
     selectedGenre,
     searchQuery,
     releaseYear,
@@ -56,6 +58,7 @@ const MoviesPage = () => {
     handleSearch,
     clearSearch,
     handlePageChange,
+    retryGenres,
     handleYearChange,
     handleRatingChange,
     handleSortChange,
@@ -87,6 +90,9 @@ const MoviesPage = () => {
           page={page}
           totalPages={totalPages}
           genres={genres}
+          genresLoading={genresLoading}
+          genresError={genresError}
+          onRetryGenres={retryGenres}
           selectedGenre={selectedGenre}
           releaseYear={releaseYear}
           minRating={minRating}

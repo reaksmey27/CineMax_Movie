@@ -94,6 +94,9 @@ const MoviesHeader = ({
   page,
   totalPages,
   genres,
+  genresLoading,
+  genresError,
+  onRetryGenres,
   selectedGenre,
   releaseYear,
   minRating,
@@ -380,12 +383,15 @@ const MoviesHeader = ({
 
       <MoviesFilters
         genres={genres}
+        genresLoading={genresLoading}
+        genresError={genresError}
         hasActiveFilters={hasActiveFilters}
         hasSearchQuery={hasSearchQuery}
         minRating={minRating}
         onClearFilters={onClearFilters}
         onGenreChange={onGenreChange}
         onRatingChange={onRatingChange}
+        onRetryGenres={onRetryGenres}
         onSortChange={onSortChange}
         openSelect={openSelect}
         selectedGenre={selectedGenre}

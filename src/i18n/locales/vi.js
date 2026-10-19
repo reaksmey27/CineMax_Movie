@@ -42,6 +42,7 @@ const vi = {
   "Watch now": "Xem ngay",
   Trailer: "Trailer",
   "Try again": "Thử lại",
+  "Could not load genres.": "Không thể tải thể loại phim.",
   "Show fewer genres": "Thu gọn thể loại",
   "Explore more genres": "Khám phá thêm thể loại",
   "Featured movies": "Phim nổi bật",

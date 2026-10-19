@@ -42,6 +42,7 @@ const fr = {
   "Watch now": "Regarder",
   Trailer: "Bande-annonce",
   "Try again": "Réessayer",
+  "Could not load genres.": "Impossible de charger les genres.",
   "Show fewer genres": "Afficher moins de genres",
   "Explore more genres": "Explorer plus de genres",
   "Featured movies": "Films à la une",
