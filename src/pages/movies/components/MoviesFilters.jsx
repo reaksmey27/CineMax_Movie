@@ -27,9 +27,21 @@ const FilterSelect = ({
 }) => {
   const { t } = useLanguage();
   const containerRef = useRef(null);
+  const triggerRef = useRef(null);
+  const menuRef = useRef(null);
   const triggerId = `filter-select-${label.toLowerCase().replace(/\s+/g, "-")}`;
   const selected =
     options.find((option) => option.value === value) ?? options[0];
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const optionButtons = menuRef.current?.querySelectorAll('[role="option"]');
+    const selectedOption = Array.from(optionButtons ?? []).find(
+      (option) => option.getAttribute("aria-selected") === "true",
+    );
+    selectedOption?.focus();
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -39,7 +51,10 @@ const FilterSelect = ({
     };
 
     const handleEscape = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        triggerRef.current?.focus();
+      }
     };
 
     document.addEventListener("mousedown", handlePointerDown);
@@ -51,11 +66,33 @@ const FilterSelect = ({
     };
   }, [isOpen, onClose]);
 
+  const handleOptionKeyDown = (event) => {
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+
+    const optionButtons = Array.from(
+      menuRef.current?.querySelectorAll('[role="option"]') ?? [],
+    );
+    const currentIndex = optionButtons.indexOf(event.currentTarget);
+    if (currentIndex < 0 || optionButtons.length === 0) return;
+
+    event.preventDefault();
+    const nextIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? optionButtons.length - 1
+          : (currentIndex +
+              (event.key === "ArrowDown" ? 1 : optionButtons.length - 1)) %
+            optionButtons.length;
+    optionButtons[nextIndex].focus();
+  };
+
   return (
     <div ref={containerRef} className="relative space-y-2">
       <span className={LABEL_CLASS}>{t(label)}</span>
 
       <button
+        ref={triggerRef}
         id={triggerId}
         type="button"
         aria-haspopup="listbox"
@@ -84,6 +121,7 @@ const FilterSelect = ({
         <div className="absolute inset-x-0 top-full z-50 mt-1 origin-top transition-all duration-150">
           <div className="rounded-lg border border-white/6 bg-slate-950 p-1">
             <ul
+              ref={menuRef}
               id={`${triggerId}-menu`}
               role="listbox"
               aria-labelledby={triggerId}
@@ -98,9 +136,11 @@ const FilterSelect = ({
                       type="button"
                       role="option"
                       aria-selected={isSelected}
+                      onKeyDown={handleOptionKeyDown}
                       onClick={() => {
                         onChange(option.value);
                         onClose();
+                        triggerRef.current?.focus();
                       }}
                       className={`flex w-full items-center justify-between gap-3 rounded-lg px-3.5 py-2 text-left text-[13px] font-semibold transition-all ${
                         isSelected
