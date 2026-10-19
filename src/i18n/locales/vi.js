@@ -20,6 +20,25 @@ const vi = {
   'We couldn’t find any movies for "{query}". Try a different title or keyword.':
     'Không tìm thấy phim cho "{query}". Hãy thử tên phim hoặc từ khóa khác.',
   Explore: "Khám phá",
+  "Discover movies your way": "Khám phá phim theo cách của bạn",
+  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
+    "Tìm phim cũng nên là một phần thú vị. CineMax kết hợp bộ sưu tập, thể loại, tìm kiếm và danh sách cá nhân để giúp bạn chọn được bộ phim phù hợp. Dù bạn đã có diễn viên yêu thích hay chỉ có chút thời gian rảnh, hãy bắt đầu ở bất cứ đâu và khám phá theo sở thích.",
+  "Start with a collection": "Bắt đầu với bộ sưu tập",
+  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
+    "Bắt đầu với vòng phim nổi bật để xem nhanh những phim đang được chú ý, sau đó khám phá phim phổ biến, phim được đánh giá cao và phim đang chiếu. Mỗi bộ sưu tập là một điểm khởi đầu khác nhau, giúp bạn tìm từ phim được yêu thích đến phim mới mà không cần biết trước mình muốn xem gì.",
+  "Explore trending movies": "Khám phá phim thịnh hành",
+  "Find a movie for your mood": "Tìm phim hợp tâm trạng",
+  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
+    "Chọn hàng thể loại phù hợp với tâm trạng hoặc mở trang phim để lọc theo năm phát hành, điểm đánh giá tối thiểu và thứ tự sắp xếp. Nếu đã biết tên phim, bạn có thể tìm trực tiếp. Các bộ lọc kết hợp với nhau giúp bạn dễ dàng tìm phim phù hợp trong danh mục phong phú.",
+  "Browse and filter movies": "Duyệt và lọc phim",
+  "Look ahead and compare": "Xem trước và so sánh",
+  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
+    "Xem phim sắp ra mắt để biết những nội dung sắp tới, hoặc khám phá phim thịnh hành để tìm ý tưởng mới. Mở trang phim để đọc giới thiệu, xem thông tin chính và kiểm tra trailer. Điểm đánh giá, ngày phát hành và thể loại giúp bạn so sánh trước khi chọn bộ phim tiếp theo.",
+  "See upcoming releases": "Xem phim sắp ra mắt",
+  "Keep your discoveries": "Lưu lại phim bạn khám phá",
+  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
+    "Lưu phim muốn xem lại vào mục Yêu thích hoặc thêm phim muốn xem sau vào Danh sách xem. Đăng nhập để liên kết bộ sưu tập với tài khoản và tiếp tục sử dụng khi quay lại. Dùng các danh sách này để ghi nhớ phim bạn yêu thích, phim bạn tò mò và những gợi ý không muốn bỏ lỡ.",
+  "Open your watchlist": "Mở danh sách xem",
   Legal: "Thông tin pháp lý",
   "Privacy Policy": "Chính sách quyền riêng tư",
   "Terms of Use": "Điều khoản sử dụng",

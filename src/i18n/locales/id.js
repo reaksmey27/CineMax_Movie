@@ -21,6 +21,25 @@ const id = {
   'We couldn’t find any movies for "{query}". Try a different title or keyword.':
     'Film untuk "{query}" tidak ditemukan. Coba judul atau kata kunci lain.',
   Explore: "Jelajahi",
+  "Discover movies your way": "Temukan film dengan caramu",
+  "Finding a movie should be part of the fun. CineMax brings collections, genres, search, and personal lists together to help you move from browsing to a great pick. Whether you have a favorite actor in mind or just a little time to spare, start anywhere and follow your curiosity.":
+    "Mencari film seharusnya menjadi bagian yang menyenangkan. CineMax menyatukan koleksi, genre, pencarian, dan daftar pribadi agar kamu lebih mudah menemukan film yang tepat. Baik kamu sudah punya aktor favorit maupun hanya memiliki sedikit waktu luang, mulailah dari mana saja dan ikuti rasa ingin tahumu.",
+  "Start with a collection": "Mulai dari koleksi",
+  "Start with the featured carousel for a quick look at movies people are talking about, then browse popular titles, top-rated favorites, and films currently in theaters. Each collection gives you a different starting point, so you can move from a widely loved pick to a new release without having to know exactly what you want first.":
+    "Mulailah dari carousel pilihan untuk melihat film yang sedang ramai dibicarakan, lalu jelajahi judul populer, film dengan rating tertinggi, dan film yang sedang tayang. Setiap koleksi menawarkan titik awal berbeda, jadi kamu dapat menemukan film favorit banyak orang hingga rilisan terbaru tanpa harus menentukan pilihan lebih dulu.",
+  "Explore trending movies": "Jelajahi film populer",
+  "Find a movie for your mood": "Temukan film sesuai suasana hati",
+  "Use genre rows to match your mood, or open the movies page to narrow results with release year, minimum rating, and sort order. Search by title when you already have a film in mind. Filters are designed to work together, making it easier to scan a broad catalog and find something that fits the time you have.":
+    "Pilih baris genre yang sesuai suasana hati, atau buka halaman film untuk menyaring berdasarkan tahun rilis, rating minimum, dan urutan. Jika sudah memiliki judul, cari langsung berdasarkan nama film. Gunakan filter bersama-sama untuk menelusuri katalog dengan lebih mudah dan menemukan film yang sesuai dengan waktumu.",
+  "Browse and filter movies": "Jelajahi dan saring film",
+  "Look ahead and compare": "Lihat yang akan datang dan bandingkan",
+  "Check upcoming releases to see what is on the way, and explore trending titles when you want ideas from current viewing conversations. Open a movie to read its overview, see key details, and check for an available trailer. Ratings, release dates, and genres help you compare options before choosing what to explore next.":
+    "Periksa rilisan mendatang untuk melihat film yang akan hadir, dan jelajahi judul populer untuk mendapatkan ide dari tren saat ini. Buka halaman film untuk membaca sinopsis, melihat detail penting, dan menemukan trailer jika tersedia. Rating, tanggal rilis, dan genre membantumu membandingkan sebelum memilih film berikutnya.",
+  "See upcoming releases": "Lihat rilisan mendatang",
+  "Keep your discoveries": "Simpan film temuanmu",
+  "Save films you want to revisit to Favorites, or add possibilities to your Watchlist for later. Sign in to keep your collections connected to your account, so your selections are available when you return. Use these lists to keep track of films you enjoyed, films you are curious about, and recommendations you do not want to forget.":
+    "Simpan film yang ingin ditonton ulang ke Favorit, atau tambahkan pilihan ke Daftar Tontonan untuk nanti. Masuk agar koleksimu terhubung ke akun dan tetap tersedia saat kamu kembali. Gunakan daftar ini untuk mencatat film yang disukai, film yang membuat penasaran, dan rekomendasi yang tidak ingin terlupakan.",
+  "Open your watchlist": "Buka daftar tontonan",
   Legal: "Informasi hukum",
   "Privacy Policy": "Kebijakan Privasi",
   "Terms of Use": "Ketentuan Penggunaan",
