@@ -155,9 +155,17 @@
     overflow-x: hidden;
     background-color: var(--color-bg);
     color: var(--color-text);
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
     transition:
       background-color 180ms ease,
       color 180ms ease;
+  }
+
+  /* Khmer text renders with Kantumruy Pro (html[lang="km"] or inline lang="km"). */
+  html[lang="km"] body,
+  [lang="km"] {
+    font-family: "Kantumruy Pro", "Plus Jakarta Sans", ui-sans-serif,
+      system-ui, sans-serif;
   }
 
   ::selection {
