@@ -12,6 +12,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Saved movies:** Favorites and Watchlist tabs with counts, complete poster grids, removal controls, and friendly empty states.
 - **Account profile:** profile photo, username, email, username editing, and logout. Supports email/password and Google sign-in.
 - **Responsive interface:** light and dark themes, visible card titles and ratings, keyboard focus indicators, and reduced-motion support.
+- **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font.
 - **Donation card:** QR download and copyable payment details in a dialog that fits the viewport.
 
 ## Stack
@@ -24,6 +25,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 | Authentication        | Firebase Authentication  |
 | Saved movie storage   | Cloud Firestore          |
 | Movie data and images | TMDB                     |
+| Internationalization  | Custom i18n, 12 locales  |
 | Icons                 | Heroicons, React Icons   |
 | Code quality          | ESLint, Prettier         |
 
@@ -174,16 +176,32 @@ Favorites saved in browser storage before Firestore syncing was added are not im
 | `/movie/:id`                     | Movie details and playback                 |
 | `/favorites`                     | Saved favorites                            |
 | `/watchlist`                     | Account watchlist                          |
+| `/notifications`                 | Notification history                       |
 | `/profile`                       | Profile and saved collections              |
 | `/profile?tab=watchlist`         | Profile with the Watchlist tab selected    |
 | `/login`, `/signup`, `/register` | Authentication; `/register` aliases signup |
 
 The Movies page supports `q`, `genre`, `year`, `rating`, `sort`, and `page` query parameters. Selecting a discovery filter exits a named collection or active search.
 
+## Internationalization
+
+The UI ships in 12 languages: English, Khmer, Traditional Chinese, Spanish, French, Japanese, Korean, Vietnamese, Indonesian, German, Italian, and Brazilian Portuguese. The language selector is in the navbar; the choice persists in `localStorage` (`cinemax_language`) and sets `document.documentElement.lang`.
+
+English is the source language: translation keys are the English strings themselves, so `src/i18n/locales/en.js` is intentionally empty and any untranslated key falls back to English. Every other locale in [`src/i18n/locales/`](src/i18n/locales) maps those English strings to translations. All locales are registered in [`src/i18n/translations.js`](src/i18n/translations.js).
+
+UI text renders in Plus Jakarta Sans; when the language is Khmer, the page switches to Kantumruy Pro via the `[lang="km"]` rule in `src/index.css`. Both fonts load from Google Fonts in `index.html`.
+
+To add a language:
+
+1. Create `src/i18n/locales/<code>.js` by copying the key set from an existing locale (for example `de.js`) and translating the values, keeping `{placeholders}` intact.
+2. Add a flag image under `src/assets/flags/`.
+3. Register it in `src/i18n/translations.js`: import the locale and flag, add a `LANGUAGES` entry (code, label, flag), and add the locale to the `translations` map.
+
 ## Project structure
 
 ```text
 src/
+  assets/        Flag, icon, and image assets
   components/
     layout/       Navigation, global search, footer
     ui/           Shared movie cards, grids, loaders, donation dialog
@@ -193,10 +211,11 @@ src/
   hooks/
     auth/         Authentication forms and profile editing
     movies/       Discovery, collections, details, player state
-  pages/          Home, movies, profile, saved lists, authentication
+  i18n/           Language registry and per-language locale files
+  pages/          Home, movies, profile, saved lists, notifications, authentication
   services/       TMDB requests, caching, data formatting
   utils/          Theme and authentication redirect helpers
-  index.css       Shared styles and theme variables
+  index.css       Shared styles, theme variables, and animations
 public/           Static assets and crawler files
 ```
 
