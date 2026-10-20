@@ -227,10 +227,10 @@ const AuthShell = ({ children, onClose }) => {
       role="presentation"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.05),transparent_40%)]" />
-      <div className="mx-auto flex min-h-[calc(100svh-3rem)] w-full max-w-[840px] items-center">
+      <div className="mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[840px] items-center">
         <div
           ref={dialogRef}
-          className={`${isClosing ? "animate-auth-modal-out" : "animate-auth-modal"} relative grid w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]`}
+          className={`${isClosing ? "animate-auth-modal-out" : "animate-auth-modal"} relative grid h-[min(46rem,calc(100svh_-_5rem))] w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]`}
           onClick={(event) => event.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -245,7 +245,7 @@ const AuthShell = ({ children, onClose }) => {
             <XMarkIcon className="h-5 w-5" />
           </button>
 
-          <section className="relative hidden overflow-hidden p-2 md:block md:min-h-[30rem]">
+          <section className="relative hidden overflow-hidden p-2 md:block">
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),rgba(0,0,0,0.22))]" />
             <div className="grid h-full grid-cols-2 grid-rows-3 gap-2">
               {movieCards.map((poster, index) => (
@@ -299,7 +299,7 @@ const AuthShell = ({ children, onClose }) => {
             </div>
           </section>
 
-          <section className="flex items-center bg-[#23212b] px-5 pb-7 pt-16 sm:px-8 sm:pb-8 sm:pt-16 lg:px-10 lg:py-10">
+          <section className="flex min-h-0 items-center-safe overflow-y-auto bg-[#23212b] px-5 pb-7 pt-16 sm:px-8 sm:pb-8 sm:pt-16 lg:px-10 lg:py-10">
             <div className="w-full">
               <div id="auth-modal-title" className="w-full">
                 {children}

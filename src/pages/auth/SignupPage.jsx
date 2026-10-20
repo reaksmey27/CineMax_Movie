@@ -48,65 +48,69 @@ const SignupPage = () => {
         </p>
 
         <form className="mt-6 space-y-3" onSubmit={handleSubmit}>
-          <label className="block">
-            <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-              {t("Full Name")}
-            </span>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              autoComplete="name"
-              placeholder={t("Movie lover name")}
-              className="w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-            />
-          </label>
+          <div className="grid min-w-0 grid-cols-2 gap-3">
+            <label className="flex h-full min-w-0 flex-col">
+              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
+                {t("Full Name")}
+              </span>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                autoComplete="name"
+                placeholder={t("Movie lover name")}
+                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
+              />
+            </label>
 
-          <label className="block">
-            <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-              {t("Enter Your Email")}
-            </span>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              autoComplete="email"
-              placeholder={t("Enter your Email")}
-              className="w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-            />
-          </label>
+            <label className="flex h-full min-w-0 flex-col">
+              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
+                {t("Enter Your Email")}
+              </span>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                autoComplete="email"
+                placeholder={t("Enter your Email")}
+                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
+              />
+            </label>
+          </div>
 
-          <label className="block">
-            <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-              {t("Password")}
-            </span>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              autoComplete="new-password"
-              placeholder={t("At least 6 characters")}
-              className="w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-            />
-          </label>
+          <div className="grid min-w-0 grid-cols-2 gap-3">
+            <label className="flex h-full min-w-0 flex-col">
+              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
+                {t("Password")}
+              </span>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                autoComplete="new-password"
+                placeholder={t("At least 6 characters")}
+                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
+              />
+            </label>
 
-          <label className="block">
-            <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-              {t("Confirm Password")}
-            </span>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              autoComplete="new-password"
-              placeholder={t("Repeat your password")}
-              className="w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-            />
-          </label>
+            <label className="flex h-full min-w-0 flex-col">
+              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
+                {t("Confirm Password")}
+              </span>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                autoComplete="new-password"
+                placeholder={t("Repeat your password")}
+                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
+              />
+            </label>
+          </div>
 
           {error && (
             <div className="rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3 text-sm text-purple-100">
