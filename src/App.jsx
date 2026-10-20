@@ -36,6 +36,7 @@ const AppContent = ({ theme, toggleTheme }) => {
   const location = useLocation();
   const { t } = useLanguage();
   const backgroundLocation = location.state?.backgroundLocation;
+  const baseLocation = backgroundLocation || location;
 
   return (
     <>
@@ -52,7 +53,12 @@ const AppContent = ({ theme, toggleTheme }) => {
               />
             }
           >
-            <BaseRoutes location={backgroundLocation || location} />
+            <div
+              key={baseLocation.pathname}
+              className="animate-page-enter"
+            >
+              <BaseRoutes location={baseLocation} />
+            </div>
             {backgroundLocation && <AuthModalRoutes location={location} />}
           </Suspense>
         </main>
