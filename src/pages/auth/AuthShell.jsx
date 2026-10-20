@@ -54,15 +54,42 @@ const posterCards = [
   },
 ];
 
+const CLOSE_ANIMATION_MS = 200;
+
 const AuthShell = ({ children, onClose }) => {
   const { t } = useLanguage();
   const [movieCards, setMovieCards] = useState(posterCards);
   const dialogRef = useRef(null);
   const onCloseRef = useRef(onClose);
+  const [isClosing, setIsClosing] = useState(false);
+  const closingRef = useRef(false);
+  const closeTimerRef = useRef(null);
+  const requestCloseRef = useRef(null);
+
+  const requestClose = () => {
+    if (closingRef.current) return;
+
+    const prefersReducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      onCloseRef.current?.();
+      return;
+    }
+
+    closingRef.current = true;
+    setIsClosing(true);
+    closeTimerRef.current = window.setTimeout(() => {
+      onCloseRef.current?.();
+    }, CLOSE_ANIMATION_MS);
+  };
 
   useEffect(() => {
-    onCloseRef.current = onClose;
-  }, [onClose]);
+    requestCloseRef.current = requestClose;
+  });
+
+  useEffect(() => () => window.clearTimeout(closeTimerRef.current), []);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -82,7 +109,7 @@ const AuthShell = ({ children, onClose }) => {
     const handleDialogKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onCloseRef.current?.();
+        requestCloseRef.current?.();
         return;
       }
 
@@ -195,15 +222,15 @@ const AuthShell = ({ children, onClose }) => {
 
   return (
     <div
-      className="animate-auth-backdrop fixed inset-0 z-[300] overflow-y-auto bg-transparent px-4 py-6 backdrop-blur-xl sm:px-6 sm:py-8"
-      onClick={onClose}
+      className={`${isClosing ? "animate-auth-backdrop-out" : "animate-auth-backdrop"} fixed inset-0 z-[300] overflow-y-auto bg-transparent px-4 py-6 backdrop-blur-xl sm:px-6 sm:py-8`}
+      onClick={requestClose}
       role="presentation"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.05),transparent_40%)]" />
       <div className="mx-auto flex min-h-[calc(100svh-3rem)] w-full max-w-[840px] items-center">
         <div
           ref={dialogRef}
-          className="animate-auth-modal relative grid w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]"
+          className={`${isClosing ? "animate-auth-modal-out" : "animate-auth-modal"} relative grid w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]`}
           onClick={(event) => event.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -211,7 +238,7 @@ const AuthShell = ({ children, onClose }) => {
         >
           <button
             type="button"
-            onClick={onClose}
+            onClick={requestClose}
             className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-black/35 text-white/80 backdrop-blur transition hover:border-purple-500/40 hover:bg-purple-500/20 hover:text-white"
             aria-label={t("Close auth popup")}
           >
