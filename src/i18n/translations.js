@@ -7,6 +7,9 @@ import ja from "./locales/ja";
 import ko from "./locales/ko";
 import vi from "./locales/vi";
 import id from "./locales/id";
+import de from "./locales/de";
+import it from "./locales/it";
+import ptBR from "./locales/pt-BR";
 import flagUK from "../assets/flags/uk.png";
 import flagKH from "../assets/flags/kh.png";
 import flagCN from "../assets/flags/cn.png";
@@ -16,6 +19,9 @@ import flagJP from "../assets/flags/jp.png";
 import flagKR from "../assets/flags/kr.png";
 import flagVN from "../assets/flags/vn.png";
 import flagID from "../assets/flags/id.png";
+import flagDE from "../assets/flags/de.png";
+import flagIT from "../assets/flags/it.png";
+import flagBR from "../assets/flags/br.png";
 
 export const LANGUAGES = [
   { code: "en", label: "English", flag: flagUK },
@@ -27,6 +33,9 @@ export const LANGUAGES = [
   { code: "ko", label: "한국어", flag: flagKR },
   { code: "vi", label: "Tiếng Việt", flag: flagVN },
   { code: "id", label: "Bahasa Indonesia", flag: flagID },
+  { code: "de", label: "Deutsch", flag: flagDE },
+  { code: "it", label: "Italiano", flag: flagIT },
+  { code: "pt-BR", label: "Português (BR)", flag: flagBR },
 ];
 
 const translations = {
@@ -39,6 +48,9 @@ const translations = {
   ko,
   vi,
   id,
+  de,
+  it,
+  "pt-BR": ptBR,
 };
 
 export const translate = (language, key, values = {}) => {
