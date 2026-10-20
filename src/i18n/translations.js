@@ -7,7 +7,7 @@ import ja from "./locales/ja";
 import ko from "./locales/ko";
 import vi from "./locales/vi";
 import id from "./locales/id";
-import flagUS from "../assets/flags/us.png";
+import flagUK from "../assets/flags/uk.png";
 import flagKH from "../assets/flags/kh.png";
 import flagCN from "../assets/flags/cn.png";
 import flagES from "../assets/flags/es.png";
@@ -18,7 +18,7 @@ import flagVN from "../assets/flags/vn.png";
 import flagID from "../assets/flags/id.png";
 
 export const LANGUAGES = [
-  { code: "en", label: "English", flag: flagUS },
+  { code: "en", label: "English", flag: flagUK },
   { code: "km", label: "ខ្មែរ", flag: flagKH },
   { code: "zh-TW", label: "繁體中文", flag: flagCN },
   { code: "es", label: "Español", flag: flagES },
