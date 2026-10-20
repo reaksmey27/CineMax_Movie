@@ -4,7 +4,7 @@ const km = {
   Trending: "កំពុងពេញនិយម",
   Favorites: "ចំណូលចិត្ត",
   Watchlist: "បញ្ជីមើល",
-  Upcoming: "ភាពយន្តនាពេលខាងមុខ",
+  Upcoming: "ភាពយន្តឆាប់ៗ",
   Notifications: "ការជូនដំណឹង",
   Profile: "ប្រវត្តិរូប",
   Login: "ចូលគណនី",
