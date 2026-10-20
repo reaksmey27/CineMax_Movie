@@ -289,8 +289,13 @@ const AuthShell = ({ children, onClose }) => {
             </div>
 
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(44,44,44,0.95))]" />
-            <div className="absolute left-4 top-4 rounded-full border border-purple-500/30 bg-black/40 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.35em] text-purple-300 backdrop-blur">
-              CineMax
+            <div className="absolute left-4 top-4 rounded-full border border-purple-500/30 bg-black/40 p-1.5 backdrop-blur sm:p-2">
+              <img
+                src="/images/logo.svg"
+                alt={t("CineMax Logo")}
+                className="h-6 w-auto sm:h-7"
+                decoding="async"
+              />
             </div>
           </section>
 

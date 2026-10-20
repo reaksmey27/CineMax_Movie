@@ -267,7 +267,7 @@ test("language selection translates navigation and persists across reloads", asy
   ).resolves.toBeUndefined();
   await languageSelector.locator("summary").click();
   const languageFlags = languageSelector.locator("button img");
-  await expect(languageFlags).toHaveCount(9);
+  await expect(languageFlags).toHaveCount(12);
   for (const flag of await languageFlags.all()) {
     await expect(flag).toHaveAttribute("src", /\.png(?:$|\?)/);
     await expect(flag).toHaveClass(/aspect-\[3\/2\]/);
@@ -276,7 +276,7 @@ test("language selection translates navigation and persists across reloads", asy
     await flag.evaluate((image) => image.decode());
   }
   await languageSelector.locator("summary").click();
-  await expect(languageSelector.locator("button")).toHaveCount(9);
+  await expect(languageSelector.locator("button")).toHaveCount(12);
   await expect(languageSelector.locator('[aria-label="简体中文"]')).toHaveCount(
     0,
   );
@@ -298,7 +298,7 @@ test("language selection translates navigation and persists across reloads", asy
   ).resolves.toBeUndefined();
   await expect(
     page.getByTestId("language-selector").locator("button"),
-  ).toHaveCount(9);
+  ).toHaveCount(12);
 });
 
 test("language selector menu fits and scrolls on a narrow mobile screen", async ({
@@ -324,7 +324,7 @@ test("language selector menu fits and scrolls on a narrow mobile screen", async 
   expect(menuBounds.x).toBeGreaterThanOrEqual(0);
   expect(menuBounds.x + menuBounds.width).toBeLessThanOrEqual(320);
   expect(menuBounds.height).toBeLessThanOrEqual(24 * 16);
-  await expect(languageMenu.locator("button")).toHaveCount(9);
+  await expect(languageMenu.locator("button")).toHaveCount(12);
   await expect(languageMenu).toHaveClass(/no-scrollbar/);
   await expect(languageMenu).toHaveCSS("overflow-y", "auto");
 });

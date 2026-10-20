@@ -164,8 +164,8 @@
   /* Khmer text renders with Kantumruy Pro (html[lang="km"] or inline lang="km"). */
   html[lang="km"] body,
   [lang="km"] {
-    font-family: "Kantumruy Pro", "Plus Jakarta Sans", ui-sans-serif,
-      system-ui, sans-serif;
+    font-family:
+      "Kantumruy Pro", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   }
 
   ::selection {
@@ -314,8 +314,10 @@
   }
 
   .animate-page-enter {
-    animation: page-enter 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
-    will-change: transform, opacity;
+    /* `backwards` (not `both`) + no will-change: after the animation finishes the
+       element must keep NO transform, or it permanently becomes the containing
+       block for position:fixed descendants (auth modals break on direct loads). */
+    animation: page-enter 320ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
   }
 
   .bg-slate-950 {
