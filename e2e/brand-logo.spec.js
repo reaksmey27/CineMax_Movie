@@ -14,7 +14,7 @@ test("site branding keeps the full logo visible on a dark navbar", async ({
 
   await page.getByRole("button", { name: "Switch to light mode" }).click();
   await expect(navbarLogo).toHaveAttribute("src", "/images/logo.svg");
-  await expect(page.locator("nav")).toHaveCSS(
+  await expect(page.locator(".site-navbar nav")).toHaveCSS(
     "background-color",
     "rgb(15, 23, 42)",
   );

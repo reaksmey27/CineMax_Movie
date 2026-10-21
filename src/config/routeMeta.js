@@ -67,11 +67,28 @@ export const ROUTE_META = {
     description:
       "Register a CineMax account to save favorite movies, build a watchlist, and enjoy a personalized movie hub.",
   },
+  "/privacy": {
+    title: "Privacy Policy | CineMax",
+    description:
+      "How CineMax collects, stores, and protects your data: account details, saved movies, local preferences, and your choices.",
+  },
+  "/terms": {
+    title: "Terms of Use | CineMax",
+    description:
+      "The terms that apply when you use CineMax, including acceptable use, third-party content, disclaimers, and contact details.",
+  },
 };
 
 export const SITE_URL = "https://smey-dev.site";
 export const DEFAULT_IMAGE = `${SITE_URL}/images/logo.png`;
-export const PUBLIC_ROUTES = ["/", "/movies", "/trending", "/upcoming"];
+export const PUBLIC_ROUTES = [
+  "/",
+  "/movies",
+  "/trending",
+  "/upcoming",
+  "/privacy",
+  "/terms",
+];
 
 // ─── getPageMeta: meta for a route path ───────────────────────────────────────
 

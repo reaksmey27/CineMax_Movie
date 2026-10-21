@@ -17,6 +17,8 @@ const NotificationsPage = lazy(
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const SignupPage = lazy(() => import("../pages/auth/SignupPage"));
 const ProfilePage = lazy(() => import("../pages/profile/ProfilePage"));
+const PrivacyPage = lazy(() => import("../pages/PrivacyPage"));
+const TermsPage = lazy(() => import("../pages/TermsPage"));
 
 // ─── Base Routes: main app page routes ────────────────────────────────────────
 
@@ -34,6 +36,8 @@ const BaseRoutes = ({ location }) => (
     <Route path="/signup" element={<SignupPage />} />
     <Route path="/register" element={<SignupPage />} />
     <Route path="/movie/:id" element={<MovieDetailPage />} />
+    <Route path="/privacy" element={<PrivacyPage />} />
+    <Route path="/terms" element={<TermsPage />} />
     <Route path="*" element={<NotFoundPage />} />
   </Routes>
 );

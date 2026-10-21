@@ -104,44 +104,45 @@ test("notification history filters and supports read, remove, and clear actions"
   await seedNotifications(page, notifications);
   await page.goto("/notifications");
 
+  const listItems = page.locator("main").getByRole("listitem");
+
   await expect(
     page.getByRole("heading", { name: "Notifications", exact: true }),
   ).toBeVisible();
   await expect(
     page.locator('div[aria-label="2 unread notifications"]'),
   ).toBeVisible();
-  await expect(page.getByRole("listitem")).toHaveCount(3);
+  await expect(listItems).toHaveCount(3);
 
   await page.getByRole("button", { name: "Unread (2)" }).click();
-  await expect(page.getByRole("listitem")).toHaveCount(2);
+  await expect(listItems).toHaveCount(2);
 
-  const movieNotification = page
-    .getByRole("listitem")
-    .filter({ hasText: "Example Film is now available." });
+  const movieNotification = listItems.filter({
+    hasText: "Example Film is now available.",
+  });
   await movieNotification
     .getByRole("button", { name: "Mark notification as read" })
     .click();
-  await expect(page.getByRole("listitem")).toHaveCount(1);
+  await expect(listItems).toHaveCount(1);
   await expect(
     page.locator('div[aria-label="1 unread notifications"]'),
   ).toBeVisible();
 
   await page.getByRole("button", { name: "All", exact: true }).click();
-  await expect(page.getByRole("listitem")).toHaveCount(3);
+  await expect(listItems).toHaveCount(3);
   await page.getByRole("button", { name: "Mark all read" }).click();
   await expect(
     page.locator('div[aria-label="0 unread notifications"]'),
   ).toBeVisible();
 
-  await page
-    .getByRole("listitem")
+  await listItems
     .filter({ hasText: "Your account settings were updated." })
     .getByRole("button", { name: "Remove notification" })
     .click();
-  await expect(page.getByRole("listitem")).toHaveCount(2);
+  await expect(listItems).toHaveCount(2);
 
   await page.reload();
-  await expect(page.getByRole("listitem")).toHaveCount(2);
+  await expect(listItems).toHaveCount(2);
   await expect(
     page.locator('div[aria-label="0 unread notifications"]'),
   ).toBeVisible();
@@ -149,7 +150,7 @@ test("notification history filters and supports read, remove, and clear actions"
   await page.getByRole("button", { name: "Clear history" }).click();
   await page.getByRole("button", { name: "Confirm" }).click();
   await expect(page.getByText("No notifications yet")).toBeVisible();
-  await expect(page.getByRole("listitem")).toHaveCount(0);
+  await expect(listItems).toHaveCount(0);
 });
 
 test("movie notification poster opens the linked movie on a narrow viewport", async ({
