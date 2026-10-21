@@ -1,3 +1,5 @@
+// ─── getAuthRedirect: safe post-login return URL ──────────────────────────────
+
 export const getAuthRedirect = (state) => {
   const returnTo = state?.returnTo;
   if (

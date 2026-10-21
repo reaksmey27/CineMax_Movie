@@ -10,12 +10,16 @@ import { FaCoffee } from "react-icons/fa";
 import donationQr from "../../assets/images/donation-qr.png";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── Constants: bank account details ──────────────────────────────────────────
+
 const PAYMENT_INFO = {
   name: "SAN REAKSMEY",
   number: "006 419 870",
   numberRaw: "006419870",
   bank: "ABA Bank",
 };
+
+// ─── Sub-components: copyable payment row ─────────────────────────────────────
 
 const PaymentRow = ({ label, value, copyText = value, copied, onCopy }) => {
   const { t } = useLanguage();
@@ -47,6 +51,8 @@ const PaymentRow = ({ label, value, copyText = value, copied, onCopy }) => {
   );
 };
 
+// ─── DonationModal: QR & bank transfer dialog ─────────────────────────────────
+
 const DonationModal = ({ isOpen, onClose }) => {
   const { t } = useLanguage();
   const dialogRef = useRef(null);
@@ -56,6 +62,8 @@ const DonationModal = ({ isOpen, onClose }) => {
   const copyVersion = useRef(0);
   const [copied, setCopied] = useState(null);
   const [message, setMessage] = useState("");
+
+  // ─── Effects: focus, viewport fit & cleanup ───────────────────────────────────
 
   useLayoutEffect(() => {
     if (!isOpen) return;
@@ -101,6 +109,8 @@ const DonationModal = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
+  // ─── Handlers: copy details & close dialog ────────────────────────────────────
+
   const handleCopy = async (text, label) => {
     const version = ++copyVersion.current;
     window.clearTimeout(copyTimer.current);
@@ -130,6 +140,8 @@ const DonationModal = ({ isOpen, onClose }) => {
     setMessage("");
     onClose();
   };
+
+  // ─── Render: donation dialog markup ───────────────────────────────────────────
 
   if (!isOpen) return null;
 

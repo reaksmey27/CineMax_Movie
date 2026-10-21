@@ -19,11 +19,15 @@ import {
 import { auth } from "../firebase/config";
 import { useNotification } from "./NotificationContext";
 
+// ─── Constants: context key, profile storage & Google provider ────────────────
+
 const AuthContext = createContext();
 const PROFILE_STORAGE_KEY = "movie_user_profiles";
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
+
+// ─── Helpers: stored profiles & user normalization ────────────────────────────
 
 const getCurrentHostname = () => {
   if (typeof window === "undefined") {
@@ -85,6 +89,8 @@ const mergeUserProfile = (authUser, savedProfile) => {
   };
 };
 
+// ─── getFirebaseErrorMessage: friendly auth errors ────────────────────────────
+
 const getFirebaseErrorMessage = (error) => {
   switch (error?.code) {
     case "auth/invalid-credential":
@@ -130,6 +136,8 @@ const getFirebaseErrorMessage = (error) => {
   }
 };
 
+// ─── AuthProvider: session, login & profile actions ───────────────────────────
+
 export const AuthProvider = ({ children }) => {
   const { showNotification } = useNotification();
   const [authUser, setAuthUser] = useState(null);
@@ -139,6 +147,8 @@ export const AuthProvider = ({ children }) => {
   );
   const [loading, setLoading] = useState(true);
   const [authenticating, setAuthenticating] = useState(false);
+
+  // ─── Effects: auth listener & profile sync ────────────────────────────────────
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -161,6 +171,8 @@ export const AuthProvider = ({ children }) => {
 
     setUser(mergeUserProfile(authUser, profileOverrides[authUser.uid]));
   }, [authUser, profileOverrides]);
+
+  // ─── Actions: login, register, Google sign-in, logout ─────────────────────────
 
   const syncSignedInUser = useCallback(
     (firebaseUser) => {
@@ -317,6 +329,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, [showNotification]);
 
+  // ─── Context Value: memoized auth API ─────────────────────────────────────────
+
   const value = useMemo(
     () => ({
       user,
@@ -344,6 +358,8 @@ export const AuthProvider = ({ children }) => {
 
   return createElement(AuthContext.Provider, { value }, children);
 };
+
+// ─── useAuth: read auth context safely ────────────────────────────────────────
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

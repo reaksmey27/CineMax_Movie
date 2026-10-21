@@ -2,6 +2,8 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+// ─── Env Validation: fail fast on missing env vars ────────────────────────────
+
 const REQUIRED_ENV_KEYS = [
   "VITE_FIREBASE_API_KEY",
   "VITE_FIREBASE_AUTH_DOMAIN",
@@ -28,6 +30,8 @@ if (missingFirebaseEnvKeys.length > 0) {
   );
 }
 
+// ─── Firebase Config: env-backed Firebase settings ────────────────────────────
+
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -37,6 +41,8 @@ export const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+
+// ─── Initialization: app, App Check & auth instances ──────────────────────────
 
 const app = initializeApp(firebaseConfig);
 

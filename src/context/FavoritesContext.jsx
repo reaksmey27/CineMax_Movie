@@ -11,7 +11,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
 
+// ─── Constants: favorites context key ─────────────────────────────────────────
+
 const FavoritesContext = createContext();
+
+// ─── Session Provider: live sync of favorites ─────────────────────────────────
 
 const FavoritesSessionProvider = ({
   children,
@@ -19,6 +23,8 @@ const FavoritesSessionProvider = ({
   showNotification,
   userId,
 }) => {
+  // ─── State: favorites, loading & retry ────────────────────────────────────────
+
   const [favorites, setFavorites] = useState([]);
   const [pendingFavoriteIds, setPendingFavoriteIds] = useState(() => new Set());
   const [error, setError] = useState(false);
@@ -30,6 +36,8 @@ const FavoritesSessionProvider = ({
     setError(false);
     setRetryVersion((version) => version + 1);
   }, []);
+
+  // ─── Effects: Firestore snapshot subscription ─────────────────────────────────
 
   useEffect(() => {
     if (!userId) {
@@ -95,6 +103,8 @@ const FavoritesSessionProvider = ({
       unsubscribe?.();
     };
   }, [showNotification, userId, retryVersion]);
+
+  // ─── Selectors & Actions: ids, add/remove/toggle ──────────────────────────────
 
   const favoriteIds = useMemo(
     () => new Set(favorites.map((movie) => movie.id)),
@@ -233,6 +243,8 @@ const FavoritesSessionProvider = ({
     [addToFavorites, favoriteIds, removeFromFavorites],
   );
 
+  // ─── Context Value: memoized favorites API ────────────────────────────────────
+
   const value = useMemo(
     () => ({
       favorites,
@@ -263,6 +275,8 @@ const FavoritesSessionProvider = ({
   );
 };
 
+// ─── FavoritesProvider: wires auth & routing ──────────────────────────────────
+
 export const FavoritesProvider = ({ children }) => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
@@ -290,6 +304,8 @@ export const FavoritesProvider = ({ children }) => {
     </FavoritesSessionProvider>
   );
 };
+
+// ─── useFavorites: read favorites context safely ──────────────────────────────
 
 export const useFavorites = () => {
   const context = useContext(FavoritesContext);

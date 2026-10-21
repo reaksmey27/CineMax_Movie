@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { tmdbService } from "../../services/tmdbService";
 
+// ─── Constants: per-section TMDB loaders ──────────────────────────────────────
+
 const LOADERS = {
   trending: () => tmdbService.getTrendingMovies(),
   topRated: () => tmdbService.getTopRatedMovies(),
@@ -19,6 +21,8 @@ const LOADERS = {
   family: () => tmdbService.getMoviesByGenre(10751),
 };
 
+// ─── Helpers: empty section defaults ──────────────────────────────────────────
+
 const initialSections = () =>
   Object.fromEntries(
     Object.keys(LOADERS).map((key) => [
@@ -27,10 +31,14 @@ const initialSections = () =>
     ]),
   );
 
+// ─── useHomeMovies: home page section state ───────────────────────────────────
+
 const useHomeMovies = () => {
   const [sections, setSections] = useState(initialSections);
   const mounted = useRef(false);
   const requests = useRef({});
+
+  // ─── Actions: load one section on demand ──────────────────────────────────────
 
   const loadSection = useCallback(async (key) => {
     if (!LOADERS[key] || !mounted.current) return;
@@ -60,6 +68,8 @@ const useHomeMovies = () => {
     }
   }, []);
 
+  // ─── Effects: load all sections on mount ──────────────────────────────────────
+
   useEffect(() => {
     mounted.current = true;
     Object.keys(LOADERS).forEach((key) => {
@@ -70,6 +80,8 @@ const useHomeMovies = () => {
       requests.current = {};
     };
   }, [loadSection]);
+
+  // ─── Return: sections & per-row retry ─────────────────────────────────────────
 
   return { sections, retrySection: loadSection };
 };

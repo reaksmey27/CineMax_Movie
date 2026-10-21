@@ -1,6 +1,8 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 
+// ─── Lazy Routes: code-split page imports ─────────────────────────────────────
+
 const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 const HomePage = lazy(() => import("../pages/home/HomePage"));
 const MoviesPage = lazy(() => import("../pages/movies/MoviesPage"));
@@ -15,6 +17,8 @@ const NotificationsPage = lazy(
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const SignupPage = lazy(() => import("../pages/auth/SignupPage"));
 const ProfilePage = lazy(() => import("../pages/profile/ProfilePage"));
+
+// ─── Base Routes: main app page routes ────────────────────────────────────────
 
 const BaseRoutes = ({ location }) => (
   <Routes location={location}>
@@ -33,6 +37,8 @@ const BaseRoutes = ({ location }) => (
     <Route path="*" element={<NotFoundPage />} />
   </Routes>
 );
+
+// ─── Auth Modal Routes: login/signup overlays ─────────────────────────────────
 
 const AuthModalRoutes = ({ location }) => (
   <Routes location={location}>

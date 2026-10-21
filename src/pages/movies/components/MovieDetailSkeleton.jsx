@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import SkeletonCard from "../../../components/ui/SkeletonCard";
 
+// ─── MovieDetailSkeleton: detail loading placeholder ──────────────────────────
+
 const MovieDetailSkeleton = () => {
   return (
     <div

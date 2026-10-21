@@ -1,4 +1,8 @@
+// ─── Constants: default sort for discover ─────────────────────────────────────
+
 export const DEFAULT_DISCOVER_SORT = "popularity.desc";
+
+// ─── Sort Options: how the movie list is ordered ──────────────────────────────
 
 export const DISCOVER_SORT_OPTIONS = [
   { value: "popularity.desc", label: "Popularity" },
@@ -7,6 +11,8 @@ export const DISCOVER_SORT_OPTIONS = [
   { value: "vote_average.desc", label: "Highest Rated" },
   { value: "original_title.asc", label: "Title A-Z" },
 ];
+
+// ─── Rating Options: minimum score filters ────────────────────────────────────
 
 export const MIN_RATING_OPTIONS = [
   { value: "", label: "Any Rating" },

@@ -6,6 +6,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
+// ─── Helpers: normalize movie & sort by saved date ────────────────────────────
+
 const normalizeMovie = (movie) => ({
   id: movie.id,
   title: movie.title || "",
@@ -22,6 +24,8 @@ const normalizeMovie = (movie) => ({
 const sortBySavedAtDescending = (firstMovie, secondMovie) =>
   new Date(secondMovie.savedAt || 0).getTime() -
   new Date(firstMovie.savedAt || 0).getTime();
+
+// ─── createMovieCollection: CRUD factory ──────────────────────────────────────
 
 export const createMovieCollection = ({
   collectionName,

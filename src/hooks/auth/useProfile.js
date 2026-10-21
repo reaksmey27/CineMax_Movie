@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNotification } from "../../context/NotificationContext";
 
+// ─── Helpers: build form state from user ──────────────────────────────────────
+
 const createFormState = (user) => ({
   name: user?.name || "",
   email: user?.email || "",
@@ -10,15 +12,21 @@ const createFormState = (user) => ({
   bio: user?.bio || "",
 });
 
+// ─── useProfile: edit & save profile form ─────────────────────────────────────
+
 const useProfile = () => {
   const { user, loading, logout, updateProfile } = useAuth();
   const { showNotification } = useNotification();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(() => createFormState(user));
 
+  // ─── Effects: reset form when user changes ────────────────────────────────────
+
   useEffect(() => {
     setFormData(createFormState(user));
   }, [user]);
+
+  // ─── Selectors: detect unsaved changes ────────────────────────────────────────
 
   const isDirty = useMemo(() => {
     const initialState = createFormState(user);
@@ -27,6 +35,8 @@ const useProfile = () => {
       (key) => initialState[key] !== formData[key],
     );
   }, [formData, user]);
+
+  // ─── Handlers: change, cancel & save profile ──────────────────────────────────
 
   const handleFieldChange = (event) => {
     const { name, value } = event.target;
@@ -71,6 +81,8 @@ const useProfile = () => {
     setIsEditing(false);
     showNotification("Profile settings updated successfully!", "success");
   };
+
+  // ─── Return: form state & actions ─────────────────────────────────────────────
 
   return {
     loading,

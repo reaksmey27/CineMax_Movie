@@ -15,6 +15,8 @@ import { useFavorites } from "../../context/FavoritesContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { useWatchlist } from "../../context/WatchlistContext";
 
+// ─── MovieCard: poster card with quick actions ────────────────────────────────
+
 const MovieCard = ({
   movie,
   headingLevel = "h2",
@@ -33,6 +35,8 @@ const MovieCard = ({
   const poster = movie.posterImage || movie.image;
   const [failedPoster, setFailedPoster] = useState(null);
 
+  // ─── Handlers: favorite & watchlist toggles ───────────────────────────────────
+
   const handleFavoriteClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -48,6 +52,8 @@ const MovieCard = ({
   const year =
     movie.subtitle || movie.release_date?.slice(0, 4) || t("Year unavailable");
   const rating = Number(movie.rating);
+
+  // ─── Render: poster, action buttons & rating ──────────────────────────────────
 
   return (
     <article className="movie-card group w-full min-w-0">

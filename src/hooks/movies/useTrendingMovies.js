@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { tmdbService } from "../../services/tmdbService";
 import { Retrier } from "@humanwhocodes/retry";
 
+// ─── Retry: re-run fetch on network errors ────────────────────────────────────
+
 const retrier = new Retrier(
   (error) => {
     // Retry on network errors
@@ -10,10 +12,14 @@ const retrier = new Retrier(
   { timeout: 30_000 },
 );
 
+// ─── useTrendingMovies: fetch trending list ───────────────────────────────────
+
 const useTrendingMovies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // ─── Effects: fetch list with error messages ──────────────────────────────────
 
   useEffect(() => {
     let ignore = false;

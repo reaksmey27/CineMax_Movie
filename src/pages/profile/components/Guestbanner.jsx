@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { PlayIcon, SparklesIcon } from "@heroicons/react/24/solid";
 import LoginButton from "../../../components/auth/LoginButton";
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+// ─── Data: feature pills & cards (emptied) ────────────────────────────────────
 
 const FEATURE_PILLS = [];
 
 // Keep the sign-in info, but remove the large marketing text for logged-out state.
 const FEATURE_CARDS = [];
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── GuestBanner: logged-out profile pitch ────────────────────────────────────
 
 const GuestBanner = () => (
   <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 pb-20 pt-28 sm:px-8 sm:pb-24 sm:pt-32">

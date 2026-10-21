@@ -2,6 +2,8 @@ import React, { memo } from "react";
 import HeroSkeleton from "./HeroSkeleton";
 import MovieSliderSkeleton from "../../../components/ui/MovieSliderSkeleton";
 
+// ─── HomePageSkeleton: home loading placeholder ───────────────────────────────
+
 const HomePageSkeleton = () => {
   return (
     <main id="home" className="min-h-screen bg-slate-950" aria-busy="true">

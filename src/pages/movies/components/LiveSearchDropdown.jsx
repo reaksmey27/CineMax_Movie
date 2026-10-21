@@ -6,6 +6,8 @@ import { useLanguage } from "../../../context/LanguageContext";
 
 const LIVE_SEARCH_LIMIT = 6;
 
+// ─── Helpers: year, rating & poster formatting ────────────────────────────────
+
 const getMovieYear = (movie) => {
   const releaseDate = movie?.release_date || "";
   if (!releaseDate) return "";
@@ -23,6 +25,8 @@ const getPosterUrl = (movie) =>
   tmdbService.getImageUrl(movie.poster_path, "w92") ||
   tmdbService.getImageUrl(movie.backdrop_path, "w92") ||
   "";
+
+// ─── LiveSearchDropdown: search results menu ──────────────────────────────────
 
 const LiveSearchDropdown = ({
   query,

@@ -3,6 +3,8 @@ import { FaCoffee } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 import DonationModal from "./DonationModal";
 
+// ─── Component ────────────────────────────────────────────────────────────────
+
 const DonationButton = () => {
   const { t } = useLanguage();
   const [isDonationOpen, setIsDonationOpen] = useState(false);

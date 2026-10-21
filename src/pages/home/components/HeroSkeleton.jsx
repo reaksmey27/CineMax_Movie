@@ -1,3 +1,5 @@
+// ─── HeroSkeleton: hero loading placeholder ───────────────────────────────────
+
 export default function HeroSkeleton() {
   return (
     <section className="relative flex min-h-svh w-full items-end overflow-hidden bg-black pb-24 pt-28 sm:items-center sm:pb-28 sm:pt-36">

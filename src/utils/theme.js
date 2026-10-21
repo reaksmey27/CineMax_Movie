@@ -1,3 +1,5 @@
+// ─── Constants: theme keys & class names ──────────────────────────────────────
+
 export const THEME_STORAGE_KEY = "cinemax-theme";
 export const THEMES = {
   DARK: "dark",
@@ -5,6 +7,8 @@ export const THEMES = {
 };
 
 const ROOT_THEME_CLASSES = ["theme-dark", "theme-light"];
+
+// ─── getStoredTheme: read theme from storage ──────────────────────────────────
 
 export const getStoredTheme = () => {
   if (typeof window === "undefined") {
@@ -18,6 +22,8 @@ export const getStoredTheme = () => {
     return THEMES.DARK;
   }
 };
+
+// ─── applyTheme: set theme class on root ──────────────────────────────────────
 
 export const applyTheme = (theme) => {
   if (typeof document === "undefined") {
@@ -34,6 +40,8 @@ export const applyTheme = (theme) => {
   rootElement.style.colorScheme = nextTheme;
 };
 
+// ─── persistTheme: save theme to storage ──────────────────────────────────────
+
 export const persistTheme = (theme) => {
   if (typeof window === "undefined") {
     return;
@@ -45,6 +53,8 @@ export const persistTheme = (theme) => {
     // Ignore storage write failures and keep the in-memory theme active.
   }
 };
+
+// ─── initializeTheme: apply stored theme at boot ──────────────────────────────
 
 export const initializeTheme = () => {
   const theme = getStoredTheme();

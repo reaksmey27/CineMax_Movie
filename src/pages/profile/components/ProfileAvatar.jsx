@@ -8,6 +8,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { useLanguage } from "../../../context/LanguageContext";
 
+// ─── Helpers: handle & join date ──────────────────────────────────────────────
+
 const getHandle = (email) =>
   email?.split("@")[0]?.replace(/\s+/g, "").toLowerCase() || "moviefan";
 
@@ -19,6 +21,8 @@ const getJoined = (date, language) =>
         year: "numeric",
       })
     : null;
+
+// ─── ProfileAvatar: avatar, handle & logout ───────────────────────────────────
 
 const ProfileAvatar = ({ user, onLogout }) => {
   const { language, t } = useLanguage();

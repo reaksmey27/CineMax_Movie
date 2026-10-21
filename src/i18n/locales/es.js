@@ -1,3 +1,5 @@
+// ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
+
 const es = {
   Home: "Inicio",
   Movies: "Películas",

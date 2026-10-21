@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── Footer: links, newsletter & credits ──────────────────────────────────────
+
 const Footer = () => {
   const { t } = useLanguage();
   const currentYear = new Date().getFullYear();

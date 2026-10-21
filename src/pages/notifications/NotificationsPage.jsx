@@ -10,7 +10,11 @@ import {
 import { useNotification } from "../../context/NotificationContext";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── Constants: history filters ───────────────────────────────────────────────
+
 const FILTERS = ["all", "unread"];
+
+// ─── Helpers: relative time & type labels ─────────────────────────────────────
 
 const formatRelativeTime = (timestamp, language) => {
   const date = new Date(timestamp);
@@ -54,6 +58,8 @@ const getTypeLabel = (type, t) => {
   }
 };
 
+// ─── NotificationsPage: history & unread list ─────────────────────────────────
+
 const NotificationsPage = () => {
   const { language, t } = useLanguage();
   const {
@@ -79,6 +85,8 @@ const NotificationsPage = () => {
   const [filter, setFilter] = useState("all");
   const [confirmClear, setConfirmClear] = useState(false);
 
+  // ─── Selectors: filtered history ──────────────────────────────────────────────
+
   const filteredHistory = useMemo(
     () =>
       filter === "unread"
@@ -87,10 +95,14 @@ const NotificationsPage = () => {
     [filter, history],
   );
 
+  // ─── Handlers: clear with confirmation ────────────────────────────────────────
+
   const handleClearHistory = () => {
     clearHistory();
     setConfirmClear(false);
   };
+
+  // ─── Render: header, filters & list ───────────────────────────────────────────
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-(--color-bg) px-4 pb-16 pt-24 text-(--color-text) sm:px-6 sm:pb-24 sm:pt-32 lg:px-12">

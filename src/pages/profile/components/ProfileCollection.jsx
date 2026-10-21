@@ -11,6 +11,8 @@ import { useLanguage } from "../../../context/LanguageContext";
 import MovieCard from "../../../components/ui/MovieCard";
 import MovieGridSkeleton from "../../../components/ui/MovieGridSkeleton";
 
+// ─── Sub-components: saved movie row ──────────────────────────────────────────
+
 const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
   const { t } = useLanguage();
   const [removing, setRemoving] = useState(false);
@@ -62,6 +64,8 @@ const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
   );
 };
 
+// ─── ProfileCollection: favorites & watchlist tabs ────────────────────────────
+
 const ProfileCollection = () => {
   const { t } = useLanguage();
   const {
@@ -73,6 +77,8 @@ const ProfileCollection = () => {
   } = useFavorites();
   const { watchlist, loading, error, retry, removeFromWatchlist } =
     useWatchlist();
+  // ─── State: tab from URL ──────────────────────────────────────────────────────
+
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab =
     searchParams.get("tab") === "watchlist" ? "watchlist" : "favorites";
@@ -85,6 +91,8 @@ const ProfileCollection = () => {
       },
       { replace: true },
     );
+  // ─── Derived: active list, title & counts ─────────────────────────────────────
+
   const tabRefs = useRef({});
   const isWatchlist = activeTab === "watchlist";
   const movies = isWatchlist ? watchlist : favorites;
@@ -108,10 +116,14 @@ const ProfileCollection = () => {
     },
   ];
 
+  // ─── Handlers: switch tab with focus ──────────────────────────────────────────
+
   const activate = (id) => {
     setActiveTab(id);
     tabRefs.current[id]?.focus();
   };
+
+  // ─── Render: tabs & saved movie grid ──────────────────────────────────────────
 
   return (
     <section className="mt-8 sm:mt-10" aria-label={t("Saved movies")}>

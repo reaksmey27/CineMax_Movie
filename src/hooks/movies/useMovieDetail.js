@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { tmdbService } from "../../services/tmdbService";
 import { useAuth } from "../../context/AuthContext";
 
+// ─── Helpers: build embed URLs with params ────────────────────────────────────
+
 const buildUrl = (baseUrl, params = {}) => {
   const searchParams = new URLSearchParams(
     Object.entries(params).filter(
@@ -11,6 +13,8 @@ const buildUrl = (baseUrl, params = {}) => {
 
   return searchParams.size ? `${baseUrl}?${searchParams.toString()}` : baseUrl;
 };
+
+// ─── Constants: player servers, timeout & blocked ads ─────────────────────────
 
 const SERVERS = [
   {
@@ -98,6 +102,8 @@ const BAD_URL_KEYWORDS = [
   "shorte.st",
 ];
 
+// ─── Guards: block ad popups & focus theft ────────────────────────────────────
+
 const isBadUrl = (url) => {
   try {
     const lower = url.toLowerCase();
@@ -134,6 +140,8 @@ const blockFocusRedirect = () => {
 // Patch immediately on module load
 patchWindowOpen();
 
+// ─── useMovieDetail: movie data & player state ────────────────────────────────
+
 const useMovieDetail = (id) => {
   const { isAuthenticated, loading: authLoading } = useAuth();
   const [movie, setMovie] = useState(null);
@@ -146,6 +154,8 @@ const useMovieDetail = (id) => {
   const [iframeLoading, setIframeLoading] = useState(false);
   const [playerMessage, setPlayerMessage] = useState("");
   const [playerInstance, setPlayerInstance] = useState(0);
+
+  // ─── Effects: fetch movie & drive player ──────────────────────────────────────
 
   useEffect(() => {
     if (!isAuthenticated) setIsPlaying(false);
@@ -216,6 +226,8 @@ const useMovieDetail = (id) => {
     return cleanup;
   }, [isPlaying]);
 
+  // ─── Derived & Handlers: server & iframe control ──────────────────────────────
+
   const activeServerIndex = SERVERS.findIndex((s) => s.name === activeServer);
   const currentServer = SERVERS[activeServerIndex] || SERVERS[0];
   const currentServerUrl = movie ? currentServer.url(movie.id) : "";
@@ -236,6 +248,8 @@ const useMovieDetail = (id) => {
       "This source could not be loaded. Switch to another server.",
     );
   };
+
+  // ─── Return: player API for the page ──────────────────────────────────────────
 
   return {
     movie,

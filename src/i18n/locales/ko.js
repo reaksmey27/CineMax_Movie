@@ -1,3 +1,5 @@
+// ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
+
 const ko = {
   Home: "홈",
   Movies: "영화",

@@ -1,3 +1,5 @@
+// ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
+
 const zhTW = {
   Home: "首頁",
   "The CineMax guide": "CineMax 觀影指南",

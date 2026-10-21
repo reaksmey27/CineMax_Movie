@@ -17,6 +17,8 @@ import { THEMES } from "../../utils/theme";
 import NavSearch from "./NavSearch";
 import LanguageSelector from "./LanguageSelector";
 
+// ─── Constants: primary nav links ─────────────────────────────────────────────
+
 const NAV_LINKS = [
   { name: "Home", path: "/" },
   { name: "Movies", path: "/movies" },
@@ -25,6 +27,8 @@ const NAV_LINKS = [
   { name: "Watchlist", path: "/watchlist" },
   { name: "Upcoming", path: "/upcoming" },
 ];
+
+// ─── Navbar: top bar with search, alerts & menus ──────────────────────────────
 
 const Navbar = ({ theme, onToggleTheme }) => {
   const location = useLocation();
@@ -43,6 +47,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
   const menuToggleRef = useRef(null);
   const menuRef = useRef(null);
   const wasMenuOpen = useRef(false);
+
+  // ─── Effects: menu focus trap & panel dismissal ───────────────────────────────
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1280px)");
@@ -124,6 +130,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
     };
   }, []);
 
+  // ─── Helpers: active link check & time labels ─────────────────────────────────
+
   const checkActive = (linkPath) => {
     if (linkPath.includes("#")) {
       const pathPart = linkPath.split("#")[0] || "/";
@@ -168,6 +176,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
     : "Switch to light mode";
 
   const modalState = { backgroundLocation: location };
+
+  // ─── Render: desktop bar & mobile drawer ──────────────────────────────────────
 
   return (
     <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-3 sm:top-8 sm:px-8 lg:px-12">

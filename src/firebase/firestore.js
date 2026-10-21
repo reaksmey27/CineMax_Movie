@@ -6,6 +6,8 @@ import {
 } from "firebase/firestore";
 import app from "./config";
 
+// ─── Firestore: init with offline cache ───────────────────────────────────────
+
 let database;
 
 try {

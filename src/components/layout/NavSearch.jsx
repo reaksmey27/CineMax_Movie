@@ -5,6 +5,8 @@ import { useLanguage } from "../../context/LanguageContext";
 import { tmdbService } from "../../services/tmdbService";
 import LiveSearchDropdown from "../../pages/movies/components/LiveSearchDropdown";
 
+// ─── NavSearch: navbar live search ────────────────────────────────────────────
+
 export default function NavSearch({ onOpen }) {
   const { t } = useLanguage();
   const navigate = useNavigate();
@@ -23,6 +25,8 @@ export default function NavSearch({ onOpen }) {
   const loading = response.query !== trimmed;
   const results = loading ? [] : response.results;
   const showResults = open && trimmed.length >= 2;
+
+  // ─── Effects: debounced TMDB search & dismiss ─────────────────────────────────
 
   useEffect(() => {
     if (!open || trimmed.length < 2) return;
@@ -56,11 +60,15 @@ export default function NavSearch({ onOpen }) {
     return () => document.removeEventListener("pointerdown", dismiss);
   }, [open]);
 
+  // ─── Helpers: jump to selected movie ──────────────────────────────────────────
+
   const selectMovie = (movie) => {
     setOpen(false);
     setActiveIndex(-1);
     navigate(`/movie/${movie.id}`);
   };
+
+  // ─── Render: search input & results dropdown ──────────────────────────────────
 
   return (
     <div

@@ -1,5 +1,7 @@
 import { SparklesIcon } from "@heroicons/react/24/solid";
 
+// ─── ProBanner: signed-in profile banner ──────────────────────────────────────
+
 const ProBanner = ({ user }) => {
   return (
     <section className="rounded-[2rem] border border-white/10 bg-white/5 px-5 py-6 shadow-lg backdrop-blur-sm sm:px-8 sm:py-8">

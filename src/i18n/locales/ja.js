@@ -1,3 +1,5 @@
+// ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
+
 const ja = {
   Home: "ホーム",
   Movies: "映画",

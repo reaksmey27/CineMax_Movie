@@ -8,6 +8,8 @@ import { useLanguage } from "../../context/LanguageContext";
 import AuthShell from "./AuthShell";
 import { getAuthRedirect } from "../../utils/authRedirect";
 
+// ─── SignupPage: create-account form ──────────────────────────────────────────
+
 const SignupPage = () => {
   const { t } = useLanguage();
   const { user, loading } = useAuth();

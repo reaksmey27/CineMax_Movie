@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 import { ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../context/LanguageContext";
 
+// ─── TrailerModal: YouTube trailer dialog ─────────────────────────────────────
+
 const TrailerModal = ({ movie, isOpen, onClose }) => {
   const { t } = useLanguage();
   const playerRef = useRef(null);
@@ -13,6 +15,8 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const hasTrailer = Boolean(movie.trailerKey);
   const isActive = hasTrailer && (isOpen || isMinimized);
+
+  // ─── Effects: open state & scroll lock ────────────────────────────────────────
 
   useEffect(() => {
     if (isOpen) {
@@ -92,6 +96,8 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
 
   if (!isActive) return null;
 
+  // ─── Handlers: minimize, expand & stop ────────────────────────────────────────
+
   const minimizePlayer = () => {
     setIsMinimized(true);
     requestAnimationFrame(() => expandRef.current?.focus());
@@ -106,6 +112,8 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
     setIsMinimized(false);
     onClose();
   };
+
+  // ─── Render: portal trailer dialog ────────────────────────────────────────────
 
   return createPortal(
     <section

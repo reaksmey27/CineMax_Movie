@@ -11,7 +11,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
 
+// ─── Constants: watchlist context key ─────────────────────────────────────────
+
 const WatchlistContext = createContext();
+
+// ─── Session Provider: live sync of watchlist ─────────────────────────────────
 
 const WatchlistSessionProvider = ({
   children,
@@ -19,6 +23,8 @@ const WatchlistSessionProvider = ({
   showNotification,
   userId,
 }) => {
+  // ─── State: watchlist, loading & retry ────────────────────────────────────────
+
   const [watchlist, setWatchlist] = useState([]);
   const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
     () => new Set(),
@@ -31,6 +37,8 @@ const WatchlistSessionProvider = ({
     setError(false);
     setRetryVersion((version) => version + 1);
   }, []);
+
+  // ─── Effects: Firestore snapshot subscription ─────────────────────────────────
 
   useEffect(() => {
     if (!userId) {
@@ -96,6 +104,8 @@ const WatchlistSessionProvider = ({
       unsubscribe?.();
     };
   }, [showNotification, userId, retryVersion]);
+
+  // ─── Selectors & Actions: ids, add/remove/toggle ──────────────────────────────
 
   const watchlistIds = useMemo(
     () => new Set(watchlist.map((movie) => movie.id)),
@@ -236,6 +246,8 @@ const WatchlistSessionProvider = ({
     [addToWatchlist, removeFromWatchlist, watchlistIds],
   );
 
+  // ─── Context Value: memoized watchlist API ────────────────────────────────────
+
   const value = useMemo(
     () => ({
       watchlist,
@@ -268,6 +280,8 @@ const WatchlistSessionProvider = ({
   );
 };
 
+// ─── WatchlistProvider: wires auth & routing ──────────────────────────────────
+
 export const WatchlistProvider = ({ children }) => {
   const { user } = useAuth();
   const { showNotification } = useNotification();
@@ -295,6 +309,8 @@ export const WatchlistProvider = ({ children }) => {
     </WatchlistSessionProvider>
   );
 };
+
+// ─── useWatchlist: read watchlist context safely ──────────────────────────────
 
 export const useWatchlist = () => {
   const context = useContext(WatchlistContext);

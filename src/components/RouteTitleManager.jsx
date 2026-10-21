@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { applyPageMeta, getPageMeta, getMovieMeta } from "../config/routeMeta";
 import { tmdbService } from "../services/tmdbService";
 
+// ─── RouteTitleManager: route-based page title ────────────────────────────────
+
 const RouteTitleManager = () => {
   const { pathname, search } = useLocation();
   useEffect(() => {

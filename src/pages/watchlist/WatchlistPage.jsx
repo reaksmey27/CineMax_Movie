@@ -7,6 +7,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useWatchlist } from "../../context/WatchlistContext";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── WatchlistPage: saved watchlist grid ──────────────────────────────────────
+
 const WatchlistPage = () => {
   const location = useLocation();
   const modalState = { backgroundLocation: location };

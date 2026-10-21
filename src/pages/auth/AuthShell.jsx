@@ -3,6 +3,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 import { tmdbService } from "../../services/tmdbService";
 
+// ─── Constants: poster cards & close delay ────────────────────────────────────
+
 const posterCards = [
   {
     title: "SPECTRE",
@@ -56,6 +58,8 @@ const posterCards = [
 
 const CLOSE_ANIMATION_MS = 200;
 
+// ─── AuthShell: shared auth page layout ───────────────────────────────────────
+
 const AuthShell = ({ children, onClose }) => {
   const { t } = useLanguage();
   const [movieCards, setMovieCards] = useState(posterCards);
@@ -65,6 +69,8 @@ const AuthShell = ({ children, onClose }) => {
   const closingRef = useRef(false);
   const closeTimerRef = useRef(null);
   const requestCloseRef = useRef(null);
+
+  // ─── Handlers: animated close ─────────────────────────────────────────────────
 
   const requestClose = () => {
     if (closingRef.current) return;
@@ -84,6 +90,8 @@ const AuthShell = ({ children, onClose }) => {
       onCloseRef.current?.();
     }, CLOSE_ANIMATION_MS);
   };
+
+  // ─── Effects: focus trap & scroll lock ────────────────────────────────────────
 
   useEffect(() => {
     requestCloseRef.current = requestClose;
@@ -219,6 +227,8 @@ const AuthShell = ({ children, onClose }) => {
       window.clearInterval(refreshId);
     };
   }, []);
+
+  // ─── Render: split layout with close button ───────────────────────────────────
 
   return (
     <div

@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── Constants: scroll threshold for visibility ───────────────────────────────
+
 const SCROLL_THRESHOLD = 300;
+
+// ─── BackToTopButton: scroll-to-top button ────────────────────────────────────
 
 const BackToTopButton = () => {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
+
+  // ─── Effects: track scroll position ───────────────────────────────────────────
 
   useEffect(() => {
     const updateVisibility = () => {
@@ -20,6 +26,8 @@ const BackToTopButton = () => {
       window.removeEventListener("scroll", updateVisibility);
     };
   }, []);
+
+  // ─── Handlers: smooth scroll back to top ──────────────────────────────────────
 
   const handleClick = () => {
     const prefersReducedMotion =

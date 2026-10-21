@@ -1,3 +1,5 @@
+// ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
+
 const id = {
   Home: "Beranda",
   Movies: "Film",

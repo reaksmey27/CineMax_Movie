@@ -1,3 +1,5 @@
+// ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
+
 const ptBR = {
   Action: "Ação",
   Active: "Ativo",

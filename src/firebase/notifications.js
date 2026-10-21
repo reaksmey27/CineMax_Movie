@@ -12,10 +12,14 @@ import {
   writeBatch,
 } from "firebase/firestore";
 
+// ─── Constants: collection name & history limit ───────────────────────────────
+
 export const NOTIFICATIONS_COLLECTION = "notifications";
 export const NOTIFICATION_HISTORY_LIMIT = 50;
 
 const NOTIFICATION_ID_PATTERN = /^[A-Za-z0-9_-]+$/;
+
+// ─── Helpers: history path & payload validation ───────────────────────────────
 
 const getHistoryCollection = (database, userId) => {
   if (!userId) {
@@ -58,6 +62,8 @@ const normalizeLocalNotification = (notification) => {
   return normalized;
 };
 
+// ─── Subscription: live history listener ──────────────────────────────────────
+
 export const getNotifications = (snapshot) =>
   snapshot.docs.map((notification) => ({
     ...notification.data(),
@@ -84,6 +90,8 @@ export const subscribeToNotifications = (
     onError,
   );
 };
+
+// ─── History Sync: save new & import old alerts ───────────────────────────────
 
 export const saveNotification = async (database, userId, notification) => {
   if (!notification?.id) {
@@ -177,6 +185,8 @@ export const importNotifications = async (
   };
 };
 
+// ─── Status Updates: mark alerts as read ──────────────────────────────────────
+
 export const markNotificationAsRead = (database, userId, notificationId) =>
   updateDoc(
     doc(database, NOTIFICATIONS_COLLECTION, userId, "history", notificationId),
@@ -202,6 +212,8 @@ export const markAllNotificationsAsRead = async (
   });
   await batch.commit();
 };
+
+// ─── Cleanup: delete single or all alerts ─────────────────────────────────────
 
 export const removeNotification = (database, userId, notificationId) =>
   deleteDoc(

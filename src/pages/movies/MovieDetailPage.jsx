@@ -13,6 +13,8 @@ import PageError from "../../components/ui/PageError";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── MovieDetailPage: details, trailer & player ───────────────────────────────
+
 const MovieDetailPage = () => {
   const { t } = useLanguage();
   const { id } = useParams();
@@ -22,6 +24,8 @@ const MovieDetailPage = () => {
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
   const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
     useWatchlist();
+
+  // ─── State: details & player state from hook ──────────────────────────────────
 
   const {
     movie,
@@ -45,6 +49,8 @@ const MovieDetailPage = () => {
     handleIframeError,
   } = useMovieDetail(id);
 
+  // ─── Guards: skeleton & not-found states ──────────────────────────────────────
+
   if (loading) {
     return <MovieDetailSkeleton />;
   }
@@ -60,6 +66,8 @@ const MovieDetailPage = () => {
       </div>
     );
   }
+
+  // ─── Render: backdrop, player & info ──────────────────────────────────────────
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[var(--color-bg)]">

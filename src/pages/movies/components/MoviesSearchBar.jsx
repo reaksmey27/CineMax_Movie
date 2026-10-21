@@ -7,6 +7,8 @@ import { useLanguage } from "../../../context/LanguageContext";
 
 import LiveSearchDropdown from "./LiveSearchDropdown";
 
+// ─── MoviesSearchBar: query input & clear ─────────────────────────────────────
+
 const MoviesSearchBar = ({
   activeResultIndex,
   inputValue,

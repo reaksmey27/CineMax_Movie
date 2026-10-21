@@ -6,12 +6,18 @@ import {
   DISCOVER_SORT_OPTIONS,
 } from "../../pages/movies/constants";
 
+// ─── Constants: allowed discover sort values ──────────────────────────────────
+
 const DISCOVER_SORT_VALUES = new Set(
   DISCOVER_SORT_OPTIONS.map((option) => option.value),
 );
 
+// ─── useMovies: URL-synced browse & filter state ──────────────────────────────
+
 const useMovies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // ─── URL State: parse filters from query string ───────────────────────────────
 
   const page = parseInt(searchParams.get("page") || "1", 10);
   const genreParam = searchParams.get("genre");
@@ -37,6 +43,8 @@ const useMovies = () => {
     ? sortParam
     : DEFAULT_DISCOVER_SORT;
 
+  // ─── State: results, genres & loading flags ───────────────────────────────────
+
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [genresLoading, setGenresLoading] = useState(true);
@@ -52,6 +60,8 @@ const useMovies = () => {
     minRating ||
     sortBy !== DEFAULT_DISCOVER_SORT,
   );
+
+  // ─── URL Helpers: write filter updates ────────────────────────────────────────
 
   const updateParams = useCallback(
     (updates) => {
@@ -74,6 +84,8 @@ const useMovies = () => {
     },
     [setSearchParams],
   );
+
+  // ─── Fetch: genres, retry & movie results ─────────────────────────────────────
 
   const retryGenres = useCallback(() => {
     setGenreRetry((current) => current + 1);
@@ -177,6 +189,8 @@ const useMovies = () => {
     selectedGenre,
     sortBy,
   ]);
+
+  // ─── Actions: search, filter & pagination handlers ────────────────────────────
 
   const handleGenreChange = useCallback(
     (genreId) => {

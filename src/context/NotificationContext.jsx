@@ -18,7 +18,11 @@ import {
 import { auth } from "../firebase/config";
 import { useLanguage } from "./LanguageContext";
 
+// ─── Constants: notification context key ──────────────────────────────────────
+
 const NotificationContext = createContext();
+
+// ─── Helpers: persist history in localStorage ─────────────────────────────────
 
 const readStoredNotifications = () => {
   try {
@@ -38,6 +42,8 @@ const writeStoredNotifications = (notifications) => {
     // Ignore storage failures in restricted browser contexts.
   }
 };
+
+// ─── NotificationProvider: toasts & history state ─────────────────────────────
 
 export const NotificationProvider = ({ children }) => {
   const { t } = useLanguage();
@@ -60,6 +66,8 @@ export const NotificationProvider = ({ children }) => {
   const [isImportingHistory, setIsImportingHistory] = useState(false);
   const [importMessage, setImportMessage] = useState("");
   const [importError, setImportError] = useState("");
+  // ─── State Selectors: merged local/remote history ─────────────────────────────
+
   const history = useMemo(
     () =>
       !authResolved
@@ -71,6 +79,8 @@ export const NotificationProvider = ({ children }) => {
             : localHistory,
     [authResolved, localHistory, remoteHistory, userId],
   );
+
+  // ─── Effects: auth, connectivity & Firestore sync ─────────────────────────────
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -150,6 +160,8 @@ export const NotificationProvider = ({ children }) => {
     };
   }, [authResolved, retryVersion, userId]);
 
+  // ─── Sync: persist actions to Firestore ───────────────────────────────────────
+
   const runRemoteAction = useCallback(async (user, action, description) => {
     try {
       const [{ db }, notificationsModule] = await Promise.all([
@@ -166,10 +178,14 @@ export const NotificationProvider = ({ children }) => {
     }
   }, []);
 
+  // ─── Selectors: unread badge count ────────────────────────────────────────────
+
   const unreadCount = useMemo(
     () => history.filter((notification) => !notification.read).length,
     [history],
   );
+
+  // ─── Actions: toast, read & clear history ─────────────────────────────────────
 
   const showNotification = useCallback(
     (message, type = "success", movie) => {
@@ -315,6 +331,8 @@ export const NotificationProvider = ({ children }) => {
     [runRemoteAction, userId],
   );
 
+  // ─── Sync: retry & import history ─────────────────────────────────────────────
+
   const retrySync = useCallback(async () => {
     setSyncError("");
     setRetryVersion((version) => version + 1);
@@ -415,6 +433,8 @@ export const NotificationProvider = ({ children }) => {
     }, 500);
   }, []);
 
+  // ─── Helpers: icon & style lookup ─────────────────────────────────────────────
+
   const getIcon = useCallback((type, small = false) => {
     const size = small ? "h-5 w-5" : "h-6 w-6";
     switch (type) {
@@ -441,6 +461,8 @@ export const NotificationProvider = ({ children }) => {
         return "bg-blue-500/10 border-blue-500/20 shadow-blue-500/10";
     }
   }, []);
+
+  // ─── Context Value: memoized notification API ─────────────────────────────────
 
   const value = useMemo(
     () => ({
@@ -534,6 +556,8 @@ export const NotificationProvider = ({ children }) => {
     </NotificationContext.Provider>
   );
 };
+
+// ─── useNotification: read notification context safely ────────────────────────
 
 export const useNotification = () => {
   const context = useContext(NotificationContext);

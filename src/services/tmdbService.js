@@ -1,3 +1,5 @@
+// ─── Constants: API credentials, URLs & cache TTLs ────────────────────────────
+
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY?.trim() || "";
 const READ_ACCESS_TOKEN =
   import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN?.trim() || "";
@@ -13,6 +15,8 @@ const INVALID_API_KEY_VALUES = new Set([
   "your_tmdb_api_key",
   "332625e9a1fcfb93329932bfebe2ba33",
 ]);
+
+// ─── Credentials: bearer token or API key ─────────────────────────────────────
 
 const looksLikeBearerToken = (value) => value.split(".").length === 3;
 const bearerToken =
@@ -31,6 +35,8 @@ if (!hasTmdbCredentials) {
     "Get your TMDB credentials from: https://www.themoviedb.org/settings/api",
   );
 }
+
+// ─── Cache: keys, read & write helpers ────────────────────────────────────────
 
 const buildCacheKey = (endpoint, params) => {
   const sortedParams = Object.entries(params)
@@ -69,6 +75,8 @@ const setCachedResponse = (cacheKey, data, ttl) => {
     expiresAt: Date.now() + ttl,
   });
 };
+
+// ─── fetchFromTMDB: cached fetch with error mapping ───────────────────────────
 
 const fetchFromTMDB = async (
   endpoint,
@@ -163,6 +171,8 @@ const fetchFromTMDB = async (
   return request;
 };
 
+// ─── Helpers: image URLs & release year ───────────────────────────────────────
+
 const getImageUrl = (path, size = "w780") => {
   return path ? `${IMAGE_BASE_URL}/${size}${path}` : null;
 };
@@ -194,6 +204,8 @@ const getReleaseYear = (movie) => {
 
   return "";
 };
+
+// ─── tmdbService: public TMDB endpoints ───────────────────────────────────────
 
 export const tmdbService = {
   getTrendingMovies: async () => {

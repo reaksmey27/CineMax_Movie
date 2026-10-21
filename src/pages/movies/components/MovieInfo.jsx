@@ -14,6 +14,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../context/LanguageContext";
 
+// ─── MovieInfo: movie details block ───────────────────────────────────────────
+
 const MovieInfo = ({
   movie,
   isFav,

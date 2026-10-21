@@ -23,14 +23,14 @@ import {
   THEMES,
 } from "./utils/theme";
 
-// ─── Scroll Manager ───────────────────────────────────────────────────────────
+// ─── Scroll Manager: reset scroll on route change ─────────────────────────────
 
 const ScrollManager = () => {
   useScrollToTop();
   return null;
 };
 
-// ─── App ──────────────────────────────────────────────────────────────────────
+// ─── App: layout shell & routed pages ─────────────────────────────────────────
 
 const AppContent = ({ theme, toggleTheme }) => {
   const location = useLocation();
@@ -69,6 +69,8 @@ const AppContent = ({ theme, toggleTheme }) => {
     </>
   );
 };
+
+// ─── App Root: theme state & providers ────────────────────────────────────────
 
 const App = () => {
   const [theme, setTheme] = useState(getStoredTheme);

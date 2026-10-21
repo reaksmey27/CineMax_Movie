@@ -8,6 +8,8 @@ import {
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useLanguage } from "../../../context/LanguageContext";
 
+// ─── ProfileStats: favorites/watchlist counts ─────────────────────────────────
+
 const ProfileStats = ({ user }) => {
   const { t } = useLanguage();
   const { favorites } = useFavorites();

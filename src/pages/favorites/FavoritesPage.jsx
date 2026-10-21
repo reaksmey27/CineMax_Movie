@@ -7,6 +7,8 @@ import PageError from "../../components/ui/PageError";
 import PageLoader from "../../components/ui/PageLoader";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── FavoritesPage: saved favorites grid ──────────────────────────────────────
+
 const FavoritesPage = () => {
   const { t } = useLanguage();
   const location = useLocation();

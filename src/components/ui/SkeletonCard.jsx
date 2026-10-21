@@ -1,5 +1,7 @@
 import { memo } from "react";
 
+// ─── SkeletonCard: shimmering poster placeholder ──────────────────────────────
+
 const SkeletonCard = ({ className = "" }) => (
   <div aria-hidden="true" className={`w-full shrink-0 ${className}`}>
     <div className="relative aspect-[2/3] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-lg">

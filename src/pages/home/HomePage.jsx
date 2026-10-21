@@ -24,6 +24,8 @@ const ROWS = [
   ["family", "Family", "/movies?genre=10751"],
 ];
 
+// ─── Sub-components: section error fallback ───────────────────────────────────
+
 const SectionError = ({ title, onRetry }) => {
   const { t } = useLanguage();
 
@@ -45,11 +47,15 @@ const SectionError = ({ title, onRetry }) => {
   );
 };
 
+// ─── HomePage: home feed of movie rows ────────────────────────────────────────
+
 const HomePage = () => {
   const { t } = useLanguage();
   const { sections, retrySection } = useHomeMovies();
   const trending = sections.trending;
   const [showAllGenres, setShowAllGenres] = useState(true);
+
+  // ─── Render: hero, rows & error states ────────────────────────────────────────
 
   return (
     <main id="home" className="min-h-screen bg-slate-950">

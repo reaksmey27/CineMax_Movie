@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../context/LanguageContext";
 
+// ─── Sub-components: page link control ────────────────────────────────────────
+
 const PageControl = ({ disabled, href, onClick, ...props }) =>
   disabled ? (
     <button type="button" disabled {...props} />
@@ -24,6 +26,8 @@ const PageControl = ({ disabled, href, onClick, ...props }) =>
       }}
     />
   );
+
+// ─── Pagination: numbered page navigation ─────────────────────────────────────
 
 const Pagination = ({ page, totalPages, onPageChange }) => {
   const { t } = useLanguage();

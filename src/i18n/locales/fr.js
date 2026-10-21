@@ -1,3 +1,5 @@
+// ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
+
 const fr = {
   Home: "Accueil",
   Movies: "Films",

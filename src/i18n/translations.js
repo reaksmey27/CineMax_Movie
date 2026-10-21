@@ -23,6 +23,8 @@ import flagDE from "../assets/flags/de.png";
 import flagIT from "../assets/flags/it.png";
 import flagBR from "../assets/flags/br.png";
 
+// ─── LANGUAGES: language picker options ───────────────────────────────────────
+
 export const LANGUAGES = [
   { code: "en", label: "English", flag: flagUK },
   { code: "km", label: "ខ្មែរ", flag: flagKH },
@@ -38,6 +40,8 @@ export const LANGUAGES = [
   { code: "pt-BR", label: "Português (BR)", flag: flagBR },
 ];
 
+// ─── Translations: locale message maps ────────────────────────────────────────
+
 const translations = {
   en,
   km,
@@ -52,6 +56,8 @@ const translations = {
   it,
   "pt-BR": ptBR,
 };
+
+// ─── translate: resolve key & fill placeholders ───────────────────────────────
 
 export const translate = (language, key, values = {}) => {
   const message = translations[language]?.[key] || key;

@@ -4,7 +4,11 @@ import "./index.css";
 import App from "./App.jsx";
 import { initializeTheme } from "./utils/theme.js";
 
+// ─── Bootstrap: apply stored theme on startup ─────────────────────────────────
+
 initializeTheme();
+
+// ─── Service Worker: register ad-blocker SW ───────────────────────────────────
 
 // Register Ad Blocker Service Worker
 if ("serviceWorker" in navigator) {
@@ -19,6 +23,8 @@ if ("serviceWorker" in navigator) {
       });
   });
 }
+
+// ─── Render: mount React app in StrictMode ────────────────────────────────────
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

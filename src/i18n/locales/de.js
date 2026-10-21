@@ -1,3 +1,5 @@
+// ─── de: German UI strings (fallback: en) ─────────────────────────────────────
+
 const de = {
   // Navigation & genres (unquoted-style keys, quoted for consistency)
   Action: "Action",

@@ -1,5 +1,7 @@
 import React from "react";
 
+// ─── PageLoader: spinner with loading label ───────────────────────────────────
+
 const PageLoader = ({
   color = "border-purple-600",
   label = "Loading...",

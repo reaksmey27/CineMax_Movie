@@ -2,6 +2,8 @@ import React from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── PageError: error panel with retry button ─────────────────────────────────
+
 const PageError = ({
   message,
   buttonLabel = "Retry",

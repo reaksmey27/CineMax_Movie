@@ -1,4 +1,4 @@
-// ─── SEO Metadata ─────────────────────────────────────────────────────────────
+// ─── SEO Metadata: default titles & descriptions ──────────────────────────────
 
 export const DEFAULT_TITLE =
   "CineMax Movies | Discover Trending, Upcoming, and Favorite Films";
@@ -73,6 +73,8 @@ export const SITE_URL = "https://smey-dev.site";
 export const DEFAULT_IMAGE = `${SITE_URL}/images/logo.png`;
 export const PUBLIC_ROUTES = ["/", "/movies", "/trending", "/upcoming"];
 
+// ─── getPageMeta: meta for a route path ───────────────────────────────────────
+
 export const getPageMeta = (pathname, search = "") => {
   const path = pathname.replace(/\/+$/, "") || "/";
   const moviePage = /^\/movie\/\d+$/.test(path);
@@ -130,6 +132,8 @@ export const getPageMeta = (pathname, search = "") => {
   return meta;
 };
 
+// ─── getMovieMeta: meta for a movie page ──────────────────────────────────────
+
 export const getMovieMeta = (movie) => {
   const meta = getPageMeta(`/movie/${movie.id}`);
   const year = movie.release_date?.slice(0, 4);
@@ -160,6 +164,8 @@ export const getMovieMeta = (movie) => {
   return meta;
 };
 
+// ─── getMetaTags: convert meta to tag pairs ───────────────────────────────────
+
 export const getMetaTags = (meta) =>
   [
     ["name", "description", meta.description],
@@ -187,6 +193,8 @@ export const getMetaTags = (meta) =>
     ["name", "twitter:image", meta.image],
     ["name", "twitter:image:alt", meta.imageAlt],
   ].filter(([, , value]) => value);
+
+// ─── applyPageMeta: write meta tags to document ───────────────────────────────
 
 export const applyPageMeta = (meta) => {
   document.title = meta.title;

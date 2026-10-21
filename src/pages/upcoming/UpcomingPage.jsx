@@ -6,6 +6,8 @@ import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import PageError from "../../components/ui/PageError";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── UpcomingPage: upcoming release grid ──────────────────────────────────────
+
 const UpcomingPage = () => {
   const { t } = useLanguage();
   const { movies, loading, error } = useUpcomingMovies();

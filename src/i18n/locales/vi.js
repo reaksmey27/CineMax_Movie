@@ -1,3 +1,5 @@
+// ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
+
 const vi = {
   Home: "Trang chủ",
   "The CineMax guide": "Cẩm nang CineMax",

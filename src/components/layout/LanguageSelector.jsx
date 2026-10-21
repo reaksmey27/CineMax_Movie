@@ -2,11 +2,15 @@ import { useEffect, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── LanguageSelector: language switch dropdown ───────────────────────────────
+
 const LanguageSelector = ({ className = "" }) => {
   const { language, languages, setLanguage, t } = useLanguage();
   const detailsRef = useRef(null);
   const summaryRef = useRef(null);
   const currentLanguage = languages.find(({ code }) => code === language);
+
+  // ─── Effects: close menu on outside click/Escape ──────────────────────────────
 
   useEffect(() => {
     const closeOnOutsideClick = (event) => {

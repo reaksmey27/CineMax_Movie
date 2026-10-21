@@ -18,14 +18,14 @@ import TrailerModal from "../../movies/components/TrailerModal";
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useLanguage } from "../../../context/LanguageContext";
 
-// ─── Constants ────────────────────────────────────────────────────────────────
+// ─── Constants: hero rotation timings ─────────────────────────────────────────
 
 const FEATURED_COUNT = 4;
 const SLIDE_INTERVAL = 5000;
 const FADE_DURATION = 600;
 const DOT_DURATION = 400;
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── Sub-components: hero arrow buttons ───────────────────────────────────────
 
 const NavButton = ({ onClick, children, label }) => (
   <button
@@ -36,6 +36,8 @@ const NavButton = ({ onClick, children, label }) => (
     {children}
   </button>
 );
+
+// ─── HeroSection: featured movie carousel ─────────────────────────────────────
 
 const HeroSection = ({ trendingMovies = [] }) => {
   const { t } = useLanguage();
@@ -51,6 +53,8 @@ const HeroSection = ({ trendingMovies = [] }) => {
   );
   const transitionTimer = useRef(null);
 
+  // ─── Effects: rotation & reduced motion ───────────────────────────────────────
+
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReducedMotion(media.matches);
@@ -59,6 +63,8 @@ const HeroSection = ({ trendingMovies = [] }) => {
   }, []);
 
   useEffect(() => () => window.clearTimeout(transitionTimer.current), []);
+
+  // ─── Helpers: slide transitions & navigation ──────────────────────────────────
 
   const stopRotation = () => {
     setPaused(true);
@@ -109,6 +115,8 @@ const HeroSection = ({ trendingMovies = [] }) => {
   const movie = featured[currentIndex % featured.length];
   const isFav = isFavorite(movie.id);
   const favoritePending = isSavingFavorite(movie.id);
+
+  // ─── Render: slides, actions & trailer ────────────────────────────────────────
 
   return (
     <section

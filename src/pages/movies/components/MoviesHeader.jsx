@@ -12,6 +12,8 @@ const YEAR_DEBOUNCE = 250;
 const SEARCH_HISTORY_KEY = "cinemax-search-history";
 const SEARCH_HISTORY_LIMIT = 8;
 
+// ─── Helpers: heading & search history ────────────────────────────────────────
+
 const getHeadingState = (hasSearchQuery, hasActiveFilters) => {
   if (hasSearchQuery)
     return { top: "Searching", accent: "Results", suffix: "" };
@@ -88,6 +90,8 @@ const updateSearchHistory = (history, query) => {
   return [normalizedQuery, ...deduped].slice(0, SEARCH_HISTORY_LIMIT);
 };
 
+// ─── MoviesHeader: title, search & filters ────────────────────────────────────
+
 const MoviesHeader = ({
   collectionTitle,
   searchQuery,
@@ -111,6 +115,8 @@ const MoviesHeader = ({
   onClearFilters,
 }) => {
   const { t } = useLanguage();
+  // ─── State: search input & refs ───────────────────────────────────────────────
+
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState(searchQuery);
   const [yearInput, setYearInput] = useState(releaseYear);
@@ -154,6 +160,8 @@ const MoviesHeader = ({
     !hasTypedSinceFocus &&
     !isTyping &&
     trimmedInput.length < 2;
+
+  // ─── Handlers: search, history & selects ──────────────────────────────────────
 
   const toggleSelect = (key) =>
     setOpenSelect((current) => (current === key ? null : key));
@@ -199,6 +207,8 @@ const MoviesHeader = ({
       ),
     );
   };
+
+  // ─── Effects: sync URL, debounce & fetch ──────────────────────────────────────
 
   useEffect(() => setInputValue(searchQuery), [searchQuery]);
   useEffect(() => setYearInput(releaseYear), [releaseYear]);
@@ -288,6 +298,8 @@ const MoviesHeader = ({
     const id = window.setTimeout(() => onYearChange(yearInput), YEAR_DEBOUNCE);
     return () => window.clearTimeout(id);
   }, [onYearChange, releaseYear, yearInput]);
+
+  // ─── Render: title, search bar & filters ──────────────────────────────────────
 
   return (
     <div className="mb-10 flex flex-col gap-6 sm:mb-16 sm:gap-10">

@@ -4,6 +4,8 @@ import googleIcon from "../../assets/icons/google.svg";
 import { getAuthRedirect } from "../../utils/authRedirect";
 import { useAuth } from "../../context/AuthContext";
 
+// ─── LoginButton: Google sign-in button ───────────────────────────────────────
+
 const LoginButton = ({ className = "", label = "Continue with Google" }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -11,6 +13,8 @@ const LoginButton = ({ className = "", label = "Continue with Google" }) => {
   const [submitting, setSubmitting] = useState(false);
 
   const isBusy = loading || authenticating || submitting;
+
+  // ─── Handlers: sign in and redirect ───────────────────────────────────────────
 
   const handleClick = async () => {
     if (isBusy) {
@@ -31,6 +35,8 @@ const LoginButton = ({ className = "", label = "Continue with Google" }) => {
       setSubmitting(false);
     }
   };
+
+  // ─── Render: button with busy state ───────────────────────────────────────────
 
   return (
     <button

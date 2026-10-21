@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import SkeletonCard from "./SkeletonCard";
 
+// ─── MovieGridSkeleton: loading grid placeholder ──────────────────────────────
+
 const MovieGridSkeleton = ({ count = 12 }) => {
   return (
     <div

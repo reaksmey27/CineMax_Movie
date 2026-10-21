@@ -1,6 +1,8 @@
 import React from "react";
 import { useLanguage } from "../../../context/LanguageContext";
 
+// ─── Helpers: source & track resolution ───────────────────────────────────────
+
 const resolveValue = (value, movie) => {
   if (typeof value === "function") {
     return value(movie);
@@ -13,6 +15,8 @@ const resolveTracks = (value, movie) => {
   const tracks = typeof value === "function" ? value(movie) : value;
   return Array.isArray(tracks) ? tracks : [];
 };
+
+// ─── MoviePlayer: embedded playback frame ─────────────────────────────────────
 
 const MoviePlayer = ({
   movie,
@@ -31,6 +35,8 @@ const MoviePlayer = ({
   onReloadPlayer,
 }) => {
   const { t } = useLanguage();
+  // ─── Derived: active video URL & tracks ───────────────────────────────────────
+
   const movieVideoUrl = resolveValue(movie?.videoUrl, movie);
   const serverVideoUrl = resolveValue(currentServer?.videoUrl, movie);
   const activeVideoUrl = serverVideoUrl || movieVideoUrl;
@@ -39,6 +45,8 @@ const MoviePlayer = ({
     ...resolveTracks(currentServer?.subtitleTracks, movie),
   ];
   const hasDirectVideo = Boolean(activeVideoUrl);
+
+  // ─── Render: server tabs & frame ──────────────────────────────────────────────
 
   return (
     <div className="space-y-6">

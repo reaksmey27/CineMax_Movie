@@ -2,6 +2,8 @@ import React, { memo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import MovieCard from "./MovieCard";
 
+// ─── MovieGrid: responsive movie grid ─────────────────────────────────────────
+
 const MovieGrid = ({
   movies,
   onReset,
@@ -10,6 +12,8 @@ const MovieGrid = ({
   emptyMessage = "Try adjusting your search or filters to explore more titles.",
 }) => {
   const { t } = useLanguage();
+  // ─── Empty State: no-results message & reset ──────────────────────────────────
+
   if (movies.length === 0) {
     return (
       <div className="flex min-h-[18rem] flex-col items-center justify-center px-4 text-center sm:min-h-[25rem]">
@@ -28,6 +32,8 @@ const MovieGrid = ({
       </div>
     );
   }
+
+  // ─── Render: animated grid of movie cards ─────────────────────────────────────
 
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-5 sm:gap-y-8 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 lg:gap-x-6 lg:gap-y-10">

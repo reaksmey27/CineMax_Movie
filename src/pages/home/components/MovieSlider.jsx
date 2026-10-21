@@ -4,7 +4,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import MovieCard from "../../../components/ui/MovieCard";
 import { useLanguage } from "../../../context/LanguageContext";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Helpers: heading id from slider title ────────────────────────────────────
 
 const toHeadingId = (title) =>
   `slider-${title
@@ -12,7 +12,7 @@ const toHeadingId = (title) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")}`;
 
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── Sub-components: scroll arrow buttons ─────────────────────────────────────
 
 const NAV_BTN_CLASS =
   "absolute bottom-10 top-23 z-40 hidden w-16 cursor-pointer items-center justify-center opacity-0 transition-opacity duration-300 group-hover/slider:opacity-100 focus-visible:opacity-100 md:flex md:w-24";
@@ -37,7 +37,7 @@ const NavButton = ({ direction, title, onClick, t }) => (
   </button>
 );
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── MovieSlider: horizontal movie carousel ───────────────────────────────────
 
 const MovieSlider = ({ title, movies = [], viewAllTo }) => {
   const { t } = useLanguage();

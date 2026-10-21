@@ -1,3 +1,5 @@
+// ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
+
 const it = {
   Action: "Azione",
   Active: "Attivo",

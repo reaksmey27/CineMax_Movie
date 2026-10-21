@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 import SkeletonCard from "./SkeletonCard";
 
+// ─── MovieSliderSkeleton: loading slider placeholder ──────────────────────────
+
 const MovieSliderSkeleton = ({ count = 6 }) => {
   return (
     <section

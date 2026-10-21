@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
+// ─── NotFoundPage: 404 screen with home link ──────────────────────────────────
+
 export default function NotFoundPage() {
   const { t } = useLanguage();
 

@@ -10,6 +10,8 @@ import ProfileCollection from "./components/ProfileCollection";
 import ProfileForm from "./components/ProfileForm";
 import { useLanguage } from "../../context/LanguageContext";
 
+// ─── ProfilePage: account, stats & collections ────────────────────────────────
+
 const ProfilePage = () => {
   const { t } = useLanguage();
   const profile = useProfile();

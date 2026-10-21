@@ -8,7 +8,7 @@ import useMovies from "../../hooks/movies/useMovies";
 import MovieHeader from "./components/MoviesHeader";
 import Pagination from "./components/Pagination";
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Helpers: empty-state copy for search/filter ──────────────────────────────
 
 const getEmptyState = (t, searchQuery, hasActiveFilters) => {
   if (searchQuery)
@@ -34,7 +34,7 @@ const getEmptyState = (t, searchQuery, hasActiveFilters) => {
   };
 };
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── MoviesPage: browse, search & filter page ─────────────────────────────────
 
 const MoviesPage = () => {
   const { t } = useLanguage();

@@ -2,9 +2,13 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { LANGUAGES, translate } from "../i18n/translations";
 
+// ─── Constants: storage key & default language ────────────────────────────────
+
 const STORAGE_KEY = "cinemax_language";
 const DEFAULT_LANGUAGE = "en";
 const LanguageContext = createContext(null);
+
+// ─── Helpers: resolve saved language safely ───────────────────────────────────
 
 const getInitialLanguage = () => {
   try {
@@ -17,6 +21,8 @@ const getInitialLanguage = () => {
     return DEFAULT_LANGUAGE;
   }
 };
+
+// ─── LanguageProvider: language state & translate ─────────────────────────────
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(getInitialLanguage);
@@ -46,6 +52,8 @@ export const LanguageProvider = ({ children }) => {
     </LanguageContext.Provider>
   );
 };
+
+// ─── useLanguage: read language context safely ────────────────────────────────
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);

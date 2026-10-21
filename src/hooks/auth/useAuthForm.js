@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getAuthRedirect } from "../../utils/authRedirect";
 import { useAuth } from "../../context/AuthContext";
 
+// ─── Constants: email pattern & blank form ────────────────────────────────────
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const createInitialState = () => ({
@@ -12,6 +14,8 @@ const createInitialState = () => ({
   confirmPassword: "",
 });
 
+// ─── useAuthForm: login/register form logic ───────────────────────────────────
+
 const useAuthForm = (mode = "login") => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,6 +23,8 @@ const useAuthForm = (mode = "login") => {
   const [formData, setFormData] = useState(createInitialState);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  // ─── Helpers: field validation ────────────────────────────────────────────────
 
   const validate = () => {
     const trimmedName = formData.name.trim();
@@ -42,6 +48,8 @@ const useAuthForm = (mode = "login") => {
 
     return "";
   };
+
+  // ─── Handlers: change & submit ────────────────────────────────────────────────
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -95,6 +103,8 @@ const useAuthForm = (mode = "login") => {
       setSubmitting(false);
     }
   };
+
+  // ─── Return: form data, error & handlers ──────────────────────────────────────
 
   return {
     formData,

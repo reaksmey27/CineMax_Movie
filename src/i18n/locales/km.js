@@ -1,3 +1,5 @@
+// ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
+
 const km = {
   Home: "ទំព័រដើម",
   Movies: "ភាពយន្ត",

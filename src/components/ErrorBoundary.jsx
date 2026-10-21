@@ -1,6 +1,8 @@
 import React from "react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
+// ─── ErrorBoundary: catches render crashes ────────────────────────────────────
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,8 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     console.error("ErrorBoundary caught an error:", error, errorInfo);
   }
+
+  // ─── Render: error screen or fallback children ────────────────────────────────
 
   render() {
     if (this.state.hasError) {

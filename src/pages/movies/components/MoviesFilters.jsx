@@ -16,6 +16,8 @@ const INPUT_CLASS =
 const GENRE_BTN_BASE =
   "rounded-xl border-2 px-5 py-2 text-sm font-semibold  whitespace-nowrap transition-all";
 
+// ─── Sub-components: labelled select control ──────────────────────────────────
+
 const FilterSelect = ({
   label,
   value,
@@ -32,6 +34,8 @@ const FilterSelect = ({
   const triggerId = `filter-select-${label.toLowerCase().replace(/\s+/g, "-")}`;
   const selected =
     options.find((option) => option.value === value) ?? options[0];
+
+  // ─── Effects: menu listeners & focus ──────────────────────────────────────────
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -66,6 +70,8 @@ const FilterSelect = ({
     };
   }, [isOpen, onClose]);
 
+  // ─── Handlers: keyboard option navigation ─────────────────────────────────────
+
   const handleOptionKeyDown = (event) => {
     if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
 
@@ -86,6 +92,8 @@ const FilterSelect = ({
             optionButtons.length;
     optionButtons[nextIndex].focus();
   };
+
+  // ─── Render: custom select dropdown ───────────────────────────────────────────
 
   return (
     <div ref={containerRef} className="relative space-y-2">
@@ -164,6 +172,8 @@ const FilterSelect = ({
   );
 };
 
+// ─── MoviesFilters: genre/year/rating/sort bar ────────────────────────────────
+
 const MoviesFilters = ({
   genres,
   genresLoading,
@@ -184,6 +194,8 @@ const MoviesFilters = ({
   setYearInput,
 }) => {
   const { t } = useLanguage();
+  // ─── Render: filter toolbar ───────────────────────────────────────────────────
+
   return (
     <div className="relative z-20">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
