@@ -1,68 +1,12 @@
-import { useRef, useState } from "react";
+import CollectionTabs from "./CollectionTabs";
+import { useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import {
-  BookmarkIcon,
-  HeartIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { BookmarkIcon, HeartIcon } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useWatchlist } from "../../../context/WatchlistContext";
 import { useLanguage } from "../../../context/LanguageContext";
-import MovieCard from "../../../components/ui/MovieCard";
+import SavedMovie from "./SavedMovie";
 import MovieGridSkeleton from "../../../components/ui/MovieGridSkeleton";
-
-// ─── Sub-components: saved movie row ──────────────────────────────────────────
-
-const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
-  const { t } = useLanguage();
-  const [removing, setRemoving] = useState(false);
-  const [error, setError] = useState(false);
-  const busy = useRef(false);
-  const remove = async () => {
-    if (busy.current) return;
-    busy.current = true;
-    setRemoving(true);
-    setError(false);
-    try {
-      const result = await onRemove(movie);
-      if (result === false) setError(true);
-      else onRemoved();
-    } catch {
-      setError(true);
-    } finally {
-      busy.current = false;
-      setRemoving(false);
-    }
-  };
-  return (
-    <li className="min-w-0">
-      <MovieCard
-        movie={movie}
-        headingLevel="h3"
-        showActions={false}
-        hideUnrated
-      />
-      <button
-        type="button"
-        disabled={removing}
-        onClick={remove}
-        aria-label={t("Remove {title} from {list}", {
-          title: movie.title,
-          list: t(listName),
-        })}
-        className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-2 text-xs font-medium text-[var(--color-text-muted)] transition-colors hover:bg-red-500/10 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-500 disabled:cursor-wait disabled:opacity-60 sm:text-sm"
-      >
-        <TrashIcon className="h-4 w-4" aria-hidden="true" />
-        {removing ? t("Removing...") : t("Remove")}
-      </button>
-      {error && (
-        <p role="alert" className="mt-2 text-xs text-[var(--color-text-muted)]">
-          {t("Could not remove this movie. Please try again.")}
-        </p>
-      )}
-    </li>
-  );
-};
 
 // ─── ProfileCollection: favorites & watchlist tabs ────────────────────────────
 
@@ -118,70 +62,16 @@ const ProfileCollection = () => {
 
   // ─── Handlers: switch tab with focus ──────────────────────────────────────────
 
-  const activate = (id) => {
-    setActiveTab(id);
-    tabRefs.current[id]?.focus();
-  };
-
   // ─── Render: tabs & saved movie grid ──────────────────────────────────────────
 
   return (
     <section className="mt-8 sm:mt-10" aria-label={t("Saved movies")}>
-      <div
-        role="tablist"
-        aria-label={t("Movie collections")}
-        className="flex gap-2 border-b border-[var(--color-border)] sm:gap-6"
-      >
-        {tabs.map((tab, index) => {
-          const TabIcon = tab.icon;
-          const selected = tab.id === activeTab;
-          return (
-            <button
-              key={tab.id}
-              ref={(node) => {
-                tabRefs.current[tab.id] = node;
-              }}
-              id={`profile-tab-${tab.id}`}
-              role="tab"
-              type="button"
-              aria-selected={selected}
-              aria-controls={`profile-panel-${tab.id}`}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => setActiveTab(tab.id)}
-              onKeyDown={(event) => {
-                if (
-                  !["ArrowLeft", "ArrowRight", "Home", "End"].includes(
-                    event.key,
-                  )
-                )
-                  return;
-                event.preventDefault();
-                activate(
-                  tabs[
-                    event.key === "Home"
-                      ? 0
-                      : event.key === "End"
-                        ? tabs.length - 1
-                        : event.key === "ArrowRight"
-                          ? (index + 1) % tabs.length
-                          : (index - 1 + tabs.length) % tabs.length
-                  ].id,
-                );
-              }}
-              className={`inline-flex min-h-14 flex-1 items-center justify-center gap-2 border-b-2 px-2 pb-3 pt-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-purple-500 sm:flex-none sm:px-4 ${selected ? "border-purple-500 text-[var(--color-text)]" : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text)]"}`}
-            >
-              <TabIcon
-                className="hidden h-5 w-5 min-[360px]:block"
-                aria-hidden="true"
-              />
-              {tab.title}
-              <span className="rounded-full bg-[var(--color-surface-2)] px-2 py-0.5 text-xs tabular-nums">
-                {tab.count ?? "..."}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      <CollectionTabs
+        tabs={tabs}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        tabRefs={tabRefs}
+      />
       <div
         key={activeTab}
         id={`profile-panel-${activeTab}`}

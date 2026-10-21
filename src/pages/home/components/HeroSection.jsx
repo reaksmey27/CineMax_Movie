@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronLeftIcon,
@@ -17,13 +17,11 @@ import TrailerModal from "../../movies/components/TrailerModal";
 
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useLanguage } from "../../../context/LanguageContext";
+import { useHeroCarousel } from "../hooks/useHeroCarousel";
 
 // ─── Constants: hero rotation timings ─────────────────────────────────────────
 
 const FEATURED_COUNT = 4;
-const SLIDE_INTERVAL = 5000;
-const FADE_DURATION = 600;
-const DOT_DURATION = 400;
 
 // ─── Sub-components: hero arrow buttons ───────────────────────────────────────
 
@@ -44,71 +42,20 @@ const HeroSection = ({ trendingMovies = [] }) => {
   const featured = trendingMovies.slice(0, FEATURED_COUNT);
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [fade, setFade] = useState(true);
   const [showTrailer, setShowTrailer] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(
-    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
-  const transitionTimer = useRef(null);
 
-  // ─── Effects: rotation & reduced motion ───────────────────────────────────────
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReducedMotion(media.matches);
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
-  useEffect(() => () => window.clearTimeout(transitionTimer.current), []);
-
-  // ─── Helpers: slide transitions & navigation ──────────────────────────────────
-
-  const stopRotation = () => {
-    setPaused(true);
-    window.clearTimeout(transitionTimer.current);
-    setFade(true);
-  };
-
-  const transition = useCallback(
-    (getNext, delay = FADE_DURATION) => {
-      window.clearTimeout(transitionTimer.current);
-      if (reducedMotion) {
-        setCurrentIndex(getNext);
-        setFade(true);
-        return;
-      }
-      setFade(false);
-      transitionTimer.current = window.setTimeout(() => {
-        setCurrentIndex(getNext);
-        setFade(true);
-      }, delay);
-    },
-    [reducedMotion],
-  );
-
-  const handleNext = useCallback(() => {
-    transition((prev) => (prev + 1) % featured.length);
-  }, [featured.length, transition]);
-
-  const handlePrev = useCallback(() => {
-    transition((prev) => (prev === 0 ? featured.length - 1 : prev - 1));
-  }, [featured.length, transition]);
-
-  const goTo = useCallback(
-    (idx) => {
-      transition(() => idx, DOT_DURATION);
-    },
-    [transition],
-  );
-
-  useEffect(() => {
-    if (featured.length < 2 || showTrailer || paused || reducedMotion) return;
-    const id = setInterval(handleNext, SLIDE_INTERVAL);
-    return () => clearInterval(id);
-  }, [featured.length, showTrailer, paused, reducedMotion, handleNext]);
+  const {
+    currentIndex,
+    fade,
+    setPaused,
+    stopRotation,
+    handleNext,
+    handlePrev,
+    goTo,
+  } = useHeroCarousel({
+    slideCount: featured.length,
+    isEnabled: !showTrailer,
+  });
 
   if (featured.length === 0) return null;
 

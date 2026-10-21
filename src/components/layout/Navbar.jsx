@@ -1,171 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import useNavbarMenus from "./navbar/useNavbarMenus";
+import { Link, useLocation } from "react-router-dom";
 import {
   BellIcon,
-  TrashIcon,
   Bars3Icon,
   XMarkIcon,
   SunIcon,
   MoonIcon,
-  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 
-import { useAuth } from "../../context/AuthContext";
+import NavbarAccount from "./navbar/NavbarAccount";
 import { useLanguage } from "../../context/LanguageContext";
 import { useNotification } from "../../context/NotificationContext";
 import { THEMES } from "../../utils/theme";
 import NavSearch from "./NavSearch";
 import LanguageSelector from "./LanguageSelector";
-
-// ─── Constants: primary nav links ─────────────────────────────────────────────
-
-const NAV_LINKS = [
-  { name: "Home", path: "/" },
-  { name: "Movies", path: "/movies" },
-  { name: "Trending", path: "/trending" },
-  { name: "Favorites", path: "/favorites" },
-  { name: "Watchlist", path: "/watchlist" },
-  { name: "Upcoming", path: "/upcoming" },
-];
+import NotificationPanel from "./navbar/NotificationPanel";
+import MobileMenu from "./navbar/MobileMenu";
+import { NAV_LINKS, checkActiveLink } from "./navbar/navbarConfig";
 
 // ─── Navbar: top bar with search, alerts & menus ──────────────────────────────
 
 const Navbar = ({ theme, onToggleTheme }) => {
   const location = useLocation();
-  const navigate = useNavigate();
 
-  const { user, logout, isAuthenticated } = useAuth();
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
 
-  const { history, unreadCount, markAllAsRead, clearHistory, getIcon } =
-    useNotification();
+  const { unreadCount } = useNotification();
 
-  const [showNotifPanel, setShowNotifPanel] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {
+    showNotifPanel,
+    setShowNotifPanel,
+    isMenuOpen,
+    setIsMenuOpen,
+    panelRef,
+    menuToggleRef,
+    menuRef,
+    closeMenu,
+    closeNotifPanel,
+  } = useNavbarMenus();
 
-  const panelRef = useRef(null);
-  const menuToggleRef = useRef(null);
-  const menuRef = useRef(null);
-  const wasMenuOpen = useRef(false);
-
-  // ─── Effects: menu focus trap & panel dismissal ───────────────────────────────
-
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1280px)");
-    const closeDesktopMenu = () => {
-      if (desktop.matches) setIsMenuOpen(false);
-    };
-    desktop.addEventListener("change", closeDesktopMenu);
-    return () => desktop.removeEventListener("change", closeDesktopMenu);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    if (!isMenuOpen) {
-      if (
-        wasMenuOpen.current &&
-        menuToggleRef.current?.getClientRects().length
-      ) {
-        menuToggleRef.current.focus();
-      }
-      wasMenuOpen.current = false;
-      return undefined;
-    }
-
-    wasMenuOpen.current = true;
-    const focusableElements = () =>
-      menuRef.current?.querySelectorAll(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      ) || [];
-    focusableElements()[0]?.focus();
-
-    const handleMenuKeyDown = (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        setIsMenuOpen(false);
-        return;
-      }
-
-      if (event.key !== "Tab") return;
-
-      const focusable = focusableElements();
-      if (focusable.length === 0) {
-        event.preventDefault();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", handleMenuKeyDown);
-    return () => document.removeEventListener("keydown", handleMenuKeyDown);
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (panelRef.current && !panelRef.current.contains(event.target)) {
-        setShowNotifPanel(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // ─── Helpers: active link check & time labels ─────────────────────────────────
-
-  const checkActive = (linkPath) => {
-    if (linkPath.includes("#")) {
-      const pathPart = linkPath.split("#")[0] || "/";
-      const hashPart = `#${linkPath.split("#")[1]}`;
-
-      return location.pathname === pathPart && location.hash === hashPart;
-    }
-
-    if (linkPath === "/") {
-      return location.pathname === "/" && !location.hash;
-    }
-
-    return location.pathname === linkPath;
-  };
-
-  const formatTime = (isoString) => {
-    const date = new Date(isoString);
-
-    return date.toLocaleTimeString(language, {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  const getUserInitial = () => {
-    const value = user?.name || user?.email || "";
-
-    return value.charAt(0).toUpperCase();
-  };
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/");
-  };
+  const checkActive = (linkPath) => checkActiveLink(location, linkPath);
 
   const isLightTheme = theme === THEMES.LIGHT;
 
@@ -175,9 +49,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
     ? "Switch to dark mode"
     : "Switch to light mode";
 
-  const modalState = { backgroundLocation: location };
-
-  // ─── Render: desktop bar & mobile drawer ──────────────────────────────────────
+  // ─── Render: desktop bar & mobile drawer ─────────────────────────────────────
 
   return (
     <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-3 sm:top-8 sm:px-8 lg:px-12">
@@ -275,157 +147,14 @@ const Navbar = ({ theme, onToggleTheme }) => {
               )}
             </button>
 
-            {showNotifPanel && (
-              <div className="fixed left-2 right-2 top-20 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl backdrop-blur-2xl duration-300 animate-in fade-in slide-in-from-top-4 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-4 sm:w-80 sm:rounded-4xl">
-                <div className="flex items-center justify-between border-b border-[var(--color-border-soft)] px-6 py-5">
-                  <h3 className="text-sm font-black uppercase tracking-tighter italic">
-                    {t("Notifications")}
-                  </h3>
-
-                  <button
-                    type="button"
-                    onClick={clearHistory}
-                    aria-label={t("Clear notification history")}
-                    title={t("Clear notification history")}
-                    className="rounded-lg p-1.5 text-gray-500 hover:bg-[var(--color-surface-1)] hover:text-red-400"
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                  </button>
-                </div>
-
-                <div className="no-scrollbar max-h-[min(25rem,calc(100dvh-12rem))] overflow-y-auto overscroll-contain">
-                  {history.length === 0 ? (
-                    <div className="p-10 text-center">
-                      <BellIcon className="mx-auto mb-3 h-8 w-8 text-gray-700 opacity-50" />
-
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                        {t("No new alerts.")}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col">
-                      {history.map((notif) => (
-                        <div
-                          key={notif.id}
-                          className="flex gap-4 border-b border-[var(--color-border-soft)] px-6 py-4 transition-colors hover:bg-[var(--color-surface-1)]"
-                        >
-                          {notif.movie?.poster ? (
-                            <div className="relative mt-1 h-12 w-9 shrink-0 overflow-hidden rounded-lg bg-black/20">
-                              <span className="absolute inset-0 flex items-center justify-center">
-                                {getIcon(notif.type, true)}
-                              </span>
-                              <img
-                                src={notif.movie.poster}
-                                alt=""
-                                className="relative h-full w-full object-cover"
-                                loading="lazy"
-                                onError={(event) => {
-                                  event.currentTarget.hidden = true;
-                                }}
-                              />
-                            </div>
-                          ) : (
-                            <div className="mt-1 shrink-0">
-                              {getIcon(notif.type, true)}
-                            </div>
-                          )}
-
-                          {notif.movie?.id != null ? (
-                            <Link
-                              to={`/movie/${encodeURIComponent(notif.movie.id)}`}
-                              onClick={() => setShowNotifPanel(false)}
-                              className="min-w-0 flex-1 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
-                              aria-label={t("Open {title} notification", {
-                                title: notif.movie.title || t("movie"),
-                              })}
-                            >
-                              <p className="mb-1 text-[10px] font-bold leading-relaxed text-[var(--color-text)] sm:text-xs">
-                                {notif.message}
-                              </p>
-                              <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">
-                                {formatTime(notif.timestamp)}
-                              </span>
-                            </Link>
-                          ) : (
-                            <div className="min-w-0 flex-1">
-                              <p className="mb-1 text-[10px] font-bold leading-relaxed text-[var(--color-text)] sm:text-xs">
-                                {notif.message}
-                              </p>
-                              <span className="text-[10px] font-black uppercase tracking-widest text-gray-600">
-                                {formatTime(notif.timestamp)}
-                              </span>
-                            </div>
-                          )}
-                          {!notif.read && (
-                            <span
-                              className="mt-2 h-2 w-2 shrink-0 rounded-full bg-purple-400"
-                              aria-label={t("Unread")}
-                              title={t("Unread")}
-                            />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="flex items-center justify-between gap-3 border-t border-[var(--color-border-soft)] px-4 py-3">
-                  <button
-                    type="button"
-                    onClick={markAllAsRead}
-                    disabled={unreadCount === 0}
-                    className="min-h-10 rounded-xl px-3 text-xs font-bold text-[var(--color-text-soft)] transition-colors hover:bg-[var(--color-surface-1)] hover:text-[var(--color-text)] disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    {t("Mark all as read")}
-                  </button>
-                  <Link
-                    to="/notifications"
-                    onClick={() => setShowNotifPanel(false)}
-                    className="min-h-10 rounded-xl bg-purple-600 px-4 py-3 text-xs font-bold text-white transition-colors hover:bg-purple-500"
-                  >
-                    {t("View all notifications")}
-                  </Link>
-                </div>
-              </div>
-            )}
+            <NotificationPanel
+              isOpen={showNotifPanel}
+              onClose={closeNotifPanel}
+            />
           </div>
 
           {/* Profile Avatar */}
-          <div className="hidden items-center gap-4 sm:flex">
-            {isAuthenticated ? (
-              <Link
-                to="/profile"
-                className={`relative rounded-full border p-2 transition-all duration-300 active:scale-90 ${
-                  location.pathname === "/profile"
-                    ? "border-purple-500/40 bg-[var(--color-surface-3)] text-[var(--nav-accent)] shadow-[0_0_15px_rgba(168,85,247,0.25)]"
-                    : "border-transparent bg-[var(--color-surface-2)] text-[var(--color-text)] hover:border-purple-500/30 hover:text-[var(--nav-accent)]"
-                }`}
-              >
-                {user?.avatar ? (
-                  <img
-                    src={user.avatar}
-                    alt={user.name}
-                    referrerPolicy="no-referrer"
-                    className="h-6 w-6 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-blue-600 text-[10px] font-black uppercase text-white">
-                    {getUserInitial()}
-                  </div>
-                )}
-
-                {/* Active Dot */}
-                <span className="absolute bottom-1 right-1 h-2.5 w-2.5 rounded-full border border-[#0B1020] bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.8)]" />
-              </Link>
-            ) : (
-              <Link
-                to="/login"
-                state={modalState}
-                className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-purple-500/50 px-5 py-1.5 text-sm font-bold transition-all hover:bg-purple-600"
-              >
-                {t("Sign In")}
-              </Link>
-            )}
-          </div>
+          <NavbarAccount />
 
           <LanguageSelector className="block" />
           {/* Mobile Menu */}
@@ -451,105 +180,12 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </div>
       </nav>
 
-      {isMenuOpen && (
-        <div className="xl:hidden">
-          <button
-            type="button"
-            className="fixed inset-x-0 bottom-0 top-20 z-[100] bg-black/60 backdrop-blur-sm sm:top-28"
-            aria-hidden="true"
-            tabIndex={-1}
-            onClick={() => setIsMenuOpen(false)}
-          />
-
-          <aside
-            ref={menuRef}
-            id="mobile-navigation"
-            role="dialog"
-            aria-modal="true"
-            aria-label={t("Main navigation")}
-            className="no-scrollbar fixed bottom-0 right-0 top-20 z-[110] w-[min(18rem,calc(100vw-1rem))] overflow-y-auto overscroll-contain border-l border-[var(--color-border)] bg-[var(--color-panel-bg)] p-4 shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-2xl sm:top-28"
-          >
-            <div className="mb-4 rounded-2xl border border-[var(--color-border-soft)] bg-[var(--color-surface-1)] p-3">
-              {isAuthenticated ? (
-                <Link
-                  to="/profile"
-                  className="flex items-center gap-3"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {user?.avatar ? (
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      referrerPolicy="no-referrer"
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-blue-600 text-sm font-black uppercase text-white">
-                      {getUserInitial()}
-                    </div>
-                  )}
-
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-black">
-                      {user?.name || t("Profile")}
-                    </p>
-                    <p className="truncate text-xs text-[var(--color-text-muted)]">
-                      {user?.email}
-                    </p>
-                  </div>
-                </Link>
-              ) : (
-                <Link
-                  to="/login"
-                  state={modalState}
-                  className="flex items-center justify-between rounded-xl bg-purple-600 px-4 py-3 text-sm font-black text-white transition hover:bg-purple-500"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("Sign In")}
-                  <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                </Link>
-              )}
-            </div>
-
-            <nav aria-label={t("Mobile navigation")}>
-              <div className="flex flex-col gap-1">
-                {NAV_LINKS.map((link) => {
-                  const isActive = checkActive(link.path);
-
-                  return (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`rounded-xl px-4 py-3 text-sm font-black transition ${
-                        isActive
-                          ? "bg-purple-600 text-white shadow-[0_0_18px_rgba(168,85,247,0.25)]"
-                          : "text-[var(--color-text-soft)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]"
-                      }`}
-                    >
-                      {t(link.name)}
-                    </Link>
-                  );
-                })}
-              </div>
-            </nav>
-
-            {isAuthenticated && (
-              <button
-                type="button"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  handleLogout();
-                }}
-                className="mt-5 flex w-full items-center justify-between rounded-xl border border-red-500/30 px-4 py-3 text-sm font-black text-red-300 transition hover:bg-red-500/10 hover:text-red-200"
-              >
-                {t("Logout")}
-                <ArrowRightOnRectangleIcon className="h-5 w-5" />
-              </button>
-            )}
-          </aside>
-        </div>
-      )}
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
+        menuRef={menuRef}
+        toggleRef={menuToggleRef}
+      />
     </div>
   );
 };

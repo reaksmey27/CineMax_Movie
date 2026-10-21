@@ -1,3 +1,4 @@
+import { normalizeLocalNotification } from "./notifications/normalizeLocalNotification.js";
 import {
   collection,
   deleteDoc,
@@ -17,8 +18,6 @@ import {
 export const NOTIFICATIONS_COLLECTION = "notifications";
 export const NOTIFICATION_HISTORY_LIMIT = 50;
 
-const NOTIFICATION_ID_PATTERN = /^[A-Za-z0-9_-]+$/;
-
 // ─── Helpers: history path & payload validation ───────────────────────────────
 
 const getHistoryCollection = (database, userId) => {
@@ -27,39 +26,6 @@ const getHistoryCollection = (database, userId) => {
   }
 
   return collection(database, NOTIFICATIONS_COLLECTION, userId, "history");
-};
-
-const normalizeLocalNotification = (notification) => {
-  const isValid =
-    typeof notification?.id === "string" &&
-    NOTIFICATION_ID_PATTERN.test(notification.id) &&
-    typeof notification.message === "string" &&
-    typeof notification.type === "string" &&
-    typeof notification.timestamp === "string" &&
-    Number.isFinite(Date.parse(notification.timestamp)) &&
-    typeof notification.read === "boolean";
-
-  if (!isValid) return null;
-
-  const normalized = {
-    message: notification.message,
-    type: notification.type,
-    timestamp: new Date(notification.timestamp).toISOString(),
-    read: notification.read,
-  };
-  if (notification.movie && typeof notification.movie === "object") {
-    const { id, title, poster } = notification.movie;
-    normalized.movie = {
-      ...(typeof id === "string" ||
-      (typeof id === "number" && Number.isFinite(id))
-        ? { id }
-        : {}),
-      ...(typeof title === "string" ? { title } : {}),
-      ...(typeof poster === "string" ? { poster } : {}),
-    };
-  }
-
-  return normalized;
 };
 
 // ─── Subscription: live history listener ──────────────────────────────────────

@@ -1,153 +1,26 @@
-import { useEffect, useRef, useState } from "react";
+import TrailerFrame from "./TrailerFrame";
+import useTrailerDialog from "../hooks/useTrailerDialog";
 import { createPortal } from "react-dom";
 import { ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── TrailerFrame: iframe with load skeleton ──────────────────────────────────
 
-const TrailerFrame = ({ src, title, className }) => {
-  const [frameLoading, setFrameLoading] = useState(true);
-
-  useEffect(() => {
-    if (!frameLoading) return undefined;
-    const timer = window.setTimeout(() => setFrameLoading(false), 4000);
-    return () => window.clearTimeout(timer);
-  }, [frameLoading]);
-
-  return (
-    <div className="relative">
-      <iframe
-        className={className}
-        src={src}
-        title={title}
-        allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        onLoad={() => setFrameLoading(false)}
-      />
-      {frameLoading && (
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/85"
-        >
-          <div className="h-4 w-1/2 max-w-64 animate-pulse rounded-full bg-white/20" />
-          <div className="h-3 w-1/3 max-w-40 animate-pulse rounded-full bg-white/10" />
-        </div>
-      )}
-    </div>
-  );
-};
-
 // ─── TrailerModal: YouTube trailer dialog ─────────────────────────────────────
 
 const TrailerModal = ({ movie, isOpen, onClose }) => {
   const { t } = useLanguage();
-  const playerRef = useRef(null);
-  const minimizeRef = useRef(null);
-  const expandRef = useRef(null);
-  const openerRef = useRef(null);
-  const previousOverflowRef = useRef("");
-  const [isMinimized, setIsMinimized] = useState(false);
-  const hasTrailer = Boolean(movie.trailerKey);
-  const isActive = hasTrailer && (isOpen || isMinimized);
-
-  // ─── Effects: open state & scroll lock ────────────────────────────────────────
-
-  useEffect(() => {
-    if (isOpen) {
-      openerRef.current = document.activeElement;
-      previousOverflowRef.current = document.body.style.overflow;
-      requestAnimationFrame(() => minimizeRef.current?.focus());
-      return undefined;
-    }
-
-    if (
-      openerRef.current instanceof HTMLElement &&
-      openerRef.current.isConnected
-    ) {
-      openerRef.current.focus();
-    }
-    return undefined;
-  }, [isOpen]);
-
-  useEffect(() => {
-    document.body.style.overflow =
-      isOpen && !isMinimized ? "hidden" : previousOverflowRef.current;
-  }, [isOpen, isMinimized]);
-
-  useEffect(() => {
-    if (!isActive || isMinimized) return undefined;
-
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        setIsMinimized(true);
-        requestAnimationFrame(() => expandRef.current?.focus());
-        return;
-      }
-
-      if (event.key !== "Tab") return;
-
-      const focusable = playerRef.current?.querySelectorAll(
-        "button:not([disabled]), iframe",
-      );
-      if (!focusable?.length) {
-        event.preventDefault();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    const handleFocusIn = (event) => {
-      if (playerRef.current?.contains(event.target)) return;
-      playerRef.current
-        ?.querySelector("button:not([disabled]), iframe")
-        ?.focus();
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("focusin", handleFocusIn);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("focusin", handleFocusIn);
-    };
-  }, [isActive, isMinimized]);
-
-  useEffect(
-    () => () => {
-      document.body.style.overflow = previousOverflowRef.current;
-    },
-    [],
-  );
-
+  const {
+    playerRef,
+    minimizeRef,
+    expandRef,
+    isMinimized,
+    isActive,
+    minimizePlayer,
+    expandPlayer,
+    stopPlayer,
+  } = useTrailerDialog(movie, isOpen, onClose);
   if (!isActive) return null;
-
-  // ─── Handlers: minimize, expand & stop ────────────────────────────────────────
-
-  const minimizePlayer = () => {
-    setIsMinimized(true);
-    requestAnimationFrame(() => expandRef.current?.focus());
-  };
-
-  const expandPlayer = () => {
-    setIsMinimized(false);
-    requestAnimationFrame(() => minimizeRef.current?.focus());
-  };
-
-  const stopPlayer = () => {
-    setIsMinimized(false);
-    onClose();
-  };
-
-  // ─── Render: portal trailer dialog ────────────────────────────────────────────
 
   return createPortal(
     <section

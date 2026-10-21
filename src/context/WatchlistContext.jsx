@@ -1,15 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useNotification } from "./NotificationContext";
+import useWatchlistSync from "../hooks/watchlist/useWatchlistSync";
+import useWatchlistActions from "../hooks/watchlist/useWatchlistActions";
 
 // ─── Constants: watchlist context key ─────────────────────────────────────────
 
@@ -23,230 +18,22 @@ const WatchlistSessionProvider = ({
   showNotification,
   userId,
 }) => {
-  // ─── State: watchlist, loading & retry ────────────────────────────────────────
-
-  const [watchlist, setWatchlist] = useState([]);
-  const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
-    () => new Set(),
+  const { watchlist, loading, error, retry } = useWatchlistSync(
+    userId,
+    showNotification,
   );
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(() => Boolean(userId));
-  const [retryVersion, setRetryVersion] = useState(0);
-  const retry = useCallback(() => {
-    setLoading(true);
-    setError(false);
-    setRetryVersion((version) => version + 1);
-  }, []);
-
-  // ─── Effects: Firestore snapshot subscription ─────────────────────────────────
-
-  useEffect(() => {
-    if (!userId) {
-      return undefined;
-    }
-
-    let cancelled = false;
-    let unsubscribe;
-
-    const subscribe = async () => {
-      try {
-        const [firestore, { db }, watchlistModule] = await Promise.all([
-          import("firebase/firestore"),
-          import("../firebase/firestore"),
-          import("../firebase/watchlist"),
-        ]);
-
-        if (cancelled) {
-          return;
-        }
-
-        const watchlistDocRef = firestore.doc(
-          db,
-          watchlistModule.WATCHLISTS_COLLECTION,
-          userId,
-        );
-        unsubscribe = firestore.onSnapshot(
-          watchlistDocRef,
-          (snapshot) => {
-            setWatchlist(watchlistModule.getWatchlistMovies(snapshot));
-            setError(false);
-            setLoading(false);
-          },
-          (subscriptionError) => {
-            console.error("[watchlist] Failed to subscribe", subscriptionError);
-            setError(true);
-            setLoading(false);
-            showNotification(
-              "We couldn't sync your watchlist right now.",
-              "error",
-            );
-          },
-        );
-      } catch (subscriptionError) {
-        if (cancelled) {
-          return;
-        }
-
-        console.error(
-          "[watchlist] Failed to initialize subscription",
-          subscriptionError,
-        );
-        setError(true);
-        setLoading(false);
-        showNotification("We couldn't sync your watchlist right now.", "error");
-      }
-    };
-
-    subscribe();
-
-    return () => {
-      cancelled = true;
-      unsubscribe?.();
-    };
-  }, [showNotification, userId, retryVersion]);
-
-  // ─── Selectors & Actions: ids, add/remove/toggle ──────────────────────────────
-
-  const watchlistIds = useMemo(
-    () => new Set(watchlist.map((movie) => movie.id)),
-    [watchlist],
-  );
-
-  const isSavingToWatchlist = useCallback(
-    (movieId) => pendingWatchlistIds.has(movieId),
-    [pendingWatchlistIds],
-  );
-
-  const addToWatchlist = useCallback(
-    async (movie) => {
-      if (!userId) {
-        onRequireSignIn("Sign in to save movies to your watchlist.", movie);
-        return false;
-      }
-
-      if (watchlistIds.has(movie.id)) {
-        showNotification(
-          `${movie.title} is already in your watchlist.`,
-          "info",
-          movie,
-        );
-        return false;
-      }
-
-      if (pendingWatchlistIds.has(movie.id)) {
-        return false;
-      }
-
-      setPendingWatchlistIds((previous) => new Set(previous).add(movie.id));
-      try {
-        const [{ db }, { addToWatchlist: addMovieToWatchlist }] =
-          await Promise.all([
-            import("../firebase/firestore"),
-            import("../firebase/watchlist"),
-          ]);
-        await addMovieToWatchlist(db, userId, movie);
-        showNotification(
-          `${movie.title} added to your watchlist.`,
-          "success",
-          movie,
-        );
-        return true;
-      } catch (error) {
-        console.error("[watchlist] Failed to add movie", error);
-        showNotification(
-          "We couldn't add that movie to your watchlist.",
-          "error",
-          movie,
-        );
-        return false;
-      } finally {
-        setPendingWatchlistIds((previous) => {
-          const next = new Set(previous);
-          next.delete(movie.id);
-          return next;
-        });
-      }
-    },
-    [
-      onRequireSignIn,
-      pendingWatchlistIds,
-      showNotification,
-      userId,
-      watchlistIds,
-    ],
-  );
-
-  const removeFromWatchlist = useCallback(
-    async (movieId) => {
-      if (!userId) {
-        onRequireSignIn(
-          "Sign in to manage your watchlist.",
-          watchlist.find((watchlistMovie) => watchlistMovie.id === movieId),
-        );
-        return false;
-      }
-
-      const movie = watchlist.find(
-        (watchlistMovie) => watchlistMovie.id === movieId,
-      );
-      if (!movie) {
-        return false;
-      }
-
-      if (pendingWatchlistIds.has(movieId)) {
-        return false;
-      }
-
-      setPendingWatchlistIds((previous) => new Set(previous).add(movieId));
-      try {
-        const [{ db }, { removeFromWatchlist: removeMovieFromWatchlist }] =
-          await Promise.all([
-            import("../firebase/firestore"),
-            import("../firebase/watchlist"),
-          ]);
-        await removeMovieFromWatchlist(db, userId, movieId);
-        showNotification(
-          `Removed ${movie.title} from your watchlist.`,
-          "info",
-          movie,
-        );
-        return true;
-      } catch (error) {
-        console.error("[watchlist] Failed to remove movie", error);
-        showNotification(
-          "We couldn't remove that movie right now.",
-          "error",
-          movie,
-        );
-        return false;
-      } finally {
-        setPendingWatchlistIds((previous) => {
-          const next = new Set(previous);
-          next.delete(movieId);
-          return next;
-        });
-      }
-    },
-    [onRequireSignIn, pendingWatchlistIds, showNotification, userId, watchlist],
-  );
-
-  const isInWatchlist = useCallback(
-    (movieId) => watchlistIds.has(movieId),
-    [watchlistIds],
-  );
-
-  const toggleWatchlist = useCallback(
-    async (movie) => {
-      if (watchlistIds.has(movie.id)) {
-        return removeFromWatchlist(movie.id);
-      }
-
-      return addToWatchlist(movie);
-    },
-    [addToWatchlist, removeFromWatchlist, watchlistIds],
-  );
-
-  // ─── Context Value: memoized watchlist API ────────────────────────────────────
+  const {
+    isSavingToWatchlist,
+    addToWatchlist,
+    removeFromWatchlist,
+    isInWatchlist,
+    toggleWatchlist,
+  } = useWatchlistActions({
+    watchlist,
+    userId,
+    onRequireSignIn,
+    showNotification,
+  });
 
   const value = useMemo(
     () => ({

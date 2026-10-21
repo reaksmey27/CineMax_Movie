@@ -1,65 +1,30 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
-import { tmdbService } from "../../services/tmdbService";
-import {
-  DEFAULT_DISCOVER_SORT,
-  DISCOVER_SORT_OPTIONS,
-} from "../../config/movieFilters";
+import { DEFAULT_DISCOVER_SORT } from "../../config/movieFilters";
 
-// ─── Constants: allowed discover sort values ──────────────────────────────────
-
-const DISCOVER_SORT_VALUES = new Set(
-  DISCOVER_SORT_OPTIONS.map((option) => option.value),
-);
-
-// ─── useMovies: URL-synced browse & filter state ──────────────────────────────
+import { parseMovieSearchParams } from "./movieSearchParams";
+import useMovieGenres from "./useMovieGenres";
+import useMovieResults from "./useMovieResults";
 
 const useMovies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // ─── URL State: parse filters from query string ───────────────────────────────
 
-  const page = parseInt(searchParams.get("page") || "1", 10);
-  const genreParam = searchParams.get("genre");
-  const parsedGenre = genreParam ? parseInt(genreParam, 10) : null;
-  const selectedGenre = Number.isNaN(parsedGenre) ? null : parsedGenre;
-  const collectionParam = searchParams.get("collection");
-  const collection = ["top-rated", "now-playing"].includes(collectionParam)
-    ? collectionParam
-    : "";
-  const collectionTitle =
-    collection === "top-rated"
-      ? "Top Rated"
-      : collection === "now-playing"
-        ? "Now Playing"
-        : "";
-  const searchQuery = searchParams.get("q") || "";
-  const releaseYearParam = searchParams.get("year") || "";
-  const minRatingParam = searchParams.get("rating") || "";
-  const sortParam = searchParams.get("sort") || DEFAULT_DISCOVER_SORT;
-  const releaseYear = /^\d{4}$/.test(releaseYearParam) ? releaseYearParam : "";
-  const minRating = /^\d+(\.\d+)?$/.test(minRatingParam) ? minRatingParam : "";
-  const sortBy = DISCOVER_SORT_VALUES.has(sortParam)
-    ? sortParam
-    : DEFAULT_DISCOVER_SORT;
-
-  // ─── State: results, genres & loading flags ───────────────────────────────────
-
-  const [movies, setMovies] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [genresLoading, setGenresLoading] = useState(true);
-  const [genresError, setGenresError] = useState(false);
-  const [genreRetry, setGenreRetry] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [totalPages, setTotalPages] = useState(0);
-  const [error, setError] = useState(null);
-  const hasActiveFilters = Boolean(
-    collection ||
-    selectedGenre ||
-    releaseYear ||
-    minRating ||
-    sortBy !== DEFAULT_DISCOVER_SORT,
-  );
+  const filters = parseMovieSearchParams(searchParams);
+  const {
+    page,
+    selectedGenre,
+    collectionTitle,
+    searchQuery,
+    releaseYear,
+    minRating,
+    sortBy,
+    hasActiveFilters,
+  } = filters;
+  const { genres, genresLoading, genresError, retryGenres } = useMovieGenres();
+  const { movies, loading, totalPages, error, setError } =
+    useMovieResults(filters);
 
   // ─── URL Helpers: write filter updates ────────────────────────────────────────
 
@@ -85,111 +50,6 @@ const useMovies = () => {
     [setSearchParams],
   );
 
-  // ─── Fetch: genres, retry & movie results ─────────────────────────────────────
-
-  const retryGenres = useCallback(() => {
-    setGenreRetry((current) => current + 1);
-  }, []);
-
-  useEffect(() => {
-    let ignore = false;
-
-    const fetchGenres = async () => {
-      setGenresLoading(true);
-      try {
-        const genreData = await tmdbService.getGenres();
-        if (!ignore) {
-          setGenres(genreData);
-          setGenresError(false);
-        }
-      } catch (err) {
-        if (!ignore) {
-          console.error("Error fetching genres:", err);
-          setGenresError(true);
-        }
-      } finally {
-        if (!ignore) {
-          setGenresLoading(false);
-        }
-      }
-    };
-
-    fetchGenres();
-    return () => {
-      ignore = true;
-    };
-  }, [genreRetry]);
-
-  useEffect(() => {
-    let ignore = false;
-
-    const fetchMovies = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        let response;
-        if (searchQuery.trim()) {
-          response = await tmdbService.searchMovies(searchQuery, page);
-        } else if (collection) {
-          response = await tmdbService.getMovieCollection(collection, page);
-        } else {
-          response = await tmdbService.discoverMovies(page, {
-            genreId: selectedGenre,
-            releaseYear,
-            minRating,
-            sortBy,
-          });
-        }
-
-        if (!ignore && response?.results) {
-          setMovies(response.results.map(tmdbService.formatMovieData));
-          setTotalPages(Math.min(response.total_pages, 100));
-        }
-      } catch (err) {
-        if (!ignore) {
-          console.error("Error fetching movies:", err);
-          let errorMessage =
-            "Unable to connect to the movie database. Please check your network.";
-
-          if (
-            err.message?.includes("Invalid TMDB credentials") ||
-            err.message?.includes("TMDB credentials are missing") ||
-            err.message?.includes("401")
-          ) {
-            errorMessage =
-              "Invalid TMDB credentials. Update VITE_TMDB_API_KEY or VITE_TMDB_READ_ACCESS_TOKEN in your .env file, then restart Vite.";
-          } else if (
-            err.message?.includes("Network error") ||
-            err.message?.includes("Failed to fetch")
-          ) {
-            errorMessage =
-              "Network error. Please check your internet connection or try using a VPN.";
-          }
-
-          setError(errorMessage);
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
-      }
-    };
-
-    const debounceTimer = setTimeout(fetchMovies, searchQuery ? 500 : 0);
-    return () => {
-      ignore = true;
-      clearTimeout(debounceTimer);
-    };
-  }, [
-    collection,
-    minRating,
-    page,
-    releaseYear,
-    searchQuery,
-    selectedGenre,
-    sortBy,
-  ]);
-
   // ─── Actions: search, filter & pagination handlers ────────────────────────────
 
   const handleGenreChange = useCallback(
@@ -197,7 +57,7 @@ const useMovies = () => {
       updateParams({ genre: genreId, page: 1, q: null });
       setError(null);
     },
-    [updateParams],
+    [setError, updateParams],
   );
 
   const handleSearch = useCallback(
@@ -205,20 +65,20 @@ const useMovies = () => {
       updateParams({ q: value, page: 1 });
       setError(null);
     },
-    [updateParams],
+    [setError, updateParams],
   );
 
   const clearSearch = useCallback(() => {
     updateParams({ q: null, page: 1 });
     setError(null);
-  }, [updateParams]);
+  }, [setError, updateParams]);
 
   const handleYearChange = useCallback(
     (value) => {
       updateParams({ year: value || null, page: 1, q: null });
       setError(null);
     },
-    [updateParams],
+    [setError, updateParams],
   );
 
   const handleRatingChange = useCallback(
@@ -226,7 +86,7 @@ const useMovies = () => {
       updateParams({ rating: value || null, page: 1, q: null });
       setError(null);
     },
-    [updateParams],
+    [setError, updateParams],
   );
 
   const handleSortChange = useCallback(
@@ -238,7 +98,7 @@ const useMovies = () => {
       });
       setError(null);
     },
-    [updateParams],
+    [setError, updateParams],
   );
 
   const clearFilters = useCallback(() => {
@@ -250,7 +110,7 @@ const useMovies = () => {
       page: 1,
     });
     setError(null);
-  }, [updateParams]);
+  }, [setError, updateParams]);
 
   const handlePageChange = useCallback(
     (newPage) => {

@@ -1,141 +1,13 @@
 import { useEffect, useState } from "react";
-import { tmdbService } from "../../services/tmdbService";
 import { useAuth } from "../../context/AuthContext";
-
-// ─── Helpers: build embed URLs with params ────────────────────────────────────
-
-const buildUrl = (baseUrl, params = {}) => {
-  const searchParams = new URLSearchParams(
-    Object.entries(params).filter(
-      ([, value]) => value !== undefined && value !== null,
-    ),
-  );
-
-  return searchParams.size ? `${baseUrl}?${searchParams.toString()}` : baseUrl;
-};
-
-// ─── Constants: player servers, timeout & blocked ads ─────────────────────────
-
-const SERVERS = [
-  {
-    name: "Server 1",
-    qualityLabel: "Primary",
-    description: "Fastest default source",
-    url: (id) =>
-      buildUrl(`https://vidsrc.pm/embed/movie/${id}`, {
-        autoplay: "1",
-      }),
-  },
-  {
-    name: "Server 2",
-    qualityLabel: "Fallback",
-    description: "Try this if playback is slow",
-    url: (id) =>
-      buildUrl(`https://vidsrc.xyz/embed/movie/${id}`, {
-        autoplay: "1",
-      }),
-  },
-  {
-    name: "Server 3",
-    qualityLabel: "Fallback",
-    description: "Useful when other servers fail",
-    url: (id) =>
-      buildUrl(`https://vidsrc-embed.ru/embed/movie/${id}`, {
-        autoplay: "1",
-      }),
-  },
-  {
-    name: "Server 4",
-    qualityLabel: "Legacy",
-    description: "Older source with broad compatibility",
-    url: (id) =>
-      buildUrl("https://vidsrc.me/embed/movie", {
-        tmdb: id,
-        autoplay: "1",
-      }),
-  },
-];
+import { SERVERS } from "../../config/playerServers";
+import {
+  patchWindowOpen,
+  blockFocusRedirect,
+} from "../../utils/player/adGuards";
+import useMovieDetailsData from "./useMovieDetailsData";
 
 const PLAYER_TIMEOUT_MS = 12000;
-
-// Block bad popup/redirect ads from iframe
-const BAD_URL_KEYWORDS = [
-  "porn",
-  "xxx",
-  "adult",
-  "sex",
-  "nude",
-  "naked",
-  "onlyfans",
-  "cam4",
-  "chaturbate",
-  "xvideos",
-  "xhamster",
-  "redtube",
-  "brazzers",
-  "escort",
-  "dating18",
-  "hookup",
-  "nsfw",
-  "casino",
-  "poker",
-  "betting",
-  "slots",
-  "gambling",
-  "wager",
-  "popads",
-  "popcash",
-  "trafficjunky",
-  "exoclick",
-  "juicyads",
-  "adsterra",
-  "hilltopads",
-  "propellerads",
-  "clickadu",
-  "adcash",
-  "proceedflow",
-  "go.php",
-  "click.php",
-  "redirect.php",
-  "track.php",
-  "adf.ly",
-  "shorte.st",
-];
-
-// ─── Guards: block ad popups & focus theft ────────────────────────────────────
-
-const isBadUrl = (url) => {
-  try {
-    const lower = url.toLowerCase();
-    return BAD_URL_KEYWORDS.some((kw) => lower.includes(kw));
-  } catch {
-    return false;
-  }
-};
-
-const patchWindowOpen = () => {
-  if (window.__adBlockPatched) return;
-  window.__adBlockPatched = true;
-  const _open = window.open.bind(window);
-  window.open = (url = "", ...args) => {
-    if (!url || isBadUrl(String(url))) {
-      console.warn("[AdBlock] Blocked popup:", url);
-      return null;
-    }
-    return _open(url, ...args);
-  };
-};
-
-const blockFocusRedirect = () => {
-  const handler = () => {
-    setTimeout(() => {
-      if (document.activeElement?.tagName === "IFRAME") return;
-      window.focus();
-    }, 50);
-  };
-  window.addEventListener("blur", handler);
-  return () => window.removeEventListener("blur", handler);
-};
 
 // Patch immediately on module load
 patchWindowOpen();
@@ -144,8 +16,7 @@ patchWindowOpen();
 
 const useMovieDetail = (id) => {
   const { isAuthenticated, loading: authLoading } = useAuth();
-  const [movie, setMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { movie, loading } = useMovieDetailsData(id);
 
   const [showTrailer, setShowTrailer] = useState(false);
   const [playRequested, setIsPlaying] = useState(false);
@@ -157,36 +28,11 @@ const useMovieDetail = (id) => {
 
   // ─── Effects: fetch movie & drive player ──────────────────────────────────────
 
+  // Preserve the existing player reset timing when auth, movie, or source changes.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!isAuthenticated) setIsPlaying(false);
   }, [isAuthenticated]);
-
-  useEffect(() => {
-    let ignore = false;
-
-    const fetchDetails = async () => {
-      setLoading(true);
-      try {
-        const data = await tmdbService.getMovieDetails(id);
-        if (!ignore && data) {
-          setMovie(tmdbService.formatMovieData(data));
-        }
-      } catch (error) {
-        if (!ignore) {
-          console.error("Error fetching movie details:", error);
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchDetails();
-    return () => {
-      ignore = true;
-    };
-  }, [id]);
 
   useEffect(() => {
     setIsPlaying(false);
@@ -205,6 +51,7 @@ const useMovieDetail = (id) => {
     setIframeLoading(true);
     setPlayerMessage("");
   }, [isPlaying, activeServer, id, playerInstance]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     if (!isPlaying || !iframeLoading) return;
