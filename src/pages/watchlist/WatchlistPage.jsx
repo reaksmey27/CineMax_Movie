@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import MovieGrid from "../../components/ui/MovieGrid";
-import PageLoader from "../../components/ui/PageLoader";
+import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import { useAuth } from "../../context/AuthContext";
 import { useWatchlist } from "../../context/WatchlistContext";
 import { useLanguage } from "../../context/LanguageContext";
@@ -15,15 +15,6 @@ const WatchlistPage = () => {
   const { isAuthenticated } = useAuth();
   const { t } = useLanguage();
   const { watchlist, loading } = useWatchlist();
-
-  if (loading) {
-    return (
-      <PageLoader
-        color="border-amber-500"
-        label={t("Syncing Your Watchlist...")}
-      />
-    );
-  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 px-4 pb-16 pt-22 sm:px-6 sm:pb-24 sm:pt-28 lg:px-24 lg:pt-36 xl:px-40">
@@ -61,6 +52,11 @@ const WatchlistPage = () => {
               {t("Sign In")}
             </Link>
           </div>
+        ) : loading ? (
+          <>
+            <span className="sr-only">{t("Syncing Your Watchlist...")}</span>
+            <MovieGridSkeleton />
+          </>
         ) : watchlist.length === 0 ? (
           <div className="flex min-h-[20rem] flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-[25rem] sm:p-12">
             <BookmarkIcon className="mb-6 h-16 w-16 text-gray-600" />

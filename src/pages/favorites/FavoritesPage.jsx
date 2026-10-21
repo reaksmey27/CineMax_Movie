@@ -4,7 +4,7 @@ import { useFavorites } from "../../context/FavoritesContext";
 import { useAuth } from "../../context/AuthContext";
 import MovieGrid from "../../components/ui/MovieGrid";
 import PageError from "../../components/ui/PageError";
-import PageLoader from "../../components/ui/PageLoader";
+import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import { useLanguage } from "../../context/LanguageContext";
 
 // ─── FavoritesPage: saved favorites grid ──────────────────────────────────────
@@ -57,10 +57,10 @@ const FavoritesPage = () => {
             </Link>
           </div>
         ) : loading ? (
-          <PageLoader
-            color="border-purple-500"
-            label={t("Syncing Your Favorites...")}
-          />
+          <>
+            <span className="sr-only">{t("Syncing Your Favorites...")}</span>
+            <MovieGridSkeleton />
+          </>
         ) : error ? (
           <PageError
             message={t(

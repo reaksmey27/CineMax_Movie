@@ -464,10 +464,15 @@ export const NotificationProvider = ({ children }) => {
 
   // ─── Context Value: memoized notification API ─────────────────────────────────
 
+  const historyLoading =
+    !authResolved ||
+    (Boolean(userId) && remoteHistory.userId !== userId && !syncError);
+
   const value = useMemo(
     () => ({
       showNotification,
       history,
+      historyLoading,
       localHistoryCount: localHistory.length,
       unreadCount,
       syncError,
@@ -490,6 +495,7 @@ export const NotificationProvider = ({ children }) => {
       clearHistory,
       getIcon,
       history,
+      historyLoading,
       localHistory.length,
       markAsRead,
       markAllAsRead,

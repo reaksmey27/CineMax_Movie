@@ -242,6 +242,16 @@ const MoviesFilters = ({
           >
             {t("All")}
           </button>
+          {genresLoading && genres.length === 0 && (
+            <div aria-hidden="true" className="flex gap-2">
+              {Array.from({ length: 6 }, (_, index) => (
+                <div
+                  key={index}
+                  className="h-9 w-20 shrink-0 animate-pulse rounded-full bg-white/5"
+                />
+              ))}
+            </div>
+          )}
           {genres.map((genre) => (
             <button
               key={genre.id}

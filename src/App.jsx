@@ -8,11 +8,11 @@ import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import DonationButton from "./components/ui/DonationButton";
-import PageLoader from "./components/ui/PageLoader";
+import PageSkeleton from "./components/ui/PageSkeleton";
 import { AuthModalRoutes, BaseRoutes } from "./config/routes";
 import { AuthProvider } from "./context/AuthContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
-import { LanguageProvider, useLanguage } from "./context/LanguageContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { WatchlistProvider } from "./context/WatchlistContext";
 import useScrollToTop from "./hooks/useScrollToTop";
@@ -34,7 +34,6 @@ const ScrollManager = () => {
 
 const AppContent = ({ theme, toggleTheme }) => {
   const location = useLocation();
-  const { t } = useLanguage();
   const backgroundLocation = location.state?.backgroundLocation;
   const baseLocation = backgroundLocation || location;
 
@@ -45,14 +44,7 @@ const AppContent = ({ theme, toggleTheme }) => {
       <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
         <main className="relative">
-          <Suspense
-            fallback={
-              <PageLoader
-                color="border-purple-500"
-                label={t("Loading Experience...")}
-              />
-            }
-          >
+          <Suspense fallback={<PageSkeleton />}>
             <div key={baseLocation.pathname} className="animate-page-enter">
               <BaseRoutes location={baseLocation} />
             </div>

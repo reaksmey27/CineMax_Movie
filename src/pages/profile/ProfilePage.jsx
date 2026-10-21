@@ -5,7 +5,7 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import useProfile from "../../hooks/auth/useProfile";
-import PageLoader from "../../components/ui/PageLoader";
+import ProfileSkeleton from "./components/ProfileSkeleton";
 import ProfileCollection from "./components/ProfileCollection";
 import ProfileForm from "./components/ProfileForm";
 import { useLanguage } from "../../context/LanguageContext";
@@ -28,7 +28,13 @@ const ProfilePage = () => {
     }
   };
   const { user, loading, isEditing, setIsEditing } = profile;
-  if (loading) return <PageLoader label={t("Loading your profile...")} />;
+  if (loading)
+    return (
+      <>
+        <span className="sr-only">{t("Loading your profile...")}</span>
+        <ProfileSkeleton />
+      </>
+    );
   if (!user)
     return <Navigate to="/login" state={{ returnTo: "/profile" }} replace />;
 

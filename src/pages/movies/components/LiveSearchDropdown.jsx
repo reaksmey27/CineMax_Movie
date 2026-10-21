@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { ArrowPathIcon, FilmIcon, StarIcon } from "@heroicons/react/24/outline";
+import { FilmIcon, StarIcon } from "@heroicons/react/24/outline";
 
 import { tmdbService } from "../../../services/tmdbService";
 import { useLanguage } from "../../../context/LanguageContext";
+import ListSkeleton from "../../../components/ui/ListSkeleton";
 
 const LIVE_SEARCH_LIMIT = 6;
 
@@ -63,12 +64,9 @@ const LiveSearchDropdown = ({
         </div>
 
         {isLoading ? (
-          <div
-            role="status"
-            className="flex items-center gap-3 px-4 py-6 text-sm text-[var(--color-text-muted)]"
-          >
-            <ArrowPathIcon className="h-4 w-4 animate-spin text-purple-400" />
-            {t("Searching movies...")}
+          <div role="status" className="px-2.5 py-3">
+            <span className="sr-only">{t("Searching movies...")}</span>
+            <ListSkeleton count={3} compact />
           </div>
         ) : hasResults ? (
           <ul

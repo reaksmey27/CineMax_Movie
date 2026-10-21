@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useNotification } from "../../context/NotificationContext";
 import { useLanguage } from "../../context/LanguageContext";
+import ListSkeleton from "../../components/ui/ListSkeleton";
 
 // ─── Constants: history filters ───────────────────────────────────────────────
 
@@ -64,6 +65,7 @@ const NotificationsPage = () => {
   const { language, t } = useLanguage();
   const {
     history,
+    historyLoading,
     localHistoryCount,
     unreadCount,
     markAsRead,
@@ -301,7 +303,12 @@ const NotificationsPage = () => {
           className="overflow-hidden rounded-3xl border border-(--color-border) bg-(--color-panel-bg) shadow-2xl"
           aria-live="polite"
         >
-          {filteredHistory.length === 0 ? (
+          {historyLoading ? (
+            <div role="status" className="p-4 sm:p-6">
+              <span className="sr-only">{t("Loading notifications...")}</span>
+              <ListSkeleton count={4} />
+            </div>
+          ) : filteredHistory.length === 0 ? (
             <div className="flex min-h-80 flex-col items-center justify-center px-6 py-14 text-center sm:min-h-96">
               <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-(--color-border) bg-(--color-surface-1)">
                 <BellIcon

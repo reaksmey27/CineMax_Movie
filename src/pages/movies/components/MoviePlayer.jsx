@@ -134,8 +134,13 @@ const MoviePlayer = ({
             )}
           </div>
           {iframeLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-              <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-purple-500" />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/70 px-8 backdrop-blur-sm"
+            >
+              <div className="h-4 w-2/3 max-w-64 animate-pulse rounded-full bg-white/20" />
+              <div className="h-3 w-1/2 max-w-44 animate-pulse rounded-full bg-white/10" />
+              <div className="h-3 w-1/3 max-w-32 animate-pulse rounded-full bg-white/5" />
             </div>
           )}
         </div>
