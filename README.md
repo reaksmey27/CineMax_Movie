@@ -14,6 +14,8 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Responsive interface:** light and dark themes, visible card titles and ratings, keyboard focus indicators, and reduced-motion support.
 - **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font.
 - **Donation card:** QR download and copyable payment details in a dialog that fits the viewport.
+- **Detailed footer:** explore links, genre shortcuts, TMDB attribution and social buttons, plus a newsletter sign-up with instant confirmation.
+- **Legal pages:** privacy policy and terms of use, linked from the footer and included in the sitemap.
 
 ## Stack
 
@@ -36,8 +38,8 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 Use **Node.js 22.12 or newer** and npm. The installed Vite version requires Node `^20.19.0 || >=22.12.0`; Node 16 is not supported.
 
 ```sh
-git clone https://github.com/reaksmey27/Movie-Website.git
-cd Movie-Website
+git clone https://github.com/reaksmey27/CineMax_Movie.git
+cd CineMax_Movie
 npm ci
 ```
 
@@ -145,7 +147,7 @@ Open the local URL printed by Vite. Movie browsing needs TMDB access; sign-in an
 
 `npm test` runs the SEO regression tests and Firestore Emulator integration tests for saving/reloading Favorites, Watchlist, and notification history and denying access from another user. It requires Java to run the emulator. The tests use a demo project and do not connect to your live Firebase project. You can run only the SEO tests with `node --test tests/seo.test.js`.
 
-`npm run test:ui` runs notification-history and trailer-player browser tests in Chromium. Install the browser once with `npx playwright install chromium`. The tests start a local Vite server and use mocked movie data and test-only Firebase configuration.
+`npm run test:ui` runs the Chromium browser suite: navbar branding and theme, home discovery and genre retry, keyboard movie filters, notification history, the trailer player, and footer links to the legal pages. Install the browser once with `npx playwright install chromium`. The tests start a local Vite server and use mocked movie data and test-only Firebase configuration.
 
 Firestore uses a persistent browser cache when the browser supports it, so signed-in notification changes can queue offline and sync after reconnecting. If persistent browser storage is unavailable, the app falls back to memory cache. Sign out on shared devices because Firestore's local cache is not encrypted.
 
@@ -180,6 +182,8 @@ Favorites saved in browser storage before Firestore syncing was added are not im
 | `/profile`                       | Profile and saved collections              |
 | `/profile?tab=watchlist`         | Profile with the Watchlist tab selected    |
 | `/login`, `/signup`, `/register` | Authentication; `/register` aliases signup |
+| `/privacy`                       | Privacy policy                             |
+| `/terms`                         | Terms of use                               |
 
 The Movies page supports `q`, `genre`, `year`, `rating`, `sort`, and `page` query parameters. Selecting a discovery filter exits a named collection or active search.
 
@@ -212,7 +216,7 @@ src/
     auth/         Authentication forms and profile editing
     movies/       Discovery, collections, details, player state
   i18n/           Language registry and per-language locale files
-  pages/          Home, movies, profile, saved lists, notifications, authentication
+  pages/          Home, movies, profile, saved lists, notifications, authentication, legal
   services/       TMDB requests, caching, data formatting
   utils/          Theme and authentication redirect helpers
   index.css       Shared styles, theme variables, and animations
@@ -259,7 +263,7 @@ Donation account details and the QR image are configured in [`DonationModal.jsx`
 - Canonical URLs, Open Graph tags, Twitter cards, and page-specific descriptions are managed in `src/config/routeMeta.js`.
 - `SITE_URL` is the canonical production origin. Change it when moving domains; rebuild to regenerate crawler files and metadata.
 - The Vite SEO plugin in `scripts/seo-build.js` generates static metadata for known routes, plus `robots.txt` and `sitemap.xml`. Vercel rewrites serve those HTML files.
-- Public collections are indexable. Account pages, saved lists, search/filter variants, and unknown routes receive `noindex`. They remain crawlable so crawlers can read that directive.
+- Public collections and the privacy and terms pages are indexable. Account pages, saved lists, search/filter variants, and unknown routes receive `noindex`. They remain crawlable so crawlers can read that directive.
 - Movie pages receive titles, descriptions, artwork, and Movie JSON-LD from TMDB after JavaScript loads. The homepage includes WebSite JSON-LD. Pagination uses ordinary links.
 - This remains a client-rendered app: static metadata generation is not full prerendering. Movie-specific social previews require a crawler that executes JavaScript; server rendering would be needed for reliable movie previews in other crawlers. Unknown routes display a not-found page with `noindex`, but the static-host fallback does not guarantee an HTTP 404 response.
 
