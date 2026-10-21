@@ -1,9 +1,9 @@
 import { Suspense, useEffect, useState } from "react";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 
-// Fixed imports: explicitly adding .jsx extensions for root-level components
-import ErrorBoundary from "./components/ErrorBoundary.jsx";
-import RouteTitleManager from "./components/RouteTitleManager.jsx";
+// Fixed imports: explicit .jsx extensions for shared core components
+import ErrorBoundary from "./components/core/ErrorBoundary.jsx";
+import RouteTitleManager from "./components/core/RouteTitleManager.jsx";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import BackToTopButton from "./components/ui/BackToTopButton";
@@ -53,10 +53,7 @@ const AppContent = ({ theme, toggleTheme }) => {
               />
             }
           >
-            <div
-              key={baseLocation.pathname}
-              className="animate-page-enter"
-            >
+            <div key={baseLocation.pathname} className="animate-page-enter">
               <BaseRoutes location={baseLocation} />
             </div>
             {backgroundLocation && <AuthModalRoutes location={location} />}

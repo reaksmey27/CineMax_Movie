@@ -207,16 +207,18 @@ To add a language:
 src/
   assets/        Flag, icon, and image assets
   components/
+    core/         Error boundary and route title/SEO manager
     layout/       Navigation, global search, footer
     ui/           Shared movie cards, grids, loaders, donation dialog
-  config/         Routes and page metadata
+    auth/         Google sign-in button
+  config/         Routes, page metadata, and movie filter options
   context/        Authentication, favorites, watchlist, notifications
   firebase/       Firebase setup and watchlist persistence
   hooks/
     auth/         Authentication forms and profile editing
     movies/       Discovery, collections, details, player state
   i18n/           Language registry and per-language locale files
-  pages/          Home, movies, profile, saved lists, notifications, authentication, legal
+  pages/          Route pages: home, movies, profile, saved lists, notifications, auth, legal, 404
   services/       TMDB requests, caching, data formatting
   utils/          Theme and authentication redirect helpers
   index.css       Shared styles, theme variables, and animations

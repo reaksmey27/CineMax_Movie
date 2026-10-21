@@ -4,7 +4,7 @@ import { tmdbService } from "../../services/tmdbService";
 import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
-} from "../../pages/movies/constants";
+} from "../../config/movieFilters";
 
 // ─── Constants: allowed discover sort values ──────────────────────────────────
 

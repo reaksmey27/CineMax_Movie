@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 // ─── Lazy Routes: code-split page imports ─────────────────────────────────────
 
-const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
+const NotFoundPage = lazy(() => import("../pages/not-found/NotFoundPage"));
 const HomePage = lazy(() => import("../pages/home/HomePage"));
 const MoviesPage = lazy(() => import("../pages/movies/MoviesPage"));
 const MovieDetailPage = lazy(() => import("../pages/movies/MovieDetailPage"));
@@ -17,8 +17,8 @@ const NotificationsPage = lazy(
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
 const SignupPage = lazy(() => import("../pages/auth/SignupPage"));
 const ProfilePage = lazy(() => import("../pages/profile/ProfilePage"));
-const PrivacyPage = lazy(() => import("../pages/PrivacyPage"));
-const TermsPage = lazy(() => import("../pages/TermsPage"));
+const PrivacyPage = lazy(() => import("../pages/privacy/PrivacyPage"));
+const TermsPage = lazy(() => import("../pages/terms/TermsPage"));
 
 // ─── Base Routes: main app page routes ────────────────────────────────────────
 

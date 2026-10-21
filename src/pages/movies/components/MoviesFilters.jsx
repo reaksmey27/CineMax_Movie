@@ -5,7 +5,7 @@ import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
   MIN_RATING_OPTIONS,
-} from "../constants";
+} from "../../../config/movieFilters";
 import { useLanguage } from "../../../context/LanguageContext";
 
 const LABEL_CLASS = "text-xs font-semibold text-[var(--color-text-muted)]";
