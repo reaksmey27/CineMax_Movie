@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-import WatchHistoryList from "../../components/movies/WatchHistoryList";
 import HeroSection from "./components/HeroSection";
 import HeroSkeleton from "./components/HeroSkeleton";
 import MovieSlider from "./components/MovieSlider";
@@ -88,7 +87,6 @@ const HomePage = () => {
       )}
 
       <div className="relative z-30 mt-8 space-y-10 pb-14 sm:mt-16 sm:space-y-14 sm:pb-20">
-        <WatchHistoryList compact />
         {(showAllGenres ? ROWS : ROWS.slice(0, 6)).map(
           ([key, title, viewAllTo]) => {
             const section = sections[key];

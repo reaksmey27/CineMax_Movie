@@ -180,7 +180,8 @@ test("undo watched preserves progress, updates filters and restores Continue wat
   await page.goto("/");
   await expect(
     page.getByRole("heading", { name: "Continue watching" }),
-  ).toBeVisible();
+  ).toHaveCount(0);
+  await page.goto("/history");
   await page
     .locator("article")
     .getByRole("link", { name: "Continue watching" })
@@ -340,8 +341,7 @@ test("save a movie, return after reload, resume progress, finish and remove", as
   await page.goto("/");
   await expect(
     page.getByRole("heading", { name: "Continue watching" }),
-  ).toBeVisible();
-  await expect(page.locator("article")).toContainText("Example Film");
+  ).toHaveCount(0);
   await page.goto("/history");
   await page.reload();
   await page
