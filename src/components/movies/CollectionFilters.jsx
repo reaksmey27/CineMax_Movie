@@ -5,7 +5,7 @@ import {
 import { useLanguage } from "../../context/LanguageContext";
 
 const CONTROL =
-  "min-h-12 w-full min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";
+  "min-h-11 w-full min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";
 
 export default function CollectionFilters({
   searchLabel,
@@ -24,7 +24,7 @@ export default function CollectionFilters({
   const select = (label, value, onChange, options) => (
     <label className="min-w-0">
       {label}
-      <span className="relative mt-2 block">
+      <span className="relative mt-1.5 block">
         <select
           value={value}
           onChange={(event) => onChange(event.target.value)}
@@ -46,13 +46,13 @@ export default function CollectionFilters({
   return (
     <>
       <div
-        className={`mb-4 grid gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-4 text-sm font-semibold text-[var(--color-text)] sm:grid-cols-2 sm:p-5 ${setStatus ? "lg:grid-cols-[2fr_1fr_1fr]" : "lg:grid-cols-[2fr_1fr]"}`}
+        className={`mb-4 ml-auto grid w-full gap-3 text-xs font-semibold text-[var(--color-text-muted)] sm:grid-cols-2 ${setStatus ? "sm:max-w-[720px] lg:grid-cols-[1.4fr_1fr_1fr]" : "sm:max-w-[520px] sm:grid-cols-[1.4fr_1fr]"}`}
       >
         <label
           className={`min-w-0 ${setStatus ? "sm:col-span-2 lg:col-span-1" : ""}`}
         >
           {searchLabel}
-          <span className="relative mt-2 block">
+          <span className="relative mt-1.5 block">
             <MagnifyingGlassIcon
               aria-hidden="true"
               className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]"
