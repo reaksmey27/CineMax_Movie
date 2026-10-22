@@ -128,10 +128,10 @@ for (const language of ["en", "km"]) {
         `navigation overflow at ${width}`,
       ).toBe(true);
     }
-    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.setViewportSize({ width: 1024, height: 900 });
     await page.locator('[aria-controls="mobile-navigation"]').click();
     await expect(page.locator("#mobile-navigation")).toBeVisible();
-    await page.setViewportSize({ width: 1536, height: 900 });
+    await page.setViewportSize({ width: 1280, height: 900 });
     await expect(page.locator("#mobile-navigation")).toHaveCount(0);
     await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
   });

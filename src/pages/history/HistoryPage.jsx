@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ClockIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
@@ -34,7 +35,20 @@ export default function HistoryPage() {
       ) : history.length ? (
         <WatchHistoryList />
       ) : (
-        <p>{t("Movies you start watching will appear here.")}</p>
+        <div className="flex min-h-64 flex-col items-center justify-center gap-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-5 py-10 text-center sm:min-h-80">
+          <div className="rounded-full bg-purple-500/10 p-4 text-purple-400">
+            <ClockIcon aria-hidden="true" className="h-9 w-9" />
+          </div>
+          <p className="max-w-md leading-relaxed text-[var(--color-text-muted)]">
+            {t("Movies you start watching will appear here.")}
+          </p>
+          <Link
+            to="/movies"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+          >
+            {t("Browse Movies")}
+          </Link>
+        </div>
       )}
       {saveError && (
         <p role="alert" className="mt-4 text-amber-300">

@@ -16,7 +16,7 @@ export default function useNavbarMenus() {
   // ─── Effects: desktop menu close & panel dismissal ───────────────────────────
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1536px)");
+    const desktop = window.matchMedia("(min-width: 1280px)");
     const closeDesktopMenu = () => {
       if (desktop.matches) setIsMenuOpen(false);
     };
