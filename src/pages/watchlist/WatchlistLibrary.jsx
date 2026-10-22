@@ -1,5 +1,5 @@
 import CollectionState from "../../components/movies/CollectionState";
-import { useState } from "react";
+import useCollectionFilters from "../../hooks/useCollectionFilters";
 import MovieCard from "../../components/ui/MovieCard";
 import { useLanguage } from "../../context/LanguageContext";
 import CollectionFilters from "../../components/movies/CollectionFilters";
@@ -12,9 +12,8 @@ export default function WatchlistLibrary({
   isSaving,
 }) {
   const { t } = useLanguage();
-  const [query, setQuery] = useState("");
-  const [status, setStatus] = useState("all");
-  const [sort, setSort] = useState("saved");
+  const { query, setQuery, status, setStatus, sort, setSort, reset } =
+    useCollectionFilters("watchlist");
   const visible = getWatchlistView(movies, query, status, sort);
   const watchedCount = movies.filter((movie) => movie.watched === true).length;
   return (
@@ -31,11 +30,7 @@ export default function WatchlistLibrary({
         total={movies.length}
         watchedCount={watchedCount}
         count={visible.length}
-        reset={() => {
-          setQuery("");
-          setStatus("all");
-          setSort("saved");
-        }}
+        reset={reset}
       />
       {visible.length ? (
         <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">

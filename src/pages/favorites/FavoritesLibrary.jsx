@@ -1,5 +1,5 @@
 import CollectionState from "../../components/movies/CollectionState";
-import { useState } from "react";
+import useCollectionFilters from "../../hooks/useCollectionFilters";
 import { useLanguage } from "../../context/LanguageContext";
 import CollectionFilters from "../../components/movies/CollectionFilters";
 import MovieGrid from "../../components/ui/MovieGrid";
@@ -7,13 +7,9 @@ import { getWatchlistView } from "../watchlist/watchlistView";
 
 export default function FavoritesLibrary({ header, movies }) {
   const { t } = useLanguage();
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("saved");
+  const { query, setQuery, sort, setSort, reset } =
+    useCollectionFilters("favorites");
   const visible = getWatchlistView(movies, query, "all", sort);
-  const reset = () => {
-    setQuery("");
-    setSort("saved");
-  };
   return (
     <section aria-label={t("Favorites")}>
       <CollectionFilters

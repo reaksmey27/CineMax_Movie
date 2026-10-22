@@ -1,5 +1,5 @@
 import CollectionState from "../../components/movies/CollectionState";
-import { useState } from "react";
+import useCollectionFilters from "../../hooks/useCollectionFilters";
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
@@ -12,9 +12,8 @@ const CONTROL =
 
 export default function HistoryLibrary({ header, history }) {
   const { t, language } = useLanguage();
-  const [query, setQuery] = useState("");
-  const [status, setStatus] = useState("all");
-  const [sort, setSort] = useState("recent");
+  const { query, setQuery, status, setStatus, sort, setSort, reset } =
+    useCollectionFilters("history");
   const normalize = (value) =>
     value.normalize("NFKC").toLocaleLowerCase(language);
   const search = normalize(query.trim());
@@ -33,11 +32,6 @@ export default function HistoryLibrary({ header, history }) {
         return (a.title || "").localeCompare(b.title || "", language) || recent;
       return sort === "oldest" ? -recent : recent;
     });
-  const reset = () => {
-    setQuery("");
-    setStatus("all");
-    setSort("recent");
-  };
   return (
     <section aria-label={t("History")}>
       <div className="mb-6 grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-8">
