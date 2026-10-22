@@ -407,6 +407,48 @@ const km = {
   "View all {title} movies": "មើលភាពយន្ត {title} ទាំងអស់",
   "Donation QR code for {name} at {bank}":
     "QR កូដបរិច្ចាគសម្រាប់ {name} នៅ {bank}",
+  "Search watchlist": "ស្វែងរកក្នុងបញ្ជីត្រូវមើល",
+  "Watch status": "ស្ថានភាពមើល",
+  "To watch": "មិនទាន់មើល",
+  Watched: "បានមើលរួច",
+  "Recently saved": "បានរក្សាទុកថ្មីៗ",
+  "Showing {count} of {total} movies":
+    "បង្ហាញភាពយន្ត {count} ក្នុងចំណោម {total}",
+  "Watched: {title}": "បានមើលរួច៖ {title}",
+  "Mark as watched": "សម្គាល់ថាបានមើលរួច",
+  "No saved movies match your search or status.":
+    "គ្មានភាពយន្តដែលបានរក្សាទុកត្រូវនឹងការស្វែងរក ឬស្ថានភាពនេះទេ។",
+  "We couldn't sync your watchlist right now.":
+    "មិនអាចធ្វើសមកាលកម្មបញ្ជីត្រូវមើលរបស់អ្នកនៅពេលនេះបានទេ។",
+  "Cast & crew": "តួសម្ដែង និងក្រុមផលិត",
+  Director: "អ្នកដឹកនាំរឿង",
+  "Director information unavailable.": "មិនមានព័ត៌មានអ្នកដឹកនាំរឿងទេ។",
+  "Cast information unavailable.": "មិនមានព័ត៌មានតួសម្ដែងទេ។",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "ការស្វែងរករបស់អ្នកនៅតែសកម្មពេលប្ដូរតម្រង។ តម្រង និងការតម្រៀបអនុវត្តចំពោះលទ្ធផលស្វែងរករហូតដល់ 2,000។ កំណត់ឆ្នាំចេញផ្សាយ ដើម្បីទទួលបានលទ្ធផលជាក់លាក់ជាងមុន។",
+  "Related movies": "ភាពយន្តពាក់ព័ន្ធ",
+  "Loading related movies...": "កំពុងផ្ទុកភាពយន្តពាក់ព័ន្ធ...",
+  "Could not load related movies.": "មិនអាចផ្ទុកភាពយន្តពាក់ព័ន្ធបានទេ។",
+  "No related movies available yet.": "មិនទាន់មានភាពយន្តពាក់ព័ន្ធទេ។",
+  "Your saved movies and account details, all in one place.":
+    "ភាពយន្តដែលបានរក្សាទុក និងព័ត៌មានគណនីរបស់អ្នកនៅកន្លែងតែមួយ។",
+  "Loading {list}...": "កំពុងផ្ទុក {list}...",
+  "Could not sync {list}.": "មិនអាចធ្វើសមកាលកម្ម {list} បានទេ។",
+  "Please try again to load your saved movies.":
+    "សូមព្យាយាមម្ដងទៀត ដើម្បីផ្ទុកភាពយន្តដែលបានរក្សាទុក។",
+  "{list}: {count}": "{list}៖ {count}",
+  "Your next movie is waiting": "ភាពយន្តបន្ទាប់កំពុងរង់ចាំអ្នក",
+  "Make room for your favorites": "ទុកកន្លែងសម្រាប់ភាពយន្តដែលអ្នកចូលចិត្ត",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "រក្សាទុកភាពយន្តដែលអ្នកចង់មើល ហើយស្វែងរកវានៅទីនេះនៅពេលអ្នករួចរាល់។",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "ចុចបេះដូងលើភាពយន្តដែលអ្នកចូលចិត្ត ដើម្បីចាប់ផ្ដើមបណ្ដុំផ្ទាល់ខ្លួន។",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "ស្វែងរកភាពយន្តបន្ទាប់ រៀបចំភាពយន្តដែលបានរក្សាទុក និងតាមដានអ្វីដែលអ្នកបានមើល។",
+  "This movie is no longer in your watchlist.":
+    "ភាពយន្តនេះលែងមានក្នុងបញ្ជីត្រូវមើលរបស់អ្នកហើយ។",
+  "We couldn't update watched status. Please try again.":
+    "មិនអាចធ្វើបច្ចុប្បន្នភាពស្ថានភាពមើលបានទេ។ សូមព្យាយាមម្ដងទៀត។",
 };
 
 export default km;

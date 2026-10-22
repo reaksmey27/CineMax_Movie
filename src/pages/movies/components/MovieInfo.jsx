@@ -112,7 +112,7 @@ const MovieInfo = ({
                 favoritePending
                   ? isFav
                     ? t("Removing from favorites")
-                    : "Adding to favorites"
+                    : t("Adding to favorites")
                   : isFav
                     ? t("Remove from favorites")
                     : t("Add to favorites")
@@ -150,7 +150,7 @@ const MovieInfo = ({
                 watchlistPending
                   ? isWatchlisted
                     ? t("Removing from watchlist")
-                    : "Adding to watchlist"
+                    : t("Adding to watchlist")
                   : isWatchlisted
                     ? t("Remove from watchlist")
                     : t("Add to watchlist")

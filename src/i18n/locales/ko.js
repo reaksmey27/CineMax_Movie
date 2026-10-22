@@ -402,6 +402,47 @@ const ko = {
   Right: "오른쪽",
   "View all {title} movies": "{title} 영화 모두 보기",
   "Donation QR code for {name} at {bank}": "{bank}의 {name} 후원 QR 코드",
+  "Search watchlist": "관심 목록 검색",
+  "Watch status": "시청 상태",
+  "To watch": "시청 예정",
+  Watched: "시청 완료",
+  "Recently saved": "최근 저장순",
+  "Showing {count} of {total} movies": "전체 {total}편 중 {count}편 표시",
+  "Watched: {title}": "시청 완료: {title}",
+  "Mark as watched": "시청 완료로 표시",
+  "No saved movies match your search or status.":
+    "검색어나 시청 상태에 맞는 저장된 영화가 없습니다.",
+  "We couldn't sync your watchlist right now.":
+    "지금은 관심 목록을 동기화할 수 없습니다.",
+  "Cast & crew": "출연진 및 제작진",
+  Director: "감독",
+  "Director information unavailable.": "감독 정보가 없습니다.",
+  "Cast information unavailable.": "출연진 정보가 없습니다.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "필터를 변경해도 검색이 유지됩니다. 필터와 정렬은 최대 2,000개의 검색 결과에 적용됩니다. 개봉 연도로 범위를 좁히면 더 구체적인 결과를 볼 수 있습니다.",
+  "Related movies": "관련 영화",
+  "Loading related movies...": "관련 영화 불러오는 중...",
+  "Could not load related movies.": "관련 영화를 불러오지 못했습니다.",
+  "No related movies available yet.": "아직 관련 영화가 없습니다.",
+  "Your saved movies and account details, all in one place.":
+    "저장한 영화와 계정 정보를 한곳에서 관리하세요.",
+  "Loading {list}...": "{list} 불러오는 중...",
+  "Could not sync {list}.": "{list} 동기화에 실패했습니다.",
+  "Please try again to load your saved movies.":
+    "저장한 영화를 다시 불러와 주세요.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "다음에 볼 영화가 기다립니다",
+  "Make room for your favorites": "좋아하는 영화를 모아 보세요",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "보고 싶은 영화를 저장하고 준비가 되면 여기에서 찾아보세요.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "좋아하는 영화의 하트를 눌러 나만의 컬렉션을 시작하세요.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "다음 영화를 찾고 저장한 작품을 정리하며 시청한 영화를 기록하세요.",
+  "This movie is no longer in your watchlist.":
+    "이 영화는 더 이상 관심 목록에 없습니다.",
+  "We couldn't update watched status. Please try again.":
+    "시청 상태를 업데이트하지 못했습니다. 다시 시도해 주세요.",
 };
 
 export default ko;

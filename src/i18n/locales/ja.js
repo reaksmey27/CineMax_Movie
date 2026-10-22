@@ -405,6 +405,47 @@ const ja = {
   Right: "右",
   "View all {title} movies": "{title}の映画をすべて見る",
   "Donation QR code for {name} at {bank}": "{bank}の{name}宛て寄付QRコード",
+  "Search watchlist": "ウォッチリストを検索",
+  "Watch status": "視聴状況",
+  "To watch": "未視聴",
+  Watched: "視聴済み",
+  "Recently saved": "最近保存した順",
+  "Showing {count} of {total} movies": "{total}本中{count}本を表示",
+  "Watched: {title}": "視聴済み：{title}",
+  "Mark as watched": "視聴済みにする",
+  "No saved movies match your search or status.":
+    "検索条件や視聴状況に一致する保存済みの映画はありません。",
+  "We couldn't sync your watchlist right now.":
+    "現在、ウォッチリストを同期できませんでした。",
+  "Cast & crew": "キャスト・スタッフ",
+  Director: "監督",
+  "Director information unavailable.": "監督情報はありません。",
+  "Cast information unavailable.": "キャスト情報はありません。",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "フィルターを変更しても検索は維持されます。フィルターと並べ替えは最大2,000件の検索結果に適用されます。公開年で絞り込むと、より具体的な結果が得られます。",
+  "Related movies": "関連する映画",
+  "Loading related movies...": "関連する映画を読み込み中...",
+  "Could not load related movies.": "関連する映画を読み込めませんでした。",
+  "No related movies available yet.": "関連する映画はまだありません。",
+  "Your saved movies and account details, all in one place.":
+    "保存した映画とアカウント情報をまとめて管理できます。",
+  "Loading {list}...": "{list}を読み込み中...",
+  "Could not sync {list}.": "{list}を同期できませんでした。",
+  "Please try again to load your saved movies.":
+    "保存した映画の読み込みをもう一度お試しください。",
+  "{list}: {count}": "{list}：{count}",
+  "Your next movie is waiting": "次に観る映画が待っています",
+  "Make room for your favorites": "お気に入りの映画を集めましょう",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "観たい映画を保存すると、いつでもここから見つけられます。",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "好きな映画のハートをタップしてコレクションを始めましょう。",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "次に観る映画を探し、保存した作品を整理して、視聴済みの映画を記録しましょう。",
+  "This movie is no longer in your watchlist.":
+    "この映画はウォッチリストにありません。",
+  "We couldn't update watched status. Please try again.":
+    "視聴状況を更新できませんでした。もう一度お試しください。",
 };
 
 export default ja;

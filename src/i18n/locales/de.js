@@ -82,18 +82,21 @@ const de = {
   "{count} matches": "{count} Treffer",
   "{count} notification(s) are stored on this device. Import them into your account? Only the 50 newest will be kept.":
     "{count} Benachrichtigungen sind auf diesem Gerät gespeichert. In dein Konto importieren? Nur die 50 neuesten werden behalten.",
-  "{count} saved titles lean this way.": "{count} gespeicherte Titel neigen in diese Richtung.",
+  "{count} saved titles lean this way.":
+    "{count} gespeicherte Titel neigen in diese Richtung.",
   "{count} unread notifications": "{count} ungelesene Benachrichtigungen",
   "{label} copied.": "{label} kopiert.",
   "{name}'s profile photo": "Profilfoto von {name}",
-  "A better way to choose what to watch": "Eine bessere Art zu wählen, was du schauen möchtest",
+  "A better way to choose what to watch":
+    "Eine bessere Art zu wählen, was du schauen möchtest",
   "Account name": "Kontoname",
   "Account number": "Kontonummer",
   "Account Snapshot": "Konto-Überblick",
   "Across the movies you saved.": "Über alle Filme, die du gespeichert hast.",
   "Add a location, genre, and bio to finish your identity.":
     "Füge Ort, Lieblingsgenre und eine Kurzbeschreibung hinzu, um dein Profil abzuschließen.",
-  "Add favorites to unlock insights.": "Füge Favoriten hinzu, um Einblicke freizuschalten.",
+  "Add favorites to unlock insights.":
+    "Füge Favoriten hinzu, um Einblicke freizuschalten.",
   "Add to favorites": "Zu Favoriten hinzufügen",
   "Add to watchlist": "Zur Merksliste hinzufügen",
   "Add your city": "Füge deine Stadt hinzu",
@@ -154,7 +157,8 @@ const de = {
   "Discover filters": "Erkundungsfilter",
   "Discover results tailored to your filters. Page {page} of {totalPages}.":
     "Erkundungsergebnisse, passend zu deinen Filtern. Seite {page} von {totalPages}.",
-  "Donation QR code for {name} at {bank}": "Spenden-QR-Code für {name} bei {bank}",
+  "Donation QR code for {name} at {bank}":
+    "Spenden-QR-Code für {name} bei {bank}",
   "Don't have account?": "Du hast noch kein Konto?",
   "e.g. 2024": "z. B. 2024",
   "Edit profile": "Profil bearbeiten",
@@ -190,7 +194,8 @@ const de = {
   "Go Back": "Zurück",
   "Go to page {page}": "Zu Seite {page} gehen",
   "Highest Rated": "Bestbewertet",
-  "Import browser notification history?": "Browser-Benachrichtigungsverlauf importieren?",
+  "Import browser notification history?":
+    "Browser-Benachrichtigungsverlauf importieren?",
   "Import history": "Verlauf importieren",
   "Imported {count} notification(s). Your account keeps the 50 most recent.":
     "{count} Benachrichtigungen importiert. Dein Konto behält die 50 neuesten.",
@@ -200,7 +205,8 @@ const de = {
   "Keep on this device": "Auf diesem Gerät behalten",
   "Keep up with updates from your CineMax movie experience.":
     "Bleib über Updates aus deinem CineMax-Erlebnis auf dem Laufenden.",
-  "Keep your next pick within reach": "Halb deinen nächsten Favoriten griffbereit",
+  "Keep your next pick within reach":
+    "Halb deinen nächsten Favoriten griffbereit",
   "Live search is unavailable. Press Enter to try the results page.":
     "Live-Suche ist nicht verfügbar. Drücke Enter, um die Ergebnisseite zu versuchen.",
   "Loading {title}": "{title} wird geladen",
@@ -248,7 +254,8 @@ const de = {
     "Benachrichtigungsverlauf konnte nicht synchronisiert werden. Prüfe deine Verbindung und versuche es erneut.",
   "Now Playing": "Jetzt läuft",
   "Now playing on {server}": "Läuft jetzt auf {server}",
-  "Older source with broad compatibility": "Ältere Quelle mit breiter Kompatibilität",
+  "Older source with broad compatibility":
+    "Ältere Quelle mit breiter Kompatibilität",
   "Oldest Release": "Älteste Veröffentlichung",
   "On Fire Today": "Heute im Hype",
   "Once a title catches your eye, open its details to see the synopsis, release year, runtime, genres, and available trailer. That extra context helps you decide if a film fits your mood or the time you have. Compare a few options, revisit a familiar favorite, or let an unexpected story change your plans.":
@@ -259,7 +266,8 @@ const de = {
   "Open trailer player": "Trailer-Player öffnen",
   "Open your ABA app to scan the QR code or transfer using the account number above.":
     "Öffne deine ABA-App, um den QR-Code zu scannen oder mit der obigen Kontonummer zu überweisen.",
-  "Or save the QR code to your phone": "Oder speichere den QR-Code auf deinem Handy",
+  "Or save the QR code to your phone":
+    "Oder speichere den QR-Code auf deinem Handy",
   "Page {page} of {totalPages}": "Seite {page} von {totalPages}",
   "Page not found": "Seite nicht gefunden",
   "Play Movie": "Film abspielen",
@@ -372,7 +380,8 @@ const de = {
   "Try again": "Erneut versuchen",
   "Try browsing a different genre or checking back for more titles.":
     "Durchstöbere ein anderes Genre oder schau später nach weiteren Titeln.",
-  "Try this if playback is slow": "Versuche dies, wenn die Wiedergabe langsam ist",
+  "Try this if playback is slow":
+    "Versuche dies, wenn die Wiedergabe langsam ist",
   "Try widening your filters or reset them to discover more results.":
     "Erweitere deine Filter oder setze sie zurück, um mehr Ergebnisse zu entdecken.",
   "Updates about your saved movies and account activity will appear here.":
@@ -417,6 +426,50 @@ const de = {
     "Dein ultimatives Ziel für die neuesten Blockbuster und zeitlosen Klassiker. Erkunde, entdecke und genieße die Welt des Kinos.",
   "Your watchlist is empty": "Deine Merksliste ist leer",
   "You're all caught up": "Alles erledigt",
+  "Search watchlist": "Merkliste durchsuchen",
+  "Watch status": "Wiedergabestatus",
+  "To watch": "Noch ansehen",
+  Watched: "Gesehen",
+  "Recently saved": "Zuletzt gespeichert",
+  "Showing {count} of {total} movies": "{count} von {total} Filmen angezeigt",
+  "Watched: {title}": "Gesehen: {title}",
+  "Mark as watched": "Als gesehen markieren",
+  "No saved movies match your search or status.":
+    "Keine gespeicherten Filme passen zur Suche oder zum Status.",
+  "We couldn't sync your watchlist right now.":
+    "Deine Merkliste konnte gerade nicht synchronisiert werden.",
+  "Cast & crew": "Besetzung und Team",
+  Director: "Regie",
+  "Director information unavailable.":
+    "Keine Informationen zur Regie verfügbar.",
+  "Cast information unavailable.":
+    "Keine Informationen zur Besetzung verfügbar.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "Deine Suche bleibt beim Ändern der Filter aktiv. Filter und Sortierung gelten für bis zu 2.000 Suchergebnisse. Grenze das Erscheinungsjahr ein, um genauere Ergebnisse zu erhalten.",
+  "Related movies": "Ähnliche Filme",
+  "Loading related movies...": "Ähnliche Filme werden geladen...",
+  "Could not load related movies.":
+    "Ähnliche Filme konnten nicht geladen werden.",
+  "No related movies available yet.": "Noch keine ähnlichen Filme verfügbar.",
+  "Your saved movies and account details, all in one place.":
+    "Deine gespeicherten Filme und Kontodaten an einem Ort.",
+  "Loading {list}...": "{list} wird geladen...",
+  "Could not sync {list}.": "{list} konnte nicht synchronisiert werden.",
+  "Please try again to load your saved movies.":
+    "Versuche erneut, deine gespeicherten Filme zu laden.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "Dein nächster Film wartet",
+  "Make room for your favorites": "Platz für deine Favoriten",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Speichere Filme, die du sehen möchtest, und finde sie hier, sobald du bereit bist.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "Tippe bei einem Film auf das Herz, um deine Sammlung zu beginnen.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "Finde deinen nächsten Film, ordne gespeicherte Titel und behalte den Überblick über gesehene Filme.",
+  "This movie is no longer in your watchlist.":
+    "Dieser Film ist nicht mehr auf deiner Merkliste.",
+  "We couldn't update watched status. Please try again.":
+    "Der Wiedergabestatus konnte nicht aktualisiert werden. Versuche es erneut.",
 };
 
 export default de;

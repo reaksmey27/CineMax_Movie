@@ -96,10 +96,10 @@ const MovieCard = ({
                 watchlistPending
                   ? isSaved
                     ? t("Removing from watchlist")
-                    : "Adding to watchlist"
+                    : t("Adding to watchlist")
                   : isSaved
                     ? t("Remove from watchlist")
-                    : "Add to watchlist"
+                    : t("Add to watchlist")
               }
             >
               {watchlistPending ? (
@@ -129,10 +129,10 @@ const MovieCard = ({
                 favoritePending
                   ? isFav
                     ? t("Removing from favorites")
-                    : "Adding to favorites"
+                    : t("Adding to favorites")
                   : isFav
                     ? t("Remove from favorites")
-                    : "Add to favorites"
+                    : t("Add to favorites")
               }
             >
               {favoritePending ? (

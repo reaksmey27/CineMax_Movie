@@ -81,7 +81,8 @@ const it = {
   "{count} matches": "{count} risultati",
   "{count} notification(s) are stored on this device. Import them into your account? Only the 50 newest will be kept.":
     "Su questo dispositivo sono archiviate {count} notifiche. Vuoi importarle nel tuo account? Verranno conservate solo le 50 più recenti.",
-  "{count} saved titles lean this way.": "{count} titoli salvati vanno in questa direzione.",
+  "{count} saved titles lean this way.":
+    "{count} titoli salvati vanno in questa direzione.",
   "{count} unread notifications": "{count} notifiche non lette",
   "{label} copied.": "{label} copiato.",
   "{name}'s profile photo": "Foto del profilo di {name}",
@@ -149,13 +150,15 @@ const it = {
     "Impossibile rimuovere questo film. Riprova.",
   "Create Account": "Crea account",
   "Creating Account...": "Creazione dell'account…",
-  "Delete {query} from search history": "Elimina {query} dalla cronologia delle ricerche",
+  "Delete {query} from search history":
+    "Elimina {query} dalla cronologia delle ricerche",
   "Delete notification": "Elimina notifica",
   "Discover at your own pace": "Scopri al tuo ritmo",
   "Discover filters": "Filtri di scoperta",
   "Discover results tailored to your filters. Page {page} of {totalPages}.":
     "Risultati di scoperta su misura per i tuoi filtri. Pagina {page} di {totalPages}.",
-  "Donation QR code for {name} at {bank}": "Codice QR di donazione per {name} su {bank}",
+  "Donation QR code for {name} at {bank}":
+    "Codice QR di donazione per {name} su {bank}",
   "Don't have account?": "Non hai un account?",
   "e.g. 2024": "es. 2024",
   "Edit profile": "Modifica profilo",
@@ -174,8 +177,7 @@ const it = {
   "Explore Movies": "Esplora i film",
   "Fastest default source": "Sorgente predefinita più veloce",
   "Featured movies": "Film in evidenza",
-  "Fill in your details to get started.":
-    "Compila i tuoi dati per iniziare.",
+  "Fill in your details to get started.": "Compila i tuoi dati per iniziare.",
   "Filter notifications": "Filtra notifiche",
   "Find movies": "Trova film",
   "Find movies by genre, release year, rating, and sort order.":
@@ -186,8 +188,7 @@ const it = {
     "Hai trovato un film che potresti guardare più tardi? Aggiungilo alla lista da vedere così lo trovi facilmente quando sarà il momento giusto. Salva i preferiti per costruire una collezione personale delle storie che ami. Le tue liste tengono organizzate le possibilità tra una visita e l'altra, rendendo più facile organizzare una serata film, ricordare un consiglio o tenere traccia di cosa vuoi vedere.",
   "Full Name": "Nome completo",
   "Future Releases": "Uscite future",
-  "Get to know a film before pressing play":
-    "Conosci un film premi play",
+  "Get to know a film before pressing play": "Conosci un film premi play",
   "Go Back": "Torna indietro",
   "Go to page {page}": "Vai alla pagina {page}",
   "Highest Rated": "Valutati più in alto",
@@ -202,7 +203,8 @@ const it = {
   "Keep on this device": "Mantieni su questo dispositivo",
   "Keep up with updates from your CineMax movie experience.":
     "Resta aggiornato sulle novità della tua esperienza cinematografica CineMax.",
-  "Keep your next pick within reach": "Tieni a portata di mano la tua prossima scelta",
+  "Keep your next pick within reach":
+    "Tieni a portata di mano la tua prossima scelta",
   "Live search is unavailable. Press Enter to try the results page.":
     "La ricerca live non è disponibile. Premi Invio per provare la pagina dei risultati.",
   "Loading {title}": "Caricamento di {title}",
@@ -211,8 +213,7 @@ const it = {
   "Local notification history could not be imported. It remains on this device; check your connection and retry.":
     "Impossibile importare la cronologia locale delle notifiche. Rimane su questo dispositivo; controlla la connessione e riprova.",
   "Log in to Watch": "Accedi per guardare",
-  "Log in to watch this movie.":
-    "Accedi per guardare questo film.",
+  "Log in to watch this movie.": "Accedi per guardare questo film.",
   "Log out": "Esci",
   "Logging out...": "Disconnessione…",
   "Main navigation": "Navigazione principale",
@@ -224,7 +225,8 @@ const it = {
   "Member Access": "Accesso membro",
   "Minimize and keep watching": "Riduci a icona e continua a guardare",
   "Minimize player": "Riduci il lettore",
-  "Minimize trailer and keep watching": "Riduci il trailer e continua a guardare",
+  "Minimize trailer and keep watching":
+    "Riduci il trailer e continua a guardare",
   "Minimum Rating": "Valutazione minima",
   "Mobile navigation": "Navigazione mobile",
   "Movie collections": "Raccolte di film",
@@ -251,7 +253,8 @@ const it = {
     "Impossibile sincronizzare la cronologia delle notifiche. Controlla la connessione e riprova.",
   "Now Playing": "In programmazione",
   "Now playing on {server}": "In riproduzione su {server}",
-  "Older source with broad compatibility": "Sorgente più datata con ampia compatibilità",
+  "Older source with broad compatibility":
+    "Sorgente più datata con ampia compatibilità",
   "Oldest Release": "Uscita più vecchia",
   "On Fire Today": "In forte crescita oggi",
   "Once a title catches your eye, open its details to see the synopsis, release year, runtime, genres, and available trailer. That extra context helps you decide if a film fits your mood or the time you have. Compare a few options, revisit a familiar favorite, or let an unexpected story change your plans.":
@@ -411,7 +414,8 @@ const it = {
   "Your movie DNA": "Il tuo DNA cinematografico",
   "Your older notifications will remain on this device.":
     "Le tue notifiche più vecchie rimarranno su questo dispositivo.",
-  "Your personal collection is growing.": "La tua collezione personale sta crescendo.",
+  "Your personal collection is growing.":
+    "La tua collezione personale sta crescendo.",
   "Your recent movie searches will appear here for quick access.":
     "Le tue ricerche di film recenti appariranno qui per un accesso rapido.",
   "Your saved movies sync in real time through Firestore, so this page is only available when you are signed in.":
@@ -420,6 +424,49 @@ const it = {
     "La tua destinazione definitiva per gli ultimi blockbuster e i classici senza tempo. Esplora, scopri e goditi il mondo del cinema.",
   "Your watchlist is empty": "La tua lista da vedere è vuota",
   "You're all caught up": "Sei tutto aggiornato",
+  "Search watchlist": "Cerca nella lista",
+  "Watch status": "Stato di visione",
+  "To watch": "Da vedere",
+  Watched: "Visto",
+  "Recently saved": "Salvati di recente",
+  "Showing {count} of {total} movies": "Visualizzati {count} film su {total}",
+  "Watched: {title}": "Visto: {title}",
+  "Mark as watched": "Segna come visto",
+  "No saved movies match your search or status.":
+    "Nessun film salvato corrisponde alla ricerca o allo stato.",
+  "We couldn't sync your watchlist right now.":
+    "Non è stato possibile sincronizzare la tua lista al momento.",
+  "Cast & crew": "Cast e troupe",
+  Director: "Regia",
+  "Director information unavailable.":
+    "Informazioni sulla regia non disponibili.",
+  "Cast information unavailable.": "Informazioni sul cast non disponibili.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "La ricerca resta attiva quando cambi i filtri. Filtri e ordinamento si applicano a un massimo di 2000 risultati. Restringi per anno di uscita per risultati più precisi.",
+  "Related movies": "Film correlati",
+  "Loading related movies...": "Caricamento dei film correlati...",
+  "Could not load related movies.": "Impossibile caricare i film correlati.",
+  "No related movies available yet.":
+    "Nessun film correlato ancora disponibile.",
+  "Your saved movies and account details, all in one place.":
+    "I film salvati e i dati del tuo account in un unico posto.",
+  "Loading {list}...": "Caricamento di {list}...",
+  "Could not sync {list}.": "Impossibile sincronizzare {list}.",
+  "Please try again to load your saved movies.":
+    "Riprova a caricare i film salvati.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "Il tuo prossimo film ti aspetta",
+  "Make room for your favorites": "Fai spazio ai tuoi preferiti",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Salva i film che vuoi vedere e ritrovali qui quando vuoi.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "Tocca il cuore su un film che ami per iniziare la tua raccolta.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "Trova il tuo prossimo film, organizza i titoli salvati e tieni traccia di ciò che hai visto.",
+  "This movie is no longer in your watchlist.":
+    "Questo film non è più nella tua lista.",
+  "We couldn't update watched status. Please try again.":
+    "Impossibile aggiornare lo stato di visione. Riprova.",
 };
 
 export default it;

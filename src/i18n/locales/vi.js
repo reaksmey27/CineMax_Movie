@@ -421,6 +421,47 @@ const vi = {
   Right: "phải",
   "View all {title} movies": "Xem tất cả phim {title}",
   "Donation QR code for {name} at {bank}": "Mã QR ủng hộ {name} qua {bank}",
+  "Search watchlist": "Tìm trong danh sách xem",
+  "Watch status": "Trạng thái xem",
+  "To watch": "Chưa xem",
+  Watched: "Đã xem",
+  "Recently saved": "Mới lưu gần đây",
+  "Showing {count} of {total} movies": "Hiển thị {count} trên {total} phim",
+  "Watched: {title}": "Đã xem: {title}",
+  "Mark as watched": "Đánh dấu đã xem",
+  "No saved movies match your search or status.":
+    "Không có phim đã lưu phù hợp với tìm kiếm hoặc trạng thái.",
+  "We couldn't sync your watchlist right now.":
+    "Hiện không thể đồng bộ danh sách xem của bạn.",
+  "Cast & crew": "Diễn viên và đoàn phim",
+  Director: "Đạo diễn",
+  "Director information unavailable.": "Chưa có thông tin đạo diễn.",
+  "Cast information unavailable.": "Chưa có thông tin diễn viên.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "Tìm kiếm vẫn được giữ khi bạn đổi bộ lọc. Bộ lọc và sắp xếp áp dụng cho tối đa 2.000 kết quả. Giới hạn theo năm phát hành để có kết quả cụ thể hơn.",
+  "Related movies": "Phim liên quan",
+  "Loading related movies...": "Đang tải phim liên quan...",
+  "Could not load related movies.": "Không thể tải phim liên quan.",
+  "No related movies available yet.": "Chưa có phim liên quan.",
+  "Your saved movies and account details, all in one place.":
+    "Phim đã lưu và thông tin tài khoản ở cùng một nơi.",
+  "Loading {list}...": "Đang tải {list}...",
+  "Could not sync {list}.": "Không thể đồng bộ {list}.",
+  "Please try again to load your saved movies.":
+    "Vui lòng thử tải lại phim đã lưu.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "Bộ phim tiếp theo đang chờ bạn",
+  "Make room for your favorites": "Dành chỗ cho phim yêu thích",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Lưu những phim bạn muốn xem và tìm lại tại đây khi sẵn sàng.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "Nhấn vào trái tim trên phim bạn thích để bắt đầu bộ sưu tập.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "Tìm phim tiếp theo, sắp xếp phim đã lưu và theo dõi những phim đã xem.",
+  "This movie is no longer in your watchlist.":
+    "Phim này không còn trong danh sách xem của bạn.",
+  "We couldn't update watched status. Please try again.":
+    "Không thể cập nhật trạng thái xem. Vui lòng thử lại.",
 };
 
 export default vi;

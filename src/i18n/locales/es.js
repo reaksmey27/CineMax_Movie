@@ -410,6 +410,50 @@ const es = {
   "View all {title} movies": "Ver todas las películas de {title}",
   "Donation QR code for {name} at {bank}":
     "Código QR de donación para {name} en {bank}",
+  "Search watchlist": "Buscar en mi lista",
+  "Watch status": "Estado de visualización",
+  "To watch": "Por ver",
+  Watched: "Visto",
+  "Recently saved": "Guardados recientemente",
+  "Showing {count} of {total} movies": "Mostrando {count} de {total} películas",
+  "Watched: {title}": "Visto: {title}",
+  "Mark as watched": "Marcar como visto",
+  "No saved movies match your search or status.":
+    "Ninguna película guardada coincide con tu búsqueda o estado.",
+  "We couldn't sync your watchlist right now.":
+    "No pudimos sincronizar tu lista en este momento.",
+  "Cast & crew": "Reparto y equipo",
+  Director: "Dirección",
+  "Director information unavailable.":
+    "Información de dirección no disponible.",
+  "Cast information unavailable.": "Información del reparto no disponible.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "Tu búsqueda sigue activa al cambiar los filtros. Los filtros y la ordenación se aplican a un máximo de 2000 resultados. Limita por año de estreno para obtener resultados más específicos.",
+  "Related movies": "Películas relacionadas",
+  "Loading related movies...": "Cargando películas relacionadas...",
+  "Could not load related movies.":
+    "No se pudieron cargar las películas relacionadas.",
+  "No related movies available yet.":
+    "Todavía no hay películas relacionadas disponibles.",
+  "Your saved movies and account details, all in one place.":
+    "Tus películas guardadas y los datos de tu cuenta en un solo lugar.",
+  "Loading {list}...": "Cargando {list}...",
+  "Could not sync {list}.": "No se pudo sincronizar {list}.",
+  "Please try again to load your saved movies.":
+    "Inténtalo de nuevo para cargar tus películas guardadas.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "Tu próxima película te espera",
+  "Make room for your favorites": "Haz espacio para tus favoritas",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Guarda las películas que quieras ver y encuéntralas aquí cuando estés listo.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "Toca el corazón de una película que te guste para comenzar tu colección.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "Encuentra tu próxima película, organiza tus títulos y lleva un registro de lo que has visto.",
+  "This movie is no longer in your watchlist.":
+    "Esta película ya no está en tu lista.",
+  "We couldn't update watched status. Please try again.":
+    "No pudimos actualizar el estado de visualización. Inténtalo de nuevo.",
 };
 
 export default es;

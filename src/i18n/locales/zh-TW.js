@@ -414,6 +414,45 @@ const zhTW = {
   "View all {title} movies": "查看所有{title}電影",
   "View all": "查看全部",
   "Donation QR code for {name} at {bank}": "{name}在{bank}的贊助 QR 碼",
+  "Search watchlist": "搜尋待看清單",
+  "Watch status": "觀看狀態",
+  "To watch": "待觀看",
+  Watched: "已看過",
+  "Recently saved": "最近儲存",
+  "Showing {count} of {total} movies": "顯示 {total} 部中的 {count} 部電影",
+  "Watched: {title}": "已看過：{title}",
+  "Mark as watched": "標記為已看過",
+  "No saved movies match your search or status.":
+    "沒有符合搜尋或觀看狀態的已儲存電影。",
+  "We couldn't sync your watchlist right now.": "目前無法同步你的待看清單。",
+  "Cast & crew": "演員與製作團隊",
+  Director: "導演",
+  "Director information unavailable.": "暫無導演資料。",
+  "Cast information unavailable.": "暫無演員資料。",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "變更篩選條件時會保留搜尋。篩選與排序最多套用至 2,000 筆搜尋結果。請依上映年份縮小範圍，以取得更精確的結果。",
+  "Related movies": "相關電影",
+  "Loading related movies...": "正在載入相關電影...",
+  "Could not load related movies.": "無法載入相關電影。",
+  "No related movies available yet.": "目前沒有相關電影。",
+  "Your saved movies and account details, all in one place.":
+    "在同一處管理已儲存的電影與帳戶資料。",
+  "Loading {list}...": "正在載入{list}...",
+  "Could not sync {list}.": "無法同步{list}。",
+  "Please try again to load your saved movies.": "請重試以載入已儲存的電影。",
+  "{list}: {count}": "{list}：{count}",
+  "Your next movie is waiting": "下一部電影正等著你",
+  "Make room for your favorites": "收藏你喜愛的電影",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "儲存想看的電影，準備好時隨時在這裡找到它們。",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "點一下喜愛電影上的愛心，即可開始建立個人收藏。",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "尋找下一部電影、整理已儲存片單，並記錄已看過的作品。",
+  "This movie is no longer in your watchlist.":
+    "這部電影已不在你的待看清單中。",
+  "We couldn't update watched status. Please try again.":
+    "無法更新觀看狀態，請再試一次。",
 };
 
 export default zhTW;

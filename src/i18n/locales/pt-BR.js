@@ -81,7 +81,8 @@ const ptBR = {
   "{count} matches": "{count} correspondências",
   "{count} notification(s) are stored on this device. Import them into your account? Only the 50 newest will be kept.":
     "{count} notificações estão armazenadas neste dispositivo. Deseja importá-las para sua conta? Apenas as 50 mais recentes serão mantidas.",
-  "{count} saved titles lean this way.": "{count} títulos salvos apontam para cá.",
+  "{count} saved titles lean this way.":
+    "{count} títulos salvos apontam para cá.",
   "{count} unread notifications": "{count} notificações não lidas",
   "{label} copied.": "{label} copiado.",
   "{name}'s profile photo": "Foto do perfil de {name}",
@@ -144,8 +145,7 @@ const ptBR = {
   "Copy {label}": "Copiar {label}",
   "Copy is unavailable. Please select and copy the account details manually.":
     "A cópia não está disponível. Selecione e copie os dados da conta manualmente.",
-  "Could not load genres.":
-    "Não foi possível carregar os gêneros.",
+  "Could not load genres.": "Não foi possível carregar os gêneros.",
   "Could not remove this movie. Please try again.":
     "Não foi possível remover este filme. Tente novamente.",
   "Create Account": "Criar conta",
@@ -204,8 +204,7 @@ const ptBR = {
   "Keep on this device": "Manter neste dispositivo",
   "Keep up with updates from your CineMax movie experience.":
     "Fique por dentro das novidades da sua experiência de cinema no CineMax.",
-  "Keep your next pick within reach":
-    "Mantenha sua próxima escolha ao alcance",
+  "Keep your next pick within reach": "Mantenha sua próxima escolha ao alcance",
   "Live search is unavailable. Press Enter to try the results page.":
     "A busca ao vivo não está disponível. Pressione Enter para tentar a página de resultados.",
   "Loading {title}": "Carregando {title}",
@@ -214,8 +213,7 @@ const ptBR = {
   "Local notification history could not be imported. It remains on this device; check your connection and retry.":
     "Não foi possível importar o histórico local de notificações. Ele permanece neste dispositivo; verifique sua conexão e tente novamente.",
   "Log in to Watch": "Entre para assistir",
-  "Log in to watch this movie.":
-    "Entre para assistir a este filme.",
+  "Log in to watch this movie.": "Entre para assistir a este filme.",
   "Log out": "Sair da conta",
   "Logging out...": "Saindo…",
   "Main navigation": "Navegação principal",
@@ -243,8 +241,7 @@ const ptBR = {
     "Não há filmes em destaque no momento. Explore as coleções abaixo.",
   "No genre trend yet.": "Nenhuma tendência de gênero ainda.",
   "No Movies Found": "Nenhum filme encontrado",
-  "No Movies Match These Filters":
-    "Nenhum filme corresponde a estes filtros",
+  "No Movies Match These Filters": "Nenhum filme corresponde a estes filtros",
   "No new alerts.": "Nenhum novo alerta.",
   "No notifications yet": "Nenhuma notificação ainda",
   "No recent searches": "Nenhuma busca recente",
@@ -268,8 +265,7 @@ const ptBR = {
   "Open trailer player": "Abrir player do trailer",
   "Open your ABA app to scan the QR code or transfer using the account number above.":
     "Abra seu app do ABA para escanear o código QR ou transferir usando o número da conta acima.",
-  "Or save the QR code to your phone":
-    "Ou salve o código QR no seu celular",
+  "Or save the QR code to your phone": "Ou salve o código QR no seu celular",
   "Page {page} of {totalPages}": "Página {page} de {totalPages}",
   "Page not found": "Página não encontrada",
   "Play Movie": "Reproduzir filme",
@@ -309,8 +305,7 @@ const ptBR = {
   "Scan to donate": "Escaneie para doar",
   "Scan with your banking app": "Escaneie com o app do seu banco",
   "Sci-Fi": "Ficção científica",
-  "Scroll {direction} through {title}":
-    "Rolar para {direction} em {title}",
+  "Scroll {direction} through {title}": "Rolar para {direction} em {title}",
   "Search history": "Histórico de buscas",
   "Search movies": "Buscar filmes",
   "Search results for {query}": "Resultados da busca por {query}",
@@ -333,8 +328,7 @@ const ptBR = {
     "Entre para salvar seus filmes favoritos e sincronizar sua coleção em todos os dispositivos.",
   "Sign in to sync your favorite movies with your account and access them on any device.":
     "Entre para sincronizar seus filmes favoritos com sua conta e acessá-los em qualquer dispositivo.",
-  "Sign in to use your watchlist":
-    "Entre para usar sua lista de exibição",
+  "Sign in to use your watchlist": "Entre para usar sua lista de exibição",
   "Sign Out": "Sair da conta",
   "Sign up": "Criar conta",
   "Signing In...": "Entrando…",
@@ -384,8 +378,7 @@ const ptBR = {
   "Try again": "Tentar novamente",
   "Try browsing a different genre or checking back for more titles.":
     "Tente navegar por outro gênero ou volte depois para ver mais títulos.",
-  "Try this if playback is slow":
-    "Tente isto se a reprodução estiver lenta",
+  "Try this if playback is slow": "Tente isto se a reprodução estiver lenta",
   "Try widening your filters or reset them to discover more results.":
     "Tente ampliar seus filtros ou redefinir para descobrir mais resultados.",
   "Updates about your saved movies and account activity will appear here.":
@@ -394,8 +387,7 @@ const ptBR = {
     "Use as setas para navegar, Enter para selecionar, Esc para fechar",
   "Use the caption button in the player controls if subtitle tracks are available.":
     "Use o botão de legendas nos controles do player se houver faixas disponíveis.",
-  "Useful when other servers fail":
-    "Útil quando outros servidores falham",
+  "Useful when other servers fail": "Útil quando outros servidores falham",
   "View {title}": "Assistir {title}",
   "View {title} notification": "Ver notificação de {title}",
   "View all": "Ver tudo",
@@ -422,8 +414,7 @@ const ptBR = {
   "Your movie DNA": "Seu DNA cinematográfico",
   "Your older notifications will remain on this device.":
     "Suas notificações mais antigas continuarão neste dispositivo.",
-  "Your personal collection is growing.":
-    "Sua coleção pessoal está crescendo.",
+  "Your personal collection is growing.": "Sua coleção pessoal está crescendo.",
   "Your recent movie searches will appear here for quick access.":
     "Suas buscas recentes de filmes aparecerão aqui para acesso rápido.",
   "Your saved movies sync in real time through Firestore, so this page is only available when you are signed in.":
@@ -432,6 +423,50 @@ const ptBR = {
     "Seu destino definitivo para os blockbusters mais recentes e clássicos atemporais. Explore, descubra e aproveite o mundo do cinema.",
   "Your watchlist is empty": "Sua lista de exibição está vazia",
   "You're all caught up": "Você está em dia",
+  "Search watchlist": "Pesquisar na lista",
+  "Watch status": "Status de visualização",
+  "To watch": "Para assistir",
+  Watched: "Assistido",
+  "Recently saved": "Salvos recentemente",
+  "Showing {count} of {total} movies": "Exibindo {count} de {total} filmes",
+  "Watched: {title}": "Assistido: {title}",
+  "Mark as watched": "Marcar como assistido",
+  "No saved movies match your search or status.":
+    "Nenhum filme salvo corresponde à busca ou ao status.",
+  "We couldn't sync your watchlist right now.":
+    "Não foi possível sincronizar sua lista agora.",
+  "Cast & crew": "Elenco e equipe",
+  Director: "Direção",
+  "Director information unavailable.":
+    "Informações sobre a direção indisponíveis.",
+  "Cast information unavailable.": "Informações sobre o elenco indisponíveis.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "Sua busca continua ativa ao alterar os filtros. Os filtros e a ordenação se aplicam a até 2.000 resultados. Restrinja pelo ano de lançamento para obter resultados mais específicos.",
+  "Related movies": "Filmes relacionados",
+  "Loading related movies...": "Carregando filmes relacionados...",
+  "Could not load related movies.":
+    "Não foi possível carregar os filmes relacionados.",
+  "No related movies available yet.":
+    "Ainda não há filmes relacionados disponíveis.",
+  "Your saved movies and account details, all in one place.":
+    "Seus filmes salvos e os dados da sua conta em um só lugar.",
+  "Loading {list}...": "Carregando {list}...",
+  "Could not sync {list}.": "Não foi possível sincronizar {list}.",
+  "Please try again to load your saved movies.":
+    "Tente novamente carregar seus filmes salvos.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "Seu próximo filme está esperando",
+  "Make room for your favorites": "Abra espaço para seus favoritos",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Salve os filmes que deseja assistir e encontre-os aqui quando quiser.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "Toque no coração de um filme que você ama para começar sua coleção.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "Encontre seu próximo filme, organize os títulos salvos e acompanhe o que já assistiu.",
+  "This movie is no longer in your watchlist.":
+    "Este filme não está mais na sua lista.",
+  "We couldn't update watched status. Please try again.":
+    "Não foi possível atualizar o status de visualização. Tente novamente.",
 };
 
 export default ptBR;

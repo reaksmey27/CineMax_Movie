@@ -408,6 +408,47 @@ const id = {
   "View all {title} movies": "Lihat semua film {title}",
   "Donation QR code for {name} at {bank}":
     "Kode QR donasi {name} melalui {bank}",
+  "Search watchlist": "Cari di daftar tontonan",
+  "Watch status": "Status tontonan",
+  "To watch": "Belum ditonton",
+  Watched: "Sudah ditonton",
+  "Recently saved": "Baru disimpan",
+  "Showing {count} of {total} movies": "Menampilkan {count} dari {total} film",
+  "Watched: {title}": "Sudah ditonton: {title}",
+  "Mark as watched": "Tandai sudah ditonton",
+  "No saved movies match your search or status.":
+    "Tidak ada film tersimpan yang sesuai dengan pencarian atau status.",
+  "We couldn't sync your watchlist right now.":
+    "Daftar tontonan tidak dapat disinkronkan saat ini.",
+  "Cast & crew": "Pemeran dan kru",
+  Director: "Sutradara",
+  "Director information unavailable.": "Informasi sutradara tidak tersedia.",
+  "Cast information unavailable.": "Informasi pemeran tidak tersedia.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "Pencarian tetap aktif saat filter diubah. Filter dan pengurutan berlaku untuk hingga 2.000 hasil pencarian. Batasi tahun rilis untuk hasil yang lebih spesifik.",
+  "Related movies": "Film terkait",
+  "Loading related movies...": "Memuat film terkait...",
+  "Could not load related movies.": "Film terkait tidak dapat dimuat.",
+  "No related movies available yet.": "Belum ada film terkait yang tersedia.",
+  "Your saved movies and account details, all in one place.":
+    "Film tersimpan dan detail akun Anda di satu tempat.",
+  "Loading {list}...": "Memuat {list}...",
+  "Could not sync {list}.": "Tidak dapat menyinkronkan {list}.",
+  "Please try again to load your saved movies.":
+    "Coba lagi untuk memuat film tersimpan.",
+  "{list}: {count}": "{list}: {count}",
+  "Your next movie is waiting": "Film berikutnya menanti Anda",
+  "Make room for your favorites": "Sediakan tempat untuk film favorit",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Simpan film yang ingin Anda tonton dan temukan di sini kapan pun Anda siap.",
+  "Tap the heart on a movie you love to start your personal collection.":
+    "Ketuk ikon hati pada film yang Anda sukai untuk memulai koleksi.",
+  "Find your next movie, organize saved titles, and keep track of what you've watched.":
+    "Temukan film berikutnya, atur judul tersimpan, dan lacak film yang sudah ditonton.",
+  "This movie is no longer in your watchlist.":
+    "Film ini tidak lagi ada di daftar tontonan Anda.",
+  "We couldn't update watched status. Please try again.":
+    "Status tontonan tidak dapat diperbarui. Silakan coba lagi.",
 };
 
 export default id;

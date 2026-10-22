@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function useWatchlistActions({
   watchlist,
@@ -6,6 +7,7 @@ export default function useWatchlistActions({
   onRequireSignIn,
   showNotification,
 }) {
+  const { t } = useLanguage();
   const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
     () => new Set(),
   );
@@ -166,7 +168,7 @@ export default function useWatchlistActions({
         );
         if (!updated)
           showNotification(
-            "This movie is no longer in your watchlist.",
+            t("This movie is no longer in your watchlist."),
             "info",
             movie,
           );
@@ -174,7 +176,7 @@ export default function useWatchlistActions({
       } catch (error) {
         console.error("[watchlist] Failed to update watched status", error);
         showNotification(
-          "We couldn't update watched status. Please try again.",
+          t("We couldn't update watched status. Please try again."),
           "error",
           movie,
         );
@@ -187,7 +189,7 @@ export default function useWatchlistActions({
         });
       }
     },
-    [pendingWatchlistIds, showNotification, userId],
+    [pendingWatchlistIds, showNotification, userId, t],
   );
 
   return {

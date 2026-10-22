@@ -81,26 +81,29 @@ const ProfileCollection = () => {
         className="pt-6 focus-visible:outline-2 focus-visible:outline-purple-500 sm:pt-8"
       >
         {pending ? (
-          <div aria-busy="true" aria-label={`Loading ${title.toLowerCase()}`}>
+          <div
+            aria-busy="true"
+            aria-label={t("Loading {list}...", { list: title })}
+          >
             <MovieGridSkeleton />
           </div>
         ) : failed ? (
           <div className="rounded-2xl border border-[var(--color-border)] p-8 text-center">
             <h2 className="text-xl font-semibold">
-              Your {title.toLowerCase()} could not sync
+              {t("Could not sync {list}.", { list: title })}
             </h2>
             <p
               role="status"
               className="mt-2 text-sm text-[var(--color-text-muted)]"
             >
-              Please try again to load your saved movies.
+              {t("Please try again to load your saved movies.")}
             </p>
             <button
               type="button"
               onClick={retryCollection}
               className="mt-5 min-h-11 rounded-xl bg-purple-600 px-6 text-sm font-semibold text-white hover:bg-purple-500"
             >
-              Try again
+              {t("Try again")}
             </button>
           </div>
         ) : movies.length === 0 ? (
@@ -109,20 +112,24 @@ const ProfileCollection = () => {
               <Icon className="h-8 w-8 text-purple-500" aria-hidden="true" />
             </div>
             <h2 className="text-xl font-semibold text-[var(--color-text)]">
-              {isWatchlist
-                ? "Your next movie is waiting"
-                : "Make room for your favorites"}
+              {t(
+                isWatchlist
+                  ? "Your next movie is waiting"
+                  : "Make room for your favorites",
+              )}
             </h2>
             <p className="mt-2 max-w-sm text-sm leading-relaxed text-[var(--color-text-muted)]">
-              {isWatchlist
-                ? "Save movies you want to watch and find them here whenever you are ready."
-                : "Tap the heart on a movie you love to start your personal collection."}
+              {t(
+                isWatchlist
+                  ? "Save movies you want to watch and find them here whenever you are ready."
+                  : "Tap the heart on a movie you love to start your personal collection.",
+              )}
             </p>
             <Link
               to="/movies"
               className="mt-6 inline-flex min-h-11 items-center rounded-xl bg-purple-600 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
             >
-              Explore Movies
+              {t("Explore Movies")}
             </Link>
           </div>
         ) : (
@@ -131,8 +138,7 @@ const ProfileCollection = () => {
               role="status"
               className="mb-5 text-sm text-[var(--color-text-muted)]"
             >
-              {movies.length} {movies.length === 1 ? "movie" : "movies"} in your{" "}
-              {title.toLowerCase()}
+              {t("{list}: {count}", { list: title, count: movies.length })}
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 sm:gap-x-5 lg:grid-cols-4 xl:grid-cols-5">
               {movies.map((movie) => (

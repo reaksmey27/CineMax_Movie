@@ -13,7 +13,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Watchlist organization:** search saved titles, sort by saved date/title/rating, and filter by watched status. Mark movies watched or unwatched without removing them. Status syncs to your account; changing it requires a connection. Existing entries start as unwatched.
 - **Account profile:** profile photo, username, email, username editing, and logout. Supports email/password and Google sign-in.
 - **Responsive interface:** light and dark themes, visible card titles and ratings, keyboard focus indicators, and reduced-motion support.
-- **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font.
+- **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font. Watchlist controls, cast and related-movie sections, profile collection states, and movie save-button accessibility labels use the selected language. Original movie titles and person names are preserved.
 - **Donation card:** QR download and copyable payment details in a dialog that fits the viewport.
 - **Detailed footer:** explore links, genre shortcuts, TMDB attribution and social buttons. Newsletter signup is unavailable until a subscription service is connected.
 - **Legal pages:** privacy policy and terms of use, linked from the footer and included in the sitemap.
