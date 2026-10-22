@@ -104,6 +104,7 @@ const LanguageSelector = ({ className = "" }) => {
             onClick={() => {
               setLanguage(code);
               detailsRef.current.open = false;
+              summaryRef.current?.focus();
             }}
             className="flex min-h-11 min-w-0 items-center gap-3 rounded-xl px-3 text-left text-sm font-medium text-[var(--color-text)] hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500"
           >

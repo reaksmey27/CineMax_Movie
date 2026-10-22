@@ -24,7 +24,12 @@ const NotificationPanel = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed left-2 right-2 top-20 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl backdrop-blur-2xl duration-300 animate-in fade-in slide-in-from-top-4 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-4 sm:w-80 sm:rounded-4xl">
+    <div
+      id="notification-panel"
+      role="region"
+      aria-label={t("Notifications")}
+      className="fixed left-2 right-2 top-20 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] shadow-2xl backdrop-blur-2xl duration-300 animate-in fade-in slide-in-from-top-4 sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-4 sm:w-80 sm:rounded-4xl"
+    >
       <div className="flex items-center justify-between border-b border-[var(--color-border-soft)] px-6 py-5">
         <h3 className="text-sm font-black uppercase tracking-tighter italic">
           {t("Notifications")}

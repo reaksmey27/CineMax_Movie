@@ -153,6 +153,7 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
                 <Link
                   key={link.name}
                   to={link.path}
+                  aria-current={isActive ? "page" : undefined}
                   onClick={onClose}
                   className={`rounded-xl px-4 py-3 text-sm font-black transition ${
                     isActive

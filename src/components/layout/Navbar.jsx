@@ -77,6 +77,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               <Link
                 key={link.name}
                 to={link.path}
+                aria-current={isActive ? "page" : undefined}
                 className={`group relative whitespace-nowrap py-1 font-bold tracking-wide transition-all duration-300 ${
                   isActive
                     ? "scale-105 text-[var(--nav-accent)]"
@@ -118,11 +119,28 @@ const Navbar = ({ theme, onToggleTheme }) => {
           </button>
 
           {/* Notifications */}
-          <div className="relative" ref={panelRef}>
+          <div
+            className="relative"
+            ref={panelRef}
+            onKeyDown={(event) => {
+              if (event.key === "Escape" && showNotifPanel) {
+                event.preventDefault();
+                event.stopPropagation();
+                closeNotifPanel();
+                panelRef.current?.querySelector("button")?.focus();
+              }
+            }}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) {
+                closeNotifPanel();
+              }
+            }}
+          >
             <button
               type="button"
               aria-label={t("Notifications")}
               aria-expanded={showNotifPanel}
+              aria-controls={showNotifPanel ? "notification-panel" : undefined}
               onClick={() => {
                 setShowNotifPanel(!showNotifPanel);
                 setIsMenuOpen(false);

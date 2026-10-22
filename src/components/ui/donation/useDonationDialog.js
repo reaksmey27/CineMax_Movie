@@ -45,7 +45,28 @@ export default function useDonationDialog(isOpen, onClose) {
     window.visualViewport?.addEventListener("resize", fitCard);
     document.body.style.overflow = "hidden";
     closeRef.current?.focus();
+    const wrapFocus = (event) => {
+      if (event.key !== "Tab") return;
+      const controls = [
+        ...dialog.querySelectorAll(
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ].filter(
+        (element) => element.getClientRects().length && element.tabIndex >= 0,
+      );
+      const first = controls[0];
+      const last = controls.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    dialog.addEventListener("keydown", wrapFocus);
     return () => {
+      dialog.removeEventListener("keydown", wrapFocus);
       observer.disconnect();
       window.removeEventListener("resize", fitCard);
       window.visualViewport?.removeEventListener("resize", fitCard);

@@ -453,6 +453,17 @@ html.theme-light .page-heading--cyan {
 }
 
 /* Opaque navigation surfaces keep text readable over changing movie backdrops. */
+/* Keep keyboard focus visible even on controls with outline-none utilities. */
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 3px;
+}
+
+html.theme-light
+  :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: #7e22ce;
+}
+
 .site-navbar {
   --color-nav-bg: #0f172a;
   --color-panel-bg: #0f172a;
