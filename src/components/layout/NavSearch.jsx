@@ -55,7 +55,7 @@ export default function NavSearch({ onOpen }) {
         id="nav-search-form"
         role="search"
         aria-label={t("Find movies")}
-        className={`${open ? "block" : "hidden"} absolute inset-x-2 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] p-3 shadow-xl md:static md:mt-0 md:block md:w-48 lg:w-64 xl:w-40 md:rounded-full md:bg-[var(--color-surface-1)] md:p-0 md:shadow-none 2xl:w-80`}
+        className={`${open ? "block" : "hidden"} absolute inset-x-2 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] p-3 shadow-xl md:static md:mt-0 md:block md:w-48 lg:w-64 xl:w-48 md:rounded-full md:bg-[var(--color-surface-1)] md:p-0 md:shadow-none 2xl:w-84`}
         onSubmit={(event) => {
           event.preventDefault();
           if (!trimmed) return;

@@ -69,7 +69,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden shrink-0 items-center gap-3 text-sm xl:flex 2xl:gap-10">
+        <div className="hidden shrink-0 items-center gap-4 text-sm xl:flex 2xl:gap-10">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
@@ -98,7 +98,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </div>
 
         {/* Right Actions */}
-        <div className="flex shrink-0 items-center gap-0.5 sm:gap-2 lg:gap-4 xl:gap-2 2xl:gap-4">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-2 lg:gap-4 xl:gap-2 2xl:gap-3">
           <NavSearch
             key={location.key}
             onOpen={() => {
