@@ -1,9 +1,13 @@
 import { useState } from "react";
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 import WatchHistoryList from "../../components/movies/WatchHistoryList";
 
 const CONTROL =
-  "mt-2 min-h-11 w-full min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-3 text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-400";
+  "min-h-12 w-full min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";
 
 export default function HistoryLibrary({ history }) {
   const { t, language } = useLanguage();
@@ -35,45 +39,64 @@ export default function HistoryLibrary({ history }) {
   };
   return (
     <section aria-label={t("History")}>
-      <div className="mb-5 grid gap-4 text-sm font-semibold sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-4 grid gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-4 text-sm font-semibold sm:grid-cols-2 sm:p-5 lg:grid-cols-[2fr_1fr_1fr]">
         <label className="min-w-0 sm:col-span-2 lg:col-span-1">
           {t("Search watch history")}
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            className={CONTROL}
-          />
+          <span className="relative mt-2 block">
+            <MagnifyingGlassIcon
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]"
+            />
+            <input
+              type="search"
+              placeholder={t("Search movies") + "…"}
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              className={`${CONTROL} pl-11 pr-3 placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
+            />
+          </span>
         </label>
         <label className="min-w-0">
           {t("Watch status")}
-          <select
-            value={status}
-            onChange={(event) => setStatus(event.target.value)}
-            className={CONTROL}
-          >
-            <option value="all">
-              {t("All")} ({history.length})
-            </option>
-            <option value="unfinished">
-              {t("Continue watching")} ({history.length - watchedCount})
-            </option>
-            <option value="watched">
-              {t("Watched")} ({watchedCount})
-            </option>
-          </select>
+          <span className="relative mt-2 block">
+            <select
+              value={status}
+              onChange={(event) => setStatus(event.target.value)}
+              className={`${CONTROL} appearance-none pl-3.5 pr-10`}
+            >
+              <option value="all">
+                {t("All")} ({history.length})
+              </option>
+              <option value="unfinished">
+                {t("Continue watching")} ({history.length - watchedCount})
+              </option>
+              <option value="watched">
+                {t("Watched")} ({watchedCount})
+              </option>
+            </select>
+            <ChevronDownIcon
+              aria-hidden="true"
+              className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]"
+            />
+          </span>
         </label>
         <label className="min-w-0">
           {t("Sort By")}
-          <select
-            value={sort}
-            onChange={(event) => setSort(event.target.value)}
-            className={CONTROL}
-          >
-            <option value="recent">{t("Recently watched")}</option>
-            <option value="oldest">{t("Oldest watched")}</option>
-            <option value="title">{t("Title A-Z")}</option>
-          </select>
+          <span className="relative mt-2 block">
+            <select
+              value={sort}
+              onChange={(event) => setSort(event.target.value)}
+              className={`${CONTROL} appearance-none pl-3.5 pr-10`}
+            >
+              <option value="recent">{t("Recently watched")}</option>
+              <option value="oldest">{t("Oldest watched")}</option>
+              <option value="title">{t("Title A-Z")}</option>
+            </select>
+            <ChevronDownIcon
+              aria-hidden="true"
+              className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]"
+            />
+          </span>
         </label>
       </div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -87,7 +110,7 @@ export default function HistoryLibrary({ history }) {
           <button
             type="button"
             onClick={reset}
-            className="min-h-11 rounded-xl border border-[var(--color-border)] px-4 text-sm font-semibold hover:bg-[var(--color-surface-1)]"
+            className="min-h-11 rounded-xl border border-purple-500/30 bg-purple-500/10 px-4 text-sm font-semibold transition-colors hover:bg-purple-500/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
           >
             {t("Reset filters")}
           </button>
