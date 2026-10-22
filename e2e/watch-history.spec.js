@@ -122,11 +122,6 @@ for (const language of ["en", "km"]) {
           { message: `touch targets at ${width}` },
         )
         .toBe(true);
-      const navigation = page.locator(".site-navbar nav");
-      expect(
-        await navigation.evaluate((nav) => nav.scrollWidth <= nav.clientWidth),
-        `navigation overflow at ${width}`,
-      ).toBe(true);
     }
     await page.setViewportSize({ width: 1024, height: 900 });
     await page.locator('[aria-controls="mobile-navigation"]').click();

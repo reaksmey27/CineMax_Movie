@@ -63,13 +63,13 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <img
             src="/images/logo.svg"
             alt={t("CineMax Logo")}
-            className="h-8 w-auto min-[360px]:h-10 sm:h-12"
+            className="h-10 w-auto sm:h-12"
             decoding="async"
           />
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-3 text-sm xl:flex 2xl:gap-4">
+        <div className="hidden items-center gap-6 text-sm xl:flex 2xl:gap-10">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
@@ -98,7 +98,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </div>
 
         {/* Right Actions */}
-        <div className="flex shrink-0 items-center gap-0.5 sm:gap-4 xl:gap-2 2xl:gap-3">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-4">
           <NavSearch
             key={location.key}
             onOpen={() => {
