@@ -28,7 +28,12 @@ test("homepage starts with enough movie discovery content", async ({
   });
 
   await page.goto("/");
-  await expect(page.locator("#home article.movie-card")).toHaveCount(300);
+  await expect(page.locator("#home article.movie-card")).toHaveCount(280);
+  await expect(
+    page
+      .locator("#home")
+      .getByRole("heading", { name: "Upcoming", exact: true }),
+  ).toHaveCount(0);
 
   const wordCount = await page
     .locator("#home")

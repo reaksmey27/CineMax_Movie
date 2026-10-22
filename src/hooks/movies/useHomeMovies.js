@@ -7,7 +7,6 @@ const LOADERS = {
   trending: () => tmdbService.getTrendingMovies(),
   topRated: () => tmdbService.getTopRatedMovies(),
   nowPlaying: () => tmdbService.getNowPlayingMovies(),
-  upcoming: () => tmdbService.getUpcomingMovies(),
   action: () => tmdbService.getMoviesByGenre(28),
   sciFi: () => tmdbService.getMoviesByGenre(878),
   comedy: () => tmdbService.getMoviesByGenre(35),

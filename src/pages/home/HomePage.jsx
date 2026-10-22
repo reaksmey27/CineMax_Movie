@@ -10,7 +10,6 @@ const ROWS = [
   ["topRated", "Top Rated", "/movies?collection=top-rated"],
   ["nowPlaying", "Now Playing", "/movies?collection=now-playing"],
   ["trending", "Trending", "/trending"],
-  ["upcoming", "Upcoming", "/upcoming"],
   ["action", "Action", "/movies?genre=28"],
   ["sciFi", "Sci-Fi", "/movies?genre=878"],
   ["comedy", "Comedy", "/movies?genre=35"],
