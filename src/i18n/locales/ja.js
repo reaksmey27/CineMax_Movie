@@ -1,6 +1,9 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Search watch history": "履歴を検索",
+  "Recently watched": "最近視聴した順",
+  "Oldest watched": "視聴日時が古い順",
   History: "履歴",
   "Continue watching": "視聴を続ける",
   Started: "視聴開始済み",

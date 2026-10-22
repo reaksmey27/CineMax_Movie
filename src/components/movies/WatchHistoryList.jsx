@@ -3,12 +3,12 @@ import { useWatchHistory } from "../../context/WatchHistoryContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { formatPlaybackTime } from "../../utils/player/watchProgress";
 
-export default function WatchHistoryList({ compact = false }) {
+export default function WatchHistoryList({ compact = false, movies }) {
   const { history, finish, remove, isBusy } = useWatchHistory();
   const { t, language } = useLanguage();
   const items = compact
     ? history.filter((item) => !item.completed).slice(0, 6)
-    : history;
+    : (movies ?? history);
   if (!items.length) return null;
   return (
     <section className={compact ? "mx-4 sm:mx-6 lg:mx-24" : ""}>

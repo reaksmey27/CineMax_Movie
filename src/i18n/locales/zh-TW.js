@@ -1,6 +1,9 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Search watch history": "搜尋觀看紀錄",
+  "Recently watched": "最近觀看",
+  "Oldest watched": "最早觀看",
   History: "觀看紀錄",
   "Continue watching": "繼續觀看",
   Started: "已開始",

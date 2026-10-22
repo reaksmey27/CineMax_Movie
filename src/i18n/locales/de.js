@@ -1,6 +1,9 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Search watch history": "Verlauf durchsuchen",
+  "Recently watched": "Zuletzt angesehen",
+  "Oldest watched": "Am längsten zurückliegend",
   History: "Verlauf",
   "Continue watching": "Weiterschauen",
   Started: "Begonnen",

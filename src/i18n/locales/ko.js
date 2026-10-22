@@ -1,6 +1,9 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Search watch history": "기록 검색",
+  "Recently watched": "최근 시청순",
+  "Oldest watched": "오래된 시청순",
   History: "기록",
   "Continue watching": "이어서 보기",
   Started: "시청 시작",

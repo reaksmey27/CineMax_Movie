@@ -1,6 +1,9 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Search watch history": "Pesquisar histórico",
+  "Recently watched": "Assistidos recentemente",
+  "Oldest watched": "Assistidos há mais tempo",
   History: "Histórico",
   "Continue watching": "Continuar assistindo",
   Started: "Iniciado",

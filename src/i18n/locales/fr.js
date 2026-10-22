@@ -1,6 +1,9 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Search watch history": "Rechercher dans l’historique",
+  "Recently watched": "Vus récemment",
+  "Oldest watched": "Vus les plus anciens",
   History: "Historique",
   "Continue watching": "Reprendre la lecture",
   Started: "Commencé",

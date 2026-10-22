@@ -1,6 +1,9 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Search watch history": "Cari riwayat",
+  "Recently watched": "Terakhir ditonton",
+  "Oldest watched": "Paling lama ditonton",
   History: "Riwayat",
   "Continue watching": "Lanjutkan menonton",
   Started: "Dimulai",

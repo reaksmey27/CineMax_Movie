@@ -3,7 +3,7 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
-import WatchHistoryList from "../../components/movies/WatchHistoryList";
+import HistoryLibrary from "./HistoryLibrary";
 
 export default function HistoryPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -33,7 +33,7 @@ export default function HistoryPage() {
           </button>
         </p>
       ) : history.length ? (
-        <WatchHistoryList />
+        <HistoryLibrary history={history} />
       ) : (
         <div className="flex min-h-64 flex-col items-center justify-center gap-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-5 py-10 text-center sm:min-h-80">
           <div className="rounded-full bg-purple-500/10 p-4 text-purple-400">

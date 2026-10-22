@@ -1,6 +1,9 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Search watch history": "Tìm trong lịch sử",
+  "Recently watched": "Xem gần đây",
+  "Oldest watched": "Xem lâu nhất",
   History: "Lịch sử",
   "Continue watching": "Tiếp tục xem",
   Started: "Đã bắt đầu",

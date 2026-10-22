@@ -1,6 +1,9 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Search watch history": "Buscar en el historial",
+  "Recently watched": "Vistas recientemente",
+  "Oldest watched": "Vistas hace más tiempo",
   History: "Historial",
   "Continue watching": "Seguir viendo",
   Started: "Iniciada",

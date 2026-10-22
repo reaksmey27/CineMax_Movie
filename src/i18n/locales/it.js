@@ -1,6 +1,9 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Search watch history": "Cerca nella cronologia",
+  "Recently watched": "Visti di recente",
+  "Oldest watched": "Visti meno di recente",
   History: "Cronologia",
   "Continue watching": "Continua a guardare",
   Started: "Iniziato",

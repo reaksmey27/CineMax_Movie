@@ -67,6 +67,71 @@ async function fixture(page) {
   );
 }
 
+test("history combines search, status, sorting and live watched updates", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.addInitScript(() =>
+    localStorage.setItem(
+      "history-fan",
+      JSON.stringify([
+        {
+          id: 1,
+          title: "Zodiac",
+          completed: false,
+          lastWatchedAt: "2026-10-22T00:00:00.000Z",
+        },
+        {
+          id: 2,
+          title: "Alien",
+          completed: true,
+          lastWatchedAt: "2026-10-20T00:00:00.000Z",
+        },
+        {
+          id: 3,
+          title: "Aliens",
+          completed: false,
+          lastWatchedAt: "2026-10-21T00:00:00.000Z",
+        },
+      ]),
+    ),
+  );
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/history");
+  const library = page.getByRole("region", { name: "History", exact: true });
+  const titles = library.locator("article h3");
+  await expect(titles).toHaveText(["Zodiac", "Aliens", "Alien"]);
+  await library.getByLabel("Search watch history").fill("  ALIEN ");
+  await expect(titles).toHaveText(["Aliens", "Alien"]);
+  await library.getByLabel("Watch status").selectOption("unfinished");
+  await expect(titles).toHaveText(["Aliens"]);
+  await library.getByRole("button", { name: "Mark as watched" }).click();
+  await expect(library.getByRole("status")).toHaveText("Showing 0 of 3 movies");
+  await expect(
+    library.getByText("No saved movies match your search or status."),
+  ).toBeVisible();
+  await library.getByLabel("Watch status").selectOption("watched");
+  await expect(titles).toHaveText(["Aliens", "Alien"]);
+  await library.getByLabel("Sort By").selectOption("oldest");
+  await expect(titles).toHaveText(["Alien", "Aliens"]);
+  await library.getByRole("button", { name: "Reset filters" }).click();
+  await expect(titles).toHaveText(["Zodiac", "Aliens", "Alien"]);
+  await expect(library.getByLabel("Search watch history")).toHaveValue("");
+  await expect(library.getByLabel("Watch status")).toHaveValue("all");
+  await expect(library.getByLabel("Sort By")).toHaveValue("recent");
+  await library.getByLabel("Sort By").selectOption("title");
+  await expect(titles).toHaveText(["Alien", "Aliens", "Zodiac"]);
+  await library.getByLabel("Search watch history").fill("missing title");
+  await expect(titles).toHaveCount(0);
+  await library.getByRole("button", { name: "Reset filters" }).click();
+  await expect(titles).toHaveCount(3);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});
+
 test("signed-in account pages fit small and tablet screens", async ({
   page,
 }) => {

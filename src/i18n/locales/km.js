@@ -1,6 +1,9 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Search watch history": "ស្វែងរកប្រវត្តិមើល",
+  "Recently watched": "បានមើលថ្មីៗ",
+  "Oldest watched": "បានមើលយូរជាងគេ",
   History: "ប្រវត្តិមើល",
   "Continue watching": "បន្តមើល",
   Started: "បានចាប់ផ្ដើម",
