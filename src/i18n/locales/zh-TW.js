@@ -1,6 +1,8 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "{duration} remaining": "剩餘 {duration}",
+  "Estimated finish: {time}": "預計結束：{time}",
   "Share movie": "分享電影",
   "Share menu opened.": "已開啟分享選單。",
   "Movie link copied.": "已複製電影連結。",

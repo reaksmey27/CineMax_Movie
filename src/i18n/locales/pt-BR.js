@@ -1,6 +1,8 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "{duration} remaining": "{duration} restantes",
+  "Estimated finish: {time}": "Término estimado: {time}",
   "Share movie": "Compartilhar filme",
   "Share menu opened.": "Menu de compartilhamento aberto.",
   "Movie link copied.": "Link do filme copiado.",

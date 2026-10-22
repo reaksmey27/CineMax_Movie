@@ -155,6 +155,7 @@ export const tmdbService = {
       subtitle: getReleaseYear(movie),
       release_date: movie.release_date || "",
       rating: movie.vote_average?.toFixed(1) || "0.0",
+      runtimeMinutes: movie.runtime,
       duration: movie.runtime
         ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`
         : "",

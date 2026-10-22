@@ -1,6 +1,8 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "{duration} remaining": "{duration} 남음",
+  "Estimated finish: {time}": "종료 예상: {time}",
   "Share movie": "영화 공유",
   "Share menu opened.": "공유 메뉴가 열렸습니다.",
   "Movie link copied.": "영화 링크를 복사했습니다.",

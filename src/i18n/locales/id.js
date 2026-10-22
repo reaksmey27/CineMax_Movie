@@ -1,6 +1,8 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "{duration} remaining": "Tersisa {duration}",
+  "Estimated finish: {time}": "Perkiraan selesai: {time}",
   "Share movie": "Bagikan film",
   "Share menu opened.": "Menu berbagi dibuka.",
   "Movie link copied.": "Tautan film disalin.",

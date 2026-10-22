@@ -144,6 +144,7 @@ const MovieDetailContent = ({ id }) => {
         ) : (
           <MovieInfo
             movie={movie}
+            progress={saved}
             isFav={isFavorite(movie.id)}
             isWatchlisted={isInWatchlist(movie.id)}
             favoritePending={isSavingFavorite(movie.id)}

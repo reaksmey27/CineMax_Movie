@@ -1,6 +1,8 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "{duration} remaining": "{duration} restantes",
+  "Estimated finish: {time}": "Fin estimée : {time}",
   "Share movie": "Partager le film",
   "Share menu opened.": "Menu de partage ouvert.",
   "Movie link copied.": "Lien du film copié.",

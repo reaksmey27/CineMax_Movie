@@ -1,6 +1,8 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "{duration} remaining": "នៅសល់ {duration}",
+  "Estimated finish: {time}": "ប៉ាន់ស្មានបញ្ចប់៖ {time}",
   "Share movie": "ចែករំលែកភាពយន្ត",
   "Share menu opened.": "បានបើកម៉ឺនុយចែករំលែក។",
   "Movie link copied.": "បានចម្លងតំណភាពយន្ត។",

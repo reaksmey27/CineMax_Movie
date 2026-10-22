@@ -1,6 +1,8 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "{duration} remaining": "Còn {duration}",
+  "Estimated finish: {time}": "Dự kiến kết thúc: {time}",
   "Share movie": "Chia sẻ phim",
   "Share menu opened.": "Đã mở menu chia sẻ.",
   "Movie link copied.": "Đã sao chép liên kết phim.",

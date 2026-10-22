@@ -1,6 +1,8 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "{duration} remaining": "Noch {duration}",
+  "Estimated finish: {time}": "Voraussichtliches Ende: {time}",
   "Share movie": "Film teilen",
   "Share menu opened.": "Teilen-Menü geöffnet.",
   "Movie link copied.": "Filmlink kopiert.",

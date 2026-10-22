@@ -1,6 +1,8 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "{duration} remaining": "残り{duration}",
+  "Estimated finish: {time}": "終了予定: {time}",
   "Share movie": "映画を共有",
   "Share menu opened.": "共有メニューを開きました。",
   "Movie link copied.": "映画のリンクをコピーしました。",

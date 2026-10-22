@@ -1,6 +1,8 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "{duration} remaining": "{duration} rimanenti",
+  "Estimated finish: {time}": "Fine prevista: {time}",
   "Share movie": "Condividi film",
   "Share menu opened.": "Menu di condivisione aperto.",
   "Movie link copied.": "Link del film copiato.",

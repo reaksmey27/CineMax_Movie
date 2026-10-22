@@ -1,6 +1,8 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "{duration} remaining": "Quedan {duration}",
+  "Estimated finish: {time}": "Final estimado: {time}",
   "Share movie": "Compartir película",
   "Share menu opened.": "Menú para compartir abierto.",
   "Movie link copied.": "Enlace de la película copiado.",

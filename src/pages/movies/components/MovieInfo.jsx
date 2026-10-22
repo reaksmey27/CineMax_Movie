@@ -1,4 +1,5 @@
 import ShareMovieButton from "./ShareMovieButton";
+import MovieFinishTime from "./MovieFinishTime";
 import React from "react";
 import {
   BookmarkIcon as BookmarkSolidIcon,
@@ -19,6 +20,7 @@ import { useLanguage } from "../../../context/LanguageContext";
 
 const MovieInfo = ({
   movie,
+  progress,
   isFav,
   isWatchlisted,
   favoritePending = false,
@@ -87,6 +89,12 @@ const MovieInfo = ({
           </p>
         </div>
 
+        {!playDisabled && (
+          <MovieFinishTime
+            runtimeMinutes={movie.runtimeMinutes}
+            progress={progress}
+          />
+        )}
         <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:flex-wrap sm:gap-4 sm:pt-4">
           <button
             onClick={onPlay}
