@@ -1,4 +1,5 @@
 import { createMovieCollection } from "./movieCollection.js";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 
 export const WATCHLISTS_COLLECTION = "watchlists";
 
@@ -16,3 +17,26 @@ const watchlist = createMovieCollection({
 export const getWatchlistMovies = watchlist.getMovies;
 export const addToWatchlist = watchlist.addMovie;
 export const removeFromWatchlist = watchlist.removeMovie;
+
+export async function setWatchlistWatched(database, userId, movieId, watched) {
+  if (
+    !userId ||
+    !Number.isSafeInteger(movieId) ||
+    movieId <= 0 ||
+    typeof watched !== "boolean"
+  ) {
+    throw new Error(
+      "A signed-in user, valid movie and watched status are required.",
+    );
+  }
+  const reference = doc(database, WATCHLISTS_COLLECTION, userId);
+  return runTransaction(database, async (transaction) => {
+    const snapshot = await transaction.get(reference);
+    if (!snapshot.exists() || !snapshot.data().movies?.[movieId]) return false;
+    transaction.update(reference, {
+      [`movies.${movieId}.watched`]: watched,
+      updatedAt: serverTimestamp(),
+    });
+    return true;
+  });
+}

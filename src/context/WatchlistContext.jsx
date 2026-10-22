@@ -23,6 +23,7 @@ const WatchlistSessionProvider = ({
     showNotification,
   );
   const {
+    setWatched,
     isSavingToWatchlist,
     addToWatchlist,
     removeFromWatchlist,
@@ -37,6 +38,7 @@ const WatchlistSessionProvider = ({
 
   const value = useMemo(
     () => ({
+      setWatched,
       watchlist,
       isSavingToWatchlist,
       loading,
@@ -48,6 +50,7 @@ const WatchlistSessionProvider = ({
       isInWatchlist,
     }),
     [
+      setWatched,
       addToWatchlist,
       isInWatchlist,
       isSavingToWatchlist,

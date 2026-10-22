@@ -149,7 +149,49 @@ export default function useWatchlistActions({
     [addToWatchlist, removeFromWatchlist, watchlistIds],
   );
 
+  const setWatched = useCallback(
+    async (movie, watched) => {
+      if (!userId || pendingWatchlistIds.has(movie.id)) return false;
+      setPendingWatchlistIds((previous) => new Set(previous).add(movie.id));
+      try {
+        const [{ db }, { setWatchlistWatched }] = await Promise.all([
+          import("../../firebase/firestore"),
+          import("../../firebase/watchlist"),
+        ]);
+        const updated = await setWatchlistWatched(
+          db,
+          userId,
+          movie.id,
+          watched,
+        );
+        if (!updated)
+          showNotification(
+            "This movie is no longer in your watchlist.",
+            "info",
+            movie,
+          );
+        return updated;
+      } catch (error) {
+        console.error("[watchlist] Failed to update watched status", error);
+        showNotification(
+          "We couldn't update watched status. Please try again.",
+          "error",
+          movie,
+        );
+        return false;
+      } finally {
+        setPendingWatchlistIds((previous) => {
+          const next = new Set(previous);
+          next.delete(movie.id);
+          return next;
+        });
+      }
+    },
+    [pendingWatchlistIds, showNotification, userId],
+  );
+
   return {
+    setWatched,
     isSavingToWatchlist,
     addToWatchlist,
     removeFromWatchlist,

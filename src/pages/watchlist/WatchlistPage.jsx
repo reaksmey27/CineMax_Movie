@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
-import MovieGrid from "../../components/ui/MovieGrid";
+import WatchlistLibrary from "./WatchlistLibrary";
 import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import { useAuth } from "../../context/AuthContext";
 import { useWatchlist } from "../../context/WatchlistContext";
@@ -14,7 +14,8 @@ const WatchlistPage = () => {
   const modalState = { backgroundLocation: location };
   const { isAuthenticated } = useAuth();
   const { t } = useLanguage();
-  const { watchlist, loading } = useWatchlist();
+  const { watchlist, loading, error, retry, setWatched, isSavingToWatchlist } =
+    useWatchlist();
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 px-4 pb-16 pt-22 sm:px-6 sm:pb-24 sm:pt-28 lg:px-24 lg:pt-36 xl:px-40">
@@ -28,7 +29,9 @@ const WatchlistPage = () => {
           </h1>
           <p className="max-w-lg text-sm font-medium text-gray-400">
             {t(
-              "Sign in to save movies to your account and keep your watchlist synced across devices.",
+              isAuthenticated
+                ? "Find your next movie, organize saved titles, and keep track of what you've watched."
+                : "Sign in to save movies to your account and keep your watchlist synced across devices.",
             )}
           </p>
         </div>
@@ -57,6 +60,17 @@ const WatchlistPage = () => {
             <span className="sr-only">{t("Syncing Your Watchlist...")}</span>
             <MovieGridSkeleton />
           </>
+        ) : error ? (
+          <div role="alert" className="text-[var(--color-text)]">
+            <p>{t("We couldn't sync your watchlist right now.")}</p>
+            <button
+              type="button"
+              onClick={retry}
+              className="mt-4 min-h-11 rounded-xl bg-purple-600 px-4 text-white"
+            >
+              {t("Try again")}
+            </button>
+          </div>
         ) : watchlist.length === 0 ? (
           <div className="flex min-h-[20rem] flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-[25rem] sm:p-12">
             <BookmarkIcon className="mb-6 h-16 w-16 text-gray-600" />
@@ -76,7 +90,11 @@ const WatchlistPage = () => {
             </Link>
           </div>
         ) : (
-          <MovieGrid movies={watchlist} />
+          <WatchlistLibrary
+            movies={watchlist}
+            setWatched={setWatched}
+            isSaving={isSavingToWatchlist}
+          />
         )}
       </div>
     </div>

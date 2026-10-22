@@ -18,6 +18,8 @@ import {
   addToWatchlist,
   getWatchlistMovies,
   WATCHLISTS_COLLECTION,
+  setWatchlistWatched,
+  removeFromWatchlist,
 } from "../src/firebase/watchlist.js";
 import {
   clearNotifications,
@@ -65,6 +67,36 @@ const NOTIFICATION = {
 };
 
 let environment;
+
+test("watched status persists without changing saved metadata or other movies", async () => {
+  const db = getAuthenticatedDatabase();
+  await addToWatchlist(db, OWNER_UID, MOVIE);
+  await addToWatchlist(db, OWNER_UID, SECOND_MOVIE);
+  const ref = doc(db, WATCHLISTS_COLLECTION, OWNER_UID);
+  const before = (await getDoc(ref)).data().movies;
+  assert.equal(await setWatchlistWatched(db, OWNER_UID, MOVIE.id, true), true);
+  const reloaded = (await getDoc(ref)).data().movies;
+  assert.deepEqual(reloaded[MOVIE.id], { ...before[MOVIE.id], watched: true });
+  assert.deepEqual(reloaded[SECOND_MOVIE.id], before[SECOND_MOVIE.id]);
+  await setWatchlistWatched(db, OWNER_UID, MOVIE.id, false);
+  assert.equal((await getDoc(ref)).data().movies[MOVIE.id].watched, false);
+  await removeFromWatchlist(db, OWNER_UID, MOVIE.id);
+  assert.equal(await setWatchlistWatched(db, OWNER_UID, MOVIE.id, true), false);
+  assert.equal((await getDoc(ref)).data().movies[MOVIE.id], undefined);
+});
+
+test("watched status denies other accounts and signed-out users", async () => {
+  await addToWatchlist(getAuthenticatedDatabase(), OWNER_UID, MOVIE);
+  for (const db of [
+    getAuthenticatedDatabase(OTHER_UID),
+    environment.unauthenticatedContext().firestore(),
+  ]) {
+    await assert.rejects(
+      setWatchlistWatched(db, OWNER_UID, MOVIE.id, true),
+      /permission-denied/i,
+    );
+  }
+});
 
 const getAuthenticatedDatabase = (userId = OWNER_UID) =>
   environment.authenticatedContext(userId).firestore();

@@ -10,6 +10,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Filters and pagination:** browse by genre, release year, minimum rating, and sort order. Search stays active when filters change; filtered searches combine up to 2,000 results before sorting and pagination. Resetting filters preserves the search query.
 - **Movie details:** metadata, directors, cast with character names, related movies, trailers, and a player with selectable sources and retry controls. Related movies load independently with retry and empty states.
 - **Saved movies:** Favorites and Watchlist tabs with counts, complete poster grids, removal controls, and friendly empty states.
+- **Watchlist organization:** search saved titles, sort by saved date/title/rating, and filter by watched status. Mark movies watched or unwatched without removing them. Status syncs to your account; changing it requires a connection. Existing entries start as unwatched.
 - **Account profile:** profile photo, username, email, username editing, and logout. Supports email/password and Google sign-in.
 - **Responsive interface:** light and dark themes, visible card titles and ratings, keyboard focus indicators, and reduced-motion support.
 - **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font.
