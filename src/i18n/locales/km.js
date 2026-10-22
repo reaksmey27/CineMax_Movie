@@ -20,7 +20,7 @@ const km = {
   Trending: "កំពុងពេញនិយម",
   Favorites: "ចំណូលចិត្ត",
   Watchlist: "បញ្ជីមើល",
-  Upcoming: "ឆាប់ៗនេះ",
+  Upcoming: "ចេញឆាប់ៗនេះ",
   Notifications: "ការជូនដំណឹង",
   Profile: "ប្រវត្តិរូប",
   Login: "ចូលគណនី",
