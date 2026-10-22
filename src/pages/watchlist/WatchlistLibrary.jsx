@@ -1,10 +1,8 @@
 import { useState } from "react";
 import MovieCard from "../../components/ui/MovieCard";
 import { useLanguage } from "../../context/LanguageContext";
+import CollectionFilters from "../../components/movies/CollectionFilters";
 import { getWatchlistView } from "./watchlistView";
-
-const CONTROL =
-  "mt-2 min-h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] px-3 text-[var(--color-text)]";
 
 export default function WatchlistLibrary({ movies, setWatched, isSaving }) {
   const { t } = useLanguage();
@@ -15,53 +13,23 @@ export default function WatchlistLibrary({ movies, setWatched, isSaving }) {
   const watchedCount = movies.filter((movie) => movie.watched === true).length;
   return (
     <section aria-label={t("Saved movies")}>
-      <div className="mb-6 grid gap-4 text-sm font-semibold text-[var(--color-text)] sm:grid-cols-3">
-        <label>
-          {t("Search watchlist")}
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            className={CONTROL}
-          />
-        </label>
-        <label>
-          {t("Watch status")}
-          <select
-            value={status}
-            onChange={(event) => setStatus(event.target.value)}
-            className={CONTROL}
-          >
-            <option value="all">
-              {t("All")} ({movies.length})
-            </option>
-            <option value="unwatched">
-              {t("To watch")} ({movies.length - watchedCount})
-            </option>
-            <option value="watched">
-              {t("Watched")} ({watchedCount})
-            </option>
-          </select>
-        </label>
-        <label>
-          {t("Sort By")}
-          <select
-            value={sort}
-            onChange={(event) => setSort(event.target.value)}
-            className={CONTROL}
-          >
-            <option value="saved">{t("Recently saved")}</option>
-            <option value="title">{t("Title A-Z")}</option>
-            <option value="rating">{t("Highest Rated")}</option>
-          </select>
-        </label>
-      </div>
-      <p role="status" className="mb-6 text-sm text-[var(--color-text-muted)]">
-        {t("Showing {count} of {total} movies", {
-          count: visible.length,
-          total: movies.length,
-        })}
-      </p>
+      <CollectionFilters
+        searchLabel={t("Search watchlist")}
+        query={query}
+        setQuery={setQuery}
+        status={status}
+        setStatus={setStatus}
+        sort={sort}
+        setSort={setSort}
+        total={movies.length}
+        watchedCount={watchedCount}
+        count={visible.length}
+        reset={() => {
+          setQuery("");
+          setStatus("all");
+          setSort("saved");
+        }}
+      />
       {visible.length ? (
         <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
           {visible.map((movie) => (
@@ -88,16 +56,6 @@ export default function WatchlistLibrary({ movies, setWatched, isSaving }) {
       ) : (
         <div className="py-12 text-center text-[var(--color-text-muted)]">
           <p>{t("No saved movies match your search or status.")}</p>
-          <button
-            type="button"
-            onClick={() => {
-              setQuery("");
-              setStatus("all");
-            }}
-            className="mt-4 min-h-11 rounded-xl bg-purple-600 px-4 font-semibold text-white"
-          >
-            {t("Reset filters")}
-          </button>
         </div>
       )}
     </section>

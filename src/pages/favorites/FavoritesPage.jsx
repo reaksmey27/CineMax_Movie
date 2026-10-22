@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useAuth } from "../../context/AuthContext";
-import MovieGrid from "../../components/ui/MovieGrid";
+import FavoritesLibrary from "./FavoritesLibrary";
 import PageError from "../../components/ui/PageError";
 import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import { useLanguage } from "../../context/LanguageContext";
@@ -87,7 +87,7 @@ const FavoritesPage = () => {
             </Link>
           </div>
         ) : (
-          <MovieGrid movies={favorites} />
+          <FavoritesLibrary movies={favorites} />
         )}
       </div>
     </div>
