@@ -10,6 +10,7 @@ const MovieGrid = ({
   resetLabel = "Reset Results",
   emptyTitle = "No Movies Found",
   emptyMessage = "Try adjusting your search or filters to explore more titles.",
+  showReleaseDate = false,
 }) => {
   const { t } = useLanguage();
   // ─── Empty State: no-results message & reset ──────────────────────────────────
@@ -43,7 +44,7 @@ const MovieGrid = ({
           className="min-w-0 animate-in fade-in slide-in-from-bottom-4 duration-500"
           style={{ animationDelay: `${index * 50}ms` }}
         >
-          <MovieCard movie={movie} />
+          <MovieCard movie={movie} showReleaseDate={showReleaseDate} />
         </div>
       ))}
     </div>

@@ -5,6 +5,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 ## Features
 
 - **Movie discovery:** trending, upcoming, top-rated, now-playing, and genre collections, with links to browse full collections.
+- **Upcoming dates:** the Upcoming page and homepage row include only movies whose TMDB primary release date is after the viewer's current local date. Today's releases and missing or invalid dates are excluded. The Upcoming page shows full localized release dates; dates reflect TMDB metadata rather than availability in a specific country.
 - **Independent homepage loading:** each row loads separately, with its own loading state and retry action. Additional genre rows expand on demand.
 - **Live search:** search from the navigation or Movies page, preview matching titles, and navigate suggestions with the keyboard.
 - **Filters and pagination:** browse by genre, release year, minimum rating, and sort order. Search stays active when filters change; filtered searches combine up to 2,000 results before sorting and pagination. Resetting filters preserves the search query.

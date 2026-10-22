@@ -13,8 +13,17 @@ test("homepage starts with enough movie discovery content", async ({
   }));
 
   await page.route("**/3/**", async (route) => {
+    const upcoming = new URL(route.request().url()).searchParams.get(
+      "primary_release_date.gte",
+    );
     await route.fulfill({
-      json: { page: 1, results, total_pages: 1 },
+      json: {
+        page: 1,
+        results: upcoming
+          ? results.map((movie) => ({ ...movie, release_date: upcoming }))
+          : results,
+        total_pages: 1,
+      },
     });
   });
 

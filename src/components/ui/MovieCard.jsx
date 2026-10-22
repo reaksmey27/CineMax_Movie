@@ -22,8 +22,9 @@ const MovieCard = ({
   headingLevel = "h2",
   showActions = true,
   hideUnrated = false,
+  showReleaseDate = false,
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
   const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
     useWatchlist();
@@ -161,7 +162,15 @@ const MovieCard = ({
           </Link>
         </TitleTag>
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--color-text-muted)] sm:text-sm">
-          <span>{year}</span>
+          {showReleaseDate && movie.release_date ? (
+            <time dateTime={movie.release_date}>
+              {new Intl.DateTimeFormat(language, {
+                dateStyle: "medium",
+              }).format(new Date(`${movie.release_date}T00:00:00`))}
+            </time>
+          ) : (
+            <span>{year}</span>
+          )}
           {(!hideUnrated || (Number.isFinite(rating) && rating > 0)) && (
             <span
               className="inline-flex items-center gap-1 font-semibold text-[var(--color-text)]"

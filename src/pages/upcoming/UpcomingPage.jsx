@@ -52,7 +52,7 @@ const UpcomingPage = () => {
         ) : loading ? (
           <MovieGridSkeleton />
         ) : (
-          <MovieGrid movies={movies} />
+          <MovieGrid movies={movies} showReleaseDate />
         )}
       </div>
     </div>

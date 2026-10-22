@@ -5,6 +5,10 @@ import {
 } from "./tmdb/tmdbConfig";
 import { fetchFromTMDB } from "./tmdb/tmdbClient";
 import {
+  filterUpcomingMovies,
+  upcomingDateBoundary,
+} from "./tmdb/upcomingMovies";
+import {
   GENRE_MAP,
   getBackdropImage,
   getImageUrl,
@@ -76,12 +80,18 @@ export const tmdbService = {
   },
 
   getUpcomingMovies: async () => {
+    const { today, tomorrow } = upcomingDateBoundary();
     const data = await fetchFromTMDB(
-      "/movie/upcoming",
-      {},
+      "/discover/movie",
+      {
+        "primary_release_date.gte": tomorrow,
+        sort_by: "popularity.desc",
+        include_adult: false,
+        include_video: false,
+      },
       { ttl: LONG_CACHE_TTL },
     );
-    return data?.results || [];
+    return filterUpcomingMovies(data?.results || [], today);
   },
 
   getTopRatedMovies: async () => {
@@ -143,6 +153,7 @@ export const tmdbService = {
       id: movie.id,
       title: movie.title || movie.name,
       subtitle: getReleaseYear(movie),
+      release_date: movie.release_date || "",
       rating: movie.vote_average?.toFixed(1) || "0.0",
       duration: movie.runtime
         ? `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`

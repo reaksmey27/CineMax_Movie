@@ -34,7 +34,7 @@ const useUpcomingMovies = () => {
         const results = Array.isArray(response)
           ? response
           : response?.results || [];
-        if (!ignore && results.length > 0) {
+        if (!ignore) {
           setMovies(results.map(tmdbService.formatMovieData));
         }
       } catch (err) {
