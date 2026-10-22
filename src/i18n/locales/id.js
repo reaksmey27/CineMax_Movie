@@ -1,16 +1,17 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
-  "This reset link is invalid or expired. Request a new one.":
-    "Tautan ini tidak valid atau kedaluwarsa. Minta tautan baru.",
-  "Could not reset your password. Please try again.":
-    "Tidak dapat mengatur ulang kata sandi. Coba lagi.",
+
+  "Undo": "Urungkan",
+  "Dismiss": "Tutup",
+  "Removed {title} from {collection}.": "{title} dihapus dari {collection}.",
+  "Could not restore this movie. Try again.": "Film ini tidak dapat dipulihkan. Coba lagi.",
+  "This reset link is invalid or expired. Request a new one.": "Tautan ini tidak valid atau kedaluwarsa. Minta tautan baru.",
+  "Could not reset your password. Please try again.": "Tidak dapat mengatur ulang kata sandi. Coba lagi.",
   "Passwords do not match.": "Kata sandi tidak cocok.",
-  "Use a stronger password that meets your account requirements.":
-    "Gunakan kata sandi yang lebih kuat dan memenuhi persyaratan akun Anda.",
+  "Use a stronger password that meets your account requirements.": "Gunakan kata sandi yang lebih kuat dan memenuhi persyaratan akun Anda.",
   "Checking reset link...": "Memeriksa tautan...",
-  "Password reset. You can now sign in.":
-    "Kata sandi diatur ulang. Anda sekarang dapat masuk.",
+  "Password reset. You can now sign in.": "Kata sandi diatur ulang. Anda sekarang dapat masuk.",
   "Choose a new password.": "Pilih kata sandi baru.",
   "Mark as unfinished": "Tandai belum selesai",
   "Search watch history": "Cari riwayat",

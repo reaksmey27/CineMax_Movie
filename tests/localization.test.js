@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/context/RemovalUndoContext.jsx",
   "src/pages/auth/ResetPasswordPage.jsx",
   "src/components/movies/CollectionFilters.jsx",
   "src/pages/favorites/FavoritesLibrary.jsx",
@@ -56,6 +57,19 @@ for (const file of await readdir(
   if (file === "en.js" || !file.endsWith(".js")) continue;
   test(`${file} covers watchlist, detail and profile messages without losing placeholders`, async () => {
     const messages = (await import(`../src/i18n/locales/${file}`)).default;
+    for (const [key, value] of Object.entries(messages)) {
+      assert.doesNotMatch(
+        value,
+        /\?{2,}|\uFFFD/,
+        `Corrupted translation in ${file}: ${key}`,
+      );
+      if (!key.includes("?") && !key.includes("？")) {
+        assert.ok(
+          !value.includes("?"),
+          `Unexpected replacement question mark in ${file}: ${key}`,
+        );
+      }
+    }
     for (const key of keys) {
       assert.ok(messages[key]?.trim(), `Missing translation: ${key}`);
       assert.deepEqual(

@@ -1,3 +1,4 @@
+import { useRemovalUndo } from "../../context/RemovalUndoContext";
 import { useCallback, useMemo, useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 
@@ -7,6 +8,7 @@ export default function useWatchlistActions({
   onRequireSignIn,
   showNotification,
 }) {
+  const offerUndo = useRemovalUndo();
   const { t } = useLanguage();
   const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
     () => new Set(),
@@ -109,7 +111,9 @@ export default function useWatchlistActions({
             import("../../firebase/firestore"),
             import("../../firebase/watchlist"),
           ]);
-        await removeMovieFromWatchlist(db, userId, movieId);
+        const removed = await removeMovieFromWatchlist(db, userId, movieId);
+        if (!removed) return false;
+        offerUndo("watchlists", movie);
         showNotification(
           `Removed ${movie.title} from your watchlist.`,
           "info",
@@ -132,7 +136,14 @@ export default function useWatchlistActions({
         });
       }
     },
-    [onRequireSignIn, pendingWatchlistIds, showNotification, userId, watchlist],
+    [
+      offerUndo,
+      onRequireSignIn,
+      pendingWatchlistIds,
+      showNotification,
+      userId,
+      watchlist,
+    ],
   );
 
   const isInWatchlist = useCallback(

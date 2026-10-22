@@ -1,3 +1,4 @@
+import { useRemovalUndo } from "../../context/RemovalUndoContext";
 import { useCallback, useMemo, useState } from "react";
 
 export default function useFavoritesActions({
@@ -6,6 +7,7 @@ export default function useFavoritesActions({
   onRequireSignIn,
   showNotification,
 }) {
+  const offerUndo = useRemovalUndo();
   const [pendingFavoriteIds, setPendingFavoriteIds] = useState(() => new Set());
 
   const favoriteIds = useMemo(
@@ -103,7 +105,9 @@ export default function useFavoritesActions({
             import("../../firebase/firestore"),
             import("../../firebase/favorites"),
           ]);
-        await removeMovieFromFavorites(db, userId, movieId);
+        const removed = await removeMovieFromFavorites(db, userId, movieId);
+        if (!removed) return false;
+        offerUndo("favorites", movie);
         showNotification(
           `Removed ${movie.title} from favorites.`,
           "info",
@@ -126,7 +130,14 @@ export default function useFavoritesActions({
         });
       }
     },
-    [favorites, onRequireSignIn, pendingFavoriteIds, showNotification, userId],
+    [
+      offerUndo,
+      favorites,
+      onRequireSignIn,
+      pendingFavoriteIds,
+      showNotification,
+      userId,
+    ],
   );
 
   const isFavorite = useCallback(

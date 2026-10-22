@@ -1,16 +1,17 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
-  "This reset link is invalid or expired. Request a new one.":
-    "Ce lien est invalide ou expir?. Demandez-en un nouveau.",
-  "Could not reset your password. Please try again.":
-    "Impossible de r?initialiser votre mot de passe. R?essayez.",
+
+  "Undo": "Annuler",
+  "Dismiss": "Fermer",
+  "Removed {title} from {collection}.": "{title} a été retiré de {collection}.",
+  "Could not restore this movie. Try again.": "Impossible de restaurer ce film. Réessayez.",
+  "This reset link is invalid or expired. Request a new one.": "Ce lien est invalide ou expiré. Demandez-en un nouveau.",
+  "Could not reset your password. Please try again.": "Impossible de réinitialiser votre mot de passe. Réessayez.",
   "Passwords do not match.": "Les mots de passe ne correspondent pas.",
-  "Use a stronger password that meets your account requirements.":
-    "Utilisez un mot de passe plus fort qui respecte les exigences de votre compte.",
-  "Checking reset link...": "V?rification du lien...",
-  "Password reset. You can now sign in.":
-    "Mot de passe r?initialis?. Vous pouvez vous connecter.",
+  "Use a stronger password that meets your account requirements.": "Utilisez un mot de passe plus fort qui respecte les exigences de votre compte.",
+  "Checking reset link...": "Vérification du lien...",
+  "Password reset. You can now sign in.": "Mot de passe réinitialisé. Vous pouvez vous connecter.",
   "Choose a new password.": "Choisissez un nouveau mot de passe.",
   "Mark as unfinished": "Marquer comme non terminé",
   "Search watch history": "Rechercher dans l’historique",

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { restoreMovie } from "../src/firebase/restoreMovie.js";
 import {
   saveWatchHistory,
   subscribeWatchHistory,
@@ -18,6 +19,7 @@ import {
 import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
 import {
   addToFavorites,
+  removeFromFavorites,
   FAVORITES_COLLECTION,
   getFavoriteMovies,
 } from "../src/firebase/favorites.js";
@@ -74,6 +76,58 @@ const NOTIFICATION = {
 };
 
 let environment;
+
+for (const name of ["favorites", "watchlists", "watchHistory"]) {
+  test(`undo restores exact ${name} metadata without overwriting newer saves`, async () => {
+    const db = getAuthenticatedDatabase();
+    const history = name === "watchHistory";
+    const ref = history
+      ? doc(db, name, OWNER_UID, "movies", String(MOVIE.id))
+      : doc(db, name, OWNER_UID);
+    const read = async () => {
+      const data = (await getDoc(ref)).data();
+      return history ? data : data.movies[MOVIE.id];
+    };
+    const save = async () => {
+      if (history)
+        await saveWatchHistory(db, OWNER_UID, MOVIE, {
+          server: "Server 4",
+          positionSeconds: 125,
+          durationSeconds: 7200,
+          completed: true,
+        });
+      else if (name === "favorites") await addToFavorites(db, OWNER_UID, MOVIE);
+      else {
+        await addToWatchlist(db, OWNER_UID, MOVIE);
+        await setWatchlistWatched(db, OWNER_UID, MOVIE.id, true);
+      }
+    };
+    await save();
+    const original = await read();
+    if (history) await removeWatchHistory(db, OWNER_UID, MOVIE.id);
+    else if (name === "favorites")
+      await removeFromFavorites(db, OWNER_UID, MOVIE.id);
+    else await removeFromWatchlist(db, OWNER_UID, MOVIE.id);
+    await restoreMovie(db, OWNER_UID, name, original);
+    assert.deepEqual(await read(), original);
+    await save();
+    const newer = await read();
+    await restoreMovie(db, OWNER_UID, name, {
+      ...original,
+      title: "Old title",
+    });
+    assert.deepEqual(await read(), newer);
+    await assert.rejects(
+      restoreMovie(
+        getAuthenticatedDatabase(OTHER_UID),
+        OWNER_UID,
+        name,
+        original,
+      ),
+      /permission/i,
+    );
+  });
+}
 
 test("watch history persists progress, resumes via a fresh subscription, and supports finishing/removal", async () => {
   const db = getAuthenticatedDatabase();

@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useRemovalUndo } from "./RemovalUndoContext";
 import { useAuth } from "./AuthContext";
 
 const Context = createContext(null);
@@ -18,6 +19,7 @@ const loadStorage = () =>
   ]);
 
 function Session({ userId, children }) {
+  const offerUndo = useRemovalUndo();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(Boolean(userId));
   const [error, setError] = useState(false);
@@ -89,6 +91,10 @@ function Session({ userId, children }) {
   const change = useCallback(
     async (movieId, action) => {
       if (!userId || pending.current.has(movieId)) return false;
+      const removedMovie =
+        action === "remove"
+          ? records.current.find((item) => item.id === movieId)
+          : null;
       pending.current.add(movieId);
       setBusy(new Set(pending.current));
       try {
@@ -100,6 +106,7 @@ function Session({ userId, children }) {
               ? storage.markWatchHistoryUnfinished
               : storage.finishWatchHistory;
         await update(db, userId, movieId);
+        if (removedMovie) offerUndo("watchHistory", removedMovie);
         setSaveError(false);
         return true;
       } catch {
@@ -110,7 +117,7 @@ function Session({ userId, children }) {
         setBusy(new Set(pending.current));
       }
     },
-    [userId],
+    [userId, offerUndo],
   );
   const value = useMemo(
     () => ({

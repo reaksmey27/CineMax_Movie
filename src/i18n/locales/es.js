@@ -1,17 +1,18 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
-  "This reset link is invalid or expired. Request a new one.":
-    "Este enlace no es v?lido o ha caducado. Solicita uno nuevo.",
-  "Could not reset your password. Please try again.":
-    "No se pudo restablecer tu contrase?a. Int?ntalo de nuevo.",
-  "Passwords do not match.": "Las contrase?as no coinciden.",
-  "Use a stronger password that meets your account requirements.":
-    "Usa una contrase?a m?s segura que cumpla los requisitos de tu cuenta.",
+
+  "Undo": "Deshacer",
+  "Dismiss": "Cerrar",
+  "Removed {title} from {collection}.": "Se eliminó {title} de {collection}.",
+  "Could not restore this movie. Try again.": "No se pudo restaurar esta película. Inténtalo de nuevo.",
+  "This reset link is invalid or expired. Request a new one.": "Este enlace no es válido o ha caducado. Solicita uno nuevo.",
+  "Could not reset your password. Please try again.": "No se pudo restablecer tu contraseña. Inténtalo de nuevo.",
+  "Passwords do not match.": "Las contraseñas no coinciden.",
+  "Use a stronger password that meets your account requirements.": "Usa una contraseña más segura que cumpla los requisitos de tu cuenta.",
   "Checking reset link...": "Comprobando el enlace...",
-  "Password reset. You can now sign in.":
-    "Contrase?a restablecida. Ya puedes iniciar sesi?n.",
-  "Choose a new password.": "Elige una contrase?a nueva.",
+  "Password reset. You can now sign in.": "Contraseña restablecida. Ya puedes iniciar sesión.",
+  "Choose a new password.": "Elige una contraseña nueva.",
   "Mark as unfinished": "Marcar como sin terminar",
   "Search watch history": "Buscar en el historial",
   "Recently watched": "Vistas recientemente",
