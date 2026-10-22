@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Mark as unfinished": "Segna come non finito",
   "Search watch history": "Cerca nella cronologia",
   "Recently watched": "Visti di recente",
   "Oldest watched": "Visti meno di recente",

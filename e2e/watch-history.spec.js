@@ -37,6 +37,10 @@ async function fixture(page) {
     export const subscribeWatchHistory = (db,uid,cb) => { const fn=()=>cb(read(uid)); listeners.add(fn); fn(); return ()=>listeners.delete(fn); };
     export const saveWatchHistory = async (db,uid,movie,details) => { if(localStorage.getItem('fail-save')) throw Error('offline'); write(uid,[{...movie,...details,lastWatchedAt:new Date().toISOString()},...read(uid).filter(x=>x.id!==movie.id)]); };
     export const finishWatchHistory = async (db,uid,id) => write(uid,read(uid).map(x=>x.id===id?{...x,completed:true}:x));
+    export const markWatchHistoryUnfinished = async (db,uid,id) => {
+      if (localStorage.getItem('fail-status')) throw Error('offline');
+      write(uid,read(uid).map(x=>x.id===id?{...x,completed:false}:x));
+    };
     export const removeWatchHistory = async (db,uid,id) => write(uid,read(uid).filter(x=>x.id!==id));
   `,
   );
@@ -130,6 +134,64 @@ test("history combines search, status, sorting and live watched updates", async 
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+});
+
+test("undo watched preserves progress, updates filters and restores Continue watching", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.addInitScript(() => {
+    if (!localStorage.getItem("history-fan"))
+      localStorage.setItem(
+        "history-fan",
+        JSON.stringify([
+          {
+            id: 42,
+            title: "Example Film",
+            completed: true,
+            positionSeconds: 125,
+            durationSeconds: 7200,
+            server: "Server 4",
+            lastWatchedAt: "2026-10-20T00:00:00.000Z",
+          },
+        ]),
+      );
+  });
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/history");
+  await page.getByLabel("Watch status").selectOption("watched");
+  await page.evaluate(() => localStorage.setItem("fail-status", "1"));
+  await page.getByRole("button", { name: "Mark as unfinished" }).click();
+  await expect(page.getByRole("alert")).toContainText(
+    "Could not save watch history.",
+  );
+  await expect(
+    page.getByRole("button", { name: "Mark as unfinished" }),
+  ).toBeEnabled();
+  await page.evaluate(() => localStorage.removeItem("fail-status"));
+  await page.getByRole("button", { name: "Mark as unfinished" }).click();
+  await expect(page.locator("article")).toHaveCount(0);
+  await page.getByLabel("Watch status").selectOption("unfinished");
+  await expect(page.locator("article")).toContainText("2:05 / 2:00:00");
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Mark as watched" }),
+  ).toBeVisible();
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Continue watching" }),
+  ).toBeVisible();
+  await page
+    .locator("article")
+    .getByRole("link", { name: "Continue watching" })
+    .click();
+  await page
+    .getByRole("button", { name: "Continue watching", exact: true })
+    .click();
+  await expect(page.getByTitle("Cinema Player")).toHaveAttribute(
+    "src",
+    /startAt=125/,
+  );
 });
 
 test("signed-in account pages fit small and tablet screens", async ({

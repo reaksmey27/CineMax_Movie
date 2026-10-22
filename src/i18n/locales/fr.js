@@ -1,6 +1,7 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Mark as unfinished": "Marquer comme non terminé",
   "Search watch history": "Rechercher dans l’historique",
   "Recently watched": "Vus récemment",
   "Oldest watched": "Vus les plus anciens",

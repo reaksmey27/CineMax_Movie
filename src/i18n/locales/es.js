@@ -1,6 +1,7 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Mark as unfinished": "Marcar como sin terminar",
   "Search watch history": "Buscar en el historial",
   "Recently watched": "Vistas recientemente",
   "Oldest watched": "Vistas hace más tiempo",

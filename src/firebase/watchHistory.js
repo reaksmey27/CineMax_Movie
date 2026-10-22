@@ -66,5 +66,7 @@ export async function saveWatchHistory(database, userId, movie, details) {
 
 export const finishWatchHistory = (database, userId, movieId) =>
   updateDoc(historyDocument(database, userId, movieId), { completed: true });
+export const markWatchHistoryUnfinished = (database, userId, movieId) =>
+  updateDoc(historyDocument(database, userId, movieId), { completed: false });
 export const removeWatchHistory = (database, userId, movieId) =>
   deleteDoc(historyDocument(database, userId, movieId));

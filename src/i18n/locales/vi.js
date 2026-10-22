@@ -1,6 +1,7 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Mark as unfinished": "Đánh dấu chưa xem xong",
   "Search watch history": "Tìm trong lịch sử",
   "Recently watched": "Xem gần đây",
   "Oldest watched": "Xem lâu nhất",

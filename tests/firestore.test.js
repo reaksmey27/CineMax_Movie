@@ -3,6 +3,7 @@ import {
   saveWatchHistory,
   subscribeWatchHistory,
   finishWatchHistory,
+  markWatchHistoryUnfinished,
   removeWatchHistory,
 } from "../src/firebase/watchHistory.js";
 import { readFile } from "node:fs/promises";
@@ -98,7 +99,14 @@ test("watch history persists progress, resumes via a fresh subscription, and sup
   await finishWatchHistory(db, OWNER_UID, MOVIE.id);
   const ref = doc(db, "watchHistory", OWNER_UID, "movies", String(MOVIE.id));
   assert.equal((await getDoc(ref)).data().completed, true);
+  await markWatchHistoryUnfinished(db, OWNER_UID, MOVIE.id);
+  assert.deepEqual((await getDoc(ref)).data(), items[0]);
   await removeWatchHistory(db, OWNER_UID, MOVIE.id);
+  assert.equal((await getDoc(ref)).exists(), false);
+  await assert.rejects(
+    markWatchHistoryUnfinished(db, OWNER_UID, MOVIE.id),
+    /not-found/i,
+  );
   assert.equal((await getDoc(ref)).exists(), false);
 });
 
@@ -120,6 +128,10 @@ test("watch history denies reads and changes by guests or other accounts", async
     );
     await assert.rejects(
       finishWatchHistory(db, OWNER_UID, MOVIE.id),
+      /permission-denied/i,
+    );
+    await assert.rejects(
+      markWatchHistoryUnfinished(db, OWNER_UID, MOVIE.id),
       /permission-denied/i,
     );
     await assert.rejects(

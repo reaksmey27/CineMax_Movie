@@ -4,7 +4,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { formatPlaybackTime } from "../../utils/player/watchProgress";
 
 export default function WatchHistoryList({ compact = false, movies }) {
-  const { history, finish, remove, isBusy } = useWatchHistory();
+  const { history, finish, markUnfinished, remove, isBusy } = useWatchHistory();
   const { t, language } = useLanguage();
   const items = compact
     ? history.filter((item) => !item.completed).slice(0, 6)
@@ -87,15 +87,18 @@ export default function WatchHistoryList({ compact = false, movies }) {
               </Link>
               {!compact && (
                 <div className="flex flex-col gap-2">
-                  {!item.completed && (
-                    <button
-                      disabled={isBusy(item.id)}
-                      onClick={() => finish(item.id)}
-                      className="min-h-11 rounded-lg border border-[var(--color-border)] px-2 py-2 leading-relaxed [overflow-wrap:anywhere] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
-                    >
-                      {t("Mark as watched")}
-                    </button>
-                  )}
+                  <button
+                    disabled={isBusy(item.id)}
+                    aria-busy={isBusy(item.id)}
+                    onClick={() =>
+                      item.completed ? markUnfinished(item.id) : finish(item.id)
+                    }
+                    className="min-h-11 rounded-lg border border-[var(--color-border)] px-2 py-2 leading-relaxed [overflow-wrap:anywhere] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
+                  >
+                    {item.completed
+                      ? t("Mark as unfinished")
+                      : t("Mark as watched")}
+                  </button>
                   <button
                     disabled={isBusy(item.id)}
                     onClick={() => remove(item.id)}

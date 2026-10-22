@@ -1,6 +1,7 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Mark as unfinished": "សម្គាល់ថាមិនទាន់មើលចប់",
   "Search watch history": "ស្វែងរកប្រវត្តិមើល",
   "Recently watched": "បានមើលថ្មីៗ",
   "Oldest watched": "បានមើលយូរជាងគេ",

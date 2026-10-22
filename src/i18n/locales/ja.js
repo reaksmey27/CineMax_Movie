@@ -1,6 +1,7 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Mark as unfinished": "視聴途中に戻す",
   "Search watch history": "履歴を検索",
   "Recently watched": "最近視聴した順",
   "Oldest watched": "視聴日時が古い順",

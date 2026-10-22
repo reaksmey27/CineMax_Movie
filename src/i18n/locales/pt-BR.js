@@ -1,6 +1,7 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Mark as unfinished": "Marcar como não concluído",
   "Search watch history": "Pesquisar histórico",
   "Recently watched": "Assistidos recentemente",
   "Oldest watched": "Assistidos há mais tempo",

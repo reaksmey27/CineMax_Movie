@@ -1,6 +1,7 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Mark as unfinished": "Tandai belum selesai",
   "Search watch history": "Cari riwayat",
   "Recently watched": "Terakhir ditonton",
   "Oldest watched": "Paling lama ditonton",

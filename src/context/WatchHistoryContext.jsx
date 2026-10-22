@@ -87,15 +87,19 @@ function Session({ userId, children }) {
   );
 
   const change = useCallback(
-    async (movieId, remove) => {
+    async (movieId, action) => {
       if (!userId || pending.current.has(movieId)) return false;
       pending.current.add(movieId);
       setBusy(new Set(pending.current));
       try {
         const [{ db }, storage] = await loadStorage();
-        await (
-          remove ? storage.removeWatchHistory : storage.finishWatchHistory
-        )(db, userId, movieId);
+        const update =
+          action === "remove"
+            ? storage.removeWatchHistory
+            : action === "unfinished"
+              ? storage.markWatchHistoryUnfinished
+              : storage.finishWatchHistory;
+        await update(db, userId, movieId);
         setSaveError(false);
         return true;
       } catch {
@@ -116,8 +120,9 @@ function Session({ userId, children }) {
       saveError,
       retry,
       record,
-      finish: (id) => change(id, false),
-      remove: (id) => change(id, true),
+      finish: (id) => change(id, "finish"),
+      markUnfinished: (id) => change(id, "unfinished"),
+      remove: (id) => change(id, "remove"),
       isBusy: (id) => busy.has(id),
     }),
     [history, loading, error, saveError, retry, record, change, busy],
