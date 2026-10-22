@@ -443,6 +443,8 @@ const ko = {
     "이 영화는 더 이상 관심 목록에 없습니다.",
   "We couldn't update watched status. Please try again.":
     "시청 상태를 업데이트하지 못했습니다. 다시 시도해 주세요.",
+  "Loading language...": "언어 불러오는 중...",
+  "Could not load this language.": "이 언어를 불러오지 못했습니다.",
 };
 
 export default ko;

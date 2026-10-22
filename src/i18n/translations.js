@@ -1,15 +1,3 @@
-import en from "./locales/en";
-import km from "./locales/km";
-import zhTW from "./locales/zh-TW";
-import es from "./locales/es";
-import fr from "./locales/fr";
-import ja from "./locales/ja";
-import ko from "./locales/ko";
-import vi from "./locales/vi";
-import id from "./locales/id";
-import de from "./locales/de";
-import it from "./locales/it";
-import ptBR from "./locales/pt-BR";
 import flagUK from "../assets/flags/uk.png";
 import flagKH from "../assets/flags/kh.png";
 import flagCN from "../assets/flags/cn.png";
@@ -42,25 +30,12 @@ export const LANGUAGES = [
 
 // ─── Translations: locale message maps ────────────────────────────────────────
 
-const translations = {
-  en,
-  km,
-  "zh-TW": zhTW,
-  es,
-  fr,
-  ja,
-  ko,
-  vi,
-  id,
-  de,
-  it,
-  "pt-BR": ptBR,
-};
+export { loadLocale } from "./localeLoader";
 
 // ─── translate: resolve key & fill placeholders ───────────────────────────────
 
-export const translate = (language, key, values = {}) => {
-  const message = translations[language]?.[key] || key;
+export const translate = (messages, key, values = {}) => {
+  const message = messages[key] || key;
   return message.replace(/\{(\w+)\}/g, (match, name) =>
     Object.hasOwn(values, name) ? String(values[name]) : match,
   );

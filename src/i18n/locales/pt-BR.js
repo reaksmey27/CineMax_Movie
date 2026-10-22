@@ -467,6 +467,8 @@ const ptBR = {
     "Este filme não está mais na sua lista.",
   "We couldn't update watched status. Please try again.":
     "Não foi possível atualizar o status de visualização. Tente novamente.",
+  "Loading language...": "Carregando idioma...",
+  "Could not load this language.": "Não foi possível carregar este idioma.",
 };
 
 export default ptBR;

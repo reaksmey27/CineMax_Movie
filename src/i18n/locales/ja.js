@@ -446,6 +446,8 @@ const ja = {
     "この映画はウォッチリストにありません。",
   "We couldn't update watched status. Please try again.":
     "視聴状況を更新できませんでした。もう一度お試しください。",
+  "Loading language...": "言語を読み込み中...",
+  "Could not load this language.": "この言語を読み込めませんでした。",
 };
 
 export default ja;

@@ -454,6 +454,8 @@ const es = {
     "Esta película ya no está en tu lista.",
   "We couldn't update watched status. Please try again.":
     "No pudimos actualizar el estado de visualización. Inténtalo de nuevo.",
+  "Loading language...": "Cargando idioma...",
+  "Could not load this language.": "No se pudo cargar este idioma.",
 };
 
 export default es;

@@ -14,6 +14,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Account profile:** profile photo, username, email, username editing, and logout. Supports email/password and Google sign-in.
 - **Responsive interface:** light and dark themes, visible card titles and ratings, keyboard focus indicators, and reduced-motion support.
 - **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font. Watchlist controls, cast and related-movie sections, profile collection states, and movie save-button accessibility labels use the selected language. Original movie titles and person names are preserved.
+- **On-demand translations:** English needs no translation download. Other languages load when selected and are reused during the session. The current language stays visible during loading; failed downloads preserve the saved preference and offer retry.
 - **Donation card:** QR download and copyable payment details in a dialog that fits the viewport.
 - **Detailed footer:** explore links, genre shortcuts, TMDB attribution and social buttons. Newsletter signup is unavailable until a subscription service is connected.
 - **Legal pages:** privacy policy and terms of use, linked from the footer and included in the sitemap.

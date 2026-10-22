@@ -449,6 +449,8 @@ const km = {
     "ភាពយន្តនេះលែងមានក្នុងបញ្ជីត្រូវមើលរបស់អ្នកហើយ។",
   "We couldn't update watched status. Please try again.":
     "មិនអាចធ្វើបច្ចុប្បន្នភាពស្ថានភាពមើលបានទេ។ សូមព្យាយាមម្ដងទៀត។",
+  "Loading language...": "កំពុងផ្ទុកភាសា...",
+  "Could not load this language.": "មិនអាចផ្ទុកភាសានេះបានទេ។",
 };
 
 export default km;

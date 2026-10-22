@@ -457,6 +457,8 @@ const fr = {
     "Ce film ne figure plus dans votre liste à voir.",
   "We couldn't update watched status. Please try again.":
     "Impossible de modifier l’état de visionnage. Réessayez.",
+  "Loading language...": "Chargement de la langue...",
+  "Could not load this language.": "Impossible de charger cette langue.",
 };
 
 export default fr;

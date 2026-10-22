@@ -449,6 +449,8 @@ const id = {
     "Film ini tidak lagi ada di daftar tontonan Anda.",
   "We couldn't update watched status. Please try again.":
     "Status tontonan tidak dapat diperbarui. Silakan coba lagi.",
+  "Loading language...": "Memuat bahasa...",
+  "Could not load this language.": "Bahasa ini tidak dapat dimuat.",
 };
 
 export default id;

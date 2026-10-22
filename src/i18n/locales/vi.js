@@ -462,6 +462,8 @@ const vi = {
     "Phim này không còn trong danh sách xem của bạn.",
   "We couldn't update watched status. Please try again.":
     "Không thể cập nhật trạng thái xem. Vui lòng thử lại.",
+  "Loading language...": "Đang tải ngôn ngữ...",
+  "Could not load this language.": "Không thể tải ngôn ngữ này.",
 };
 
 export default vi;

@@ -453,6 +453,8 @@ const zhTW = {
     "這部電影已不在你的待看清單中。",
   "We couldn't update watched status. Please try again.":
     "無法更新觀看狀態，請再試一次。",
+  "Loading language...": "正在載入語言...",
+  "Could not load this language.": "無法載入此語言。",
 };
 
 export default zhTW;

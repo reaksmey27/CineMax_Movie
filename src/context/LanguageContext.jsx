@@ -1,6 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { LANGUAGES, translate } from "../i18n/translations";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { LANGUAGES, loadLocale, translate } from "../i18n/translations";
 
 // ─── Constants: storage key & default language ────────────────────────────────
 
@@ -25,25 +32,74 @@ const getInitialLanguage = () => {
 // ─── LanguageProvider: language state & translate ─────────────────────────────
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(getInitialLanguage);
+  const [request, setRequest] = useState(() => ({
+    code: getInitialLanguage(),
+  }));
+  const [resolved, setResolved] = useState({
+    language: DEFAULT_LANGUAGE,
+    messages: {},
+    request: null,
+    error: false,
+  });
+  const { language, messages } = resolved;
+  const languageLoading = resolved.request !== request;
+  const languageError = !languageLoading && resolved.error;
+  const setLanguage = useCallback((code) => {
+    if (LANGUAGES.some((item) => item.code === code)) setRequest({ code });
+  }, []);
+  const retryLanguage = useCallback(
+    () => setRequest((previous) => ({ code: previous.code })),
+    [],
+  );
+
+  useEffect(() => {
+    let ignore = false;
+    loadLocale(request.code)
+      .then((loadedMessages) => {
+        if (ignore) return;
+        setResolved({
+          language: request.code,
+          messages: loadedMessages,
+          request,
+          error: false,
+        });
+        try {
+          localStorage.setItem(STORAGE_KEY, request.code);
+        } catch (error) {
+          console.warn("[language] Could not save language preference", error);
+        }
+      })
+      .catch(() => {
+        if (!ignore)
+          setResolved((previous) => ({ ...previous, request, error: true }));
+      });
+    return () => {
+      ignore = true;
+    };
+  }, [request]);
 
   useEffect(() => {
     document.documentElement.lang = language;
-    try {
-      localStorage.setItem(STORAGE_KEY, language);
-    } catch (error) {
-      console.warn("[language] Could not save language preference", error);
-    }
   }, [language]);
 
   const value = useMemo(
     () => ({
       language,
       setLanguage,
+      languageLoading,
+      languageError,
+      retryLanguage,
       languages: LANGUAGES,
-      t: (key, values) => translate(language, key, values),
+      t: (key, values) => translate(messages, key, values),
     }),
-    [language],
+    [
+      language,
+      messages,
+      setLanguage,
+      languageLoading,
+      languageError,
+      retryLanguage,
+    ],
   );
 
   return (

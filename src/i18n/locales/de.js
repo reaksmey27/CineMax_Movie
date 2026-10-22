@@ -470,6 +470,8 @@ const de = {
     "Dieser Film ist nicht mehr auf deiner Merkliste.",
   "We couldn't update watched status. Please try again.":
     "Der Wiedergabestatus konnte nicht aktualisiert werden. Versuche es erneut.",
+  "Loading language...": "Sprache wird geladen...",
+  "Could not load this language.": "Diese Sprache konnte nicht geladen werden.",
 };
 
 export default de;
