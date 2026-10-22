@@ -27,8 +27,8 @@ import {
 
 // ─── Scroll Manager: reset scroll on route change ─────────────────────────────
 
-const ScrollManager = () => {
-  useScrollToTop();
+const ScrollManager = ({ location }) => {
+  useScrollToTop(location);
   return null;
 };
 
@@ -41,7 +41,7 @@ const AppContent = ({ theme, toggleTheme }) => {
 
   return (
     <>
-      <ScrollManager />
+      <ScrollManager location={baseLocation} />
       <RouteTitleManager />
       <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
@@ -50,8 +50,12 @@ const AppContent = ({ theme, toggleTheme }) => {
             <div key={baseLocation.pathname} className="animate-page-enter">
               <BaseRoutes location={baseLocation} />
             </div>
-            {backgroundLocation && <AuthModalRoutes location={location} />}
           </Suspense>
+          {backgroundLocation && (
+            <Suspense fallback={null}>
+              <AuthModalRoutes location={location} />
+            </Suspense>
+          )}
         </main>
         <DonationButton />
         <BackToTopButton />
