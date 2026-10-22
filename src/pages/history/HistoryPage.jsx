@@ -9,9 +9,9 @@ export default function HistoryPage() {
   const { history, loading, error, saveError, retry } = useWatchHistory();
   const { t } = useLanguage();
   return (
-    <main className="min-h-screen bg-[var(--color-bg)] px-4 pb-20 pt-28 text-[var(--color-text)] sm:px-12 lg:px-24">
+    <main className="mx-auto min-h-screen w-full max-w-[1600px] bg-[var(--color-bg)] px-4 pb-12 pt-24 text-[var(--color-text)] sm:px-8 sm:pb-20 sm:pt-36 lg:px-12 xl:px-20">
       <h1 className="mb-4 text-3xl font-bold">{t("History")}</h1>
-      <p className="mb-8 text-[var(--color-text-muted)]">
+      <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)] sm:mb-8 sm:text-base">
         {t("Find your last 50 movies and continue watching another day.")}
       </p>
       {authLoading || loading ? (

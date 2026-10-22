@@ -63,13 +63,13 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <img
             src="/images/logo.svg"
             alt={t("CineMax Logo")}
-            className="h-10 w-auto sm:h-12"
+            className="h-8 w-auto min-[360px]:h-10 sm:h-12"
             decoding="async"
           />
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-6 text-sm xl:flex 2xl:gap-10">
+        <div className="hidden items-center gap-4 text-sm 2xl:flex">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
@@ -165,7 +165,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setIsMenuOpen(!isMenuOpen);
               setShowNotifPanel(false);
             }}
-            className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full p-1 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 xl:hidden"
+            className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full p-1 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 2xl:hidden"
             aria-label={isMenuOpen ? t("Close menu") : t("Open menu")}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"

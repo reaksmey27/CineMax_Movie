@@ -13,29 +13,47 @@ export default function WatchHistoryList({ compact = false }) {
   return (
     <section className={compact ? "mx-4 sm:mx-6 lg:mx-24" : ""}>
       {compact && (
-        <div className="mb-5 flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-bold">{t("Continue watching")}</h2>
-          <Link to="/history" className="text-purple-400 underline">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="min-w-0 text-xl font-bold sm:text-2xl">
+            {t("Continue watching")}
+          </h2>
+          <Link
+            to="/history"
+            className="inline-flex min-h-11 items-center text-purple-400 underline"
+          >
             {t("History")}
           </Link>
         </div>
       )}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      <div
+        className={`grid gap-3 sm:gap-5 ${compact ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6" : "grid-cols-1 min-[480px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"}`}
+      >
         {items.map((item) => (
           <article
             key={item.id}
-            className="min-w-0 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)]"
+            className={`min-w-0 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] ${compact ? "flex flex-col" : "grid grid-cols-[5.5rem_minmax(0,1fr)] min-[480px]:flex min-[480px]:flex-col"}`}
           >
-            <Link to={`/movie/${item.id}`} className="block">
+            <Link
+              to={`/movie/${item.id}`}
+              aria-label={item.title}
+              className="block self-start w-full focus-visible:outline-2 focus-visible:outline-purple-400"
+            >
               <img
                 src={item.posterImage || "/images/logo.png"}
                 alt=""
                 loading="lazy"
                 className="aspect-[2/3] w-full object-cover"
               />
-              <h3 className="px-3 pt-3 font-bold">{item.title}</h3>
             </Link>
-            <div className="space-y-3 p-3 text-sm">
+            <div className="flex min-w-0 flex-1 flex-col gap-3 p-3 text-sm sm:p-4">
+              <h3 className="font-bold leading-relaxed [overflow-wrap:anywhere]">
+                <Link
+                  to={`/movie/${item.id}`}
+                  className="hover:text-purple-400 focus-visible:outline-2 focus-visible:outline-purple-400"
+                >
+                  {item.title}
+                </Link>
+              </h3>
               <p className="text-[var(--color-text-muted)]">
                 {item.completed
                   ? t("Watched")
@@ -63,7 +81,7 @@ export default function WatchHistoryList({ compact = false }) {
               )}
               <Link
                 to={`/movie/${item.id}`}
-                className="block rounded-lg bg-purple-600 px-3 py-2 text-center font-semibold text-white"
+                className="mt-auto flex min-h-11 items-center justify-center rounded-lg bg-purple-600 px-3 py-2 text-center font-semibold leading-relaxed text-white [overflow-wrap:anywhere] hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
               >
                 {item.completed ? t("Play Movie") : t("Continue watching")}
               </Link>
@@ -73,7 +91,7 @@ export default function WatchHistoryList({ compact = false }) {
                     <button
                       disabled={isBusy(item.id)}
                       onClick={() => finish(item.id)}
-                      className="min-h-10 rounded-lg border border-[var(--color-border)] disabled:opacity-50"
+                      className="min-h-11 rounded-lg border border-[var(--color-border)] px-2 py-2 leading-relaxed [overflow-wrap:anywhere] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
                     >
                       {t("Mark as watched")}
                     </button>
@@ -81,7 +99,7 @@ export default function WatchHistoryList({ compact = false }) {
                   <button
                     disabled={isBusy(item.id)}
                     onClick={() => remove(item.id)}
-                    className="min-h-10 text-red-400 disabled:opacity-50"
+                    className="min-h-11 rounded-lg px-2 py-2 text-red-400 focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
                   >
                     {t("Remove")}
                   </button>
