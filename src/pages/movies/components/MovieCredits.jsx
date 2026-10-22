@@ -44,11 +44,11 @@ export default function MovieCredits({ movie }) {
         </dd>
       </dl>
       {movie.cast?.length ? (
-        <ul className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        <ul className="mt-6 grid grid-cols-3 gap-x-3 gap-y-5 sm:gap-4 lg:grid-cols-6">
           {movie.cast.map((person) => (
             <li key={person.id} className="min-w-0">
               <CastPortrait person={person} />
-              <p className="mt-2 text-sm font-semibold text-[var(--color-text)]">
+              <p className="mt-2 text-xs font-semibold leading-relaxed text-[var(--color-text)] sm:text-sm">
                 {person.name}
               </p>
               {person.character && (

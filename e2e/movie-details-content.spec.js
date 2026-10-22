@@ -15,10 +15,18 @@ async function mockDetails(page) {
         title: id === 42 ? "First Film" : "Next Film",
         genres: [],
         overview: "A movie for testing.",
+        videos: {
+          results: [{ site: "YouTube", type: "Trailer", key: "test-trailer" }],
+        },
         credits:
           id === 42
             ? {
                 cast: [
+                  ...Array.from({ length: 5 }, (_, index) => ({
+                    id: index + 2,
+                    name: `Actor ${index + 2}`,
+                    character: "Supporting role",
+                  })),
                   {
                     id: 1,
                     name: "Example Actor",
@@ -71,6 +79,58 @@ test("credits and recommendations fit mobile and navigate to fresh movie details
   await expect(
     page.getByText("No related movies available yet.", { exact: true }),
   ).toBeVisible();
+});
+
+test("mobile cast has three columns and Khmer movie actions have room", async ({
+  page,
+}) => {
+  await page.route("**/src/context/FavoritesContext.jsx", (route) =>
+    route.fulfill({
+      contentType: "application/javascript",
+      body: "export const FavoritesProvider=({children})=>children; export const useFavorites=()=>({favorites:[],isFavorite:()=>true,isSavingFavorite:()=>false,toggleFavorite:()=>{}});",
+    }),
+  );
+  await page.route("**/src/context/WatchlistContext.jsx", (route) =>
+    route.fulfill({
+      contentType: "application/javascript",
+      body: "export const WatchlistProvider=({children})=>children; export const useWatchlist=()=>({watchlist:[],isInWatchlist:()=>true,isSavingToWatchlist:()=>false,toggleWatchlist:()=>{}});",
+    }),
+  );
+  await page.addInitScript(() =>
+    localStorage.setItem("cinemax_language", "km"),
+  );
+  await mockDetails(page);
+  await page.goto("/movie/42");
+  const cast = page.locator(
+    'section[aria-labelledby="movie-credits-heading"] ul',
+  );
+  await expect(cast.locator("li")).toHaveCount(6);
+  for (const width of [320, 390, 600]) {
+    await page.setViewportSize({ width, height: 800 });
+    expect(
+      await cast.evaluate(
+        (el) => getComputedStyle(el).gridTemplateColumns.split(" ").length,
+      ),
+    ).toBe(3);
+    const favorite = page.locator(".movie-favorite-button");
+    const watchlist = page.locator(".movie-watchlist-button");
+    await expect(favorite).toBeVisible();
+    expect((await favorite.boundingBox()).width).toBeGreaterThanOrEqual(130);
+    await expect(watchlist).toBeVisible();
+    expect(
+      await favorite.evaluate(
+        (element) =>
+          element.offsetTop ===
+          element.parentElement.querySelector(".movie-watchlist-button")
+            .offsetTop,
+      ),
+    ).toBe(true);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
 });
 
 test("recommendation errors do not block details and can be retried", async ({

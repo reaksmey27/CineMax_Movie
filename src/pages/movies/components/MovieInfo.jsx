@@ -96,11 +96,11 @@ const MovieInfo = ({
             {playLabel}
           </button>
 
-          <div className="flex flex-wrap gap-3 sm:gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
             {movie.trailerKey && (
               <button
                 onClick={onTrailer}
-                className="flex min-h-14 min-w-35 flex-1 items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-6 py-4 text-sm font-semibold text-[var(--color-text)] transition-all backdrop-blur-md hover:bg-[var(--color-surface-2)] active:scale-95 sm:px-8 sm:py-5"
+                className="col-span-2 flex min-h-14 min-w-0 items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-4 py-3 text-sm font-semibold leading-relaxed text-[var(--color-text)] transition-all backdrop-blur-md hover:bg-[var(--color-surface-2)] active:scale-95 sm:min-w-35 sm:px-8 sm:py-5"
               >
                 {t("Watch Trailer")}
               </button>
@@ -120,7 +120,7 @@ const MovieInfo = ({
               aria-busy={favoritePending}
               disabled={favoritePending}
               onClick={onFavorite}
-              className={`movie-favorite-button flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
+              className={`movie-favorite-button flex min-h-14 min-w-0 items-center justify-center gap-2 rounded-2xl border-2 px-3 py-3 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:px-8 sm:py-5 [&>svg]:shrink-0 ${
                 isFav
                   ? "border-red-500 bg-red-500/10 text-red-500 shadow-lg shadow-red-500/20"
                   : "border-[var(--color-border)] bg-[var(--color-surface-1)] text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
@@ -133,7 +133,7 @@ const MovieInfo = ({
               ) : (
                 <HeartOutline className="h-5 w-5" />
               )}
-              <span className="text-xs font-semibold">
+              <span className="min-w-0 text-xs font-semibold leading-relaxed">
                 {favoritePending
                   ? isFav
                     ? t("Removing...")
@@ -158,7 +158,7 @@ const MovieInfo = ({
               aria-busy={watchlistPending}
               disabled={watchlistPending}
               onClick={onWatchlist}
-              className={`movie-watchlist-button flex min-h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 px-5 py-4 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:min-h-0 sm:flex-none sm:px-8 sm:py-5 ${
+              className={`movie-watchlist-button flex min-h-14 min-w-0 items-center justify-center gap-2 rounded-2xl border-2 px-3 py-3 transition-all active:scale-95 disabled:cursor-wait disabled:opacity-70 sm:px-8 sm:py-5 [&>svg]:shrink-0 ${
                 isWatchlisted
                   ? "border-amber-400 bg-amber-500/10 text-amber-400 shadow-lg shadow-amber-500/20"
                   : "border-[var(--color-border)] bg-[var(--color-surface-1)] text-[var(--color-text)] hover:bg-[var(--color-surface-2)]"
@@ -171,7 +171,7 @@ const MovieInfo = ({
               ) : (
                 <BookmarkIcon className="h-5 w-5" />
               )}
-              <span className="text-xs font-semibold">
+              <span className="min-w-0 text-xs font-semibold leading-relaxed">
                 {watchlistPending
                   ? isWatchlisted
                     ? t("Removing...")
