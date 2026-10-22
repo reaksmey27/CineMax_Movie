@@ -1,8 +1,10 @@
+import CollectionState, {
+  CollectionLoading,
+} from "../../components/movies/CollectionState";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import WatchlistLibrary from "./WatchlistLibrary";
-import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import { useAuth } from "../../context/AuthContext";
 import { useWatchlist } from "../../context/WatchlistContext";
 import { useLanguage } from "../../context/LanguageContext";
@@ -23,9 +25,7 @@ const WatchlistPage = () => {
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
           <BookmarkIcon aria-hidden="true" className="h-6 w-6" />
         </span>
-        <h1 className="page-heading page-heading--amber">
-          {t("Watchlist")}
-        </h1>
+        <h1 className="page-heading page-heading--amber">{t("Watchlist")}</h1>
       </div>
       <p className="max-w-lg text-sm leading-relaxed text-gray-400 sm:text-base">
         {isAuthenticated
@@ -68,39 +68,24 @@ const WatchlistPage = () => {
             </Link>
           </div>
         ) : loading ? (
-          <>
-            <span className="sr-only">{t("Syncing Your Watchlist...")}</span>
-            <MovieGridSkeleton />
-          </>
+          <CollectionLoading label={t("Syncing Your Watchlist...")} />
         ) : error ? (
-          <div role="alert" className="text-[var(--color-text)]">
-            <p>{t("We couldn't sync your watchlist right now.")}</p>
-            <button
-              type="button"
-              onClick={retry}
-              className="mt-4 min-h-11 rounded-xl bg-purple-600 px-4 text-white"
-            >
-              {t("Try again")}
-            </button>
-          </div>
+          <CollectionState
+            error
+            title={t("Error")}
+            message={t("We couldn't sync your watchlist right now.")}
+            onAction={retry}
+            actionLabel={t("Try again")}
+          />
         ) : watchlist.length === 0 ? (
-          <div className="flex min-h-[20rem] flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-[25rem] sm:p-12">
-            <BookmarkIcon className="mb-6 h-16 w-16 text-gray-600" />
-            <h3 className="mb-2 text-2xl font-black uppercase tracking-tighter text-white">
-              {t("Your watchlist is empty")}
-            </h3>
-            <p className="mb-8 max-w-md font-medium text-gray-500">
-              {t(
-                "Save movies from the catalog to build a personal queue that updates instantly anywhere you sign in.",
-              )}
-            </p>
-            <Link
-              to="/movies"
-              className="w-full rounded-2xl bg-purple-600 px-6 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:w-auto sm:px-10"
-            >
-              {t("Explore Movies")}
-            </Link>
-          </div>
+          <CollectionState
+            title={t("Your watchlist is empty")}
+            message={t(
+              "Save movies you want to watch and find them here whenever you are ready.",
+            )}
+            actionTo="/movies"
+            actionLabel={t("Browse Movies")}
+          />
         ) : (
           <WatchlistLibrary
             header={header}

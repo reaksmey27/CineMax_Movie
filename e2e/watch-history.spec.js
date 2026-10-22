@@ -34,7 +34,11 @@ async function fixture(page) {
     const listeners = new Set();
     const read = uid => JSON.parse(localStorage.getItem('history-'+uid)||'[]');
     const write = (uid,items) => { localStorage.setItem('history-'+uid,JSON.stringify(items)); listeners.forEach(fn=>fn()); };
-    export const subscribeWatchHistory = (db,uid,cb) => { const fn=()=>cb(read(uid)); listeners.add(fn); fn(); return ()=>listeners.delete(fn); };
+    export const subscribeWatchHistory = (db,uid,cb,onError) => {
+      const fn=()=>{ if(localStorage.getItem('delay-read')) return; if(localStorage.getItem('fail-read')) {onError(Error('offline')); return;} cb(read(uid)); };
+      listeners.add(fn); window.addEventListener('history-refresh',fn); fn();
+      return ()=>{listeners.delete(fn);window.removeEventListener('history-refresh',fn);};
+    };
     export const saveWatchHistory = async (db,uid,movie,details) => { if(localStorage.getItem('fail-save')) throw Error('offline'); write(uid,[{...movie,...details,lastWatchedAt:new Date().toISOString()},...read(uid).filter(x=>x.id!==movie.id)]); };
     export const finishWatchHistory = async (db,uid,id) => write(uid,read(uid).map(x=>x.id===id?{...x,completed:true}:x));
     export const markWatchHistoryUnfinished = async (db,uid,id) => {
@@ -70,6 +74,36 @@ async function fixture(page) {
     }),
   );
 }
+
+test("history shows skeletons, reports a load error and retries to an empty collection", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.addInitScript(() => localStorage.setItem("delay-read", "1"));
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/history");
+  await expect(page.getByRole("status")).toContainText("Loading History");
+  await expect(
+    page.locator('[aria-busy="true"][aria-label="Loading History"]'),
+  ).toBeVisible();
+  await page.evaluate(() => {
+    localStorage.removeItem("delay-read");
+    localStorage.setItem("fail-read", "1");
+    window.dispatchEvent(new Event("history-refresh"));
+  });
+  await expect(page.getByRole("alert")).toHaveText(
+    "Could not load watch history.",
+  );
+  await page.evaluate(() => localStorage.removeItem("fail-read"));
+  await page.getByRole("button", { name: "Try again", exact: true }).click();
+  await expect(
+    page.getByText("Movies you start watching will appear here."),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Browse Movies", exact: true }),
+  ).toHaveAttribute("href", "/movies");
+  await expect(page.getByRole("alert")).toHaveCount(0);
+});
 
 test("history combines search, status, sorting and live watched updates", async ({
   page,

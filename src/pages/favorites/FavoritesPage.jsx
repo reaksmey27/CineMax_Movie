@@ -1,10 +1,11 @@
+import CollectionState, {
+  CollectionLoading,
+} from "../../components/movies/CollectionState";
 import { Link, useLocation } from "react-router-dom";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useAuth } from "../../context/AuthContext";
 import FavoritesLibrary from "./FavoritesLibrary";
-import PageError from "../../components/ui/PageError";
-import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import { useLanguage } from "../../context/LanguageContext";
 
 // ─── FavoritesPage: saved favorites grid ──────────────────────────────────────
@@ -22,9 +23,7 @@ const FavoritesPage = () => {
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
           <HeartOutlineIcon aria-hidden="true" className="h-6 w-6" />
         </span>
-        <h1 className="page-heading page-heading--rose">
-          {t("Favorites")}
-        </h1>
+        <h1 className="page-heading page-heading--rose">{t("Favorites")}</h1>
       </div>
       <p className="max-w-lg text-sm leading-relaxed text-gray-400 sm:text-base">
         {isAuthenticated
@@ -67,35 +66,26 @@ const FavoritesPage = () => {
             </Link>
           </div>
         ) : loading ? (
-          <>
-            <span className="sr-only">{t("Syncing Your Favorites...")}</span>
-            <MovieGridSkeleton />
-          </>
+          <CollectionLoading label={t("Syncing Your Favorites...")} />
         ) : error ? (
-          <PageError
+          <CollectionState
+            error
+            title={t("Error")}
             message={t(
               "Your favorites could not sync. Please try again to load your saved movies.",
             )}
-            onRetry={retry}
+            onAction={retry}
+            actionLabel={t("Try again")}
           />
         ) : isEmpty ? (
-          <div className="flex min-h-80 flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-100 sm:p-12">
-            <HeartOutlineIcon className="mb-6 h-16 w-16 text-gray-600" />
-            <h3 className="mb-2 text-2xl font-black uppercase tracking-tighter text-white">
-              {t("Your list is empty")}
-            </h3>
-            <p className="mb-8 max-w-sm font-medium text-gray-500">
-              {t(
-                "You haven't added any movies to your favorites yet. Start exploring and click the heart icon.",
-              )}
-            </p>
-            <Link
-              to="/movies"
-              className="w-full rounded-2xl bg-purple-600 px-6 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:w-auto sm:px-10"
-            >
-              {t("Explore Movies")}
-            </Link>
-          </div>
+          <CollectionState
+            title={t("Your list is empty")}
+            message={t(
+              "Tap the heart on a movie you love to start your personal collection.",
+            )}
+            actionTo="/movies"
+            actionLabel={t("Browse Movies")}
+          />
         ) : (
           <FavoritesLibrary header={header} movies={favorites} />
         )}

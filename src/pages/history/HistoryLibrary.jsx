@@ -1,3 +1,4 @@
+import CollectionState from "../../components/movies/CollectionState";
 import { useState } from "react";
 import {
   ChevronDownIcon,
@@ -122,9 +123,10 @@ export default function HistoryLibrary({ header, history }) {
       {visible.length ? (
         <WatchHistoryList movies={visible} />
       ) : (
-        <p className="rounded-2xl border border-[var(--color-border)] px-5 py-12 text-center text-[var(--color-text-muted)]">
-          {t("No saved movies match your search or status.")}
-        </p>
+        <CollectionState
+          title={t("No Movies Found")}
+          message={t("No saved movies match your search or status.")}
+        />
       )}
     </section>
   );

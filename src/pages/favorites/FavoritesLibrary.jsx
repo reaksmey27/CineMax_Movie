@@ -1,3 +1,4 @@
+import CollectionState from "../../components/movies/CollectionState";
 import { useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import CollectionFilters from "../../components/movies/CollectionFilters";
@@ -26,7 +27,16 @@ export default function FavoritesLibrary({ header, movies }) {
         count={visible.length}
         reset={reset}
       />
-      <MovieGrid movies={visible} />
+      {visible.length ? (
+        <MovieGrid movies={visible} />
+      ) : (
+        <CollectionState
+          title={t("No Movies Found")}
+          message={t(
+            "Try adjusting your search or filters to explore more titles.",
+          )}
+        />
+      )}
     </section>
   );
 }

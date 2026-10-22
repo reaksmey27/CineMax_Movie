@@ -1,3 +1,4 @@
+import CollectionState from "../../components/movies/CollectionState";
 import { useState } from "react";
 import MovieCard from "../../components/ui/MovieCard";
 import { useLanguage } from "../../context/LanguageContext";
@@ -60,9 +61,10 @@ export default function WatchlistLibrary({
           ))}
         </div>
       ) : (
-        <div className="py-12 text-center text-[var(--color-text-muted)]">
-          <p>{t("No saved movies match your search or status.")}</p>
-        </div>
+        <CollectionState
+          title={t("No Movies Found")}
+          message={t("No saved movies match your search or status.")}
+        />
       )}
     </section>
   );

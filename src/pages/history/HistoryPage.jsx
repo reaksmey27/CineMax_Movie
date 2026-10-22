@@ -1,3 +1,6 @@
+import CollectionState, {
+  CollectionLoading,
+} from "../../components/movies/CollectionState";
 import { Link } from "react-router-dom";
 import { ClockIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
@@ -32,7 +35,10 @@ export default function HistoryPage() {
         history.length > 0
       ) && <div className="mb-8">{header}</div>}
       {authLoading || loading ? (
-        <p role="status">{t("Loading {title}", { title: t("History") })}</p>
+        <CollectionLoading
+          history
+          label={t("Loading {title}", { title: t("History") })}
+        />
       ) : !isAuthenticated ? (
         <section className="flex min-h-72 flex-col items-center justify-center rounded-3xl border border-purple-500/20 bg-gradient-to-br from-purple-500/10 via-[var(--color-surface-1)] to-[var(--color-surface-1)] px-5 py-10 text-center sm:min-h-80 sm:px-8 sm:py-12">
           <span className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-purple-500/20 bg-purple-500/10 text-purple-400">
@@ -62,29 +68,22 @@ export default function HistoryPage() {
           </div>
         </section>
       ) : error ? (
-        <p role="alert">
-          {t("Could not load watch history.")}{" "}
-          <button onClick={retry} className="underline">
-            {t("Try again")}
-          </button>
-        </p>
+        <CollectionState
+          error
+          title={t("Error")}
+          message={t("Could not load watch history.")}
+          onAction={retry}
+          actionLabel={t("Try again")}
+        />
       ) : history.length ? (
         <HistoryLibrary header={header} history={history} />
       ) : (
-        <div className="flex min-h-64 flex-col items-center justify-center gap-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-5 py-10 text-center sm:min-h-80">
-          <div className="rounded-full bg-purple-500/10 p-4 text-purple-400">
-            <ClockIcon aria-hidden="true" className="h-9 w-9" />
-          </div>
-          <p className="max-w-md leading-relaxed text-[var(--color-text-muted)]">
-            {t("Movies you start watching will appear here.")}
-          </p>
-          <Link
-            to="/movies"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-purple-600 px-6 py-3 font-semibold text-white hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
-          >
-            {t("Browse Movies")}
-          </Link>
-        </div>
+        <CollectionState
+          title={t("History")}
+          message={t("Movies you start watching will appear here.")}
+          actionTo="/movies"
+          actionLabel={t("Browse Movies")}
+        />
       )}
       {saveError && (
         <p role="alert" className="mt-4 text-amber-300">
