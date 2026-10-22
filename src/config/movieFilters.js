@@ -2,6 +2,16 @@
 
 export const DEFAULT_DISCOVER_SORT = "popularity.desc";
 
+export const RUNTIME_OPTIONS = [
+  { value: "", label: "Any runtime" },
+  { value: "short", label: "Under 90 minutes", min: 1, max: 89 },
+  { value: "medium", label: "90–120 minutes", min: 90, max: 120 },
+  { value: "long", label: "Over 2 hours", min: 121 },
+];
+
+export const runtimeRange = (value) =>
+  RUNTIME_OPTIONS.find((option) => option.value === value);
+
 // ─── Sort Options: how the movie list is ordered ──────────────────────────────
 
 export const DISCOVER_SORT_OPTIONS = [

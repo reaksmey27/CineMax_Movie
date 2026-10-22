@@ -1,6 +1,11 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  Runtime: "Thời lượng",
+  "Any runtime": "Mọi thời lượng",
+  "Under 90 minutes": "Dưới 90 phút",
+  "90–120 minutes": "90–120 phút",
+  "Over 2 hours": "Trên 2 giờ",
   "{duration} remaining": "Còn {duration}",
   "Estimated finish: {time}": "Dự kiến kết thúc: {time}",
   "Share movie": "Chia sẻ phim",

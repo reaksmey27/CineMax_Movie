@@ -1,6 +1,11 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  Runtime: "រយៈពេល",
+  "Any runtime": "រយៈពេលណាមួយ",
+  "Under 90 minutes": "ក្រោម ៩០ នាទី",
+  "90–120 minutes": "៩០–១២០ នាទី",
+  "Over 2 hours": "លើសពី ២ ម៉ោង",
   "{duration} remaining": "នៅសល់ {duration}",
   "Estimated finish: {time}": "ប៉ាន់ស្មានបញ្ចប់៖ {time}",
   "Share movie": "ចែករំលែកភាពយន្ត",

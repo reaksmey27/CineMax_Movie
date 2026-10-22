@@ -19,6 +19,7 @@ const useMovies = () => {
     searchQuery,
     releaseYear,
     minRating,
+    runtime,
     sortBy,
     hasActiveFilters,
   } = filters;
@@ -89,6 +90,14 @@ const useMovies = () => {
     [setError, updateParams],
   );
 
+  const handleRuntimeChange = useCallback(
+    (value) => {
+      updateParams({ runtime: value || null, page: 1 });
+      setError(null);
+    },
+    [setError, updateParams],
+  );
+
   const handleSortChange = useCallback(
     (value) => {
       updateParams({
@@ -105,6 +114,7 @@ const useMovies = () => {
       genre: null,
       year: null,
       rating: null,
+      runtime: null,
       sort: null,
       page: 1,
     });
@@ -130,6 +140,7 @@ const useMovies = () => {
     searchQuery,
     releaseYear,
     minRating,
+    runtime,
     sortBy,
     hasActiveFilters,
     loading,
@@ -141,6 +152,7 @@ const useMovies = () => {
     clearSearch,
     handleYearChange,
     handleRatingChange,
+    handleRuntimeChange,
     handleSortChange,
     clearFilters,
     handlePageChange,

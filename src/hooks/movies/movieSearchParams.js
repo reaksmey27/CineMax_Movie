@@ -1,6 +1,7 @@
 import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
+  runtimeRange,
 } from "../../config/movieFilters.js";
 
 const DISCOVER_SORT_VALUES = new Set(
@@ -16,9 +17,11 @@ export function parseMovieSearchParams(searchParams) {
   const parsedGenre = genreParam ? parseInt(genreParam, 10) : null;
   const selectedGenre = Number.isNaN(parsedGenre) ? null : parsedGenre;
   const collectionParam = searchParams.get("collection");
-  const collection = ["top-rated", "now-playing"].includes(collectionParam)
-    ? collectionParam
-    : "";
+  const collection =
+    ["top-rated", "now-playing"].includes(collectionParam) &&
+    !runtimeRange(searchParams.get("runtime"))?.min
+      ? collectionParam
+      : "";
   const collectionTitle =
     collection === "top-rated"
       ? "Top Rated"
@@ -26,6 +29,7 @@ export function parseMovieSearchParams(searchParams) {
         ? "Now Playing"
         : "";
   const searchQuery = searchParams.get("q") || "";
+  const runtime = runtimeRange(searchParams.get("runtime"))?.value || "";
   const releaseYearParam = searchParams.get("year") || "";
   const minRatingParam = searchParams.get("rating") || "";
   const sortParam = searchParams.get("sort") || DEFAULT_DISCOVER_SORT;
@@ -40,6 +44,7 @@ export function parseMovieSearchParams(searchParams) {
     selectedGenre ||
     releaseYear ||
     minRating ||
+    runtime ||
     sortBy !== DEFAULT_DISCOVER_SORT,
   );
   return {
@@ -50,6 +55,7 @@ export function parseMovieSearchParams(searchParams) {
     searchQuery,
     releaseYear,
     minRating,
+    runtime,
     sortBy,
     hasActiveFilters,
   };

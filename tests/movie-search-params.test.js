@@ -2,6 +2,19 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { parseMovieSearchParams } from "../src/hooks/movies/movieSearchParams.js";
 
+test("runtime choices persist in URLs and invalid values are ignored", () => {
+  for (const runtime of ["short", "medium", "long"]) {
+    const parsed = parseMovieSearchParams(new URLSearchParams({ runtime }));
+    assert.equal(parsed.runtime, runtime);
+    assert.equal(parsed.hasActiveFilters, true);
+  }
+  const invalid = parseMovieSearchParams(
+    new URLSearchParams({ runtime: "unknown" }),
+  );
+  assert.equal(invalid.runtime, "");
+  assert.equal(invalid.hasActiveFilters, false);
+});
+
 test("invalid page parameters fall back to the first page", () => {
   for (const value of [
     "",

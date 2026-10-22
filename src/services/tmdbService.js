@@ -4,6 +4,7 @@ import {
   GENRE_CACHE_TTL,
 } from "./tmdb/tmdbConfig";
 import { fetchFromTMDB } from "./tmdb/tmdbClient";
+import { runtimeRange } from "../config/movieFilters";
 import {
   filterUpcomingMovies,
   upcomingDateBoundary,
@@ -53,6 +54,7 @@ export const tmdbService = {
   },
 
   discoverMovies: async (page = 1, filters = {}) => {
+    const range = runtimeRange(filters.runtime);
     return await fetchFromTMDB(
       "/discover/movie",
       {
@@ -61,6 +63,8 @@ export const tmdbService = {
         with_genres: filters.genreId,
         primary_release_year: filters.releaseYear,
         "vote_average.gte": filters.minRating,
+        "with_runtime.gte": range?.min,
+        "with_runtime.lte": range?.max,
       },
       { ttl: DEFAULT_CACHE_TTL },
     );
@@ -68,6 +72,15 @@ export const tmdbService = {
 
   getMoviesByGenre: async (genreId, page = 1) => {
     return await tmdbService.discoverMovies(page, { genreId });
+  },
+
+  getMovieRuntime: async (id) => {
+    const details = await fetchFromTMDB(
+      `/movie/${id}`,
+      {},
+      { ttl: LONG_CACHE_TTL },
+    );
+    return details.runtime;
   },
 
   getGenres: async () => {

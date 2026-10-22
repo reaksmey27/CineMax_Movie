@@ -1,6 +1,11 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  Runtime: "Durasi",
+  "Any runtime": "Semua durasi",
+  "Under 90 minutes": "Di bawah 90 menit",
+  "90–120 minutes": "90–120 menit",
+  "Over 2 hours": "Lebih dari 2 jam",
   "{duration} remaining": "Tersisa {duration}",
   "Estimated finish: {time}": "Perkiraan selesai: {time}",
   "Share movie": "Bagikan film",

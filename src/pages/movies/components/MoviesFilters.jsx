@@ -2,6 +2,7 @@ import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
   MIN_RATING_OPTIONS,
+  RUNTIME_OPTIONS,
 } from "../../../config/movieFilters";
 import { useLanguage } from "../../../context/LanguageContext";
 import FilterSelect from "./FilterSelect";
@@ -16,6 +17,8 @@ const MoviesFilters = ({
   hasActiveFilters,
   hasSearchQuery,
   minRating,
+  runtime,
+  onRuntimeChange,
   onClearFilters,
   onGenreChange,
   onRatingChange,
@@ -127,7 +130,7 @@ const MoviesFilters = ({
         )}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <label className="space-y-2">
           <span className={LABEL_CLASS}>{t("Release Year")}</span>
           <input
@@ -151,6 +154,16 @@ const MoviesFilters = ({
           onToggle={() => toggleSelect("rating")}
           onClose={() => toggleSelect(null)}
           onChange={onRatingChange}
+        />
+
+        <FilterSelect
+          label="Runtime"
+          value={runtime}
+          options={RUNTIME_OPTIONS}
+          isOpen={openSelect === "runtime"}
+          onToggle={() => toggleSelect("runtime")}
+          onClose={() => toggleSelect(null)}
+          onChange={onRuntimeChange}
         />
 
         <FilterSelect

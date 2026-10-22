@@ -2,6 +2,41 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { filteredSearch } from "../src/hooks/movies/filteredSearch.js";
 
+test("runtime ranges have exact boundaries and exclude unknown durations", async () => {
+  const runtimes = [0, null, 89, 90, 120, 121];
+  const fetchPage = async () => ({
+    total_pages: 1,
+    results: runtimes.map((_, id) => ({ id })),
+  });
+  for (const [runtime, ids] of [
+    ["short", [2]],
+    ["medium", [3, 4]],
+    ["long", [5]],
+  ]) {
+    const result = await filteredSearch(
+      fetchPage,
+      { runtime, page: 1 },
+      () => false,
+      async (id) => runtimes[id],
+    );
+    assert.deepEqual(
+      result.results.map((movie) => movie.id),
+      ids,
+    );
+  }
+  await assert.rejects(
+    filteredSearch(
+      fetchPage,
+      { runtime: "short", page: 1 },
+      () => false,
+      async () => {
+        throw Error("offline");
+      },
+    ),
+    /offline/,
+  );
+});
+
 test("combines pages before filtering, sorting and repaginating", async () => {
   const movies = Array.from({ length: 30 }, (_, id) => ({
     id,

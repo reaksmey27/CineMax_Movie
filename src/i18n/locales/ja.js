@@ -1,6 +1,11 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  Runtime: "上映時間",
+  "Any runtime": "すべての上映時間",
+  "Under 90 minutes": "90分未満",
+  "90–120 minutes": "90～120分",
+  "Over 2 hours": "2時間超",
   "{duration} remaining": "残り{duration}",
   "Estimated finish: {time}": "終了予定: {time}",
   "Share movie": "映画を共有",

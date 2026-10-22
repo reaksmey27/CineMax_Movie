@@ -1,6 +1,11 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  Runtime: "Duração",
+  "Any runtime": "Qualquer duração",
+  "Under 90 minutes": "Menos de 90 minutos",
+  "90–120 minutes": "90–120 minutos",
+  "Over 2 hours": "Mais de 2 horas",
   "{duration} remaining": "{duration} restantes",
   "Estimated finish: {time}": "Término estimado: {time}",
   "Share movie": "Compartilhar filme",

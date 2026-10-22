@@ -1,6 +1,11 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  Runtime: "상영 시간",
+  "Any runtime": "모든 상영 시간",
+  "Under 90 minutes": "90분 미만",
+  "90–120 minutes": "90~120분",
+  "Over 2 hours": "2시간 초과",
   "{duration} remaining": "{duration} 남음",
   "Estimated finish: {time}": "종료 예상: {time}",
   "Share movie": "영화 공유",

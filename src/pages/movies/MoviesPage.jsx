@@ -55,6 +55,7 @@ const MoviesPage = () => {
     searchQuery,
     releaseYear,
     minRating,
+    runtime,
     sortBy,
     hasActiveFilters,
     loading,
@@ -68,6 +69,7 @@ const MoviesPage = () => {
     retryGenres,
     handleYearChange,
     handleRatingChange,
+    handleRuntimeChange,
     handleSortChange,
     clearFilters,
   } = useMovies();
@@ -103,6 +105,8 @@ const MoviesPage = () => {
           selectedGenre={selectedGenre}
           releaseYear={releaseYear}
           minRating={minRating}
+          runtime={runtime}
+          onRuntimeChange={handleRuntimeChange}
           sortBy={sortBy}
           hasActiveFilters={hasActiveFilters}
           onSearch={handleSearch}

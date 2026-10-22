@@ -26,6 +26,11 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "Runtime",
+  "Any runtime",
+  "Under 90 minutes",
+  "90–120 minutes",
+  "Over 2 hours",
   "Share movie",
   "Share menu opened.",
   "Movie link copied.",

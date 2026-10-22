@@ -1,6 +1,11 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  Runtime: "Durata",
+  "Any runtime": "Qualsiasi durata",
+  "Under 90 minutes": "Meno di 90 minuti",
+  "90–120 minutes": "90–120 minuti",
+  "Over 2 hours": "Oltre 2 ore",
   "{duration} remaining": "{duration} rimanenti",
   "Estimated finish: {time}": "Fine prevista: {time}",
   "Share movie": "Condividi film",

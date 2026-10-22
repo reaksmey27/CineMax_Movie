@@ -1,6 +1,11 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  Runtime: "片長",
+  "Any runtime": "不限片長",
+  "Under 90 minutes": "少於 90 分鐘",
+  "90–120 minutes": "90–120 分鐘",
+  "Over 2 hours": "超過 2 小時",
   "{duration} remaining": "剩餘 {duration}",
   "Estimated finish: {time}": "預計結束：{time}",
   "Share movie": "分享電影",

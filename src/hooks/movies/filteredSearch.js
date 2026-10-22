@@ -1,9 +1,11 @@
+import { runtimeRange } from "../../config/movieFilters.js";
 // Search has no genre/rating/sort parameters. Combine its accessible pages
 // before filtering so pagination never hides matches on a different page.
 export async function filteredSearch(
   fetchPage,
   filters,
   isCancelled = () => false,
+  fetchRuntime,
 ) {
   const first = await fetchPage(1);
   const pages = Math.min(first.total_pages || 0, 100);
@@ -22,7 +24,7 @@ export async function filteredSearch(
   const unique = [
     ...new Map(results.map((movie) => [movie.id, movie])).values(),
   ];
-  const matches = unique.filter(
+  let matches = unique.filter(
     (movie) =>
       (!filters.selectedGenre ||
         movie.genre_ids?.includes(filters.selectedGenre)) &&
@@ -31,6 +33,29 @@ export async function filteredSearch(
       (!filters.minRating ||
         Number(movie.vote_average || 0) >= Number(filters.minRating)),
   );
+  const range = runtimeRange(filters.runtime);
+  if (range?.min) {
+    const timed = [];
+    for (let offset = 0; offset < matches.length; offset += 4) {
+      if (isCancelled()) return null;
+      const batch = await Promise.all(
+        matches.slice(offset, offset + 4).map(async (movie) => ({
+          ...movie,
+          runtime: await fetchRuntime(movie.id),
+        })),
+      );
+      timed.push(
+        ...batch.filter(
+          (movie) =>
+            Number.isFinite(movie.runtime) &&
+            movie.runtime >= range.min &&
+            (!range.max || movie.runtime <= range.max),
+        ),
+      );
+    }
+    if (isCancelled()) return null;
+    matches = timed;
+  }
   const sort = filters.sortBy;
   matches.sort((a, b) => {
     let comparison;

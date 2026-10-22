@@ -1,6 +1,11 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  Runtime: "Durée",
+  "Any runtime": "Toutes les durées",
+  "Under 90 minutes": "Moins de 90 minutes",
+  "90–120 minutes": "90–120 minutes",
+  "Over 2 hours": "Plus de 2 heures",
   "{duration} remaining": "{duration} restantes",
   "Estimated finish: {time}": "Fin estimée : {time}",
   "Share movie": "Partager le film",

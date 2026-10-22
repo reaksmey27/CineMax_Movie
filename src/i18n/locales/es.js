@@ -1,6 +1,11 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  Runtime: "Duración",
+  "Any runtime": "Cualquier duración",
+  "Under 90 minutes": "Menos de 90 minutos",
+  "90–120 minutes": "90–120 minutos",
+  "Over 2 hours": "Más de 2 horas",
   "{duration} remaining": "Quedan {duration}",
   "Estimated finish: {time}": "Final estimado: {time}",
   "Share movie": "Compartir película",

@@ -1,6 +1,11 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  Runtime: "Laufzeit",
+  "Any runtime": "Beliebige Laufzeit",
+  "Under 90 minutes": "Unter 90 Minuten",
+  "90–120 minutes": "90–120 Minuten",
+  "Over 2 hours": "Über 2 Stunden",
   "{duration} remaining": "Noch {duration}",
   "Estimated finish: {time}": "Voraussichtliches Ende: {time}",
   "Share movie": "Film teilen",
