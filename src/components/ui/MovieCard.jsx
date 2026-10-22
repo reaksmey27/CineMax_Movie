@@ -57,39 +57,42 @@ const MovieCard = ({
   // ─── Render: poster, action buttons & rating ──────────────────────────────────
 
   return (
-    <article className="movie-card group w-full min-w-0">
-      <div className="relative aspect-[2/3]">
+    <article className="movie-card group flex w-full min-w-0 flex-col rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] transition-colors hover:border-purple-500/40">
+      <div className="relative aspect-[2/3] shrink-0">
         <Link
           to={`/movie/${movie.id}`}
           aria-label={t("View {title}", { title: movie.title })}
-          className="block h-full overflow-hidden rounded-2xl border border-[var(--color-border)] shadow-lg transition-shadow hover:shadow-purple-500/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
+          className="block h-full overflow-hidden rounded-t-2xl bg-[var(--color-bg-elevated)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
         >
           {poster && failedPoster !== poster ? (
             <img
               onError={() => setFailedPoster(poster)}
               src={poster}
               alt=""
-              className="h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.03]"
+              className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.03]"
               loading="lazy"
               decoding="async"
             />
           ) : (
-            <div className="flex h-full flex-col items-center justify-center gap-2 bg-[var(--color-bg-elevated)] text-[var(--color-text-muted)]">
-              <FilmIcon className="h-10 w-10" aria-hidden="true" />
+            <div className="flex h-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-surface-2)] px-3 text-center text-[var(--color-text-muted)]">
+              <FilmIcon className="h-12 w-12 opacity-60" aria-hidden="true" />
               <span className="text-xs">{t("Poster unavailable")}</span>
             </div>
           )}
         </Link>
         {showActions && (
-          <div className="absolute right-2 top-2 z-50 flex gap-1 sm:right-3 sm:top-3 sm:gap-2">
+          <div className="absolute right-2 top-2 z-10 flex gap-1.5">
             <button
               type="button"
               disabled={watchlistPending}
               onClick={handleWatchlistClick}
-              className={`movie-card-action grid min-h-11 min-w-11 place-items-center rounded-xl border p-2 backdrop-blur-md transition-all duration-300 active:scale-90 sm:p-2.5 ${
+              title={
+                isSaved ? t("Remove from watchlist") : t("Add to watchlist")
+              }
+              className={`movie-card-action grid min-h-11 min-w-11 place-items-center rounded-xl border p-2 backdrop-blur-md transition-colors disabled:cursor-wait disabled:opacity-60 ${
                 isSaved
-                  ? "border-amber-400 bg-amber-500 text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.45)]"
-                  : "border-white/10 bg-black/70 text-white opacity-100 hover:bg-white hover:text-black sm:opacity-0 sm:group-hover:opacity-100"
+                  ? "border-amber-300 bg-amber-400 text-slate-950"
+                  : "border-white/20 bg-slate-950/85 text-white hover:border-purple-400 hover:bg-purple-700"
               }`}
               aria-pressed={isSaved}
               aria-busy={watchlistPending}
@@ -119,10 +122,11 @@ const MovieCard = ({
               type="button"
               disabled={favoritePending}
               onClick={handleFavoriteClick}
-              className={`movie-card-action grid min-h-11 min-w-11 place-items-center rounded-xl border p-2 backdrop-blur-md transition-all duration-300 active:scale-90 sm:p-2.5 ${
+              title={isFav ? t("Remove from favorites") : t("Add to favorites")}
+              className={`movie-card-action grid min-h-11 min-w-11 place-items-center rounded-xl border p-2 backdrop-blur-md transition-colors disabled:cursor-wait disabled:opacity-60 ${
                 isFav
-                  ? "border-red-400 bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)]"
-                  : "border-white/10 bg-black/70 text-white opacity-100 hover:bg-white hover:text-black sm:opacity-0 sm:group-hover:opacity-100"
+                  ? "border-rose-300 bg-rose-600 text-white"
+                  : "border-white/20 bg-slate-950/85 text-white hover:border-purple-400 hover:bg-purple-700"
               }`}
               aria-pressed={isFav}
               aria-busy={favoritePending}
@@ -151,17 +155,17 @@ const MovieCard = ({
         )}
       </div>
 
-      <div className="space-y-2 px-0.5 pt-3">
+      <div className="flex flex-1 flex-col gap-2 p-2.5 sm:p-3">
         <TitleTag className="min-h-10 text-sm font-semibold leading-5 text-[var(--color-text)] sm:min-h-12 sm:text-base sm:leading-6">
           <Link
             to={`/movie/${movie.id}`}
             title={movie.title}
-            className="line-clamp-2 rounded-sm hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
+            className="line-clamp-2 rounded-sm [overflow-wrap:anywhere] hover:text-purple-400 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
           >
             {movie.title}
           </Link>
         </TitleTag>
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--color-text-muted)] sm:text-sm">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--color-text-muted)] sm:text-sm">
           {showReleaseDate && movie.release_date ? (
             <time dateTime={movie.release_date}>
               {new Intl.DateTimeFormat(language, {
@@ -173,7 +177,7 @@ const MovieCard = ({
           )}
           {(!hideUnrated || (Number.isFinite(rating) && rating > 0)) && (
             <span
-              className="inline-flex items-center gap-1 font-semibold text-[var(--color-text)]"
+              className="inline-flex items-center gap-1 rounded-md border border-amber-500/20 bg-amber-500/10 px-1.5 py-1 text-xs font-semibold tabular-nums text-[var(--color-text)]"
               aria-label={
                 Number.isFinite(rating) && rating > 0
                   ? t("Rated {rating} out of 10", {
