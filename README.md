@@ -282,6 +282,14 @@ Movie metadata and artwork are fetched through [`tmdbService.js`](src/services/t
 
 Donation account details and the QR image are configured in [`DonationModal.jsx`](src/components/ui/DonationModal.jsx) and `src/assets/images/donation-qr.png`. Update both together when customizing the app. Review `public/robots.txt` and `public/sitemap.xml` for your deployment domain.
 
+## Playback problem reports
+
+Signed-in viewers can report a video that will not load, missing sound, or a wrong movie below the player. Reports are stored in `playbackReports/{uid}/reports/{movieId}-{serverNumber}-{issue}` with the movie title, server, issue, and server-generated timestamp. Repeated submissions of the same issue for the same movie and server reuse the existing report.
+
+Review reports in the Firebase console (or with trusted admin tooling). This feature does not send email or provide an admin inbox. Client rules allow only the owner to read an individual report or create a validated report; clients cannot edit, delete, or list reports.
+
+Deploy the updated `firestore.rules` to your intended Firebase project before deploying the website: `firebase deploy --only firestore:rules --project YOUR_PROJECT_ID`. The collection is created automatically on the first successful report. No new environment variables are needed.
+
 ## SEO
 
 - Canonical URLs, Open Graph tags, Twitter cards, and page-specific descriptions are managed in `src/config/routeMeta.js`.

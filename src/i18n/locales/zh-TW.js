@@ -1,6 +1,15 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Report playback problem": "回報播放問題",
+  "Report submitted. Thank you.": "已提交回報，謝謝。",
+  "What went wrong?": "發生了什麼問題？",
+  "Video won't load": "影片無法載入",
+  "No sound": "沒有聲音",
+  "Wrong movie": "電影錯誤",
+  "Could not submit the report. Try again.": "無法提交回報，請再試一次。",
+  "Submitting...": "正在提交...",
+  "Submit report": "提交回報",
   Runtime: "片長",
   "Any runtime": "不限片長",
   "Under 90 minutes": "少於 90 分鐘",

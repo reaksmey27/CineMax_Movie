@@ -1,6 +1,16 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Report playback problem": "រាយការណ៍បញ្ហាចាក់វីដេអូ",
+  "Report submitted. Thank you.": "បានផ្ញើរបាយការណ៍។ សូមអរគុណ។",
+  "What went wrong?": "មានបញ្ហាអ្វី?",
+  "Video won't load": "វីដេអូមិនដំណើរការ",
+  "No sound": "គ្មានសំឡេង",
+  "Wrong movie": "ភាពយន្តខុស",
+  "Could not submit the report. Try again.":
+    "មិនអាចផ្ញើរបាយការណ៍បានទេ។ សូមព្យាយាមម្តងទៀត។",
+  "Submitting...": "កំពុងផ្ញើ...",
+  "Submit report": "ផ្ញើរបាយការណ៍",
   Runtime: "រយៈពេល",
   "Any runtime": "រយៈពេលណាមួយ",
   "Under 90 minutes": "ក្រោម ៩០ នាទី",

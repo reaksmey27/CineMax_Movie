@@ -1,6 +1,16 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Report playback problem": "재생 문제 신고",
+  "Report submitted. Thank you.": "신고가 제출되었습니다. 감사합니다.",
+  "What went wrong?": "어떤 문제가 있나요?",
+  "Video won't load": "영상이 로드되지 않음",
+  "No sound": "소리가 나지 않음",
+  "Wrong movie": "다른 영화",
+  "Could not submit the report. Try again.":
+    "신고를 제출하지 못했습니다. 다시 시도하세요.",
+  "Submitting...": "제출 중...",
+  "Submit report": "신고 제출",
   Runtime: "상영 시간",
   "Any runtime": "모든 상영 시간",
   "Under 90 minutes": "90분 미만",

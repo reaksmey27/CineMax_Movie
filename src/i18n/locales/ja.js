@@ -1,6 +1,16 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Report playback problem": "再生の問題を報告",
+  "Report submitted. Thank you.": "報告を送信しました。ありがとうございます。",
+  "What went wrong?": "どのような問題ですか？",
+  "Video won't load": "動画が読み込まれない",
+  "No sound": "音が出ない",
+  "Wrong movie": "別の映画が再生される",
+  "Could not submit the report. Try again.":
+    "報告を送信できませんでした。もう一度お試しください。",
+  "Submitting...": "送信中...",
+  "Submit report": "報告を送信",
   Runtime: "上映時間",
   "Any runtime": "すべての上映時間",
   "Under 90 minutes": "90分未満",

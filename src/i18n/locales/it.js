@@ -1,6 +1,16 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Report playback problem": "Segnala un problema di riproduzione",
+  "Report submitted. Thank you.": "Segnalazione inviata. Grazie.",
+  "What went wrong?": "Qual è il problema?",
+  "Video won't load": "Il video non si carica",
+  "No sound": "Nessun audio",
+  "Wrong movie": "Film sbagliato",
+  "Could not submit the report. Try again.":
+    "Impossibile inviare la segnalazione. Riprova.",
+  "Submitting...": "Invio...",
+  "Submit report": "Invia segnalazione",
   Runtime: "Durata",
   "Any runtime": "Qualsiasi durata",
   "Under 90 minutes": "Meno di 90 minuti",

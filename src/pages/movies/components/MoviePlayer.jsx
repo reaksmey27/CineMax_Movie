@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import PlaybackReport from "./PlaybackReport";
 import usePlaybackHistory from "../../../hooks/movies/usePlaybackHistory";
 import { useLanguage } from "../../../context/LanguageContext";
 
@@ -207,6 +208,11 @@ const MoviePlayer = ({
         )}
       </div>
 
+      <PlaybackReport
+        key={`${movie.id}-${activeServer}`}
+        movie={movie}
+        server={activeServer}
+      />
       <div className="p-4 bg-purple-600/10 border border-purple-500/20 rounded-2xl flex items-center gap-3">
         <div className="h-2 w-2 bg-purple-500 rounded-full animate-pulse" />
         <p className="text-sm sm:text-sm text-purple-300 font-bold">

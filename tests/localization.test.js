@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/pages/movies/components/PlaybackReport.jsx",
   "src/pages/movies/components/MovieFinishTime.jsx",
   "src/pages/history/ClearHistory.jsx",
   "src/context/RemovalUndoContext.jsx",
@@ -26,6 +27,9 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "Video won't load",
+  "No sound",
+  "Wrong movie",
   "Runtime",
   "Any runtime",
   "Under 90 minutes",

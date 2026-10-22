@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { submitPlaybackReport } from "../src/firebase/playbackReports.js";
 import { restoreMovie } from "../src/firebase/restoreMovie.js";
 import {
   saveWatchHistory,
@@ -16,6 +17,9 @@ import {
   getDoc,
   getDocs,
   writeBatch,
+  setDoc,
+  deleteDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { initializeTestEnvironment } from "@firebase/rules-unit-testing";
 import {
@@ -77,6 +81,77 @@ const NOTIFICATION = {
 };
 
 let environment;
+
+test("playback reports persist once and reject unauthorized or malformed writes", async () => {
+  const db = getAuthenticatedDatabase();
+  await submitPlaybackReport(db, OWNER_UID, MOVIE, "Server 2", "no-sound");
+  const ref = doc(
+    db,
+    "playbackReports",
+    OWNER_UID,
+    "reports",
+    `${MOVIE.id}-2-no-sound`,
+  );
+  const first = (await getDoc(ref)).data();
+  assert.equal(first.movieId, MOVIE.id);
+  assert.equal(first.server, "Server 2");
+  assert.equal(first.issue, "no-sound");
+  assert.ok(first.createdAt.toMillis() > 0);
+  await submitPlaybackReport(db, OWNER_UID, MOVIE, "Server 2", "no-sound");
+  assert.deepEqual((await getDoc(ref)).data(), first);
+  await assert.rejects(deleteDoc(ref), /permission/i);
+  await assert.rejects(
+    setDoc(ref, { ...first, movieTitle: "Changed" }),
+    /permission/i,
+  );
+  for (const other of [
+    getAuthenticatedDatabase(OTHER_UID),
+    environment.unauthenticatedContext().firestore(),
+  ]) {
+    await assert.rejects(
+      getDoc(
+        doc(
+          other,
+          "playbackReports",
+          OWNER_UID,
+          "reports",
+          `${MOVIE.id}-2-no-sound`,
+        ),
+      ),
+      /permission/i,
+    );
+    await assert.rejects(
+      submitPlaybackReport(other, OWNER_UID, MOVIE, "Server 1", "wrong-movie"),
+      /permission/i,
+    );
+  }
+  await assert.rejects(
+    setDoc(doc(db, "playbackReports", OWNER_UID, "reports", "arbitrary-id"), {
+      ...first,
+      createdAt: serverTimestamp(),
+    }),
+    /permission/i,
+  );
+  await assert.rejects(
+    setDoc(
+      doc(
+        db,
+        "playbackReports",
+        OWNER_UID,
+        "reports",
+        `${MOVIE.id}-1-wrong-movie`,
+      ),
+      {
+        ...first,
+        server: "Server 1",
+        issue: "wrong-movie",
+        createdAt: serverTimestamp(),
+        email: "extra",
+      },
+    ),
+    /permission/i,
+  );
+});
 
 for (const name of ["favorites", "watchlists", "watchHistory"]) {
   test(`undo restores exact ${name} metadata without overwriting newer saves`, async () => {

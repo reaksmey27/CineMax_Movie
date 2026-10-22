@@ -1,6 +1,16 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Report playback problem": "Laporkan masalah pemutaran",
+  "Report submitted. Thank you.": "Laporan terkirim. Terima kasih.",
+  "What went wrong?": "Apa masalahnya?",
+  "Video won't load": "Video tidak dimuat",
+  "No sound": "Tidak ada suara",
+  "Wrong movie": "Film salah",
+  "Could not submit the report. Try again.":
+    "Tidak dapat mengirim laporan. Coba lagi.",
+  "Submitting...": "Mengirim...",
+  "Submit report": "Kirim laporan",
   Runtime: "Durasi",
   "Any runtime": "Semua durasi",
   "Under 90 minutes": "Di bawah 90 menit",

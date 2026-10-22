@@ -1,6 +1,16 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Report playback problem": "Wiedergabeproblem melden",
+  "Report submitted. Thank you.": "Meldung gesendet. Vielen Dank.",
+  "What went wrong?": "Was ist passiert?",
+  "Video won't load": "Video lädt nicht",
+  "No sound": "Kein Ton",
+  "Wrong movie": "Falscher Film",
+  "Could not submit the report. Try again.":
+    "Meldung konnte nicht gesendet werden. Versuche es erneut.",
+  "Submitting...": "Wird gesendet...",
+  "Submit report": "Meldung senden",
   Runtime: "Laufzeit",
   "Any runtime": "Beliebige Laufzeit",
   "Under 90 minutes": "Unter 90 Minuten",

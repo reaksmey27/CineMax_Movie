@@ -1,6 +1,16 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Report playback problem": "Informar de un problema de reproducción",
+  "Report submitted. Thank you.": "Informe enviado. Gracias.",
+  "What went wrong?": "¿Qué ha fallado?",
+  "Video won't load": "El vídeo no carga",
+  "No sound": "Sin sonido",
+  "Wrong movie": "Película incorrecta",
+  "Could not submit the report. Try again.":
+    "No se pudo enviar el informe. Inténtalo de nuevo.",
+  "Submitting...": "Enviando...",
+  "Submit report": "Enviar informe",
   Runtime: "Duración",
   "Any runtime": "Cualquier duración",
   "Under 90 minutes": "Menos de 90 minutos",

@@ -1,6 +1,16 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Report playback problem": "Signaler un problème de lecture",
+  "Report submitted. Thank you.": "Signalement envoyé. Merci.",
+  "What went wrong?": "Quel est le problème ?",
+  "Video won't load": "La vidéo ne charge pas",
+  "No sound": "Pas de son",
+  "Wrong movie": "Mauvais film",
+  "Could not submit the report. Try again.":
+    "Impossible d’envoyer le signalement. Réessayez.",
+  "Submitting...": "Envoi...",
+  "Submit report": "Envoyer le signalement",
   Runtime: "Durée",
   "Any runtime": "Toutes les durées",
   "Under 90 minutes": "Moins de 90 minutes",

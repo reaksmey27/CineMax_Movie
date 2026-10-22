@@ -27,6 +27,14 @@ async function fixture(page) {
     `export const WatchlistProvider=({children})=>children; export const useWatchlist=()=>({watchlist:[],isInWatchlist:()=>false,isSavingToWatchlist:()=>false,toggleWatchlist:()=>{}});`,
   );
   await module("**/src/firebase/firestore.js", "export const db = {};");
+  await module(
+    "**/src/firebase/playbackReports.js",
+    `export const submitPlaybackReport=async(db,uid,movie,server,issue)=>{
+    await new Promise(resolve=>setTimeout(resolve,300));
+    if(localStorage.getItem('fail-report')) throw Error('offline');
+    localStorage.setItem('submitted-report',JSON.stringify({uid,movieId:movie.id,server,issue}));
+  };`,
+  );
   // Real provider/player/UI; replace the network storage adapter. Firestore rules
   // and durable database writes are tested separately against the emulator.
   await module(
@@ -80,6 +88,45 @@ async function fixture(page) {
     }),
   );
 }
+
+test("playback report includes the movie and server, handles failure, and confirms submission", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.goto("/movie/42");
+  await page.getByRole("button", { name: "Play Movie", exact: true }).click();
+  await page.getByRole("button", { name: "Server 2", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Report playback problem", exact: true })
+    .click();
+  const form = page.getByRole("form", { name: "Report playback problem" });
+  await expect(form).toContainText("Example Film");
+  await expect(form).toContainText("Server 2");
+  await form.getByRole("radio", { name: "No sound", exact: true }).check();
+  await page.evaluate(() => localStorage.setItem("fail-report", "1"));
+  await form
+    .getByRole("button", { name: "Submit report", exact: true })
+    .click();
+  await expect(
+    form.getByRole("button", { name: "Submitting...", exact: true }),
+  ).toBeDisabled();
+  await expect(form.getByRole("alert")).toContainText(
+    "Could not submit the report",
+  );
+  await page.evaluate(() => localStorage.removeItem("fail-report"));
+  await form.getByRole("button", { name: "Try again", exact: true }).click();
+  await expect(form.getByRole("status")).toHaveText(
+    "Report submitted. Thank you.",
+  );
+  expect(
+    await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("submitted-report")),
+    ),
+  ).toEqual({ uid: "fan", movieId: 42, server: "Server 2", issue: "no-sound" });
+  await expect(
+    form.getByRole("button", { name: "Submit report", exact: true }),
+  ).toHaveCount(0);
+});
 
 test("clear history confirms, cancels, reports failures and retries", async ({
   page,

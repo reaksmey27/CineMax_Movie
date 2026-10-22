@@ -1,6 +1,16 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Report playback problem": "Báo lỗi phát phim",
+  "Report submitted. Thank you.": "Đã gửi báo cáo. Cảm ơn bạn.",
+  "What went wrong?": "Đã xảy ra lỗi gì?",
+  "Video won't load": "Video không tải",
+  "No sound": "Không có âm thanh",
+  "Wrong movie": "Sai phim",
+  "Could not submit the report. Try again.":
+    "Không thể gửi báo cáo. Hãy thử lại.",
+  "Submitting...": "Đang gửi...",
+  "Submit report": "Gửi báo cáo",
   Runtime: "Thời lượng",
   "Any runtime": "Mọi thời lượng",
   "Under 90 minutes": "Dưới 90 phút",

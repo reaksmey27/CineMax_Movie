@@ -1,6 +1,16 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Report playback problem": "Relatar problema de reprodução",
+  "Report submitted. Thank you.": "Relato enviado. Obrigado.",
+  "What went wrong?": "O que aconteceu?",
+  "Video won't load": "O vídeo não carrega",
+  "No sound": "Sem som",
+  "Wrong movie": "Filme errado",
+  "Could not submit the report. Try again.":
+    "Não foi possível enviar o relato. Tente novamente.",
+  "Submitting...": "Enviando...",
+  "Submit report": "Enviar relato",
   Runtime: "Duração",
   "Any runtime": "Qualquer duração",
   "Under 90 minutes": "Menos de 90 minutos",
