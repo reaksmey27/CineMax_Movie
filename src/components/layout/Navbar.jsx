@@ -52,7 +52,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
   // ─── Render: desktop bar & mobile drawer ─────────────────────────────────────
 
   return (
-    <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-2 min-[360px]:px-3 sm:top-8 sm:px-8 lg:px-12">
+    <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1760px] px-2 min-[360px]:px-3 sm:top-8 sm:px-8 lg:px-12">
       <nav className="flex items-center justify-between rounded-full border border-[var(--color-border)] bg-[var(--color-nav-bg)] px-2 py-3 text-[var(--color-text)] shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-md transition-colors min-[360px]:px-4 sm:px-6 sm:py-3">
         {/* Logo */}
         <Link
@@ -69,7 +69,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden shrink-0 items-center gap-6 text-sm xl:flex 2xl:gap-10 min-[1600px]:gap-12">
+        <div className="hidden shrink-0 items-center gap-6 text-sm xl:flex 2xl:gap-10 min-[1600px]:gap-12 min-[1720px]:gap-16">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
