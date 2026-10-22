@@ -9,12 +9,23 @@ export default function HistoryPage() {
   const { isAuthenticated, loading: authLoading } = useAuth();
   const { history, loading, error, saveError, retry } = useWatchHistory();
   const { t } = useLanguage();
-  return (
-    <main className="mx-auto min-h-screen w-full max-w-[1600px] bg-[var(--color-bg)] px-4 pb-12 pt-24 text-[var(--color-text)] sm:px-8 sm:pb-20 sm:pt-36 lg:px-12 xl:px-20">
+  const header = (
+    <div className="min-w-0">
       <h1 className="mb-4 text-3xl font-bold">{t("History")}</h1>
-      <p className="mb-6 max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)] sm:mb-8 sm:text-base">
+      <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base">
         {t("Find your last 50 movies and continue watching another day.")}
       </p>
+    </div>
+  );
+  return (
+    <main className="mx-auto min-h-screen w-full max-w-[1600px] bg-[var(--color-bg)] px-4 pb-12 pt-24 text-[var(--color-text)] sm:px-8 sm:pb-20 sm:pt-36 lg:px-12 xl:px-20">
+      {!(
+        isAuthenticated &&
+        !authLoading &&
+        !loading &&
+        !error &&
+        history.length > 0
+      ) && <div className="mb-8">{header}</div>}
       {authLoading || loading ? (
         <p role="status">{t("Loading {title}", { title: t("History") })}</p>
       ) : !isAuthenticated ? (
@@ -33,7 +44,7 @@ export default function HistoryPage() {
           </button>
         </p>
       ) : history.length ? (
-        <HistoryLibrary history={history} />
+        <HistoryLibrary header={header} history={history} />
       ) : (
         <div className="flex min-h-64 flex-col items-center justify-center gap-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-5 py-10 text-center sm:min-h-80">
           <div className="rounded-full bg-purple-500/10 p-4 text-purple-400">
