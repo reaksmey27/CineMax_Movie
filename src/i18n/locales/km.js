@@ -1,17 +1,27 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
-
-  "Undo": "មិនធ្វើវិញ",
-  "Dismiss": "បិទ",
+  "Clear watch history?": "សម្អាតប្រវត្តិមើលទាំងអស់ឬ?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "ប្រវត្តិមើល និងវឌ្ឍនភាពដែលបានរក្សាទុកទាំងអស់នឹងត្រូវលុប។ មិនអាចស្ដារវិញបានទេ។",
+  "Could not clear watch history. Try again.":
+    "មិនអាចសម្អាតប្រវត្តិមើលបានទេ។ សូមព្យាយាមម្តងទៀត។",
+  "Clearing...": "កំពុងសម្អាត...",
+  Undo: "មិនធ្វើវិញ",
+  Dismiss: "បិទ",
   "Removed {title} from {collection}.": "បានលុប {title} ចេញពី {collection}។",
-  "Could not restore this movie. Try again.": "មិនអាចស្ដារភាពយន្តនេះបានទេ។ សូមព្យាយាមម្តងទៀត។",
-  "This reset link is invalid or expired. Request a new one.": "តំណកំណត់ពាក្យសម្ងាត់នេះមិនត្រឹមត្រូវ ឬផុតកំណត់។ សូមស្នើសុំតំណថ្មី។",
-  "Could not reset your password. Please try again.": "មិនអាចកំណត់ពាក្យសម្ងាត់ឡើងវិញបានទេ។ សូមព្យាយាមម្តងទៀត។",
+  "Could not restore this movie. Try again.":
+    "មិនអាចស្ដារភាពយន្តនេះបានទេ។ សូមព្យាយាមម្តងទៀត។",
+  "This reset link is invalid or expired. Request a new one.":
+    "តំណកំណត់ពាក្យសម្ងាត់នេះមិនត្រឹមត្រូវ ឬផុតកំណត់។ សូមស្នើសុំតំណថ្មី។",
+  "Could not reset your password. Please try again.":
+    "មិនអាចកំណត់ពាក្យសម្ងាត់ឡើងវិញបានទេ។ សូមព្យាយាមម្តងទៀត។",
   "Passwords do not match.": "ពាក្យសម្ងាត់មិនដូចគ្នាទេ។",
-  "Use a stronger password that meets your account requirements.": "សូមប្រើពាក្យសម្ងាត់ខ្លាំងជាងនេះដែលបំពេញតាមលក្ខខណ្ឌគណនីរបស់អ្នក។",
+  "Use a stronger password that meets your account requirements.":
+    "សូមប្រើពាក្យសម្ងាត់ខ្លាំងជាងនេះដែលបំពេញតាមលក្ខខណ្ឌគណនីរបស់អ្នក។",
   "Checking reset link...": "កំពុងពិនិត្យតំណកំណត់ពាក្យសម្ងាត់...",
-  "Password reset. You can now sign in.": "បានកំណត់ពាក្យសម្ងាត់ឡើងវិញ។ ឥឡូវអ្នកអាចចូលគណនីបាន។",
+  "Password reset. You can now sign in.":
+    "បានកំណត់ពាក្យសម្ងាត់ឡើងវិញ។ ឥឡូវអ្នកអាចចូលគណនីបាន។",
   "Choose a new password.": "ជ្រើសរើសពាក្យសម្ងាត់ថ្មី។",
   "Mark as unfinished": "សម្គាល់ថាមិនទាន់មើលចប់",
   "Search watch history": "ស្វែងរកប្រវត្តិមើល",

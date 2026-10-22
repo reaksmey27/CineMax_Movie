@@ -1,17 +1,27 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
-
-  "Undo": "Annuler",
-  "Dismiss": "Fermer",
+  "Clear watch history?": "Effacer l’historique de visionnage ?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Tout l’historique et la progression enregistrée seront supprimés. Cette action est irréversible.",
+  "Could not clear watch history. Try again.":
+    "Impossible d’effacer l’historique. Réessayez.",
+  "Clearing...": "Suppression...",
+  Undo: "Annuler",
+  Dismiss: "Fermer",
   "Removed {title} from {collection}.": "{title} a été retiré de {collection}.",
-  "Could not restore this movie. Try again.": "Impossible de restaurer ce film. Réessayez.",
-  "This reset link is invalid or expired. Request a new one.": "Ce lien est invalide ou expiré. Demandez-en un nouveau.",
-  "Could not reset your password. Please try again.": "Impossible de réinitialiser votre mot de passe. Réessayez.",
+  "Could not restore this movie. Try again.":
+    "Impossible de restaurer ce film. Réessayez.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Ce lien est invalide ou expiré. Demandez-en un nouveau.",
+  "Could not reset your password. Please try again.":
+    "Impossible de réinitialiser votre mot de passe. Réessayez.",
   "Passwords do not match.": "Les mots de passe ne correspondent pas.",
-  "Use a stronger password that meets your account requirements.": "Utilisez un mot de passe plus fort qui respecte les exigences de votre compte.",
+  "Use a stronger password that meets your account requirements.":
+    "Utilisez un mot de passe plus fort qui respecte les exigences de votre compte.",
   "Checking reset link...": "Vérification du lien...",
-  "Password reset. You can now sign in.": "Mot de passe réinitialisé. Vous pouvez vous connecter.",
+  "Password reset. You can now sign in.":
+    "Mot de passe réinitialisé. Vous pouvez vous connecter.",
   "Choose a new password.": "Choisissez un nouveau mot de passe.",
   "Mark as unfinished": "Marquer comme non terminé",
   "Search watch history": "Rechercher dans l’historique",

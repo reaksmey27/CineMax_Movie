@@ -1,17 +1,28 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
-
-  "Undo": "元に戻す",
-  "Dismiss": "閉じる",
-  "Removed {title} from {collection}.": "{collection}から{title}を削除しました。",
-  "Could not restore this movie. Try again.": "この映画を復元できませんでした。もう一度お試しください。",
-  "This reset link is invalid or expired. Request a new one.": "このリンクは無効か期限切れです。新しいリンクをリクエストしてください。",
-  "Could not reset your password. Please try again.": "パスワードを再設定できませんでした。もう一度お試しください。",
+  "Clear watch history?": "視聴履歴を消去しますか？",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "すべての視聴履歴と保存された再生位置が削除されます。元に戻すことはできません。",
+  "Could not clear watch history. Try again.":
+    "視聴履歴を消去できませんでした。もう一度お試しください。",
+  "Clearing...": "消去中...",
+  Undo: "元に戻す",
+  Dismiss: "閉じる",
+  "Removed {title} from {collection}.":
+    "{collection}から{title}を削除しました。",
+  "Could not restore this movie. Try again.":
+    "この映画を復元できませんでした。もう一度お試しください。",
+  "This reset link is invalid or expired. Request a new one.":
+    "このリンクは無効か期限切れです。新しいリンクをリクエストしてください。",
+  "Could not reset your password. Please try again.":
+    "パスワードを再設定できませんでした。もう一度お試しください。",
   "Passwords do not match.": "パスワードが一致しません。",
-  "Use a stronger password that meets your account requirements.": "アカウントの要件を満たす、より強力なパスワードを使用してください。",
+  "Use a stronger password that meets your account requirements.":
+    "アカウントの要件を満たす、より強力なパスワードを使用してください。",
   "Checking reset link...": "リンクを確認中...",
-  "Password reset. You can now sign in.": "パスワードを再設定しました。ログインできます。",
+  "Password reset. You can now sign in.":
+    "パスワードを再設定しました。ログインできます。",
   "Choose a new password.": "新しいパスワードを設定してください。",
   "Mark as unfinished": "視聴途中に戻す",
   "Search watch history": "履歴を検索",

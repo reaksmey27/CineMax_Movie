@@ -1,6 +1,8 @@
 import {
   collection,
   deleteDoc,
+  getDocsFromServer,
+  writeBatch,
   doc,
   limit,
   onSnapshot,
@@ -70,3 +72,16 @@ export const markWatchHistoryUnfinished = (database, userId, movieId) =>
   updateDoc(historyDocument(database, userId, movieId), { completed: false });
 export const removeWatchHistory = (database, userId, movieId) =>
   deleteDoc(historyDocument(database, userId, movieId));
+
+export async function clearWatchHistory(database, userId) {
+  // Read the entire collection, including records beyond the latest 50 shown.
+  // A fixed snapshot avoids chasing records created by another device.
+  const snapshot = await getDocsFromServer(historyCollection(database, userId));
+  for (let offset = 0; offset < snapshot.docs.length; offset += 400) {
+    const batch = writeBatch(database);
+    snapshot.docs
+      .slice(offset, offset + 400)
+      .forEach((item) => batch.delete(item.ref));
+    await batch.commit();
+  }
+}

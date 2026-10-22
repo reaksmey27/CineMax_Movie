@@ -6,6 +6,7 @@ import {
   finishWatchHistory,
   markWatchHistoryUnfinished,
   removeWatchHistory,
+  clearWatchHistory,
 } from "../src/firebase/watchHistory.js";
 import { readFile } from "node:fs/promises";
 import test, { after, before, beforeEach } from "node:test";
@@ -128,6 +129,59 @@ for (const name of ["favorites", "watchlists", "watchHistory"]) {
     );
   });
 }
+
+test("clear watch history deletes all batches and preserves other collections and users", async () => {
+  const db = getAuthenticatedDatabase();
+  await environment.withSecurityRulesDisabled(async (context) => {
+    const seed = context.firestore();
+    const batch = writeBatch(seed);
+    for (let id = 1; id <= 405; id++) {
+      batch.set(doc(seed, "watchHistory", OWNER_UID, "movies", String(id)), {
+        id,
+      });
+    }
+    await batch.commit();
+  });
+  await addToFavorites(db, OWNER_UID, MOVIE);
+  await addToWatchlist(db, OWNER_UID, MOVIE);
+  const readFavorites = async () =>
+    (await getDoc(doc(db, "favorites", OWNER_UID))).data();
+  const readWatchlist = async () =>
+    (await getDoc(doc(db, "watchlists", OWNER_UID))).data();
+  const favorites = await readFavorites();
+  const watchlist = await readWatchlist();
+  await saveWatchHistory(
+    getAuthenticatedDatabase(OTHER_UID),
+    OTHER_UID,
+    MOVIE,
+    { server: "Server 1" },
+  );
+  await assert.rejects(
+    clearWatchHistory(getAuthenticatedDatabase(OTHER_UID), OWNER_UID),
+    /permission/i,
+  );
+  await clearWatchHistory(db, OWNER_UID);
+  assert.equal(
+    (await getDocs(collection(db, "watchHistory", OWNER_UID, "movies"))).size,
+    0,
+  );
+  assert.deepEqual(await readFavorites(), favorites);
+  assert.deepEqual(await readWatchlist(), watchlist);
+  assert.equal(
+    (
+      await getDocs(
+        collection(
+          getAuthenticatedDatabase(OTHER_UID),
+          "watchHistory",
+          OTHER_UID,
+          "movies",
+        ),
+      )
+    ).size,
+    1,
+  );
+  await clearWatchHistory(db, OWNER_UID);
+});
 
 test("watch history persists progress, resumes via a fresh subscription, and supports finishing/removal", async () => {
   const db = getAuthenticatedDatabase();

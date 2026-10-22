@@ -1,17 +1,27 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
-
-  "Undo": "Desfazer",
-  "Dismiss": "Fechar",
+  "Clear watch history?": "Limpar o histórico de reprodução?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Todo o histórico e o progresso salvo serão removidos. Esta ação não pode ser desfeita.",
+  "Could not clear watch history. Try again.":
+    "Não foi possível limpar o histórico. Tente novamente.",
+  "Clearing...": "Limpando...",
+  Undo: "Desfazer",
+  Dismiss: "Fechar",
   "Removed {title} from {collection}.": "{title} removido de {collection}.",
-  "Could not restore this movie. Try again.": "Não foi possível restaurar este filme. Tente novamente.",
-  "This reset link is invalid or expired. Request a new one.": "Este link é inválido ou expirou. Solicite um novo.",
-  "Could not reset your password. Please try again.": "Não foi possível redefinir sua senha. Tente novamente.",
+  "Could not restore this movie. Try again.":
+    "Não foi possível restaurar este filme. Tente novamente.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Este link é inválido ou expirou. Solicite um novo.",
+  "Could not reset your password. Please try again.":
+    "Não foi possível redefinir sua senha. Tente novamente.",
   "Passwords do not match.": "As senhas não coincidem.",
-  "Use a stronger password that meets your account requirements.": "Use uma senha mais forte que atenda aos requisitos da sua conta.",
+  "Use a stronger password that meets your account requirements.":
+    "Use uma senha mais forte que atenda aos requisitos da sua conta.",
   "Checking reset link...": "Verificando o link...",
-  "Password reset. You can now sign in.": "Senha redefinida. Você já pode entrar.",
+  "Password reset. You can now sign in.":
+    "Senha redefinida. Você já pode entrar.",
   "Choose a new password.": "Escolha uma nova senha.",
   "Mark as unfinished": "Marcar como não concluído",
   "Search watch history": "Pesquisar histórico",

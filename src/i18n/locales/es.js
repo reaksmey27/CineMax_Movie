@@ -1,17 +1,27 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
-
-  "Undo": "Deshacer",
-  "Dismiss": "Cerrar",
+  "Clear watch history?": "¿Borrar el historial de reproducción?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Se eliminarán todo el historial y el progreso guardado. Esta acción no se puede deshacer.",
+  "Could not clear watch history. Try again.":
+    "No se pudo borrar el historial. Inténtalo de nuevo.",
+  "Clearing...": "Borrando...",
+  Undo: "Deshacer",
+  Dismiss: "Cerrar",
   "Removed {title} from {collection}.": "Se eliminó {title} de {collection}.",
-  "Could not restore this movie. Try again.": "No se pudo restaurar esta película. Inténtalo de nuevo.",
-  "This reset link is invalid or expired. Request a new one.": "Este enlace no es válido o ha caducado. Solicita uno nuevo.",
-  "Could not reset your password. Please try again.": "No se pudo restablecer tu contraseña. Inténtalo de nuevo.",
+  "Could not restore this movie. Try again.":
+    "No se pudo restaurar esta película. Inténtalo de nuevo.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Este enlace no es válido o ha caducado. Solicita uno nuevo.",
+  "Could not reset your password. Please try again.":
+    "No se pudo restablecer tu contraseña. Inténtalo de nuevo.",
   "Passwords do not match.": "Las contraseñas no coinciden.",
-  "Use a stronger password that meets your account requirements.": "Usa una contraseña más segura que cumpla los requisitos de tu cuenta.",
+  "Use a stronger password that meets your account requirements.":
+    "Usa una contraseña más segura que cumpla los requisitos de tu cuenta.",
   "Checking reset link...": "Comprobando el enlace...",
-  "Password reset. You can now sign in.": "Contraseña restablecida. Ya puedes iniciar sesión.",
+  "Password reset. You can now sign in.":
+    "Contraseña restablecida. Ya puedes iniciar sesión.",
   "Choose a new password.": "Elige una contraseña nueva.",
   "Mark as unfinished": "Marcar como sin terminar",
   "Search watch history": "Buscar en el historial",

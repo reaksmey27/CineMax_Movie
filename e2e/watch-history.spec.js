@@ -47,6 +47,11 @@ async function fixture(page) {
       write(uid,read(uid).map(x=>x.id===id?{...x,completed:false}:x));
     };
     export const removeWatchHistory = async (db,uid,id) => write(uid,read(uid).filter(x=>x.id!==id));
+    export const clearWatchHistory = async (db,uid) => {
+      await new Promise(resolve=>setTimeout(resolve,300));
+      if(localStorage.getItem('fail-clear')) throw Error('offline');
+      write(uid,[]);
+    };
   `,
   );
   await page.route("https://api.themoviedb.org/**", (route) =>
@@ -75,6 +80,62 @@ async function fixture(page) {
     }),
   );
 }
+
+test("clear history confirms, cancels, reports failures and retries", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      "history-fan",
+      JSON.stringify([
+        {
+          id: 42,
+          title: "Example Film",
+          lastWatchedAt: "2026-01-01",
+          server: "Server 1",
+        },
+      ]),
+    );
+    localStorage.setItem("fail-clear", "1");
+  });
+  await page.goto("/history");
+  await page
+    .getByRole("button", { name: "Clear history", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Cancel", exact: true }),
+  ).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("heading", { name: "Clear watch history?" }),
+  ).toBeHidden();
+  await expect(
+    page.getByRole("button", { name: "Clear history", exact: true }),
+  ).toBeFocused();
+  await page
+    .getByRole("button", { name: "Clear history", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Clear history", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Clearing...", exact: true }),
+  ).toBeDisabled();
+  await expect(page.getByRole("alert")).toContainText(
+    "Could not clear watch history",
+  );
+  await expect(page.locator("article")).toHaveCount(1);
+  await page.evaluate(() => localStorage.removeItem("fail-clear"));
+  await page.getByRole("button", { name: "Try again", exact: true }).click();
+  await expect(page.locator("article")).toHaveCount(0);
+  await expect(
+    page.getByRole("heading", { name: "Clear watch history?" }),
+  ).toBeHidden();
+  expect(
+    await page.evaluate(() => JSON.parse(localStorage.getItem("history-fan"))),
+  ).toEqual([]);
+});
 
 test("history shows skeletons, reports a load error and retries to an empty collection", async ({
   page,

@@ -1,17 +1,27 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
-
-  "Undo": "Annulla",
-  "Dismiss": "Chiudi",
+  "Clear watch history?": "Cancellare la cronologia di visione?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Tutta la cronologia e i progressi salvati verranno eliminati. Questa azione non può essere annullata.",
+  "Could not clear watch history. Try again.":
+    "Impossibile cancellare la cronologia. Riprova.",
+  "Clearing...": "Eliminazione...",
+  Undo: "Annulla",
+  Dismiss: "Chiudi",
   "Removed {title} from {collection}.": "{title} rimosso da {collection}.",
-  "Could not restore this movie. Try again.": "Impossibile ripristinare questo film. Riprova.",
-  "This reset link is invalid or expired. Request a new one.": "Questo link non è valido o è scaduto. Richiedine uno nuovo.",
-  "Could not reset your password. Please try again.": "Impossibile reimpostare la password. Riprova.",
+  "Could not restore this movie. Try again.":
+    "Impossibile ripristinare questo film. Riprova.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Questo link non è valido o è scaduto. Richiedine uno nuovo.",
+  "Could not reset your password. Please try again.":
+    "Impossibile reimpostare la password. Riprova.",
   "Passwords do not match.": "Le password non coincidono.",
-  "Use a stronger password that meets your account requirements.": "Usa una password più sicura che soddisfi i requisiti del tuo account.",
+  "Use a stronger password that meets your account requirements.":
+    "Usa una password più sicura che soddisfi i requisiti del tuo account.",
   "Checking reset link...": "Verifica del link...",
-  "Password reset. You can now sign in.": "Password reimpostata. Ora puoi accedere.",
+  "Password reset. You can now sign in.":
+    "Password reimpostata. Ora puoi accedere.",
   "Choose a new password.": "Scegli una nuova password.",
   "Mark as unfinished": "Segna come non finito",
   "Search watch history": "Cerca nella cronologia",

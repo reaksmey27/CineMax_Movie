@@ -1,17 +1,27 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
-
-  "Undo": "Urungkan",
-  "Dismiss": "Tutup",
+  "Clear watch history?": "Hapus riwayat tontonan?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Semua riwayat tontonan dan progres tersimpan akan dihapus. Tindakan ini tidak dapat dibatalkan.",
+  "Could not clear watch history. Try again.":
+    "Tidak dapat menghapus riwayat tontonan. Coba lagi.",
+  "Clearing...": "Menghapus...",
+  Undo: "Urungkan",
+  Dismiss: "Tutup",
   "Removed {title} from {collection}.": "{title} dihapus dari {collection}.",
-  "Could not restore this movie. Try again.": "Film ini tidak dapat dipulihkan. Coba lagi.",
-  "This reset link is invalid or expired. Request a new one.": "Tautan ini tidak valid atau kedaluwarsa. Minta tautan baru.",
-  "Could not reset your password. Please try again.": "Tidak dapat mengatur ulang kata sandi. Coba lagi.",
+  "Could not restore this movie. Try again.":
+    "Film ini tidak dapat dipulihkan. Coba lagi.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Tautan ini tidak valid atau kedaluwarsa. Minta tautan baru.",
+  "Could not reset your password. Please try again.":
+    "Tidak dapat mengatur ulang kata sandi. Coba lagi.",
   "Passwords do not match.": "Kata sandi tidak cocok.",
-  "Use a stronger password that meets your account requirements.": "Gunakan kata sandi yang lebih kuat dan memenuhi persyaratan akun Anda.",
+  "Use a stronger password that meets your account requirements.":
+    "Gunakan kata sandi yang lebih kuat dan memenuhi persyaratan akun Anda.",
   "Checking reset link...": "Memeriksa tautan...",
-  "Password reset. You can now sign in.": "Kata sandi diatur ulang. Anda sekarang dapat masuk.",
+  "Password reset. You can now sign in.":
+    "Kata sandi diatur ulang. Anda sekarang dapat masuk.",
   "Choose a new password.": "Pilih kata sandi baru.",
   "Mark as unfinished": "Tandai belum selesai",
   "Search watch history": "Cari riwayat",

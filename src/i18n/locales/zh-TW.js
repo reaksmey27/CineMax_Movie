@@ -1,15 +1,22 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
-
-  "Undo": "復原",
-  "Dismiss": "關閉",
+  "Clear watch history?": "清除觀看紀錄？",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "所有觀看紀錄與儲存的播放進度將被刪除。此操作無法復原。",
+  "Could not clear watch history. Try again.": "無法清除觀看紀錄，請再試一次。",
+  "Clearing...": "正在清除...",
+  Undo: "復原",
+  Dismiss: "關閉",
   "Removed {title} from {collection}.": "已從{collection}移除{title}。",
   "Could not restore this movie. Try again.": "無法復原此電影，請再試一次。",
-  "This reset link is invalid or expired. Request a new one.": "此連結無效或已過期，請要求新連結。",
-  "Could not reset your password. Please try again.": "無法重設密碼，請再試一次。",
+  "This reset link is invalid or expired. Request a new one.":
+    "此連結無效或已過期，請要求新連結。",
+  "Could not reset your password. Please try again.":
+    "無法重設密碼，請再試一次。",
   "Passwords do not match.": "密碼不一致。",
-  "Use a stronger password that meets your account requirements.": "請使用符合帳戶要求的更強密碼。",
+  "Use a stronger password that meets your account requirements.":
+    "請使用符合帳戶要求的更強密碼。",
   "Checking reset link...": "正在檢查連結...",
   "Password reset. You can now sign in.": "密碼已重設，您現在可以登入。",
   "Choose a new password.": "請設定新密碼。",

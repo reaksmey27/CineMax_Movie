@@ -7,9 +7,10 @@ import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
 import HistoryLibrary from "./HistoryLibrary";
+import ClearHistory from "./ClearHistory";
 
 export default function HistoryPage() {
-  const { isAuthenticated, loading: authLoading } = useAuth();
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
   const { history, loading, error, saveError, retry } = useWatchHistory();
   const { t } = useLanguage();
   const header = (
@@ -84,6 +85,11 @@ export default function HistoryPage() {
           actionTo="/movies"
           actionLabel={t("Browse Movies")}
         />
+      )}
+      {isAuthenticated && !authLoading && !loading && !error && (
+        <div className="mt-6">
+          <ClearHistory key={user?.uid} />
+        </div>
       )}
       {saveError && (
         <p role="alert" className="mt-4 text-amber-300">

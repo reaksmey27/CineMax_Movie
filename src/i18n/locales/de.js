@@ -1,17 +1,28 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
-
-  "Undo": "Rückgängig",
-  "Dismiss": "Schließen",
-  "Removed {title} from {collection}.": "{title} wurde aus {collection} entfernt.",
-  "Could not restore this movie. Try again.": "Dieser Film konnte nicht wiederhergestellt werden. Versuche es erneut.",
-  "This reset link is invalid or expired. Request a new one.": "Dieser Link ist ungültig oder abgelaufen. Fordere einen neuen an.",
-  "Could not reset your password. Please try again.": "Das Passwort konnte nicht zurückgesetzt werden. Versuche es erneut.",
+  "Clear watch history?": "Wiedergabeverlauf löschen?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Der gesamte Verlauf und gespeicherte Fortschritt werden unwiderruflich gelöscht.",
+  "Could not clear watch history. Try again.":
+    "Der Verlauf konnte nicht gelöscht werden. Versuche es erneut.",
+  "Clearing...": "Wird gelöscht...",
+  Undo: "Rückgängig",
+  Dismiss: "Schließen",
+  "Removed {title} from {collection}.":
+    "{title} wurde aus {collection} entfernt.",
+  "Could not restore this movie. Try again.":
+    "Dieser Film konnte nicht wiederhergestellt werden. Versuche es erneut.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Dieser Link ist ungültig oder abgelaufen. Fordere einen neuen an.",
+  "Could not reset your password. Please try again.":
+    "Das Passwort konnte nicht zurückgesetzt werden. Versuche es erneut.",
   "Passwords do not match.": "Die Passwörter stimmen nicht überein.",
-  "Use a stronger password that meets your account requirements.": "Verwende ein stärkeres Passwort, das die Anforderungen deines Kontos erfüllt.",
+  "Use a stronger password that meets your account requirements.":
+    "Verwende ein stärkeres Passwort, das die Anforderungen deines Kontos erfüllt.",
   "Checking reset link...": "Link wird geprüft...",
-  "Password reset. You can now sign in.": "Passwort zurückgesetzt. Du kannst dich jetzt anmelden.",
+  "Password reset. You can now sign in.":
+    "Passwort zurückgesetzt. Du kannst dich jetzt anmelden.",
   "Choose a new password.": "Wähle ein neues Passwort.",
   "Mark as unfinished": "Als nicht beendet markieren",
   "Search watch history": "Verlauf durchsuchen",

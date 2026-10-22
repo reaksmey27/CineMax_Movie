@@ -1,17 +1,27 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
-
-  "Undo": "Hoàn tác",
-  "Dismiss": "Đóng",
+  "Clear watch history?": "Xóa lịch sử xem?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "Tất cả lịch sử xem và tiến độ đã lưu sẽ bị xóa. Không thể hoàn tác.",
+  "Could not clear watch history. Try again.":
+    "Không thể xóa lịch sử xem. Hãy thử lại.",
+  "Clearing...": "Đang xóa...",
+  Undo: "Hoàn tác",
+  Dismiss: "Đóng",
   "Removed {title} from {collection}.": "Đã xóa {title} khỏi {collection}.",
-  "Could not restore this movie. Try again.": "Không thể khôi phục phim này. Hãy thử lại.",
-  "This reset link is invalid or expired. Request a new one.": "Liên kết này không hợp lệ hoặc đã hết hạn. Hãy yêu cầu liên kết mới.",
-  "Could not reset your password. Please try again.": "Không thể đặt lại mật khẩu. Vui lòng thử lại.",
+  "Could not restore this movie. Try again.":
+    "Không thể khôi phục phim này. Hãy thử lại.",
+  "This reset link is invalid or expired. Request a new one.":
+    "Liên kết này không hợp lệ hoặc đã hết hạn. Hãy yêu cầu liên kết mới.",
+  "Could not reset your password. Please try again.":
+    "Không thể đặt lại mật khẩu. Vui lòng thử lại.",
   "Passwords do not match.": "Mật khẩu không khớp.",
-  "Use a stronger password that meets your account requirements.": "Hãy dùng mật khẩu mạnh hơn đáp ứng yêu cầu của tài khoản.",
+  "Use a stronger password that meets your account requirements.":
+    "Hãy dùng mật khẩu mạnh hơn đáp ứng yêu cầu của tài khoản.",
   "Checking reset link...": "Đang kiểm tra liên kết...",
-  "Password reset. You can now sign in.": "Đã đặt lại mật khẩu. Bạn có thể đăng nhập ngay.",
+  "Password reset. You can now sign in.":
+    "Đã đặt lại mật khẩu. Bạn có thể đăng nhập ngay.",
   "Choose a new password.": "Chọn mật khẩu mới.",
   "Mark as unfinished": "Đánh dấu chưa xem xong",
   "Search watch history": "Tìm trong lịch sử",

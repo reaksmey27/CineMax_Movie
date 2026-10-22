@@ -1,17 +1,28 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
-
-  "Undo": "실행 취소",
-  "Dismiss": "닫기",
-  "Removed {title} from {collection}.": "{collection}에서 {title}을(를) 삭제했습니다.",
-  "Could not restore this movie. Try again.": "이 영화를 복원하지 못했습니다. 다시 시도하세요.",
-  "This reset link is invalid or expired. Request a new one.": "링크가 유효하지 않거나 만료되었습니다. 새 링크를 요청하세요.",
-  "Could not reset your password. Please try again.": "비밀번호를 재설정하지 못했습니다. 다시 시도하세요.",
+  "Clear watch history?": "시청 기록을 삭제할까요?",
+  "All watch history and saved progress will be removed. This cannot be undone.":
+    "모든 시청 기록과 저장된 재생 위치가 삭제됩니다. 되돌릴 수 없습니다.",
+  "Could not clear watch history. Try again.":
+    "시청 기록을 삭제하지 못했습니다. 다시 시도하세요.",
+  "Clearing...": "삭제 중...",
+  Undo: "실행 취소",
+  Dismiss: "닫기",
+  "Removed {title} from {collection}.":
+    "{collection}에서 {title}을(를) 삭제했습니다.",
+  "Could not restore this movie. Try again.":
+    "이 영화를 복원하지 못했습니다. 다시 시도하세요.",
+  "This reset link is invalid or expired. Request a new one.":
+    "링크가 유효하지 않거나 만료되었습니다. 새 링크를 요청하세요.",
+  "Could not reset your password. Please try again.":
+    "비밀번호를 재설정하지 못했습니다. 다시 시도하세요.",
   "Passwords do not match.": "비밀번호가 일치하지 않습니다.",
-  "Use a stronger password that meets your account requirements.": "계정 요구 사항을 충족하는 더 강력한 비밀번호를 사용하세요.",
+  "Use a stronger password that meets your account requirements.":
+    "계정 요구 사항을 충족하는 더 강력한 비밀번호를 사용하세요.",
   "Checking reset link...": "링크 확인 중...",
-  "Password reset. You can now sign in.": "비밀번호가 재설정되었습니다. 이제 로그인할 수 있습니다.",
+  "Password reset. You can now sign in.":
+    "비밀번호가 재설정되었습니다. 이제 로그인할 수 있습니다.",
   "Choose a new password.": "새 비밀번호를 설정하세요.",
   "Mark as unfinished": "시청 미완료로 표시",
   "Search watch history": "기록 검색",

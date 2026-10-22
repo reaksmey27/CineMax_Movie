@@ -28,6 +28,8 @@ function Session({ userId, children }) {
   const records = useRef([]);
   const pending = useRef(new Set());
   const [busy, setBusy] = useState(new Set());
+  const clearingRef = useRef(false);
+  const [clearing, setClearing] = useState(false);
   const retry = useCallback(() => {
     setLoading(true);
     setError(false);
@@ -72,7 +74,7 @@ function Session({ userId, children }) {
 
   const record = useCallback(
     async (movie, details, starting = false) => {
-      if (!userId) return false;
+      if (!userId || clearingRef.current) return false;
       const previous = records.current.find((item) => item.id === movie.id);
       if (!starting && previous?.completed) return true;
       try {
@@ -90,7 +92,8 @@ function Session({ userId, children }) {
 
   const change = useCallback(
     async (movieId, action) => {
-      if (!userId || pending.current.has(movieId)) return false;
+      if (!userId || clearingRef.current || pending.current.has(movieId))
+        return false;
       const removedMovie =
         action === "remove"
           ? records.current.find((item) => item.id === movieId)
@@ -119,6 +122,21 @@ function Session({ userId, children }) {
     },
     [userId, offerUndo],
   );
+  const clear = useCallback(async () => {
+    if (!userId || clearingRef.current || pending.current.size) return false;
+    clearingRef.current = true;
+    setClearing(true);
+    try {
+      const [{ db }, storage] = await loadStorage();
+      await storage.clearWatchHistory(db, userId);
+      return true;
+    } catch {
+      return false;
+    } finally {
+      clearingRef.current = false;
+      setClearing(false);
+    }
+  }, [userId]);
   const value = useMemo(
     () => ({
       history,
@@ -126,13 +144,27 @@ function Session({ userId, children }) {
       error,
       saveError,
       retry,
+      clear,
+      clearing,
+      canClear: busy.size === 0,
       record,
       finish: (id) => change(id, "finish"),
       markUnfinished: (id) => change(id, "unfinished"),
       remove: (id) => change(id, "remove"),
-      isBusy: (id) => busy.has(id),
+      isBusy: (id) => clearing || busy.has(id),
     }),
-    [history, loading, error, saveError, retry, record, change, busy],
+    [
+      history,
+      loading,
+      error,
+      saveError,
+      retry,
+      record,
+      change,
+      busy,
+      clear,
+      clearing,
+    ],
   );
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }
