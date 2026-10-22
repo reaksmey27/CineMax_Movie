@@ -17,22 +17,26 @@ const FavoritesPage = () => {
   const isEmpty = favorites.length === 0;
 
   const header = (
-    <div className="min-w-0 space-y-4">
-      <div className="space-y-3">
-        <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
-          {t("Your")}
-          <br />
-          <span className="text-purple-500">{t("Favorites")}</span>
+    <div className="min-w-0 space-y-3">
+      <div className="flex items-center gap-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+          <HeartOutlineIcon aria-hidden="true" className="h-6 w-6" />
+        </span>
+        <h1 className="min-w-0 text-2xl font-bold leading-snug text-white [overflow-wrap:anywhere] sm:text-3xl">
+          {t("Favorites")}
         </h1>
-        <p className="max-w-sm text-sm font-medium text-gray-400">
-          {t(
-            "Sign in to save your favorite movies and sync your collection across devices.",
-          )}
-        </p>
       </div>
+      <p className="max-w-lg text-sm leading-relaxed text-gray-400 sm:text-base">
+        {isAuthenticated
+          ? t(
+              "Tap the heart on a movie you love to start your personal collection.",
+            )
+          : t(
+              "Sign in to save your favorite movies and sync your collection across devices.",
+            )}
+      </p>
     </div>
   );
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 px-4 pb-16 pt-22 sm:px-6 sm:pb-24 sm:pt-28 lg:px-24 lg:pt-36 xl:px-40">
       <div className="absolute right-0 top-0 -z-10 h-125 w-125 rounded-full bg-red-600/10 blur-[120px]" />

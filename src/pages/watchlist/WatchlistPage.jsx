@@ -18,20 +18,26 @@ const WatchlistPage = () => {
     useWatchlist();
 
   const header = (
-    <div className="min-w-0 space-y-4">
-      <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
-        {t("Your")} <span className="text-amber-400">{t("Watchlist")}</span>
-      </h1>
-      <p className="max-w-lg text-sm font-medium text-gray-400">
-        {t(
-          isAuthenticated
-            ? "Find your next movie, organize saved titles, and keep track of what you've watched."
-            : "Sign in to save movies to your account and keep your watchlist synced across devices.",
-        )}
+    <div className="min-w-0 space-y-3">
+      <div className="flex items-center gap-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
+          <BookmarkIcon aria-hidden="true" className="h-6 w-6" />
+        </span>
+        <h1 className="min-w-0 text-2xl font-bold leading-snug text-white [overflow-wrap:anywhere] sm:text-3xl">
+          {t("Watchlist")}
+        </h1>
+      </div>
+      <p className="max-w-lg text-sm leading-relaxed text-gray-400 sm:text-base">
+        {isAuthenticated
+          ? t(
+              "Find your next movie, organize saved titles, and keep track of what you've watched.",
+            )
+          : t(
+              "Sign in to save movies to your account and keep your watchlist synced across devices.",
+            )}
       </p>
     </div>
   );
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 px-4 pb-16 pt-22 sm:px-6 sm:pb-24 sm:pt-28 lg:px-24 lg:pt-36 xl:px-40">
       <div className="absolute right-0 top-0 -z-10 h-[24rem] w-[24rem] rounded-full bg-amber-500/10 blur-[120px] sm:h-[31rem] sm:w-[31rem]" />

@@ -10,9 +10,16 @@ export default function HistoryPage() {
   const { history, loading, error, saveError, retry } = useWatchHistory();
   const { t } = useLanguage();
   const header = (
-    <div className="min-w-0">
-      <h1 className="mb-4 text-3xl font-bold">{t("History")}</h1>
-      <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base">
+    <div className="min-w-0 space-y-3">
+      <div className="flex items-center gap-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
+          <ClockIcon aria-hidden="true" className="h-6 w-6" />
+        </span>
+        <h1 className="min-w-0 text-2xl font-bold leading-snug text-[var(--color-text)] [overflow-wrap:anywhere] sm:text-3xl">
+          {t("History")}
+        </h1>
+      </div>
+      <p className="max-w-lg text-sm leading-relaxed text-[var(--color-text-muted)] sm:text-base">
         {t("Find your last 50 movies and continue watching another day.")}
       </p>
     </div>
