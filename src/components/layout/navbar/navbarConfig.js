@@ -6,6 +6,7 @@ export const NAV_LINKS = [
   { name: "Trending", path: "/trending" },
   { name: "Favorites", path: "/favorites" },
   { name: "Watchlist", path: "/watchlist" },
+  { name: "History", path: "/history" },
   { name: "Upcoming", path: "/upcoming" },
 ];
 

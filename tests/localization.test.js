@@ -3,6 +3,8 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/pages/history/HistoryPage.jsx",
+  "src/components/movies/WatchHistoryList.jsx",
   "src/pages/auth/PasswordResetForm.jsx",
   "src/components/layout/LanguageSelector.jsx",
   "src/pages/watchlist/WatchlistLibrary.jsx",
@@ -17,6 +19,8 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "Your progress is saved so you can continue watching later.",
+  "This movie is saved in History. This server does not support exact-time resume.",
   "Forgot password?",
   "Too many reset attempts. Please wait and try again.",
   "Could not send the reset link. Please try again.",

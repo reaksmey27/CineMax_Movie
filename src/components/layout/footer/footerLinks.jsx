@@ -6,6 +6,7 @@ export const EXPLORE_LINKS = [
   { to: "/trending", label: "Trending" },
   { to: "/upcoming", label: "Upcoming" },
   { to: "/watchlist", label: "Watchlist" },
+  { to: "/history", label: "History" },
   { to: "/favorites", label: "Favorites" },
   { to: "/notifications", label: "Notifications" },
 ];

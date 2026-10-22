@@ -55,6 +55,10 @@
       "destination": "/seo/watchlist.html"
     },
     {
+      "source": "/history",
+      "destination": "/seo/history.html"
+    },
+    {
       "source": "/profile",
       "destination": "/seo/profile.html"
     },

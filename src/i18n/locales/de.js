@@ -1,6 +1,22 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  History: "Verlauf",
+  "Continue watching": "Weiterschauen",
+  Started: "Begonnen",
+  "Watch progress": "Wiedergabefortschritt",
+  "Find your last 50 movies and continue watching another day.":
+    "Finde deine letzten 50 Filme und schaue an einem anderen Tag weiter.",
+  "Movies you start watching will appear here.":
+    "Filme, die du anfängst, erscheinen hier.",
+  "Could not load watch history.":
+    "Der Wiedergabeverlauf konnte nicht geladen werden.",
+  "Could not save watch history.":
+    "Der Wiedergabeverlauf konnte nicht gespeichert werden.",
+  "Your progress is saved so you can continue watching later.":
+    "Dein Fortschritt wird gespeichert, damit du später weiterschauen kannst.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Dieser Film ist im Verlauf gespeichert. Dieser Server unterstützt keine zeitgenaue Fortsetzung.",
   // Navigation & genres (unquoted-style keys, quoted for consistency)
   Action: "Action",
   Active: "Aktiv",

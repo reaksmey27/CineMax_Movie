@@ -11,6 +11,7 @@ const TrendingPage = lazy(() => import("../pages/trending/TrendingPage"));
 const UpcomingPage = lazy(() => import("../pages/upcoming/UpcomingPage"));
 const FavoritesPage = lazy(() => import("../pages/favorites/FavoritesPage"));
 const WatchlistPage = lazy(() => import("../pages/watchlist/WatchlistPage"));
+const HistoryPage = lazy(() => import("../pages/history/HistoryPage"));
 const NotificationsPage = lazy(
   () => import("../pages/notifications/NotificationsPage"),
 );
@@ -30,6 +31,7 @@ const BaseRoutes = ({ location }) => (
     <Route path="/upcoming" element={<UpcomingPage />} />
     <Route path="/favorites" element={<FavoritesPage />} />
     <Route path="/watchlist" element={<WatchlistPage />} />
+    <Route path="/history" element={<HistoryPage />} />
     <Route path="/notifications" element={<NotificationsPage />} />
     <Route path="/profile" element={<ProfilePage />} />
     <Route path="/login" element={<LoginPage />} />

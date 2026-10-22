@@ -13,6 +13,10 @@ export const MOVIE_DETAIL_DESCRIPTION =
   "Explore movie details, story overviews, trailers, and key information for your next pick on CineMax.";
 
 export const ROUTE_META = {
+  "/history": {
+    title: "Watch History | Continue Watching on CineMax",
+    description: "Find movies you started and continue watching later.",
+  },
   "/": {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,

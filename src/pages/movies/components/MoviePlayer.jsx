@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import usePlaybackHistory from "../../../hooks/movies/usePlaybackHistory";
 import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── Helpers: source & track resolution ───────────────────────────────────────
@@ -35,6 +36,27 @@ const MoviePlayer = ({
   onReloadPlayer,
 }) => {
   const { t } = useLanguage();
+  const iframeRef = useRef(null);
+  const { initialPosition, persist, saveError, retrySave } = usePlaybackHistory(
+    movie,
+    currentServer,
+    iframeRef,
+  );
+  const embedUrl = new URL(currentServerUrl);
+  if (currentServer.supportsProgress && initialPosition > 0)
+    embedUrl.searchParams.set("startAt", String(Math.floor(initialPosition)));
+  const saveVideo = (event, force = false) => {
+    const video = event.currentTarget;
+    if (Number.isFinite(video.duration) && video.duration > 0)
+      persist(
+        {
+          positionSeconds: video.currentTime,
+          durationSeconds: video.duration,
+          completed: video.ended,
+        },
+        force,
+      );
+  };
   // ─── Derived: active video URL & tracks ───────────────────────────────────────
 
   const movieVideoUrl = resolveValue(movie?.videoUrl, movie);
@@ -50,6 +72,21 @@ const MoviePlayer = ({
 
   return (
     <div className="space-y-6">
+      <p className="text-sm text-[var(--color-text-muted)]">
+        {currentServer.supportsProgress || hasDirectVideo
+          ? t("Your progress is saved so you can continue watching later.")
+          : t(
+              "This movie is saved in History. This server does not support exact-time resume.",
+            )}
+      </p>
+      {saveError && (
+        <p role="alert" className="text-amber-300">
+          {t("Could not save watch history.")}{" "}
+          <button onClick={retrySave} className="underline">
+            {t("Try again")}
+          </button>
+        </p>
+      )}
       <div className="flex flex-nowrap sm:flex-wrap gap-3 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
         {SERVERS.map((server) => (
           <button
@@ -101,6 +138,13 @@ const MoviePlayer = ({
                 playsInline
                 preload="metadata"
                 onLoadedData={onIframeLoad}
+                onLoadedMetadata={(event) => {
+                  event.currentTarget.currentTime = initialPosition;
+                }}
+                onTimeUpdate={saveVideo}
+                onSeeked={(event) => saveVideo(event, true)}
+                onPause={(event) => saveVideo(event, true)}
+                onEnded={(event) => saveVideo(event, true)}
                 onError={onIframeError}
                 poster={movie?.backdropImage || movie?.image || ""}
               >
@@ -118,8 +162,9 @@ const MoviePlayer = ({
               </video>
             ) : (
               <iframe
+                ref={iframeRef}
                 key={`${currentServerUrl}-${playerInstance}`}
-                src={currentServerUrl}
+                src={embedUrl.toString()}
                 className="h-full w-full bg-black"
                 frameBorder="0"
                 scrolling="no"

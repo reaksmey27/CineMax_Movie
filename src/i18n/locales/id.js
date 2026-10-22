@@ -1,6 +1,20 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  History: "Riwayat",
+  "Continue watching": "Lanjutkan menonton",
+  Started: "Dimulai",
+  "Watch progress": "Progres tontonan",
+  "Find your last 50 movies and continue watching another day.":
+    "Temukan 50 film terakhir Anda dan lanjutkan menonton di hari lain.",
+  "Movies you start watching will appear here.":
+    "Film yang mulai Anda tonton akan muncul di sini.",
+  "Could not load watch history.": "Tidak dapat memuat riwayat tontonan.",
+  "Could not save watch history.": "Tidak dapat menyimpan riwayat tontonan.",
+  "Your progress is saved so you can continue watching later.":
+    "Progres Anda disimpan agar Anda dapat melanjutkan menonton nanti.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Film ini disimpan di Riwayat. Server ini tidak mendukung melanjutkan pada waktu yang tepat.",
   Home: "Beranda",
   Movies: "Film",
   Trending: "Populer",

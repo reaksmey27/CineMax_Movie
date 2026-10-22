@@ -1,6 +1,20 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  History: "觀看紀錄",
+  "Continue watching": "繼續觀看",
+  Started: "已開始",
+  "Watch progress": "觀看進度",
+  "Find your last 50 movies and continue watching another day.":
+    "尋找最近的 50 部電影，改天繼續觀看。",
+  "Movies you start watching will appear here.":
+    "您開始觀看的電影會顯示在這裡。",
+  "Could not load watch history.": "無法載入觀看紀錄。",
+  "Could not save watch history.": "無法儲存觀看紀錄。",
+  "Your progress is saved so you can continue watching later.":
+    "系統會儲存您的進度，方便稍後繼續觀看。",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "這部電影已儲存在觀看紀錄中。此伺服器不支援從確切時間繼續播放。",
   Home: "首頁",
   "The CineMax guide": "CineMax 觀影指南",
   "A better way to choose what to watch": "更輕鬆地挑選想看的電影",

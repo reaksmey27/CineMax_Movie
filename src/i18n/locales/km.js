@@ -1,6 +1,20 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  History: "ប្រវត្តិ",
+  "Continue watching": "បន្តមើល",
+  Started: "បានចាប់ផ្ដើម",
+  "Watch progress": "វឌ្ឍនភាពនៃការមើល",
+  "Find your last 50 movies and continue watching another day.":
+    "ស្វែងរកភាពយន្ត ៥០ ចុងក្រោយរបស់អ្នក ហើយបន្តមើលនៅថ្ងៃក្រោយ។",
+  "Movies you start watching will appear here.":
+    "ភាពយន្តដែលអ្នកចាប់ផ្ដើមមើលនឹងបង្ហាញនៅទីនេះ។",
+  "Could not load watch history.": "មិនអាចផ្ទុកប្រវត្តិនៃការមើលបានទេ។",
+  "Could not save watch history.": "មិនអាចរក្សាទុកប្រវត្តិនៃការមើលបានទេ។",
+  "Your progress is saved so you can continue watching later.":
+    "វឌ្ឍនភាពរបស់អ្នកត្រូវបានរក្សាទុក ដើម្បីបន្តមើលនៅពេលក្រោយ។",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "ភាពយន្តនេះត្រូវបានរក្សាទុកក្នុងប្រវត្តិ។ ម៉ាស៊ីនមេនេះមិនគាំទ្រការបន្តមើលពីពេលវេលាដដែលទេ។",
   Home: "ទំព័រដើម",
   Movies: "ភាពយន្ត",
   Trending: "កំពុងពេញនិយម",

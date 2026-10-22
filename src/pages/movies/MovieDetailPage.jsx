@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useWatchlist } from "../../context/WatchlistContext";
+import { useWatchHistory } from "../../context/WatchHistoryContext";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import useMovieDetail from "../../hooks/movies/useMovieDetail";
 import MovieInfo from "./components/MovieInfo";
@@ -22,6 +23,15 @@ const MovieDetailContent = ({ id }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, loading: authLoading } = useAuth();
+  const {
+    history,
+    loading: historyLoading,
+    error: historyError,
+    retry,
+  } = useWatchHistory();
+  const saved = history.find(
+    (item) => item.id === Number(id) && !item.completed,
+  );
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
   const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
     useWatchlist();
@@ -105,8 +115,17 @@ const MovieDetailContent = ({ id }) => {
           </span>
         </button>
 
-        {isPlaying ? (
+        {historyError && (
+          <p role="alert" className="mb-4 text-amber-300">
+            {t("Could not load watch history.")}{" "}
+            <button className="underline" onClick={retry}>
+              {t("Try again")}
+            </button>
+          </p>
+        )}
+        {isPlaying && isAuthenticated ? (
           <MoviePlayer
+            key={`${movie.id}-${activeServer}-${playerInstance}`}
             movie={movie}
             SERVERS={SERVERS}
             activeServer={activeServer}
@@ -133,12 +152,17 @@ const MovieDetailContent = ({ id }) => {
               authLoading
                 ? t("Checking login...")
                 : isAuthenticated
-                  ? t("Play Movie")
+                  ? saved
+                    ? t("Continue watching")
+                    : t("Play Movie")
                   : t("Log in to Watch")
             }
-            playDisabled={authLoading}
+            playDisabled={
+              authLoading ||
+              (isAuthenticated && (historyLoading || historyError))
+            }
             onPlay={() => {
-              if (authLoading) return;
+              if (authLoading || historyLoading || historyError) return;
               if (!isAuthenticated) {
                 navigate("/login", {
                   state: {
@@ -148,6 +172,11 @@ const MovieDetailContent = ({ id }) => {
                 });
                 return;
               }
+              if (
+                saved &&
+                SERVERS.some((server) => server.name === saved.server)
+              )
+                setActiveServer(saved.server);
               setIsPlaying(true);
             }}
             onTrailer={() => setShowTrailer(true)}

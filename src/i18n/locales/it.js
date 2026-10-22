@@ -1,6 +1,20 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  History: "Cronologia",
+  "Continue watching": "Continua a guardare",
+  Started: "Iniziato",
+  "Watch progress": "Avanzamento riproduzione",
+  "Find your last 50 movies and continue watching another day.":
+    "Ritrova i tuoi ultimi 50 film e continua a guardarli un altro giorno.",
+  "Movies you start watching will appear here.":
+    "I film che inizi a guardare appariranno qui.",
+  "Could not load watch history.": "Impossibile caricare la cronologia.",
+  "Could not save watch history.": "Impossibile salvare la cronologia.",
+  "Your progress is saved so you can continue watching later.":
+    "I tuoi progressi vengono salvati per riprendere la visione più tardi.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Questo film è salvato nella cronologia. Questo server non supporta la ripresa dal punto esatto.",
   Action: "Azione",
   Active: "Attivo",
   All: "Tutti",

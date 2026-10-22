@@ -1,6 +1,20 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  History: "Histórico",
+  "Continue watching": "Continuar assistindo",
+  Started: "Iniciado",
+  "Watch progress": "Progresso de reprodução",
+  "Find your last 50 movies and continue watching another day.":
+    "Encontre seus últimos 50 filmes e continue assistindo outro dia.",
+  "Movies you start watching will appear here.":
+    "Os filmes que você começar a assistir aparecerão aqui.",
+  "Could not load watch history.": "Não foi possível carregar o histórico.",
+  "Could not save watch history.": "Não foi possível salvar o histórico.",
+  "Your progress is saved so you can continue watching later.":
+    "Seu progresso é salvo para que você possa continuar assistindo depois.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Este filme é salvo no Histórico. Este servidor não permite retomar no momento exato.",
   Action: "Ação",
   Active: "Ativo",
   All: "Todos",

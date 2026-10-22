@@ -5,6 +5,13 @@ import { useLanguage } from "../../context/LanguageContext";
 
 const SECTIONS = [
   {
+    id: "watch-history",
+    title: "History",
+    body: [
+      "Watch history: when you open a movie player while signed in, we store the movie, player source, last opened time, completion status, and playback position when supported in your account's Cloud Firestore data. This lets you continue watching on another day or device. History displays your latest 50 movies. You can delete entries from the History page; older entries remain stored until removed or your account data is deleted.",
+    ],
+  },
+  {
     id: "overview",
     title: "Overview",
     body: [

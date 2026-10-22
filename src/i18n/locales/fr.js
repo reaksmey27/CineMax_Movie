@@ -1,6 +1,20 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  History: "Historique",
+  "Continue watching": "Reprendre la lecture",
+  Started: "Commencé",
+  "Watch progress": "Progression de lecture",
+  "Find your last 50 movies and continue watching another day.":
+    "Retrouvez vos 50 derniers films et reprenez la lecture un autre jour.",
+  "Movies you start watching will appear here.":
+    "Les films que vous commencez apparaîtront ici.",
+  "Could not load watch history.": "Impossible de charger l’historique.",
+  "Could not save watch history.": "Impossible d’enregistrer l’historique.",
+  "Your progress is saved so you can continue watching later.":
+    "Votre progression est enregistrée pour reprendre la lecture plus tard.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Ce film est enregistré dans l’historique. Ce serveur ne permet pas de reprendre au moment exact.",
   Home: "Accueil",
   Movies: "Films",
   Trending: "Tendances",

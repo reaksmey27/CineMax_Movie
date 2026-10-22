@@ -15,6 +15,7 @@ import { FavoritesProvider } from "./context/FavoritesContext";
 import { LanguageProvider } from "./context/LanguageContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { WatchlistProvider } from "./context/WatchlistContext";
+import { WatchHistoryProvider } from "./context/WatchHistoryContext";
 import useScrollToTop from "./hooks/useScrollToTop";
 import {
   applyTheme,
@@ -82,7 +83,9 @@ const App = () => {
             <Router>
               <WatchlistProvider>
                 <FavoritesProvider>
-                  <AppContent theme={theme} toggleTheme={toggleTheme} />
+                  <WatchHistoryProvider>
+                    <AppContent theme={theme} toggleTheme={toggleTheme} />
+                  </WatchHistoryProvider>
                 </FavoritesProvider>
               </WatchlistProvider>
             </Router>

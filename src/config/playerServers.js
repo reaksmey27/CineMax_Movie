@@ -40,11 +40,12 @@ export const SERVERS = [
   },
   {
     name: "Server 4",
-    qualityLabel: "Legacy",
-    description: "Older source with broad compatibility",
+    qualityLabel: "Continue watching",
+    description: "Your progress is saved so you can continue watching later.",
+    supportsProgress: true,
+    progressOrigins: ["https://vidsrc.sh"],
     url: (id) =>
-      buildUrl("https://vidsrc.me/embed/movie", {
-        tmdb: id,
+      buildUrl(`https://vidsrc.sh/embed/movie/${id}`, {
         autoplay: "1",
       }),
   },

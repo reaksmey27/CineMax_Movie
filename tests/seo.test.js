@@ -14,6 +14,7 @@ test("public and private routes have the intended indexing policy", () => {
     "/profile",
     "/favorites",
     "/watchlist",
+    "/history",
     "/notifications",
     "/login",
     "/signup",

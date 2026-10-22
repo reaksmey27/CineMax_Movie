@@ -1,6 +1,20 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  History: "Lịch sử",
+  "Continue watching": "Tiếp tục xem",
+  Started: "Đã bắt đầu",
+  "Watch progress": "Tiến độ xem",
+  "Find your last 50 movies and continue watching another day.":
+    "Tìm 50 phim gần nhất và tiếp tục xem vào ngày khác.",
+  "Movies you start watching will appear here.":
+    "Những phim bạn bắt đầu xem sẽ xuất hiện ở đây.",
+  "Could not load watch history.": "Không thể tải lịch sử xem.",
+  "Could not save watch history.": "Không thể lưu lịch sử xem.",
+  "Your progress is saved so you can continue watching later.":
+    "Tiến độ được lưu để bạn có thể tiếp tục xem sau.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Phim này được lưu trong Lịch sử. Máy chủ này không hỗ trợ xem tiếp tại thời điểm chính xác.",
   Home: "Trang chủ",
   "The CineMax guide": "Cẩm nang CineMax",
   "A better way to choose what to watch": "Cách chọn phim phù hợp dễ dàng hơn",

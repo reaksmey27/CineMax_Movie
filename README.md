@@ -260,6 +260,14 @@ After deployment, verify direct navigation to `/movie/:id` and `/profile`, both 
 
 ## Data and customization
 
+### Watch history and continue watching
+
+Signed-in users automatically save a movie when opening its player. Home shows unfinished movies, and `/history` shows the latest 50 entries with completion and removal controls. Open a saved movie and choose **Continue watching** to restore its last server. Server 4 supports timestamp resume using the provider's documented `PLAYER_EVENT` messages and `startAt` parameter; other servers save the title for reopening. Native video sources also save their playback position. Progress saves at most every 15 seconds during playback and immediately on pause, seek, completion, and page visibility changes. Abrupt browser shutdown can lose the last unsaved seconds. Actual resume depends on the external player delivering its documented events.
+
+Data is stored at `watchHistory/{uid}/movies/{movieId}`. **Deploy the updated `firestore.rules` to the intended Firebase project before deploying this website update** (`firebase deploy --only firestore:rules --project YOUR_PROJECT_ID`). Redeploy the Vercel website as well. No new environment variables are needed. Rules restrict history reads and writes to the account owner. The latest 50 entries are displayed; older entries are not automatically deleted.
+
+Provider reference: [VidSrc player documentation](https://vidsrc.sh/vidsrc/docs/). Browser tests use simulated player events and storage; Firestore emulator tests separately verify persistence and account access rules.
+
 Movie metadata and artwork are fetched through [`tmdbService.js`](src/services/tmdbService.js). Playback sources are configured separately in [`useMovieDetail.js`](src/hooks/movies/useMovieDetail.js); TMDB does not supply the embedded video streams.
 
 Donation account details and the QR image are configured in [`DonationModal.jsx`](src/components/ui/DonationModal.jsx) and `src/assets/images/donation-qr.png`. Update both together when customizing the app. Review `public/robots.txt` and `public/sitemap.xml` for your deployment domain.

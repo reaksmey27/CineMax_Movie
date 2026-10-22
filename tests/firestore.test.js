@@ -1,4 +1,10 @@
 import assert from "node:assert/strict";
+import {
+  saveWatchHistory,
+  subscribeWatchHistory,
+  finishWatchHistory,
+  removeWatchHistory,
+} from "../src/firebase/watchHistory.js";
 import { readFile } from "node:fs/promises";
 import test, { after, before, beforeEach } from "node:test";
 import {
@@ -67,6 +73,61 @@ const NOTIFICATION = {
 };
 
 let environment;
+
+test("watch history persists progress, resumes via a fresh subscription, and supports finishing/removal", async () => {
+  const db = getAuthenticatedDatabase();
+  await saveWatchHistory(db, OWNER_UID, MOVIE, {
+    server: "Server 4",
+    positionSeconds: 125,
+    durationSeconds: 7200,
+  });
+  const items = await new Promise((resolve, reject) => {
+    const unsubscribe = subscribeWatchHistory(
+      getAuthenticatedDatabase(),
+      OWNER_UID,
+      (items) => {
+        unsubscribe();
+        resolve(items);
+      },
+      reject,
+    );
+  });
+  assert.equal(items[0].positionSeconds, 125);
+  assert.equal(items[0].server, "Server 4");
+  assert.equal(items[0].completed, false);
+  await finishWatchHistory(db, OWNER_UID, MOVIE.id);
+  const ref = doc(db, "watchHistory", OWNER_UID, "movies", String(MOVIE.id));
+  assert.equal((await getDoc(ref)).data().completed, true);
+  await removeWatchHistory(db, OWNER_UID, MOVIE.id);
+  assert.equal((await getDoc(ref)).exists(), false);
+});
+
+test("watch history denies reads and changes by guests or other accounts", async () => {
+  await saveWatchHistory(getAuthenticatedDatabase(), OWNER_UID, MOVIE, {
+    server: "Server 1",
+  });
+  for (const db of [
+    getAuthenticatedDatabase(OTHER_UID),
+    environment.unauthenticatedContext().firestore(),
+  ]) {
+    await assert.rejects(
+      getDoc(doc(db, "watchHistory", OWNER_UID, "movies", String(MOVIE.id))),
+      /permission-denied/i,
+    );
+    await assert.rejects(
+      saveWatchHistory(db, OWNER_UID, MOVIE, { server: "Server 4" }),
+      /permission-denied/i,
+    );
+    await assert.rejects(
+      finishWatchHistory(db, OWNER_UID, MOVIE.id),
+      /permission-denied/i,
+    );
+    await assert.rejects(
+      removeWatchHistory(db, OWNER_UID, MOVIE.id),
+      /permission-denied/i,
+    );
+  }
+});
 
 test("watched status persists without changing saved metadata or other movies", async () => {
   const db = getAuthenticatedDatabase();

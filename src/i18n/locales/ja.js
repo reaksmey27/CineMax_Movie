@@ -1,6 +1,20 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  History: "履歴",
+  "Continue watching": "視聴を続ける",
+  Started: "視聴開始済み",
+  "Watch progress": "再生状況",
+  "Find your last 50 movies and continue watching another day.":
+    "最近の50本の映画を見つけて、別の日に続きを視聴できます。",
+  "Movies you start watching will appear here.":
+    "視聴を開始した映画がここに表示されます。",
+  "Could not load watch history.": "視聴履歴を読み込めませんでした。",
+  "Could not save watch history.": "視聴履歴を保存できませんでした。",
+  "Your progress is saved so you can continue watching later.":
+    "後で続きを視聴できるように再生状況を保存します。",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "この映画は履歴に保存されます。このサーバーは正確な位置からの再開に対応していません。",
   Home: "ホーム",
   Movies: "映画",
   Trending: "人気作品",

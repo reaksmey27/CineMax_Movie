@@ -1,6 +1,20 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  History: "Historial",
+  "Continue watching": "Seguir viendo",
+  Started: "Iniciada",
+  "Watch progress": "Progreso de reproducción",
+  "Find your last 50 movies and continue watching another day.":
+    "Encuentra tus últimas 50 películas y sigue viéndolas otro día.",
+  "Movies you start watching will appear here.":
+    "Las películas que empieces a ver aparecerán aquí.",
+  "Could not load watch history.": "No se pudo cargar el historial.",
+  "Could not save watch history.": "No se pudo guardar el historial.",
+  "Your progress is saved so you can continue watching later.":
+    "Tu progreso se guarda para que puedas seguir viendo más tarde.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "Esta película se guarda en el historial. Este servidor no permite reanudar en el momento exacto.",
   Home: "Inicio",
   Movies: "Películas",
   Trending: "Tendencias",

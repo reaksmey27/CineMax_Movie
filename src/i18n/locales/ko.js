@@ -1,6 +1,20 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  History: "기록",
+  "Continue watching": "이어서 보기",
+  Started: "시청 시작",
+  "Watch progress": "시청 진행률",
+  "Find your last 50 movies and continue watching another day.":
+    "최근 영화 50편을 찾아 다른 날에 이어서 보세요.",
+  "Movies you start watching will appear here.":
+    "시청을 시작한 영화가 여기에 표시됩니다.",
+  "Could not load watch history.": "시청 기록을 불러오지 못했습니다.",
+  "Could not save watch history.": "시청 기록을 저장하지 못했습니다.",
+  "Your progress is saved so you can continue watching later.":
+    "나중에 이어서 볼 수 있도록 시청 진행 상황이 저장됩니다.",
+  "This movie is saved in History. This server does not support exact-time resume.":
+    "이 영화는 기록에 저장됩니다. 이 서버는 정확한 시점에서 이어보기를 지원하지 않습니다.",
   Home: "홈",
   Movies: "영화",
   Trending: "인기",
