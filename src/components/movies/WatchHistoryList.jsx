@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { CheckIcon, PlayIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { formatPlaybackTime } from "../../utils/player/watchProgress";
@@ -31,80 +32,96 @@ export default function WatchHistoryList({ compact = false, movies }) {
         {items.map((item) => (
           <article
             key={item.id}
-            className={`min-w-0 overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] ${compact ? "flex flex-col" : "grid grid-cols-[5.5rem_minmax(0,1fr)] min-[480px]:flex min-[480px]:flex-col"}`}
+            className={`group min-w-0 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] transition-colors hover:border-purple-500/40 ${compact ? "flex flex-col" : "grid grid-cols-[5.5rem_minmax(0,1fr)] min-[480px]:flex min-[480px]:flex-col"}`}
           >
             <Link
               to={`/movie/${item.id}`}
               aria-label={item.title}
-              className="block self-start w-full focus-visible:outline-2 focus-visible:outline-purple-400"
+              className="block self-start w-full overflow-hidden focus-visible:outline-2 focus-visible:outline-purple-400"
             >
               <img
                 src={item.posterImage || "/images/logo.png"}
                 alt=""
                 loading="lazy"
-                className="aspect-[2/3] w-full object-cover"
+                className="aspect-[2/3] w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.03]"
               />
             </Link>
             <div className="flex min-w-0 flex-1 flex-col gap-3 p-3 text-sm sm:p-4">
               <h3 className="font-bold leading-relaxed [overflow-wrap:anywhere]">
                 <Link
                   to={`/movie/${item.id}`}
-                  className="hover:text-purple-400 focus-visible:outline-2 focus-visible:outline-purple-400"
+                  title={item.title}
+                  className="line-clamp-2 hover:text-purple-400 focus-visible:outline-2 focus-visible:outline-purple-400"
                 >
                   {item.title}
                 </Link>
               </h3>
-              <p className="text-[var(--color-text-muted)]">
-                {item.completed
-                  ? t("Watched")
-                  : item.durationSeconds > 0
-                    ? `${formatPlaybackTime(item.positionSeconds)} / ${formatPlaybackTime(item.durationSeconds)}`
-                    : t("Started")}
-              </p>
-              {item.durationSeconds > 0 && (
-                <progress
-                  aria-label={t("Watch progress")}
-                  value={
-                    item.completed ? item.durationSeconds : item.positionSeconds
-                  }
-                  max={item.durationSeconds}
-                  className="h-1 w-full accent-purple-500"
-                />
-              )}
-              {!compact && (
-                <time
-                  className="block text-[var(--color-text-muted)]"
-                  dateTime={item.lastWatchedAt}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-[var(--color-text-muted)]">
+                <span
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 font-semibold ${item.completed ? "border-emerald-500/30 bg-emerald-500/10 text-[var(--color-text)]" : "border-purple-500/30 bg-purple-500/10 text-[var(--color-text)]"}`}
                 >
-                  {new Date(item.lastWatchedAt).toLocaleDateString(language)}
-                </time>
+                  {item.completed && (
+                    <CheckIcon
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 shrink-0 text-emerald-500"
+                    />
+                  )}
+                  {item.completed ? t("Watched") : t("Started")}
+                </span>
+                {!compact && (
+                  <time dateTime={item.lastWatchedAt}>
+                    {new Date(item.lastWatchedAt).toLocaleDateString(language, {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </time>
+                )}
+              </div>
+              {!item.completed && item.durationSeconds > 0 && (
+                <div className="space-y-1">
+                  <p className="text-xs tabular-nums text-[var(--color-text-muted)]">{`${formatPlaybackTime(item.positionSeconds)} / ${formatPlaybackTime(item.durationSeconds)}`}</p>
+                  <progress
+                    aria-label={t("Watch progress")}
+                    value={
+                      item.completed
+                        ? item.durationSeconds
+                        : item.positionSeconds
+                    }
+                    max={item.durationSeconds}
+                    className="block h-1 w-full overflow-hidden rounded-full accent-purple-500"
+                  />
+                </div>
               )}
               <Link
                 to={`/movie/${item.id}`}
-                className="mt-auto flex min-h-11 items-center justify-center rounded-lg bg-purple-600 px-3 py-2 text-center font-semibold leading-relaxed text-white [overflow-wrap:anywhere] hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                className="mt-auto flex min-h-11 items-center justify-center gap-2 rounded-xl bg-purple-600 px-3 py-2 text-center font-semibold leading-relaxed text-white [overflow-wrap:anywhere] hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
               >
+                <PlayIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
                 {item.completed ? t("Play Movie") : t("Continue watching")}
               </Link>
               {!compact && (
-                <div className="flex flex-col gap-2">
+                <div className="flex items-stretch gap-2 border-t border-[var(--color-border)] pt-2">
                   <button
                     disabled={isBusy(item.id)}
                     aria-busy={isBusy(item.id)}
                     onClick={() =>
                       item.completed ? markUnfinished(item.id) : finish(item.id)
                     }
-                    className="min-h-11 rounded-lg border border-[var(--color-border)] px-2 py-2 leading-relaxed [overflow-wrap:anywhere] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
+                    className="min-h-11 min-w-0 flex-1 rounded-lg px-2 py-2 text-xs font-medium leading-relaxed text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
                   >
                     {item.completed
                       ? t("Mark as unfinished")
                       : t("Mark as watched")}
                   </button>
                   <button
+                    aria-label={t("Remove")}
+                    title={t("Remove")}
                     disabled={isBusy(item.id)}
                     onClick={() => remove(item.id)}
-                    className="min-h-11 rounded-lg px-2 py-2 text-red-400 focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
+                    className="flex min-h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:bg-red-500/10 hover:text-red-500 focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
                   >
-                    {t("Remove")}
+                    <TrashIcon aria-hidden="true" className="h-4 w-4" />
                   </button>
                 </div>
               )}
