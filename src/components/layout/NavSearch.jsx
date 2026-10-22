@@ -29,7 +29,7 @@ export default function NavSearch({ onOpen }) {
   return (
     <div
       ref={rootRef}
-      className="sm:relative"
+      className="md:relative"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}
@@ -40,7 +40,7 @@ export default function NavSearch({ onOpen }) {
         aria-label={t("Search movies")}
         aria-expanded={open}
         aria-controls="nav-search-form"
-        className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full text-[var(--color-text)] hover:bg-[var(--color-surface-2)] sm:min-h-11 sm:min-w-11 sm:hidden"
+        className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full text-[var(--color-text)] hover:bg-[var(--color-surface-2)] sm:min-h-11 sm:min-w-11 md:hidden"
         onClick={() => {
           setOpen(!open);
           if (!open) {
@@ -55,7 +55,7 @@ export default function NavSearch({ onOpen }) {
         id="nav-search-form"
         role="search"
         aria-label={t("Find movies")}
-        className={`${open ? "block" : "hidden"} absolute inset-x-2 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] p-3 shadow-xl sm:static sm:mt-0 sm:block sm:w-56 lg:w-64 sm:rounded-full sm:bg-[var(--color-surface-1)] sm:p-0 sm:shadow-none 2xl:w-80`}
+        className={`${open ? "block" : "hidden"} absolute inset-x-2 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] p-3 shadow-xl md:static md:mt-0 md:block md:w-48 lg:w-64 xl:w-40 md:rounded-full md:bg-[var(--color-surface-1)] md:p-0 md:shadow-none 2xl:w-80`}
         onSubmit={(event) => {
           event.preventDefault();
           if (!trimmed) return;
@@ -97,7 +97,7 @@ export default function NavSearch({ onOpen }) {
                 event.preventDefault();
                 setOpen(false);
                 inputRef.current?.blur();
-                if (window.matchMedia("(max-width: 639px)").matches)
+                if (window.matchMedia("(max-width: 767px)").matches)
                   toggleRef.current?.focus();
               } else if (
                 showResults &&

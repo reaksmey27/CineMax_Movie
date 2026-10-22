@@ -52,8 +52,8 @@ const Navbar = ({ theme, onToggleTheme }) => {
   // ─── Render: desktop bar & mobile drawer ─────────────────────────────────────
 
   return (
-    <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-3 sm:top-8 sm:px-8 lg:px-12">
-      <nav className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-nav-bg)] px-3 py-2.5 text-[var(--color-text)] shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-md transition-all sm:rounded-full sm:border sm:px-6 sm:py-3">
+    <div className="site-navbar fixed inset-x-0 top-3 z-100 mx-auto w-full max-w-[1600px] px-2 min-[360px]:px-3 sm:top-8 sm:px-8 lg:px-12">
+      <nav className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-nav-bg)] px-1 py-2.5 text-[var(--color-text)] shadow-2xl ring-1 ring-[var(--color-ring)] backdrop-blur-md transition-colors min-[360px]:px-3 sm:rounded-full sm:border sm:px-6 sm:py-3">
         {/* Logo */}
         <Link
           to="/"
@@ -69,7 +69,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-6 text-sm xl:flex 2xl:gap-10">
+        <div className="hidden shrink-0 items-center gap-3 text-sm xl:flex 2xl:gap-10">
           {NAV_LINKS.map((link) => {
             const isActive = checkActive(link.path);
 
@@ -77,7 +77,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`group relative py-1 font-bold tracking-wide transition-all duration-300 ${
+                className={`group relative whitespace-nowrap py-1 font-bold tracking-wide transition-all duration-300 ${
                   isActive
                     ? "scale-105 text-[var(--nav-accent)]"
                     : "text-[var(--color-text-soft)] hover:scale-105 hover:text-[var(--color-text)]"
@@ -98,7 +98,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
         </div>
 
         {/* Right Actions */}
-        <div className="flex shrink-0 items-center gap-0.5 sm:gap-4">
+        <div className="flex shrink-0 items-center gap-0.5 sm:gap-2 lg:gap-4 xl:gap-2 2xl:gap-4">
           <NavSearch
             key={location.key}
             onOpen={() => {

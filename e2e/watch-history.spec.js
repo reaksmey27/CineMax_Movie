@@ -9,7 +9,12 @@ async function fixture(page) {
     "**/src/context/AuthContext.js",
     `
     export const AuthProvider = ({children}) => children;
-    export const useAuth = () => ({user:{uid:localStorage.getItem('test-account') || 'fan', name:'Fan'}, isAuthenticated:true, loading:false});
+    const users = new Map();
+    export const useAuth = () => {
+      const uid = localStorage.getItem('test-account') || 'fan';
+      if (!users.has(uid)) users.set(uid, {uid, name:'Fan'});
+      return {user:users.get(uid), isAuthenticated:true, loading:false};
+    };
   `,
   );
   await module(
@@ -61,6 +66,32 @@ async function fixture(page) {
     }),
   );
 }
+
+test("signed-in account pages fit small and tablet screens", async ({
+  page,
+}) => {
+  await fixture(page);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  for (const path of [
+    "/profile",
+    "/favorites",
+    "/watchlist",
+    "/history",
+    "/notifications",
+  ]) {
+    await page.goto(path);
+    await expect(page.locator("h1").first()).toBeVisible();
+    for (const width of [320, 640, 768, 1280]) {
+      await page.setViewportSize({ width, height: 600 });
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        `${path} at ${width}`,
+      ).toBe(true);
+    }
+  }
+});
 
 for (const language of ["en", "km"]) {
   test(`history fits phones, tablets and desktops in ${language}`, async ({

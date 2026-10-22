@@ -50,7 +50,7 @@ const SignupPage = () => {
         </p>
 
         <form className="mt-6 space-y-3" onSubmit={handleSubmit}>
-          <div className="grid min-w-0 grid-cols-2 gap-3">
+          <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
             <label className="flex h-full min-w-0 flex-col">
               <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
                 {t("Full Name")}
@@ -82,7 +82,7 @@ const SignupPage = () => {
             </label>
           </div>
 
-          <div className="grid min-w-0 grid-cols-2 gap-3">
+          <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
             <label className="flex h-full min-w-0 flex-col">
               <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
                 {t("Password")}
