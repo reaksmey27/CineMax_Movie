@@ -1,6 +1,11 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Share movie": "Compartir película",
+  "Share menu opened.": "Menú para compartir abierto.",
+  "Movie link copied.": "Enlace de la película copiado.",
+  "Could not share this movie. Try again.":
+    "No se pudo compartir esta película. Inténtalo de nuevo.",
   "Clear watch history?": "¿Borrar el historial de reproducción?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Se eliminarán todo el historial y el progreso guardado. Esta acción no se puede deshacer.",

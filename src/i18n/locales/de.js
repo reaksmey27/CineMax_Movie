@@ -1,6 +1,11 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Share movie": "Film teilen",
+  "Share menu opened.": "Teilen-Menü geöffnet.",
+  "Movie link copied.": "Filmlink kopiert.",
+  "Could not share this movie. Try again.":
+    "Dieser Film konnte nicht geteilt werden. Versuche es erneut.",
   "Clear watch history?": "Wiedergabeverlauf löschen?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Der gesamte Verlauf und gespeicherte Fortschritt werden unwiderruflich gelöscht.",

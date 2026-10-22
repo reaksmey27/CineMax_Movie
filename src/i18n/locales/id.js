@@ -1,6 +1,11 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Share movie": "Bagikan film",
+  "Share menu opened.": "Menu berbagi dibuka.",
+  "Movie link copied.": "Tautan film disalin.",
+  "Could not share this movie. Try again.":
+    "Tidak dapat membagikan film ini. Coba lagi.",
   "Clear watch history?": "Hapus riwayat tontonan?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Semua riwayat tontonan dan progres tersimpan akan dihapus. Tindakan ini tidak dapat dibatalkan.",

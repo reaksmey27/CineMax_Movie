@@ -1,6 +1,11 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Share movie": "영화 공유",
+  "Share menu opened.": "공유 메뉴가 열렸습니다.",
+  "Movie link copied.": "영화 링크를 복사했습니다.",
+  "Could not share this movie. Try again.":
+    "이 영화를 공유하지 못했습니다. 다시 시도하세요.",
   "Clear watch history?": "시청 기록을 삭제할까요?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "모든 시청 기록과 저장된 재생 위치가 삭제됩니다. 되돌릴 수 없습니다.",

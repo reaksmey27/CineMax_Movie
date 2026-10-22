@@ -1,6 +1,11 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Share movie": "Compartilhar filme",
+  "Share menu opened.": "Menu de compartilhamento aberto.",
+  "Movie link copied.": "Link do filme copiado.",
+  "Could not share this movie. Try again.":
+    "Não foi possível compartilhar este filme. Tente novamente.",
   "Clear watch history?": "Limpar o histórico de reprodução?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Todo o histórico e o progresso salvo serão removidos. Esta ação não pode ser desfeita.",

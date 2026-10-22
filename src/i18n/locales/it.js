@@ -1,6 +1,11 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Share movie": "Condividi film",
+  "Share menu opened.": "Menu di condivisione aperto.",
+  "Movie link copied.": "Link del film copiato.",
+  "Could not share this movie. Try again.":
+    "Impossibile condividere questo film. Riprova.",
   "Clear watch history?": "Cancellare la cronologia di visione?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Tutta la cronologia e i progressi salvati verranno eliminati. Questa azione non può essere annullata.",

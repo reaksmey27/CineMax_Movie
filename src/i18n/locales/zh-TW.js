@@ -1,6 +1,10 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Share movie": "分享電影",
+  "Share menu opened.": "已開啟分享選單。",
+  "Movie link copied.": "已複製電影連結。",
+  "Could not share this movie. Try again.": "無法分享此電影，請再試一次。",
   "Clear watch history?": "清除觀看紀錄？",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "所有觀看紀錄與儲存的播放進度將被刪除。此操作無法復原。",

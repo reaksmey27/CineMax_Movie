@@ -1,6 +1,11 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Share movie": "Chia sẻ phim",
+  "Share menu opened.": "Đã mở menu chia sẻ.",
+  "Movie link copied.": "Đã sao chép liên kết phim.",
+  "Could not share this movie. Try again.":
+    "Không thể chia sẻ phim này. Hãy thử lại.",
   "Clear watch history?": "Xóa lịch sử xem?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Tất cả lịch sử xem và tiến độ đã lưu sẽ bị xóa. Không thể hoàn tác.",

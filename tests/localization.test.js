@@ -25,6 +25,10 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "Share movie",
+  "Share menu opened.",
+  "Movie link copied.",
+  "Could not share this movie. Try again.",
   "This reset link is invalid or expired. Request a new one.",
   "Could not reset your password. Please try again.",
   "Passwords do not match.",

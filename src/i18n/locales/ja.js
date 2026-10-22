@@ -1,6 +1,11 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Share movie": "映画を共有",
+  "Share menu opened.": "共有メニューを開きました。",
+  "Movie link copied.": "映画のリンクをコピーしました。",
+  "Could not share this movie. Try again.":
+    "この映画を共有できませんでした。もう一度お試しください。",
   "Clear watch history?": "視聴履歴を消去しますか？",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "すべての視聴履歴と保存された再生位置が削除されます。元に戻すことはできません。",

@@ -1,6 +1,11 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Share movie": "Partager le film",
+  "Share menu opened.": "Menu de partage ouvert.",
+  "Movie link copied.": "Lien du film copié.",
+  "Could not share this movie. Try again.":
+    "Impossible de partager ce film. Réessayez.",
   "Clear watch history?": "Effacer l’historique de visionnage ?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "Tout l’historique et la progression enregistrée seront supprimés. Cette action est irréversible.",

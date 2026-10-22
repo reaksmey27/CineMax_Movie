@@ -1,6 +1,11 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Share movie": "ចែករំលែកភាពយន្ត",
+  "Share menu opened.": "បានបើកម៉ឺនុយចែករំលែក។",
+  "Movie link copied.": "បានចម្លងតំណភាពយន្ត។",
+  "Could not share this movie. Try again.":
+    "មិនអាចចែករំលែកភាពយន្តនេះបានទេ។ សូមព្យាយាមម្តងទៀត។",
   "Clear watch history?": "សម្អាតប្រវត្តិមើលទាំងអស់ឬ?",
   "All watch history and saved progress will be removed. This cannot be undone.":
     "ប្រវត្តិមើល និងវឌ្ឍនភាពដែលបានរក្សាទុកទាំងអស់នឹងត្រូវលុប។ មិនអាចស្ដារវិញបានទេ។",

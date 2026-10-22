@@ -1,3 +1,4 @@
+import ShareMovieButton from "./ShareMovieButton";
 import React from "react";
 import {
   BookmarkIcon as BookmarkSolidIcon,
@@ -182,6 +183,7 @@ const MovieInfo = ({
               </span>
             </button>
           </div>
+          <ShareMovieButton key={movie.id} movie={movie} />
         </div>
       </div>
     </div>
