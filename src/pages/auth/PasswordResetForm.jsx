@@ -73,6 +73,7 @@ export default function PasswordResetForm({ initialEmail = "", onBack }) {
             <input
               ref={emailRef}
               type="email"
+              placeholder="name@example.com"
               required
               autoComplete="email"
               value={email}
@@ -81,7 +82,7 @@ export default function PasswordResetForm({ initialEmail = "", onBack }) {
                 setEmail(event.target.value);
                 setError("");
               }}
-              className="mt-2 min-h-11 w-full rounded-lg bg-white px-3 text-slate-900 outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-60"
+              className="mt-2 min-h-11 w-full rounded-lg bg-white px-3 text-slate-900 outline-none placeholder:text-slate-500 focus:ring-2 focus:ring-purple-500 disabled:opacity-60"
             />
           </label>
           {error && (
