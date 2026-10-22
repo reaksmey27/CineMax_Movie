@@ -1,6 +1,8 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Details (optional)": "Détails (facultatif)",
+  "Describe what happened...": "Décrivez ce qui s’est passé...",
   "Report playback problem": "Signaler un problème de lecture",
   "Report submitted. Thank you.": "Signalement envoyé. Merci.",
   "What went wrong?": "Quel est le problème ?",

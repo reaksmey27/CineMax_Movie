@@ -284,7 +284,7 @@ Donation account details and the QR image are configured in [`DonationModal.jsx`
 
 ## Playback problem reports
 
-Signed-in viewers can report a video that will not load, missing sound, or a wrong movie below the player. Reports are stored in `playbackReports/{uid}/reports/{movieId}-{serverNumber}-{issue}` with the movie title, server, issue, and server-generated timestamp. Repeated submissions of the same issue for the same movie and server reuse the existing report.
+Signed-in viewers can report a video that will not load, missing sound, or a wrong movie below the player. Reports are stored in `playbackReports/{uid}/reports/{movieId}-{serverNumber}-{issue}` with the movie title, server, issue, optional typed details (up to 1,000 characters), and server-generated timestamp. Repeated submissions of the same issue for the same movie and server reuse the existing report.
 
 Review reports in the Firebase console (or with trusted admin tooling). This feature does not send email or provide an admin inbox. Client rules allow only the owner to read an individual report or create a validated report; clients cannot edit, delete, or list reports.
 

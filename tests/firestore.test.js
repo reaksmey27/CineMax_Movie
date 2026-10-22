@@ -84,7 +84,14 @@ let environment;
 
 test("playback reports persist once and reject unauthorized or malformed writes", async () => {
   const db = getAuthenticatedDatabase();
-  await submitPlaybackReport(db, OWNER_UID, MOVIE, "Server 2", "no-sound");
+  await submitPlaybackReport(
+    db,
+    OWNER_UID,
+    MOVIE,
+    "Server 2",
+    "no-sound",
+    "  Sound stops after 10 minutes.  ",
+  );
   const ref = doc(
     db,
     "playbackReports",
@@ -96,6 +103,25 @@ test("playback reports persist once and reject unauthorized or malformed writes"
   assert.equal(first.movieId, MOVIE.id);
   assert.equal(first.server, "Server 2");
   assert.equal(first.issue, "no-sound");
+  assert.equal(first.details, "Sound stops after 10 minutes.");
+  await assert.rejects(
+    setDoc(
+      doc(
+        db,
+        "playbackReports",
+        OWNER_UID,
+        "reports",
+        `${MOVIE.id}-1-no-sound`,
+      ),
+      {
+        ...first,
+        server: "Server 1",
+        details: "a".repeat(1001),
+        createdAt: serverTimestamp(),
+      },
+    ),
+    /permission/i,
+  );
   assert.ok(first.createdAt.toMillis() > 0);
   await submitPlaybackReport(db, OWNER_UID, MOVIE, "Server 2", "no-sound");
   assert.deepEqual((await getDoc(ref)).data(), first);

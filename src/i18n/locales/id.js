@@ -1,6 +1,8 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Details (optional)": "Detail (opsional)",
+  "Describe what happened...": "Jelaskan apa yang terjadi...",
   "Report playback problem": "Laporkan masalah pemutaran",
   "Report submitted. Thank you.": "Laporan terkirim. Terima kasih.",
   "What went wrong?": "Apa masalahnya?",

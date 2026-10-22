@@ -1,6 +1,8 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Details (optional)": "ព័ត៌មានលម្អិត (មិនបាច់បំពេញក៏បាន)",
+  "Describe what happened...": "ពិពណ៌នាអំពីបញ្ហាដែលបានកើតឡើង...",
   "Report playback problem": "រាយការណ៍បញ្ហាចាក់វីដេអូ",
   "Report submitted. Thank you.": "បានផ្ញើរបាយការណ៍។ សូមអរគុណ។",
   "What went wrong?": "មានបញ្ហាអ្វី?",

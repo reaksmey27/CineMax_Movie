@@ -1,6 +1,8 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Details (optional)": "Details (optional)",
+  "Describe what happened...": "Beschreibe, was passiert ist...",
   "Report playback problem": "Wiedergabeproblem melden",
   "Report submitted. Thank you.": "Meldung gesendet. Vielen Dank.",
   "What went wrong?": "Was ist passiert?",

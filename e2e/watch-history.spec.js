@@ -29,10 +29,10 @@ async function fixture(page) {
   await module("**/src/firebase/firestore.js", "export const db = {};");
   await module(
     "**/src/firebase/playbackReports.js",
-    `export const submitPlaybackReport=async(db,uid,movie,server,issue)=>{
+    `export const submitPlaybackReport=async(db,uid,movie,server,issue,details)=>{
     await new Promise(resolve=>setTimeout(resolve,300));
     if(localStorage.getItem('fail-report')) throw Error('offline');
-    localStorage.setItem('submitted-report',JSON.stringify({uid,movieId:movie.id,server,issue}));
+    localStorage.setItem('submitted-report',JSON.stringify({uid,movieId:movie.id,server,issue,details}));
   };`,
   );
   // Real provider/player/UI; replace the network storage adapter. Firestore rules
@@ -103,6 +103,13 @@ test("playback report includes the movie and server, handles failure, and confir
   await expect(form).toContainText("Example Film");
   await expect(form).toContainText("Server 2");
   await form.getByRole("radio", { name: "No sound", exact: true }).check();
+  await form
+    .getByLabel("Details (optional)")
+    .fill("Sound stops after 10 minutes.");
+  await expect(form.getByLabel("Details (optional)")).toHaveAttribute(
+    "maxlength",
+    "1000",
+  );
   await page.evaluate(() => localStorage.setItem("fail-report", "1"));
   await form
     .getByRole("button", { name: "Submit report", exact: true })
@@ -122,7 +129,13 @@ test("playback report includes the movie and server, handles failure, and confir
     await page.evaluate(() =>
       JSON.parse(localStorage.getItem("submitted-report")),
     ),
-  ).toEqual({ uid: "fan", movieId: 42, server: "Server 2", issue: "no-sound" });
+  ).toEqual({
+    uid: "fan",
+    movieId: 42,
+    server: "Server 2",
+    issue: "no-sound",
+    details: "Sound stops after 10 minutes.",
+  });
   await expect(
     form.getByRole("button", { name: "Submit report", exact: true }),
   ).toHaveCount(0);

@@ -1,6 +1,8 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Details (optional)": "Detalhes (opcional)",
+  "Describe what happened...": "Descreva o que aconteceu...",
   "Report playback problem": "Relatar problema de reprodução",
   "Report submitted. Thank you.": "Relato enviado. Obrigado.",
   "What went wrong?": "O que aconteceu?",

@@ -1,6 +1,8 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Details (optional)": "상세 내용 (선택 사항)",
+  "Describe what happened...": "어떤 문제가 발생했는지 설명하세요...",
   "Report playback problem": "재생 문제 신고",
   "Report submitted. Thank you.": "신고가 제출되었습니다. 감사합니다.",
   "What went wrong?": "어떤 문제가 있나요?",

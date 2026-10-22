@@ -1,6 +1,8 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Details (optional)": "Detalles (opcional)",
+  "Describe what happened...": "Describe lo que ocurrió...",
   "Report playback problem": "Informar de un problema de reproducción",
   "Report submitted. Thank you.": "Informe enviado. Gracias.",
   "What went wrong?": "¿Qué ha fallado?",

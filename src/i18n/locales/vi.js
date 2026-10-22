@@ -1,6 +1,8 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Details (optional)": "Chi tiết (không bắt buộc)",
+  "Describe what happened...": "Mô tả điều đã xảy ra...",
   "Report playback problem": "Báo lỗi phát phim",
   "Report submitted. Thank you.": "Đã gửi báo cáo. Cảm ơn bạn.",
   "What went wrong?": "Đã xảy ra lỗi gì?",

@@ -1,6 +1,8 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Details (optional)": "Dettagli (facoltativo)",
+  "Describe what happened...": "Descrivi cosa è successo...",
   "Report playback problem": "Segnala un problema di riproduzione",
   "Report submitted. Thank you.": "Segnalazione inviata. Grazie.",
   "What went wrong?": "Qual è il problema?",

@@ -8,13 +8,16 @@ export async function submitPlaybackReport(
   movie,
   server,
   issue,
+  details = "",
 ) {
   if (
     !userId ||
     !Number.isSafeInteger(movie.id) ||
     movie.id <= 0 ||
     !/^Server [1-4]$/.test(server) ||
-    !PLAYBACK_ISSUES.includes(issue)
+    !PLAYBACK_ISSUES.includes(issue) ||
+    typeof details !== "string" ||
+    details.length > 1000
   ) {
     throw new Error("Invalid playback report.");
   }
@@ -32,6 +35,7 @@ export async function submitPlaybackReport(
       movieTitle: String(movie.title || "").slice(0, 300),
       server,
       issue,
+      details: details.trim(),
       createdAt: serverTimestamp(),
     });
   });

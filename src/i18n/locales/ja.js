@@ -1,6 +1,8 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Details (optional)": "詳細（任意）",
+  "Describe what happened...": "発生した問題を説明してください...",
   "Report playback problem": "再生の問題を報告",
   "Report submitted. Thank you.": "報告を送信しました。ありがとうございます。",
   "What went wrong?": "どのような問題ですか？",

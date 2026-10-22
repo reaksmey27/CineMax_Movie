@@ -1,6 +1,8 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Details (optional)": "詳細說明（選填）",
+  "Describe what happened...": "請描述發生的問題...",
   "Report playback problem": "回報播放問題",
   "Report submitted. Thank you.": "已提交回報，謝謝。",
   "What went wrong?": "發生了什麼問題？",

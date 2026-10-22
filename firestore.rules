@@ -4,7 +4,8 @@ service cloud.firestore {
     match /playbackReports/{userId}/reports/{reportId} {
       allow get: if request.auth != null && request.auth.uid == userId;
       allow create: if request.auth != null && request.auth.uid == userId
-        && request.resource.data.keys().hasOnly(['movieId', 'movieTitle', 'server', 'issue', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['movieId', 'movieTitle', 'server', 'issue', 'details', 'createdAt'])
+        && (!('details' in request.resource.data) || (request.resource.data.details is string && request.resource.data.details.size() <= 1000))
         && request.resource.data.movieId is int && request.resource.data.movieId > 0
         && request.resource.data.movieTitle is string && request.resource.data.movieTitle.size() <= 300
         && request.resource.data.server in ['Server 1', 'Server 2', 'Server 3', 'Server 4']

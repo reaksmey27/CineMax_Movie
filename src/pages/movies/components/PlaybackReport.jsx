@@ -8,6 +8,7 @@ export default function PlaybackReport({ movie, server }) {
   const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [issue, setIssue] = useState("not-loading");
+  const [details, setDetails] = useState("");
   const [status, setStatus] = useState("idle");
   const pending = useRef(false);
   const trigger = useRef(null);
@@ -53,7 +54,14 @@ export default function PlaybackReport({ movie, server }) {
                 import("../../../firebase/firestore"),
                 import("../../../firebase/playbackReports"),
               ]);
-              await submitPlaybackReport(db, user.uid, movie, server, issue);
+              await submitPlaybackReport(
+                db,
+                user.uid,
+                movie,
+                server,
+                issue,
+                details,
+              );
               setStatus("sent");
             } catch {
               setStatus("error");
@@ -97,6 +105,25 @@ export default function PlaybackReport({ movie, server }) {
                   </label>
                 ))}
               </fieldset>
+              <label className="block space-y-2 text-sm font-semibold">
+                <span>{t("Details (optional)")}</span>
+                <textarea
+                  value={details}
+                  onChange={(event) => setDetails(event.target.value)}
+                  placeholder={t("Describe what happened...")}
+                  maxLength={1000}
+                  rows={4}
+                  disabled={status === "sending"}
+                  aria-describedby="report-details-count"
+                  className="block w-full resize-y rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-3 py-3 font-normal leading-relaxed text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] disabled:opacity-60"
+                />
+              </label>
+              <p
+                id="report-details-count"
+                className="text-right text-xs tabular-nums text-[var(--color-text-muted)]"
+              >
+                {details.length}/1000
+              </p>
               {status === "error" && (
                 <p role="alert" className="text-sm text-red-400">
                   {t("Could not submit the report. Try again.")}
