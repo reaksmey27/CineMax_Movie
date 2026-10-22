@@ -1,3 +1,4 @@
+import MoviePoster from "../ui/MoviePoster";
 import { Link } from "react-router-dom";
 import { CheckIcon, PlayIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
@@ -39,11 +40,10 @@ export default function WatchHistoryList({ compact = false, movies }) {
               aria-label={item.title}
               className="block self-start w-full overflow-hidden focus-visible:outline-2 focus-visible:outline-purple-400"
             >
-              <img
-                src={item.posterImage || "/images/logo.png"}
-                alt=""
-                loading="lazy"
-                className="aspect-[4/5] max-h-72 w-full object-cover object-top motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.03]"
+              <MoviePoster
+                src={item.posterImage || item.image}
+                className="aspect-[4/5] max-h-72 w-full"
+                imageClassName="object-top"
               />
             </Link>
             <div className="flex min-w-0 flex-1 flex-col gap-2.5 p-3 text-sm">

@@ -1,4 +1,5 @@
-import React, { memo, useState } from "react";
+import MoviePoster from "./MoviePoster";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import {
   BookmarkIcon as BookmarkSolidIcon,
@@ -7,7 +8,6 @@ import {
 } from "@heroicons/react/24/solid";
 import {
   ArrowPathIcon,
-  FilmIcon,
   BookmarkIcon,
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
@@ -34,7 +34,6 @@ const MovieCard = ({
   const watchlistPending = isSavingToWatchlist(movie.id);
   const TitleTag = headingLevel;
   const poster = movie.posterImage || movie.image;
-  const [failedPoster, setFailedPoster] = useState(null);
 
   // ─── Handlers: favorite & watchlist toggles ───────────────────────────────────
 
@@ -64,21 +63,7 @@ const MovieCard = ({
           aria-label={t("View {title}", { title: movie.title })}
           className="block h-full overflow-hidden rounded-t-2xl bg-[var(--color-bg-elevated)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
         >
-          {poster && failedPoster !== poster ? (
-            <img
-              onError={() => setFailedPoster(poster)}
-              src={poster}
-              alt=""
-              className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.03]"
-              loading="lazy"
-              decoding="async"
-            />
-          ) : (
-            <div className="flex h-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-surface-2)] px-3 text-center text-[var(--color-text-muted)]">
-              <FilmIcon className="h-12 w-12 opacity-60" aria-hidden="true" />
-              <span className="text-xs">{t("Poster unavailable")}</span>
-            </div>
-          )}
+          <MoviePoster src={poster} />
         </Link>
         {showActions && (
           <div className="absolute right-2 top-2 z-10 flex gap-1.5">
