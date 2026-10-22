@@ -472,6 +472,21 @@ const de = {
     "Der Wiedergabestatus konnte nicht aktualisiert werden. Versuche es erneut.",
   "Loading language...": "Sprache wird geladen...",
   "Could not load this language.": "Diese Sprache konnte nicht geladen werden.",
+  "Forgot password?": "Passwort vergessen?",
+  "Reset password": "Passwort zurücksetzen",
+  "Enter your email to receive a password reset link.":
+    "Gib deine E-Mail-Adresse ein, um einen Link zum Zurücksetzen zu erhalten.",
+  "Send reset link": "Link senden",
+  "Sending reset link...": "Link wird gesendet...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Falls ein Konto für diese E-Mail-Adresse existiert, erhältst du in Kürze einen Link. Prüfe deinen Posteingang und Spamordner.",
+  "Back to sign in": "Zurück zur Anmeldung",
+  "Too many reset attempts. Please wait and try again.":
+    "Zu viele Versuche. Bitte warte und versuche es erneut.",
+  "Could not send the reset link. Please try again.":
+    "Der Link konnte nicht gesendet werden. Versuche es erneut.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Wenn du Google nutzt, wähle Google auf der Anmeldeseite.",
 };
 
 export default de;

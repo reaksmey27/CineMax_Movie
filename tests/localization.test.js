@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/pages/auth/PasswordResetForm.jsx",
   "src/components/layout/LanguageSelector.jsx",
   "src/pages/watchlist/WatchlistLibrary.jsx",
   "src/pages/watchlist/WatchlistPage.jsx",
@@ -16,6 +17,9 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "Forgot password?",
+  "Too many reset attempts. Please wait and try again.",
+  "Could not send the reset link. Please try again.",
   "Your next movie is waiting",
   "Make room for your favorites",
   "Save movies you want to watch and find them here whenever you are ready.",

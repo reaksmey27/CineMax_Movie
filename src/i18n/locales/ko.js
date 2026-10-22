@@ -445,6 +445,21 @@ const ko = {
     "시청 상태를 업데이트하지 못했습니다. 다시 시도해 주세요.",
   "Loading language...": "언어 불러오는 중...",
   "Could not load this language.": "이 언어를 불러오지 못했습니다.",
+  "Forgot password?": "비밀번호를 잊으셨나요?",
+  "Reset password": "비밀번호 재설정",
+  "Enter your email to receive a password reset link.":
+    "재설정 링크를 받을 이메일을 입력하세요.",
+  "Send reset link": "링크 보내기",
+  "Sending reset link...": "링크 보내는 중...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "이 이메일로 등록된 계정이 있다면 곧 재설정 링크가 도착합니다. 받은편지함과 스팸함을 확인하세요.",
+  "Back to sign in": "로그인으로 돌아가기",
+  "Too many reset attempts. Please wait and try again.":
+    "시도 횟수가 너무 많습니다. 잠시 기다린 후 다시 시도하세요.",
+  "Could not send the reset link. Please try again.":
+    "링크를 보내지 못했습니다. 다시 시도해 주세요.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Google을 사용한다면 로그인 화면에서 Google로 계속하세요.",
 };
 
 export default ko;

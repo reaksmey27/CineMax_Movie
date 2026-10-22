@@ -451,6 +451,21 @@ const id = {
     "Status tontonan tidak dapat diperbarui. Silakan coba lagi.",
   "Loading language...": "Memuat bahasa...",
   "Could not load this language.": "Bahasa ini tidak dapat dimuat.",
+  "Forgot password?": "Lupa kata sandi?",
+  "Reset password": "Atur ulang kata sandi",
+  "Enter your email to receive a password reset link.":
+    "Masukkan email Anda untuk menerima tautan pengaturan ulang.",
+  "Send reset link": "Kirim tautan",
+  "Sending reset link...": "Mengirim tautan...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Jika ada akun dengan email ini, tautan akan segera tiba. Periksa kotak masuk dan folder spam.",
+  "Back to sign in": "Kembali ke masuk",
+  "Too many reset attempts. Please wait and try again.":
+    "Terlalu banyak percobaan. Tunggu lalu coba lagi.",
+  "Could not send the reset link. Please try again.":
+    "Tautan tidak dapat dikirim. Silakan coba lagi.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Jika Anda menggunakan Google, lanjutkan dengan Google di layar masuk.",
 };
 
 export default id;

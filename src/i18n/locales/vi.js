@@ -464,6 +464,21 @@ const vi = {
     "Không thể cập nhật trạng thái xem. Vui lòng thử lại.",
   "Loading language...": "Đang tải ngôn ngữ...",
   "Could not load this language.": "Không thể tải ngôn ngữ này.",
+  "Forgot password?": "Quên mật khẩu?",
+  "Reset password": "Đặt lại mật khẩu",
+  "Enter your email to receive a password reset link.":
+    "Nhập email để nhận liên kết đặt lại mật khẩu.",
+  "Send reset link": "Gửi liên kết",
+  "Sending reset link...": "Đang gửi liên kết...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Nếu có tài khoản dùng email này, liên kết sẽ sớm được gửi đến. Hãy kiểm tra hộp thư đến và thư rác.",
+  "Back to sign in": "Quay lại đăng nhập",
+  "Too many reset attempts. Please wait and try again.":
+    "Quá nhiều lần thử. Vui lòng đợi rồi thử lại.",
+  "Could not send the reset link. Please try again.":
+    "Không thể gửi liên kết. Vui lòng thử lại.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Nếu dùng Google, hãy tiếp tục với Google trên màn hình đăng nhập.",
 };
 
 export default vi;

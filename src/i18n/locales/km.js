@@ -451,6 +451,21 @@ const km = {
     "មិនអាចធ្វើបច្ចុប្បន្នភាពស្ថានភាពមើលបានទេ។ សូមព្យាយាមម្ដងទៀត។",
   "Loading language...": "កំពុងផ្ទុកភាសា...",
   "Could not load this language.": "មិនអាចផ្ទុកភាសានេះបានទេ។",
+  "Forgot password?": "ភ្លេចពាក្យសម្ងាត់?",
+  "Reset password": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
+  "Enter your email to receive a password reset link.":
+    "បញ្ចូលអ៊ីមែលរបស់អ្នក ដើម្បីទទួលបានតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ។",
+  "Send reset link": "ផ្ញើតំណកំណត់ឡើងវិញ",
+  "Sending reset link...": "កំពុងផ្ញើតំណ...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "ប្រសិនបើមានគណនីសម្រាប់អ៊ីមែលនេះ តំណកំណត់ឡើងវិញនឹងមកដល់ឆាប់ៗ។ សូមពិនិត្យប្រអប់សារ និងថតសារឥតបានការ។",
+  "Back to sign in": "ត្រឡប់ទៅចូលគណនី",
+  "Too many reset attempts. Please wait and try again.":
+    "បានព្យាយាមច្រើនដងពេក។ សូមរង់ចាំ ហើយព្យាយាមម្ដងទៀត។",
+  "Could not send the reset link. Please try again.":
+    "មិនអាចផ្ញើតំណបានទេ។ សូមព្យាយាមម្ដងទៀត។",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "ប្រសិនបើអ្នកប្រើ Google សូមបន្តជាមួយ Google នៅលើអេក្រង់ចូលគណនី។",
 };
 
 export default km;

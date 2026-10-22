@@ -459,6 +459,21 @@ const fr = {
     "Impossible de modifier l’état de visionnage. Réessayez.",
   "Loading language...": "Chargement de la langue...",
   "Could not load this language.": "Impossible de charger cette langue.",
+  "Forgot password?": "Mot de passe oublié ?",
+  "Reset password": "Réinitialiser le mot de passe",
+  "Enter your email to receive a password reset link.":
+    "Saisissez votre e-mail pour recevoir un lien de réinitialisation.",
+  "Send reset link": "Envoyer le lien",
+  "Sending reset link...": "Envoi du lien...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Si un compte existe pour cet e-mail, un lien de réinitialisation arrivera bientôt. Vérifiez votre boîte de réception et vos courriers indésirables.",
+  "Back to sign in": "Retour à la connexion",
+  "Too many reset attempts. Please wait and try again.":
+    "Trop de tentatives. Patientez avant de réessayer.",
+  "Could not send the reset link. Please try again.":
+    "Impossible d’envoyer le lien. Réessayez.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Si vous utilisez Google, choisissez Google sur l’écran de connexion.",
 };
 
 export default fr;

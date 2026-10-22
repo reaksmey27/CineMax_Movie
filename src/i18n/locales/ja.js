@@ -448,6 +448,21 @@ const ja = {
     "視聴状況を更新できませんでした。もう一度お試しください。",
   "Loading language...": "言語を読み込み中...",
   "Could not load this language.": "この言語を読み込めませんでした。",
+  "Forgot password?": "パスワードをお忘れですか？",
+  "Reset password": "パスワードをリセット",
+  "Enter your email to receive a password reset link.":
+    "メールアドレスを入力すると、リセット用リンクが送信されます。",
+  "Send reset link": "リンクを送信",
+  "Sending reset link...": "リンクを送信中...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "このメールアドレスのアカウントがある場合、まもなくリセット用リンクが届きます。受信トレイと迷惑メールをご確認ください。",
+  "Back to sign in": "ログインに戻る",
+  "Too many reset attempts. Please wait and try again.":
+    "試行回数が多すぎます。しばらく待ってからお試しください。",
+  "Could not send the reset link. Please try again.":
+    "リンクを送信できませんでした。もう一度お試しください。",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Googleをご利用の場合は、ログイン画面でGoogleを選択してください。",
 };
 
 export default ja;

@@ -455,6 +455,21 @@ const zhTW = {
     "無法更新觀看狀態，請再試一次。",
   "Loading language...": "正在載入語言...",
   "Could not load this language.": "無法載入此語言。",
+  "Forgot password?": "忘記密碼？",
+  "Reset password": "重設密碼",
+  "Enter your email to receive a password reset link.":
+    "輸入電子郵件以接收密碼重設連結。",
+  "Send reset link": "傳送重設連結",
+  "Sending reset link...": "正在傳送連結...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "如果此電子郵件有對應帳戶，你將很快收到重設連結。請查看收件匣和垃圾郵件資料夾。",
+  "Back to sign in": "返回登入",
+  "Too many reset attempts. Please wait and try again.":
+    "嘗試次數過多，請稍後再試。",
+  "Could not send the reset link. Please try again.":
+    "無法傳送重設連結，請再試一次。",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "如果你使用 Google，請在登入畫面選擇透過 Google 繼續。",
 };
 
 export default zhTW;

@@ -469,6 +469,21 @@ const ptBR = {
     "Não foi possível atualizar o status de visualização. Tente novamente.",
   "Loading language...": "Carregando idioma...",
   "Could not load this language.": "Não foi possível carregar este idioma.",
+  "Forgot password?": "Esqueceu a senha?",
+  "Reset password": "Redefinir senha",
+  "Enter your email to receive a password reset link.":
+    "Digite seu e-mail para receber um link de redefinição.",
+  "Send reset link": "Enviar link",
+  "Sending reset link...": "Enviando link...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Se houver uma conta com este e-mail, um link chegará em breve. Verifique sua caixa de entrada e a pasta de spam.",
+  "Back to sign in": "Voltar para entrar",
+  "Too many reset attempts. Please wait and try again.":
+    "Muitas tentativas. Aguarde e tente novamente.",
+  "Could not send the reset link. Please try again.":
+    "Não foi possível enviar o link. Tente novamente.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Se você usa o Google, continue com o Google na tela de login.",
 };
 
 export default ptBR;

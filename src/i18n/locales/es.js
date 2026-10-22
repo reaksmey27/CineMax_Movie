@@ -456,6 +456,21 @@ const es = {
     "No pudimos actualizar el estado de visualización. Inténtalo de nuevo.",
   "Loading language...": "Cargando idioma...",
   "Could not load this language.": "No se pudo cargar este idioma.",
+  "Forgot password?": "¿Olvidaste tu contraseña?",
+  "Reset password": "Restablecer contraseña",
+  "Enter your email to receive a password reset link.":
+    "Introduce tu correo para recibir un enlace de restablecimiento.",
+  "Send reset link": "Enviar enlace",
+  "Sending reset link...": "Enviando enlace...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Si existe una cuenta con este correo, recibirás un enlace en breve. Revisa tu bandeja de entrada y la carpeta de spam.",
+  "Back to sign in": "Volver a iniciar sesión",
+  "Too many reset attempts. Please wait and try again.":
+    "Demasiados intentos. Espera y vuelve a intentarlo.",
+  "Could not send the reset link. Please try again.":
+    "No se pudo enviar el enlace. Inténtalo de nuevo.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Si usas Google, continúa con Google en la pantalla de inicio de sesión.",
 };
 
 export default es;

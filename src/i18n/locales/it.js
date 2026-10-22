@@ -469,6 +469,21 @@ const it = {
     "Impossibile aggiornare lo stato di visione. Riprova.",
   "Loading language...": "Caricamento della lingua...",
   "Could not load this language.": "Impossibile caricare questa lingua.",
+  "Forgot password?": "Password dimenticata?",
+  "Reset password": "Reimposta password",
+  "Enter your email to receive a password reset link.":
+    "Inserisci la tua email per ricevere un link di reimpostazione.",
+  "Send reset link": "Invia link",
+  "Sending reset link...": "Invio del link...",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "Se esiste un account con questa email, riceverai presto un link. Controlla la posta in arrivo e la cartella spam.",
+  "Back to sign in": "Torna all’accesso",
+  "Too many reset attempts. Please wait and try again.":
+    "Troppi tentativi. Attendi e riprova.",
+  "Could not send the reset link. Please try again.":
+    "Impossibile inviare il link. Riprova.",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "Se usi Google, continua con Google nella schermata di accesso.",
 };
 
 export default it;
