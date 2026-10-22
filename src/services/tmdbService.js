@@ -101,6 +101,17 @@ export const tmdbService = {
     );
   },
 
+  getRelatedMovies: async (movieId) => {
+    const data = await fetchFromTMDB(
+      `/movie/${movieId}/recommendations`,
+      {},
+      { ttl: LONG_CACHE_TTL },
+    );
+    return (data?.results || [])
+      .filter((movie) => movie.id !== Number(movieId))
+      .slice(0, 8);
+  },
+
   searchMovies: async (query, page = 1, releaseYear = "") => {
     return await fetchFromTMDB(
       "/search/movie",
@@ -146,6 +157,20 @@ export const tmdbService = {
       posterImage: getPosterImage(movie),
       backdropImage: getBackdropImage(movie),
       trailerKey: trailer ? trailer.key : null,
+      directors: [
+        ...new Set(
+          (movie.credits?.crew || [])
+            .filter((person) => person.job === "Director")
+            .map((person) => person.name)
+            .filter(Boolean),
+        ),
+      ],
+      cast: (movie.credits?.cast || []).slice(0, 12).map((person) => ({
+        id: person.id,
+        name: person.name,
+        character: person.character || "",
+        image: getImageUrl(person.profile_path, "w185"),
+      })),
     };
   },
 };

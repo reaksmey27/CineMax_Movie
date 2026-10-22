@@ -6,6 +6,8 @@ import { useWatchlist } from "../../context/WatchlistContext";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import useMovieDetail from "../../hooks/movies/useMovieDetail";
 import MovieInfo from "./components/MovieInfo";
+import MovieCredits from "./components/MovieCredits";
+import RelatedMovies from "./components/RelatedMovies";
 import MoviePlayer from "./components/MoviePlayer";
 import TrailerModal from "./components/TrailerModal";
 import MovieDetailSkeleton from "./components/MovieDetailSkeleton";
@@ -15,9 +17,8 @@ import { useLanguage } from "../../context/LanguageContext";
 
 // ─── MovieDetailPage: details, trailer & player ───────────────────────────────
 
-const MovieDetailPage = () => {
+const MovieDetailContent = ({ id }) => {
   const { t } = useLanguage();
-  const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, loading: authLoading } = useAuth();
@@ -154,6 +155,12 @@ const MovieDetailPage = () => {
             onWatchlist={() => toggleWatchlist(movie)}
           />
         )}
+        {!isPlaying && (
+          <div className="mt-12 space-y-12 sm:mt-16 sm:space-y-16">
+            <MovieCredits movie={movie} />
+            <RelatedMovies movieId={movie.id} />
+          </div>
+        )}
       </div>
 
       {movie.trailerKey && (
@@ -167,4 +174,7 @@ const MovieDetailPage = () => {
   );
 };
 
-export default MovieDetailPage;
+export default function MovieDetailPage() {
+  const { id } = useParams();
+  return <MovieDetailContent key={id} id={id} />;
+}
