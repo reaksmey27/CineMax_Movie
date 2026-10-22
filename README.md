@@ -7,7 +7,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Movie discovery:** trending, upcoming, top-rated, now-playing, and genre collections, with links to browse full collections.
 - **Independent homepage loading:** each row loads separately, with its own loading state and retry action. Additional genre rows expand on demand.
 - **Live search:** search from the navigation or Movies page, preview matching titles, and navigate suggestions with the keyboard.
-- **Filters and pagination:** browse by genre, release year, minimum rating, and sort order.
+- **Filters and pagination:** browse by genre, release year, minimum rating, and sort order. Search stays active when filters change; filtered searches combine up to 2,000 results before sorting and pagination. Resetting filters preserves the search query.
 - **Movie details:** metadata, trailers, and a player with selectable sources and retry controls.
 - **Saved movies:** Favorites and Watchlist tabs with counts, complete poster grids, removal controls, and friendly empty states.
 - **Account profile:** profile photo, username, email, username editing, and logout. Supports email/password and Google sign-in.

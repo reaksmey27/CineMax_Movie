@@ -101,10 +101,10 @@ export const tmdbService = {
     );
   },
 
-  searchMovies: async (query, page = 1) => {
+  searchMovies: async (query, page = 1, releaseYear = "") => {
     return await fetchFromTMDB(
       "/search/movie",
-      { query, page },
+      { query, page, primary_release_year: releaseYear },
       { ttl: DEFAULT_CACHE_TTL },
     );
   },

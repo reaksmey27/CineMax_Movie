@@ -56,7 +56,7 @@ const MoviesFilters = ({
       {hasSearchQuery && (
         <div className="mt-4 rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-xs font-semibold text-amber-100">
           {t(
-            "Changing any filter will clear the current search and switch back to TMDB discover results.",
+            "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.",
           )}
         </div>
       )}

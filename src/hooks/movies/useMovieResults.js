@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { tmdbService } from "../../services/tmdbService";
+import { filteredSearch } from "./filteredSearch";
+import { DEFAULT_DISCOVER_SORT } from "../../config/movieFilters";
 
 export default function useMovieResults({
   collection,
@@ -24,7 +26,23 @@ export default function useMovieResults({
       try {
         let response;
         if (searchQuery.trim()) {
-          response = await tmdbService.searchMovies(searchQuery, page);
+          const hasSearchFilters =
+            selectedGenre ||
+            releaseYear ||
+            minRating ||
+            sortBy !== DEFAULT_DISCOVER_SORT;
+          response = hasSearchFilters
+            ? await filteredSearch(
+                (searchPage) =>
+                  tmdbService.searchMovies(
+                    searchQuery,
+                    searchPage,
+                    releaseYear,
+                  ),
+                { selectedGenre, releaseYear, minRating, sortBy, page },
+                () => ignore,
+              )
+            : await tmdbService.searchMovies(searchQuery, page);
         } else if (collection) {
           response = await tmdbService.getMovieCollection(collection, page);
         } else {

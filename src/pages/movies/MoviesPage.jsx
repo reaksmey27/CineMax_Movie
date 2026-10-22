@@ -11,6 +11,13 @@ import Pagination from "./components/Pagination";
 // ─── Helpers: empty-state copy for search/filter ──────────────────────────────
 
 const getEmptyState = (t, searchQuery, hasActiveFilters) => {
+  if (searchQuery && hasActiveFilters)
+    return {
+      title: t("No Movies Match These Filters"),
+      message: t(
+        "Try widening your filters or reset them to discover more results.",
+      ),
+    };
   if (searchQuery)
     return {
       title: t("No Search Results"),
@@ -65,12 +72,12 @@ const MoviesPage = () => {
     clearFilters,
   } = useMovies();
 
-  const resetResults = searchQuery
-    ? clearSearch
-    : hasActiveFilters
-      ? clearFilters
+  const resetResults = hasActiveFilters
+    ? clearFilters
+    : searchQuery
+      ? clearSearch
       : undefined;
-  const resetLabel = searchQuery ? t("Clear Search") : t("Reset Filters");
+  const resetLabel = hasActiveFilters ? t("Reset Filters") : t("Clear Search");
   const { title: emptyTitle, message: emptyMessage } = getEmptyState(
     t,
     searchQuery,

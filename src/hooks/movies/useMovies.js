@@ -54,7 +54,7 @@ const useMovies = () => {
 
   const handleGenreChange = useCallback(
     (genreId) => {
-      updateParams({ genre: genreId, page: 1, q: null });
+      updateParams({ genre: genreId, page: 1 });
       setError(null);
     },
     [setError, updateParams],
@@ -75,7 +75,7 @@ const useMovies = () => {
 
   const handleYearChange = useCallback(
     (value) => {
-      updateParams({ year: value || null, page: 1, q: null });
+      updateParams({ year: value || null, page: 1 });
       setError(null);
     },
     [setError, updateParams],
@@ -83,7 +83,7 @@ const useMovies = () => {
 
   const handleRatingChange = useCallback(
     (value) => {
-      updateParams({ rating: value || null, page: 1, q: null });
+      updateParams({ rating: value || null, page: 1 });
       setError(null);
     },
     [setError, updateParams],
@@ -94,7 +94,6 @@ const useMovies = () => {
       updateParams({
         sort: value === DEFAULT_DISCOVER_SORT ? null : value,
         page: 1,
-        q: null,
       });
       setError(null);
     },
