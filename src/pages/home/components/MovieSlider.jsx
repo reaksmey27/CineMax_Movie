@@ -83,7 +83,7 @@ const MovieSlider = ({ title, movies = [], viewAllTo }) => {
       <div className="mb-4 flex items-center justify-between gap-4 px-4 sm:mb-8 sm:px-6 lg:px-24">
         <h2
           id={headingId}
-          className="flex items-center gap-2.5 text-lg font-black tracking-tight text-white sm:gap-3 sm:text-2xl md:text-4xl"
+          className="page-heading page-heading--violet flex items-center gap-2.5 sm:gap-3"
         >
           {title}
           <span className="mt-2 hidden h-0.5 w-12 rounded-full bg-purple-600 md:block" />

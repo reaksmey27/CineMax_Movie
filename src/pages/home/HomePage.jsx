@@ -32,7 +32,7 @@ const SectionError = ({ title, onRetry }) => {
 
   return (
     <section className="mx-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] p-6 sm:mx-6 lg:mx-24">
-      <h2 className="text-xl font-bold text-[var(--color-text)]">{title}</h2>
+      <h2 className="page-heading page-heading--violet">{title}</h2>
       <p role="status" className="mt-2 text-sm text-[var(--color-text-muted)]">
         {t("These movies could not load. You can keep browsing or try again.")}
       </p>

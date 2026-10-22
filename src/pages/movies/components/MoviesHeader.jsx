@@ -88,9 +88,9 @@ const MoviesHeader = ({
     <div className="mb-10 flex flex-col gap-6 sm:mb-16 sm:gap-10">
       <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end md:gap-8">
         <div className="space-y-3">
-          <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
+          <h1 className="page-heading page-heading--violet">
             {t(heading.top)} <br />
-            <span className="text-purple-500">{t(heading.accent)}</span>
+            <span>{t(heading.accent)}</span>
             {t(heading.suffix)}
           </h1>
           <p className="max-w-md text-sm font-medium text-gray-400">

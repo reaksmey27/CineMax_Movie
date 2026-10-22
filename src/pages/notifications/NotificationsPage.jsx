@@ -63,7 +63,7 @@ const NotificationsPage = () => {
               <BellAlertIcon className="h-4 w-4" aria-hidden="true" />
               {t("Your activity")}
             </div>
-            <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
+            <h1 className="page-heading page-heading--violet">
               {t("Notifications")}
             </h1>
             <p className="mt-3 max-w-xl text-sm leading-6 text-(--color-text-subtle) sm:text-base">

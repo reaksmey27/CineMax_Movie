@@ -23,7 +23,7 @@ const WatchlistPage = () => {
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
           <BookmarkIcon aria-hidden="true" className="h-6 w-6" />
         </span>
-        <h1 className="min-w-0 text-2xl font-bold leading-snug text-white [overflow-wrap:anywhere] sm:text-3xl">
+        <h1 className="page-heading page-heading--amber">
           {t("Watchlist")}
         </h1>
       </div>

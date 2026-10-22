@@ -27,9 +27,9 @@ const UpcomingPage = () => {
               {t("Future Releases")}
             </span>
           </div>
-          <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-6xl">
+          <h1 className="page-heading page-heading--blue">
             {t("Stay")} <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-500">
+            <span>
               {t("Ahead of Time")}
             </span>
           </h1>

@@ -65,7 +65,7 @@ const ProfilePage = () => {
               </div>
             )}
             <div className="min-w-0">
-              <h1 className="break-words text-2xl font-bold tracking-tight text-[var(--color-text)] sm:text-3xl">
+              <h1 className="page-heading page-heading--cyan">
                 {user.name}
               </h1>
               <p className="mt-2 break-all text-sm text-[var(--color-text-muted)] sm:text-base">

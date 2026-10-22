@@ -27,9 +27,9 @@ const TrendingPage = () => {
               {t("On Fire Today")}
             </span>
           </div>
-          <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-6xl">
+          <h1 className="page-heading page-heading--orange">
             {t("Trending")} <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-500 to-purple-500">
+            <span>
               {t("Masterpieces")}
             </span>
           </h1>

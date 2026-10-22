@@ -13,7 +13,7 @@ const ProBanner = ({ user }) => {
           {t("Profile")}
         </div>
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h1 className="page-heading page-heading--cyan">
             {user?.name}
           </h1>
           <p className="mt-2 text-sm leading-6 text-gray-400">

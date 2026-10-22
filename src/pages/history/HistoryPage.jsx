@@ -15,7 +15,7 @@ export default function HistoryPage() {
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
           <ClockIcon aria-hidden="true" className="h-6 w-6" />
         </span>
-        <h1 className="min-w-0 text-2xl font-bold leading-snug text-[var(--color-text)] [overflow-wrap:anywhere] sm:text-3xl">
+        <h1 className="page-heading page-heading--violet">
           {t("History")}
         </h1>
       </div>

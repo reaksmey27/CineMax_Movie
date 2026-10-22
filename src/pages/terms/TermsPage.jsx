@@ -109,7 +109,7 @@ export default function TermsPage() {
         <p className="text-xs font-black uppercase tracking-[0.3em] text-purple-300">
           {t("Legal")}
         </p>
-        <h1 className="mt-4 text-3xl font-black tracking-tight text-white sm:text-5xl">
+        <h1 className="page-heading page-heading--blue mt-4">
           {t("Terms of Use")}
         </h1>
         <p className="mt-3 text-sm text-gray-500">

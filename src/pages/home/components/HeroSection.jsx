@@ -98,7 +98,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
       <div
         className={`relative z-10 mx-auto w-full max-w-[1600px] px-4 pb-10 transition-all duration-700 ease-out transform sm:px-6 sm:pb-0 lg:px-24 xl:px-40 ${fade ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"}`}
       >
-        <h2 className="mb-4 text-4xl font-black leading-[0.9] tracking-tighter text-white drop-shadow-2xl sm:mb-6 sm:text-5xl lg:text-6xl">
+        <h2 className="page-heading page-heading--violet page-heading--hero mb-4 sm:mb-6">
           {movie.title} <br className="hidden sm:block" />
           <span className="mt-2 block text-base font-bold tracking-tight text-white/60 sm:mt-0 sm:inline sm:text-3xl lg:text-4xl">
             {movie.subtitle}

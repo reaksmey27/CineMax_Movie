@@ -49,7 +49,7 @@ export default function PasswordResetForm({ initialEmail = "", onBack }) {
 
   return (
     <div className="w-full">
-      <h1 className="text-3xl font-bold text-white">{t("Reset password")}</h1>
+      <h1 className="page-heading page-heading--violet">{t("Reset password")}</h1>
       <p className="mt-3 text-sm text-white/70">
         {t("Enter your email to receive a password reset link.")}
       </p>

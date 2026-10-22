@@ -23,7 +23,7 @@ const GuestBanner = () => (
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.3em] text-purple-300">
             <SparklesIcon className="h-4 w-4" />
           </div>
-          <h1 className="mt-6 text-4xl font-black uppercase tracking-tighter text-white sm:text-5xl">
+          <h1 className="page-heading page-heading--cyan mt-6">
             Build a profile that feels like your taste.
           </h1>
           <p className="mt-5 max-w-xl text-sm font-medium leading-7 text-gray-300">

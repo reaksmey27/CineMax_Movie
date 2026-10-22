@@ -401,6 +401,57 @@
   }
 }
 
+/* Shared page titles: comfortable line height also accommodates Khmer glyphs. */
+.page-heading {
+  min-width: 0;
+  color: var(--page-heading-color, #c4b5fd);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.page-heading--violet {
+  --page-heading-color: #c4b5fd;
+}
+.page-heading--rose {
+  --page-heading-color: #fda4af;
+}
+.page-heading--amber {
+  --page-heading-color: #fcd34d;
+}
+.page-heading--orange {
+  --page-heading-color: #fdba74;
+}
+.page-heading--blue {
+  --page-heading-color: #93c5fd;
+}
+.page-heading--cyan {
+  --page-heading-color: #67e8f9;
+}
+html.theme-light .page-heading--violet {
+  --page-heading-color: #6d28d9;
+}
+html.theme-light .page-heading--rose {
+  --page-heading-color: #be123c;
+}
+html.theme-light .page-heading--amber {
+  --page-heading-color: #92400e;
+}
+html.theme-light .page-heading--orange {
+  --page-heading-color: #9a3412;
+}
+html.theme-light .page-heading--blue {
+  --page-heading-color: #1d4ed8;
+}
+html.theme-light .page-heading--cyan {
+  --page-heading-color: #0e7490;
+}
+.page-heading--hero {
+  font-size: clamp(1.875rem, 4vw, 3.75rem);
+}
+
 /* Opaque navigation surfaces keep text readable over changing movie backdrops. */
 .site-navbar {
   --color-nav-bg: #0f172a;

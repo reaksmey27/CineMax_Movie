@@ -54,7 +54,7 @@ const LoginPage = () => {
             </span>
           </div>
 
-          <h1 className="text-3xl font-black tracking-[-0.05em] text-white sm:text-4xl">
+          <h1 className="page-heading page-heading--violet">
             {t("Welcome Back")}
           </h1>
           <p className="mt-2 text-sm text-white/55">

@@ -22,7 +22,7 @@ const FavoritesPage = () => {
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
           <HeartOutlineIcon aria-hidden="true" className="h-6 w-6" />
         </span>
-        <h1 className="min-w-0 text-2xl font-bold leading-snug text-white [overflow-wrap:anywhere] sm:text-3xl">
+        <h1 className="page-heading page-heading--rose">
           {t("Favorites")}
         </h1>
       </div>

@@ -11,7 +11,7 @@ export default function NotFoundPage() {
       <p className="text-sm font-semibold text-[var(--color-text-muted)]">
         404
       </p>
-      <h1 className="text-3xl font-bold">{t("Page not found")}</h1>
+      <h1 className="page-heading page-heading--violet">{t("Page not found")}</h1>
       <p className="text-[var(--color-text-muted)]">
         {t("This page is unavailable. Find your next movie in the catalog.")}
       </p>

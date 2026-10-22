@@ -44,7 +44,7 @@ const MovieInfo = ({
 
       <div className="min-w-0 flex-1 space-y-6 sm:space-y-8">
         <div className="space-y-4">
-          <h1 className="text-3xl font-black leading-[0.9] tracking-tighter text-[var(--color-hero-text)] sm:text-5xl lg:text-6xl">
+          <h1 className="page-heading page-heading--violet page-heading--hero">
             {movie.title}
           </h1>
 
