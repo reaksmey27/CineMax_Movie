@@ -43,10 +43,10 @@ export default function WatchHistoryList({ compact = false, movies }) {
                 src={item.posterImage || "/images/logo.png"}
                 alt=""
                 loading="lazy"
-                className="aspect-[2/3] w-full object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.03]"
+                className="aspect-[4/5] max-h-72 w-full object-cover object-top motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.03]"
               />
             </Link>
-            <div className="flex min-w-0 flex-1 flex-col gap-3 p-3 text-sm sm:p-4">
+            <div className="flex min-w-0 flex-1 flex-col gap-2.5 p-3 text-sm">
               <h3 className="font-bold leading-relaxed [overflow-wrap:anywhere]">
                 <Link
                   to={`/movie/${item.id}`}
@@ -95,20 +95,20 @@ export default function WatchHistoryList({ compact = false, movies }) {
               )}
               <Link
                 to={`/movie/${item.id}`}
-                className="mt-auto flex min-h-11 items-center justify-center gap-2 rounded-xl bg-purple-600 px-3 py-2 text-center font-semibold leading-relaxed text-white [overflow-wrap:anywhere] hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
+                className="mt-auto flex min-h-11 items-center justify-center gap-2 rounded-lg bg-purple-600 px-2.5 py-2 text-center text-xs font-semibold leading-relaxed text-white [overflow-wrap:anywhere] transition-colors hover:bg-purple-500 active:bg-purple-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400 sm:text-sm"
               >
                 <PlayIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
                 {item.completed ? t("Play Movie") : t("Continue watching")}
               </Link>
               {!compact && (
-                <div className="flex items-stretch gap-2 border-t border-[var(--color-border)] pt-2">
+                <div className="flex items-stretch gap-2">
                   <button
                     disabled={isBusy(item.id)}
                     aria-busy={isBusy(item.id)}
                     onClick={() =>
                       item.completed ? markUnfinished(item.id) : finish(item.id)
                     }
-                    className="min-h-11 min-w-0 flex-1 rounded-lg px-2 py-2 text-xs font-medium leading-relaxed text-[var(--color-text-muted)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
+                    className="min-h-11 min-w-0 flex-1 rounded-lg border border-[var(--color-border)] px-2 py-2 text-xs font-medium leading-relaxed text-[var(--color-text-muted)] transition-colors hover:border-purple-500/50 hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-400 disabled:cursor-wait disabled:opacity-50"
                   >
                     {item.completed
                       ? t("Mark as unfinished")
@@ -119,7 +119,7 @@ export default function WatchHistoryList({ compact = false, movies }) {
                     title={t("Remove")}
                     disabled={isBusy(item.id)}
                     onClick={() => remove(item.id)}
-                    className="flex min-h-11 w-11 shrink-0 items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:bg-red-500/10 hover:text-red-500 focus-visible:outline-2 focus-visible:outline-purple-400 disabled:opacity-50"
+                    className="flex min-h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-red-500/20 bg-red-500/5 text-red-400 transition-colors hover:border-red-500/50 hover:bg-red-500/15 hover:text-red-500 focus-visible:outline-2 focus-visible:outline-purple-400 disabled:cursor-wait disabled:opacity-50"
                   >
                     <TrashIcon aria-hidden="true" className="h-4 w-4" />
                   </button>
