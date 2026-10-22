@@ -8,6 +8,7 @@ const CONTROL =
   "min-h-11 w-full min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";
 
 export default function CollectionFilters({
+  header,
   searchLabel,
   query,
   setQuery,
@@ -46,37 +47,46 @@ export default function CollectionFilters({
   return (
     <>
       <div
-        className={`mb-4 ml-auto grid w-full gap-3 text-xs font-semibold text-[var(--color-text-muted)] sm:grid-cols-2 ${setStatus ? "sm:max-w-[720px] lg:grid-cols-[1.4fr_1fr_1fr]" : "sm:max-w-[520px] sm:grid-cols-[1.4fr_1fr]"}`}
+        className={
+          header
+            ? "mb-6 grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-8"
+            : ""
+        }
       >
-        <label
-          className={`min-w-0 ${setStatus ? "sm:col-span-2 lg:col-span-1" : ""}`}
+        {header}
+        <div
+          className={`mb-4 ml-auto grid w-full gap-3 text-xs font-semibold text-[var(--color-text-muted)] sm:grid-cols-2 ${setStatus ? "sm:max-w-[720px] lg:grid-cols-[1.4fr_1fr_1fr]" : "sm:max-w-[520px] sm:grid-cols-[1.4fr_1fr]"}`}
         >
-          {searchLabel}
-          <span className="relative mt-1.5 block">
-            <MagnifyingGlassIcon
-              aria-hidden="true"
-              className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]"
-            />
-            <input
-              type="search"
-              placeholder={t("Search movies") + "…"}
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              className={`${CONTROL} pl-11 pr-3 placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
-            />
-          </span>
-        </label>
-        {setStatus &&
-          select(t("Watch status"), status, setStatus, [
-            ["all", `${t("All")} (${total})`],
-            ["unwatched", `${t("To watch")} (${total - watchedCount})`],
-            ["watched", `${t("Watched")} (${watchedCount})`],
+          <label
+            className={`min-w-0 ${setStatus ? "sm:col-span-2 lg:col-span-1" : ""}`}
+          >
+            {searchLabel}
+            <span className="relative mt-1.5 block">
+              <MagnifyingGlassIcon
+                aria-hidden="true"
+                className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]"
+              />
+              <input
+                type="search"
+                placeholder={t("Search movies") + "…"}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                className={`${CONTROL} pl-11 pr-3 placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
+              />
+            </span>
+          </label>
+          {setStatus &&
+            select(t("Watch status"), status, setStatus, [
+              ["all", `${t("All")} (${total})`],
+              ["unwatched", `${t("To watch")} (${total - watchedCount})`],
+              ["watched", `${t("Watched")} (${watchedCount})`],
+            ])}
+          {select(t("Sort By"), sort, setSort, [
+            ["saved", t("Recently saved")],
+            ["title", t("Title A-Z")],
+            ["rating", t("Highest Rated")],
           ])}
-        {select(t("Sort By"), sort, setSort, [
-          ["saved", t("Recently saved")],
-          ["title", t("Title A-Z")],
-          ["rating", t("Highest Rated")],
-        ])}
+        </div>
       </div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <p role="status" className="text-sm text-[var(--color-text-muted)]">

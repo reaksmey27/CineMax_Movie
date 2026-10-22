@@ -4,7 +4,12 @@ import { useLanguage } from "../../context/LanguageContext";
 import CollectionFilters from "../../components/movies/CollectionFilters";
 import { getWatchlistView } from "./watchlistView";
 
-export default function WatchlistLibrary({ movies, setWatched, isSaving }) {
+export default function WatchlistLibrary({
+  header,
+  movies,
+  setWatched,
+  isSaving,
+}) {
   const { t } = useLanguage();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("all");
@@ -14,6 +19,7 @@ export default function WatchlistLibrary({ movies, setWatched, isSaving }) {
   return (
     <section aria-label={t("Saved movies")}>
       <CollectionFilters
+        header={header}
         searchLabel={t("Search watchlist")}
         query={query}
         setQuery={setQuery}

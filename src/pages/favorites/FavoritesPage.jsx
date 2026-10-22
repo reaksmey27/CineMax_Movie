@@ -16,26 +16,32 @@ const FavoritesPage = () => {
   const { favorites, loading, error, retry } = useFavorites();
   const isEmpty = favorites.length === 0;
 
+  const header = (
+    <div className="min-w-0 space-y-4">
+      <div className="space-y-3">
+        <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
+          {t("Your")}
+          <br />
+          <span className="text-purple-500">{t("Favorites")}</span>
+        </h1>
+        <p className="max-w-sm text-sm font-medium text-gray-400">
+          {t(
+            "Sign in to save your favorite movies and sync your collection across devices.",
+          )}
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 px-4 pb-16 pt-22 sm:px-6 sm:pb-24 sm:pt-28 lg:px-24 lg:pt-36 xl:px-40">
       <div className="absolute right-0 top-0 -z-10 h-125 w-125 rounded-full bg-red-600/10 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 h-125 w-125 rounded-full bg-purple-600/10 blur-[120px]" />
 
       <div className="mx-auto max-w-350">
-        <div className="mb-10 flex flex-col gap-6 sm:mb-16 sm:gap-10">
-          <div className="space-y-3">
-            <h1 className="text-3xl font-black uppercase leading-none tracking-tighter text-white sm:text-4xl md:text-5xl">
-              {t("Your")}
-              <br />
-              <span className="text-purple-500">{t("Favorites")}</span>
-            </h1>
-            <p className="max-w-sm text-sm font-medium text-gray-400">
-              {t(
-                "Sign in to save your favorite movies and sync your collection across devices.",
-              )}
-            </p>
-          </div>
-        </div>
+        {!(isAuthenticated && !loading && !error && !isEmpty) && (
+          <div className="mb-10 sm:mb-16">{header}</div>
+        )}
 
         {!isAuthenticated ? (
           <div className="flex min-h-80 flex-col items-center justify-center rounded-3xl border-2 border-white/5 bg-white/5 p-6 text-center backdrop-blur-sm sm:min-h-100 sm:p-12">
@@ -87,7 +93,7 @@ const FavoritesPage = () => {
             </Link>
           </div>
         ) : (
-          <FavoritesLibrary movies={favorites} />
+          <FavoritesLibrary header={header} movies={favorites} />
         )}
       </div>
     </div>

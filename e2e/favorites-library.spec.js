@@ -14,7 +14,7 @@ test("favorites search, sorting and reset fit mobile and desktop", async ({
         { id: 3, title: 'Aliens', rating: '8.0', savedAt: '2026-02-01' }
       ];
       export default function Fixture() {
-        return React.createElement('main', { style: { padding: '120px 16px 40px' } }, React.createElement(FavoritesLibrary, { movies }));
+        return React.createElement('main', { style: { padding: '120px 16px 40px' } }, React.createElement(FavoritesLibrary, { movies, header: React.createElement('h1', null, 'Your Favorites') }));
       }`,
     }),
   );
@@ -41,6 +41,14 @@ test("favorites search, sorting and reset fit mobile and desktop", async ({
   await expect(library.locator("article")).toHaveCount(3);
   for (const width of [320, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
+    if (width === 1280) {
+      const heading = await library
+        .getByRole("heading", { level: 1 })
+        .boundingBox();
+      const input = await search.boundingBox();
+      expect(input.x).toBeGreaterThan(heading.x + heading.width);
+      expect(Math.abs(input.y - heading.y)).toBeLessThan(70);
+    }
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
