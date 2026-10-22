@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
-const LABEL_CLASS = "text-xs font-semibold text-[var(--color-text-muted)]";
+const LABEL_CLASS =
+  "mb-1.5 block text-xs font-semibold text-[var(--color-text-muted)]";
 
 // ─── FilterSelect: labelled select control ────────────────────────────────────
 
@@ -92,7 +93,7 @@ const FilterSelect = ({
   return (
     <div
       ref={containerRef}
-      className={`relative min-w-0 space-y-1.5 ${isOpen ? "z-40" : ""}`}
+      className={`relative min-w-0 ${isOpen ? "z-40" : ""}`}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) onClose();
       }}
