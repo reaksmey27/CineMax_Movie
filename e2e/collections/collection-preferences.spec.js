@@ -1,4 +1,4 @@
-import { selectFilter } from "./helpers/selectFilter.js";
+import { selectFilter } from "../helpers/selectFilter.js";
 import { expect, test } from "@playwright/test";
 
 async function fixtures(page) {
