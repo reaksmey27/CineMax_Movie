@@ -1,3 +1,4 @@
+import { selectFilter } from "./helpers/selectFilter.js";
 import { expect, test } from "@playwright/test";
 
 test("favorites search, sorting and reset fit mobile and desktop", async ({
@@ -27,9 +28,9 @@ test("favorites search, sorting and reset fit mobile and desktop", async ({
   await search.fill(" ALIEN ");
   await expect(library.locator("article")).toHaveCount(2);
   await expect(library.getByRole("status")).toHaveText("Showing 2 of 3 movies");
-  await library.getByLabel("Sort By").selectOption("title");
+  await selectFilter(library.getByLabel("Sort By"), "title");
   await expect(library.locator("article").first()).toContainText("Alien");
-  await library.getByLabel("Sort By").selectOption("rating");
+  await selectFilter(library.getByLabel("Sort By"), "rating");
   await expect(library.locator("article").first()).toContainText("Alien");
   await search.fill("no matching movie");
   await expect(
@@ -37,7 +38,10 @@ test("favorites search, sorting and reset fit mobile and desktop", async ({
   ).toBeVisible();
   await library.getByRole("button", { name: "Reset filters" }).click();
   await expect(search).toHaveValue("");
-  await expect(library.getByLabel("Sort By")).toHaveValue("saved");
+  await expect(library.getByLabel("Sort By")).toHaveAttribute(
+    "data-value",
+    "saved",
+  );
   await expect(library.locator("article")).toHaveCount(3);
   for (const width of [320, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });

@@ -1,3 +1,4 @@
+import { selectFilter } from "./helpers/selectFilter.js";
 import { expect, test } from "@playwright/test";
 
 async function fixture(page) {
@@ -141,23 +142,29 @@ test("history combines search, status, sorting and live watched updates", async 
   await expect(titles).toHaveText(["Zodiac", "Aliens", "Alien"]);
   await library.getByLabel("Search watch history").fill("  ALIEN ");
   await expect(titles).toHaveText(["Aliens", "Alien"]);
-  await library.getByLabel("Watch status").selectOption("unfinished");
+  await selectFilter(library.getByLabel("Watch status"), "unfinished");
   await expect(titles).toHaveText(["Aliens"]);
   await library.getByRole("button", { name: "Mark as watched" }).click();
   await expect(library.getByRole("status")).toHaveText("Showing 0 of 3 movies");
   await expect(
     library.getByText("No saved movies match your search or status."),
   ).toBeVisible();
-  await library.getByLabel("Watch status").selectOption("watched");
+  await selectFilter(library.getByLabel("Watch status"), "watched");
   await expect(titles).toHaveText(["Aliens", "Alien"]);
-  await library.getByLabel("Sort By").selectOption("oldest");
+  await selectFilter(library.getByLabel("Sort By"), "oldest");
   await expect(titles).toHaveText(["Alien", "Aliens"]);
   await library.getByRole("button", { name: "Reset filters" }).click();
   await expect(titles).toHaveText(["Zodiac", "Aliens", "Alien"]);
   await expect(library.getByLabel("Search watch history")).toHaveValue("");
-  await expect(library.getByLabel("Watch status")).toHaveValue("all");
-  await expect(library.getByLabel("Sort By")).toHaveValue("recent");
-  await library.getByLabel("Sort By").selectOption("title");
+  await expect(library.getByLabel("Watch status")).toHaveAttribute(
+    "data-value",
+    "all",
+  );
+  await expect(library.getByLabel("Sort By")).toHaveAttribute(
+    "data-value",
+    "recent",
+  );
+  await selectFilter(library.getByLabel("Sort By"), "title");
   await expect(titles).toHaveText(["Alien", "Aliens", "Zodiac"]);
   await library.getByLabel("Search watch history").fill("missing title");
   await expect(titles).toHaveCount(0);
@@ -193,7 +200,7 @@ test("undo watched preserves progress, updates filters and restores Continue wat
   });
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto("/history");
-  await page.getByLabel("Watch status").selectOption("watched");
+  await selectFilter(page.getByLabel("Watch status"), "watched");
   await page.evaluate(() => localStorage.setItem("fail-status", "1"));
   await page.getByRole("button", { name: "Mark as unfinished" }).click();
   await expect(page.getByRole("alert")).toContainText(
@@ -205,7 +212,7 @@ test("undo watched preserves progress, updates filters and restores Continue wat
   await page.evaluate(() => localStorage.removeItem("fail-status"));
   await page.getByRole("button", { name: "Mark as unfinished" }).click();
   await expect(page.locator("article")).toHaveCount(0);
-  await page.getByLabel("Watch status").selectOption("unfinished");
+  await selectFilter(page.getByLabel("Watch status"), "unfinished");
   await expect(page.locator("article")).toContainText("2:05 / 2:00:00");
   await page.reload();
   await expect(

@@ -1,7 +1,5 @@
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import FilterSelect from "./FilterSelect";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 
 const CONTROL =
@@ -23,26 +21,12 @@ export default function CollectionFilters({
 }) {
   const { t } = useLanguage();
   const select = (label, value, onChange, options) => (
-    <label className="min-w-0">
-      {label}
-      <span className="relative mt-1.5 block">
-        <select
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          className={`${CONTROL} appearance-none pl-3.5 pr-10`}
-        >
-          {options.map(([key, text]) => (
-            <option key={key} value={key}>
-              {text}
-            </option>
-          ))}
-        </select>
-        <ChevronDownIcon
-          aria-hidden="true"
-          className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]"
-        />
-      </span>
-    </label>
+    <FilterSelect
+      label={label}
+      value={value}
+      onChange={onChange}
+      options={options.map(([value, label]) => ({ value, label }))}
+    />
   );
   return (
     <>

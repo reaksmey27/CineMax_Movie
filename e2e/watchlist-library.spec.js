@@ -1,3 +1,4 @@
+import { selectFilter } from "./helpers/selectFilter.js";
 import { expect, test } from "@playwright/test";
 
 test("watchlist controls filter, sort, toggle and reset on mobile", async ({
@@ -31,7 +32,7 @@ test("watchlist controls filter, sort, toggle and reset on mobile", async ({
   const library = page.getByRole("region", { name: "Saved movies" });
   await library.getByLabel("Search watchlist").fill("alien");
   await expect(library.locator("article")).toHaveCount(2);
-  await library.getByLabel("Watch status").selectOption("unwatched");
+  await selectFilter(library.getByLabel("Watch status"), "unwatched");
   await expect(library.locator("article")).toHaveCount(1);
   await library
     .getByRole("button", { name: "Watched: Aliens", exact: true })
@@ -41,9 +42,9 @@ test("watchlist controls filter, sort, toggle and reset on mobile", async ({
   ).toBeVisible();
   await library.getByRole("button", { name: "Reset filters" }).click();
   await expect(library.locator("article")).toHaveCount(3);
-  await library.getByLabel("Sort By").selectOption("title");
+  await selectFilter(library.getByLabel("Sort By"), "title");
   await expect(library.locator("article").first()).toContainText("Alien");
-  await library.getByLabel("Watch status").selectOption("watched");
+  await selectFilter(library.getByLabel("Watch status"), "watched");
   await expect(library.locator("article")).toHaveCount(2);
   await expect(
     library.getByRole("button", { name: "Watched: Aliens", exact: true }),

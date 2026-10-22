@@ -1,9 +1,7 @@
+import FilterSelect from "../../components/movies/FilterSelect";
 import CollectionState from "../../components/movies/CollectionState";
 import useCollectionFilters from "../../hooks/useCollectionFilters";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 import WatchHistoryList from "../../components/movies/WatchHistoryList";
 
@@ -53,48 +51,36 @@ export default function HistoryLibrary({ header, history }) {
               />
             </span>
           </label>
-          <label className="min-w-0">
-            {t("Watch status")}
-            <span className="relative mt-1.5 block">
-              <select
-                value={status}
-                onChange={(event) => setStatus(event.target.value)}
-                className={`${CONTROL} appearance-none pl-3.5 pr-10`}
-              >
-                <option value="all">
-                  {t("All")} ({history.length})
-                </option>
-                <option value="unfinished">
-                  {t("Continue watching")} ({history.length - watchedCount})
-                </option>
-                <option value="watched">
-                  {t("Watched")} ({watchedCount})
-                </option>
-              </select>
-              <ChevronDownIcon
-                aria-hidden="true"
-                className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]"
-              />
-            </span>
-          </label>
-          <label className="min-w-0">
-            {t("Sort By")}
-            <span className="relative mt-1.5 block">
-              <select
-                value={sort}
-                onChange={(event) => setSort(event.target.value)}
-                className={`${CONTROL} appearance-none pl-3.5 pr-10`}
-              >
-                <option value="recent">{t("Recently watched")}</option>
-                <option value="oldest">{t("Oldest watched")}</option>
-                <option value="title">{t("Title A-Z")}</option>
-              </select>
-              <ChevronDownIcon
-                aria-hidden="true"
-                className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-text-muted)]"
-              />
-            </span>
-          </label>
+          <FilterSelect
+            label="Watch status"
+            value={status}
+            onChange={setStatus}
+            options={[
+              { value: "all", label: t("All") + " (" + history.length + ")" },
+              {
+                value: "unfinished",
+                label:
+                  t("Continue watching") +
+                  " (" +
+                  (history.length - watchedCount) +
+                  ")",
+              },
+              {
+                value: "watched",
+                label: t("Watched") + " (" + watchedCount + ")",
+              },
+            ]}
+          />
+          <FilterSelect
+            label="Sort By"
+            value={sort}
+            onChange={setSort}
+            options={[
+              { value: "recent", label: "Recently watched" },
+              { value: "oldest", label: "Oldest watched" },
+              { value: "title", label: "Title A-Z" },
+            ]}
+          />
         </div>
       </div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">

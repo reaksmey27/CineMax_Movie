@@ -517,6 +517,11 @@ html.theme-light
   outline-offset: 3px;
 }
 
+/* Keep option focus rings inside the scrollable dropdown panel. */
+[role="listbox"] [role="option"]:focus-visible {
+  outline-offset: -2px;
+}
+
 @layer utilities {
   html.theme-light .hero-carousel .hero-nav-button {
     background-color: rgba(248, 250, 252, 0.96) !important;

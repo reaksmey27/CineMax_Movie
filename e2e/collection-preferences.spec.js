@@ -1,3 +1,4 @@
+import { selectFilter } from "./helpers/selectFilter.js";
 import { expect, test } from "@playwright/test";
 
 async function fixtures(page) {
@@ -24,23 +25,48 @@ for (const collection of ["favorites", "watchlist", "history"]) {
   }) => {
     await fixtures(page);
     await page.goto(`/${collection}`);
+    await page.setViewportSize({ width: 320, height: 740 });
+    const sortTrigger = page.getByRole("button", {
+      name: "Sort By",
+      exact: true,
+    });
+    await sortTrigger.focus();
+    await page.keyboard.press("ArrowDown");
+    const menu = page.getByRole("listbox", { name: "Sort By", exact: true });
+    await expect(menu.getByRole("option", { selected: true })).toBeFocused();
+    const bounds = await menu.boundingBox();
+    expect(bounds.x).toBeGreaterThanOrEqual(0);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(320);
+    await page.screenshot({ path: test.info().outputPath("dropdown.png") });
+    await page.keyboard.press("End");
+    await expect(menu.getByRole("option").last()).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(sortTrigger).toBeFocused();
     const search = page.locator("main").getByRole("searchbox");
     await search.fill("Alien");
-    await page.getByLabel("Sort By").selectOption("title");
+    await selectFilter(page.getByLabel("Sort By"), "title");
     if (collection !== "favorites")
-      await page.getByLabel("Watch status").selectOption("watched");
+      await selectFilter(page.getByLabel("Watch status"), "watched");
     await page.goto("/notifications");
     await page.goto(`/${collection}`);
     await expect(search).toHaveValue("Alien");
-    await expect(page.getByLabel("Sort By")).toHaveValue("title");
+    await expect(page.getByLabel("Sort By")).toHaveAttribute(
+      "data-value",
+      "title",
+    );
     await page.reload();
     await expect(search).toHaveValue("Alien");
     if (collection !== "favorites")
-      await expect(page.getByLabel("Watch status")).toHaveValue("watched");
+      await expect(page.getByLabel("Watch status")).toHaveAttribute(
+        "data-value",
+        "watched",
+      );
     await page.getByRole("button", { name: "Reset filters" }).click();
     await page.reload();
     await expect(search).toHaveValue("");
-    await expect(page.getByLabel("Sort By")).toHaveValue(
+    await expect(page.getByLabel("Sort By")).toHaveAttribute(
+      "data-value",
       collection === "history" ? "recent" : "saved",
     );
     await expect(
@@ -68,8 +94,12 @@ test("preferences stay separate and invalid stored values fall back safely", asy
   for (const collection of ["watchlist", "history"]) {
     await page.goto(`/${collection}`);
     await expect(page.locator("main").getByRole("searchbox")).toHaveValue("");
-    await expect(page.getByLabel("Watch status")).toHaveValue("all");
-    await expect(page.getByLabel("Sort By")).toHaveValue(
+    await expect(page.getByLabel("Watch status")).toHaveAttribute(
+      "data-value",
+      "all",
+    );
+    await expect(page.getByLabel("Sort By")).toHaveAttribute(
+      "data-value",
       collection === "history" ? "recent" : "saved",
     );
   }
