@@ -260,6 +260,16 @@ After deployment, verify direct navigation to `/movie/:id` and `/profile`, both 
 
 ## Data and customization
 
+### Password reset on the website
+
+Deploy the `/reset-password` route before changing Firebase email settings. The page verifies the email action code with Firebase, confirms the new password, and handles expired links without storing passwords or codes in browser storage. Firebase still controls code expiry and password policy.
+
+In **Firebase Console → Authentication → Templates → Password reset → Customize action URL**, set `https://smey-dev.site/reset-password` and save. Ensure `smey-dev.site` is listed under Authentication's authorized domains. Keep the template's generated link placeholder so Firebase supplies `mode` and `oobCode`. Request a fresh reset email after saving; existing emails retain their original links. A continue URL alone does not replace Firebase's reset form.
+
+The Vercel configuration serves the route directly with no-store and no-referrer headers. No Firestore rules or collections change. Other supported email action modes offer a link to the configured Firebase project's built-in handler.
+
+Reference: https://firebase.google.com/docs/auth/custom-email-handler
+
 ### Watch history and continue watching
 
 Signed-in users automatically save a movie when opening its player. Home shows unfinished movies, and `/history` shows the latest 50 entries with completion and removal controls. Open a saved movie and choose **Continue watching** to restore its last server. Server 4 supports timestamp resume using the provider's documented `PLAYER_EVENT` messages and `startAt` parameter; other servers save the title for reopening. Native video sources also save their playback position. Progress saves at most every 15 seconds during playback and immediately on pause, seek, completion, and page visibility changes. Abrupt browser shutdown can lose the last unsaved seconds. Actual resume depends on the external player delivering its documented events.

@@ -2,6 +2,13 @@
   "regions": ["sin1"],
   "headers": [
     {
+      "source": "/reset-password",
+      "headers": [
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    },
+    {
       "source": "/assets/(.*)",
       "headers": [
         {
@@ -30,6 +37,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/reset-password",
+      "destination": "/seo/reset-password.html"
+    },
     {
       "source": "/",
       "destination": "/index.html"

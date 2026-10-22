@@ -1,6 +1,17 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "This reset link is invalid or expired. Request a new one.":
+    "Li?n k?t n?y kh?ng h?p l? ho?c ?? h?t h?n. H?y y?u c?u li?n k?t m?i.",
+  "Could not reset your password. Please try again.":
+    "Kh?ng th? ??t l?i m?t kh?u. Vui l?ng th? l?i.",
+  "Passwords do not match.": "M?t kh?u kh?ng kh?p.",
+  "Use a stronger password that meets your account requirements.":
+    "H?y d?ng m?t kh?u m?nh h?n ??p ?ng y?u c?u c?a t?i kho?n.",
+  "Checking reset link...": "?ang ki?m tra li?n k?t...",
+  "Password reset. You can now sign in.":
+    "?? ??t l?i m?t kh?u. B?n c? th? ??ng nh?p ngay.",
+  "Choose a new password.": "Ch?n m?t kh?u m?i.",
   "Mark as unfinished": "Đánh dấu chưa xem xong",
   "Search watch history": "Tìm trong lịch sử",
   "Recently watched": "Xem gần đây",

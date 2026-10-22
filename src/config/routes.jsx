@@ -16,6 +16,7 @@ const NotificationsPage = lazy(
   () => import("../pages/notifications/NotificationsPage"),
 );
 const LoginPage = lazy(() => import("../pages/auth/LoginPage"));
+const ResetPasswordPage = lazy(() => import("../pages/auth/ResetPasswordPage"));
 const SignupPage = lazy(() => import("../pages/auth/SignupPage"));
 const ProfilePage = lazy(() => import("../pages/profile/ProfilePage"));
 const PrivacyPage = lazy(() => import("../pages/privacy/PrivacyPage"));
@@ -35,6 +36,7 @@ const BaseRoutes = ({ location }) => (
     <Route path="/notifications" element={<NotificationsPage />} />
     <Route path="/profile" element={<ProfilePage />} />
     <Route path="/login" element={<LoginPage />} />
+    <Route path="/reset-password" element={<ResetPasswordPage />} />
     <Route path="/signup" element={<SignupPage />} />
     <Route path="/register" element={<SignupPage />} />
     <Route path="/movie/:id" element={<MovieDetailPage />} />

@@ -1,6 +1,17 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "This reset link is invalid or expired. Request a new one.":
+    "Ce lien est invalide ou expir?. Demandez-en un nouveau.",
+  "Could not reset your password. Please try again.":
+    "Impossible de r?initialiser votre mot de passe. R?essayez.",
+  "Passwords do not match.": "Les mots de passe ne correspondent pas.",
+  "Use a stronger password that meets your account requirements.":
+    "Utilisez un mot de passe plus fort qui respecte les exigences de votre compte.",
+  "Checking reset link...": "V?rification du lien...",
+  "Password reset. You can now sign in.":
+    "Mot de passe r?initialis?. Vous pouvez vous connecter.",
+  "Choose a new password.": "Choisissez un nouveau mot de passe.",
   "Mark as unfinished": "Marquer comme non terminé",
   "Search watch history": "Rechercher dans l’historique",
   "Recently watched": "Vus récemment",

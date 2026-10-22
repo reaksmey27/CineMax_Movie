@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/pages/auth/ResetPasswordPage.jsx",
   "src/components/movies/CollectionFilters.jsx",
   "src/pages/favorites/FavoritesLibrary.jsx",
   "src/pages/history/HistoryLibrary.jsx",
@@ -22,6 +23,10 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "This reset link is invalid or expired. Request a new one.",
+  "Could not reset your password. Please try again.",
+  "Passwords do not match.",
+  "Use a stronger password that meets your account requirements.",
   "Your progress is saved so you can continue watching later.",
   "This movie is saved in History. This server does not support exact-time resume.",
   "Forgot password?",

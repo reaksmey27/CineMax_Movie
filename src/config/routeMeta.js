@@ -13,6 +13,10 @@ export const MOVIE_DETAIL_DESCRIPTION =
   "Explore movie details, story overviews, trailers, and key information for your next pick on CineMax.";
 
 export const ROUTE_META = {
+  "/reset-password": {
+    title: "Reset Password | CineMax",
+    description: "Choose a new password for your CineMax account.",
+  },
   "/history": {
     title: "Watch History | Continue Watching on CineMax",
     description: "Find movies you started and continue watching later.",

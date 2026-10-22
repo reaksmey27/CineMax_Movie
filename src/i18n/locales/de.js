@@ -1,6 +1,17 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "This reset link is invalid or expired. Request a new one.":
+    "Dieser Link ist ung?ltig oder abgelaufen. Fordere einen neuen an.",
+  "Could not reset your password. Please try again.":
+    "Das Passwort konnte nicht zur?ckgesetzt werden. Versuche es erneut.",
+  "Passwords do not match.": "Die Passw?rter stimmen nicht ?berein.",
+  "Use a stronger password that meets your account requirements.":
+    "Verwende ein st?rkeres Passwort, das die Anforderungen deines Kontos erf?llt.",
+  "Checking reset link...": "Link wird gepr?ft...",
+  "Password reset. You can now sign in.":
+    "Passwort zur?ckgesetzt. Du kannst dich jetzt anmelden.",
+  "Choose a new password.": "W?hle ein neues Passwort.",
   "Mark as unfinished": "Als nicht beendet markieren",
   "Search watch history": "Verlauf durchsuchen",
   "Recently watched": "Zuletzt angesehen",
