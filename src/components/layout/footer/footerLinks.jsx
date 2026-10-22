@@ -36,5 +36,3 @@ export const SOCIAL_LINKS = [
     icon: <FaTwitter size={16} aria-hidden="true" />,
   },
 ];
-
-// ─── Newsletter: email signup with success state ──────────────────────────────

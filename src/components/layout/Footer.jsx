@@ -1,4 +1,3 @@
-import Newsletter from "./footer/Newsletter";
 import { EXPLORE_LINKS, GENRE_LINKS, SOCIAL_LINKS } from "./footer/footerLinks";
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import { useLanguage } from "../../context/LanguageContext";
 
 // ─── Data: nav, genre & social links ──────────────────────────────────────────
 
-// ─── Footer: brand, links, genres & newsletter ────────────────────────────────
+// ─── Footer: brand, links & genres ────────────────────────────────
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -161,11 +160,7 @@ const Footer = () => {
           </nav>
         </div>
 
-        <div className="mt-10">
-          <Newsletter />
-        </div>
-
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-6 md:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-6 md:flex-row">
           <p className="text-center text-xs text-gray-500 md:text-left">
             &copy; {currentYear} CineMax. {t("All rights reserved.")}
           </p>

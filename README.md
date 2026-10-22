@@ -14,7 +14,7 @@ A responsive movie discovery app built with React, Vite, and TMDB. Browse collec
 - **Responsive interface:** light and dark themes, visible card titles and ratings, keyboard focus indicators, and reduced-motion support.
 - **12 languages:** a navbar language selector with persistent choice; Khmer text renders in the Kantumruy Pro font.
 - **Donation card:** QR download and copyable payment details in a dialog that fits the viewport.
-- **Detailed footer:** explore links, genre shortcuts, TMDB attribution and social buttons, plus a newsletter sign-up with instant confirmation.
+- **Detailed footer:** explore links, genre shortcuts, TMDB attribution and social buttons. Newsletter signup is unavailable until a subscription service is connected.
 - **Legal pages:** privacy policy and terms of use, linked from the footer and included in the sitemap.
 
 ## Stack

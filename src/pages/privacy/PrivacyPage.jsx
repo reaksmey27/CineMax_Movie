@@ -19,7 +19,6 @@ const SECTIONS = [
       "Profile details: anything you choose to add on the Profile page, such as a display name, bio, location and favorite genre.",
       "Saved collections: the movies you add to your favorites and watchlist, stored in Cloud Firestore under your account so they sync across devices.",
       "Preferences: your theme and language choice, notification history, and recent searches, which are kept in your browser's local storage.",
-      "Newsletter email: the address you enter in the footer sign-up form, used only to keep you on the list until you opt out.",
     ],
   },
   {
@@ -71,7 +70,7 @@ const SECTIONS = [
     title: "Your rights and choices",
     body: [
       "You can view and edit your profile details on the Profile page, remove individual movies from your collections, and switch language or theme at any time.",
-      "You can opt out of the newsletter by using a different email or contacting us, and you can decline cookies and storage through your browser settings.",
+      "You can manage cookies and storage through your browser settings.",
       "Depending on where you live, you may have the right to access, correct, or delete the personal data we hold about you. Contact us to exercise those rights.",
     ],
   },
