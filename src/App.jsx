@@ -38,6 +38,10 @@ const AppContent = ({ theme, toggleTheme }) => {
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
   const baseLocation = backgroundLocation || location;
+  // Keep the auth layout mounted when only the form route changes.
+  const pageKey = ["/login", "/signup", "/register"].includes(baseLocation.pathname)
+    ? "auth"
+    : baseLocation.pathname;
 
   return (
     <>
@@ -47,7 +51,7 @@ const AppContent = ({ theme, toggleTheme }) => {
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
         <main className="relative">
           <Suspense fallback={<PageSkeleton />}>
-            <div key={baseLocation.pathname} className="animate-page-enter">
+            <div key={pageKey} className="animate-page-enter">
               <BaseRoutes location={baseLocation} />
             </div>
           </Suspense>

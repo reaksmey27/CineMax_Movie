@@ -41,6 +41,7 @@ const AuthShell = ({ children, onClose }) => {
   // ─── Effects: focus trap & scroll lock ───────────────────────────────────────
 
   useEffect(() => {
+    onCloseRef.current = onClose;
     requestCloseRef.current = requestClose;
   });
 

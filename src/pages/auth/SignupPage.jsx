@@ -1,39 +1,20 @@
 import React from "react";
 import { ArrowRightIcon, UserPlusIcon } from "@heroicons/react/24/outline";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoginButton from "../../components/auth/LoginButton";
 import useAuthForm from "../../hooks/auth/useAuthForm";
-import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
-import AuthShell from "./AuthShell";
-import { getAuthRedirect } from "../../utils/authRedirect";
 
 // ─── SignupPage: create-account form ──────────────────────────────────────────
 
 const SignupPage = () => {
   const { t } = useLanguage();
-  const { user, loading } = useAuth();
   const { formData, error, isBusy, handleChange, handleSubmit } =
     useAuthForm("register");
-  const navigate = useNavigate();
   const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
-
-  const handleClose = () => {
-    if (backgroundLocation) {
-      const { pathname = "/", search = "", hash = "" } = backgroundLocation;
-      navigate(`${pathname}${search}${hash}`, { replace: true });
-      return;
-    }
-
-    navigate("/", { replace: true });
-  };
-
-  if (loading) return null;
-  if (user) return <Navigate to={getAuthRedirect(location.state)} replace />;
 
   return (
-    <AuthShell onClose={handleClose}>
+    <>
       <div className="w-full">
         <div className="mb-7 flex items-center gap-3 text-purple-400">
           <UserPlusIcon className="h-5 w-5" />
@@ -56,6 +37,7 @@ const SignupPage = () => {
                 {t("Full Name")}
               </span>
               <input
+                autoFocus
                 type="text"
                 name="name"
                 value={formData.name}
@@ -159,7 +141,7 @@ const SignupPage = () => {
           </Link>
         </p>
       </div>
-    </AuthShell>
+    </>
   );
 };
 

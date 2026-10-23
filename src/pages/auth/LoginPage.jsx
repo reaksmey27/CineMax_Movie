@@ -1,42 +1,23 @@
 import React, { useRef, useState } from "react";
 import { ArrowRightIcon, LockClosedIcon } from "@heroicons/react/24/outline";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoginButton from "../../components/auth/LoginButton";
 import useAuthForm from "../../hooks/auth/useAuthForm";
-import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
-import AuthShell from "./AuthShell";
 import PasswordResetForm from "./PasswordResetForm";
-import { getAuthRedirect } from "../../utils/authRedirect";
 
 // ─── LoginPage: sign-in form ──────────────────────────────────────────────────
 
 const LoginPage = () => {
   const { t } = useLanguage();
-  const { user, loading } = useAuth();
   const { formData, error, isBusy, handleChange, handleSubmit } =
     useAuthForm("login");
-  const navigate = useNavigate();
   const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
   const [resettingPassword, setResettingPassword] = useState(false);
   const resetButtonRef = useRef(null);
 
-  const handleClose = () => {
-    if (backgroundLocation) {
-      const { pathname = "/", search = "", hash = "" } = backgroundLocation;
-      navigate(`${pathname}${search}${hash}`, { replace: true });
-      return;
-    }
-
-    navigate("/", { replace: true });
-  };
-
-  if (loading) return null;
-  if (user) return <Navigate to={getAuthRedirect(location.state)} replace />;
-
   return (
-    <AuthShell onClose={handleClose}>
+    <>
       {resettingPassword ? (
         <PasswordResetForm
           initialEmail={formData.email}
@@ -69,6 +50,7 @@ const LoginPage = () => {
                 {t("Enter Your Email")}
               </span>
               <input
+                autoFocus
                 type="email"
                 name="email"
                 value={formData.email}
@@ -147,7 +129,7 @@ const LoginPage = () => {
           </p>
         </div>
       )}
-    </AuthShell>
+    </>
   );
 };
 
