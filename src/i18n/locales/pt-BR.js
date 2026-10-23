@@ -1,6 +1,9 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "We couldn't sign you out right now.": "Não foi possível sair agora.",
+  "Sign out?": "Sair?",
+  "Are you sure you want to sign out?": "Tem certeza de que deseja sair?",
   "Did you mean?": "Você quis dizer?",
   "No trailer is available for this movie yet.": "Ainda não há trailer disponível para este filme.",
   "Could not clear notifications. Try again.": "Não foi possível limpar as notificações. Tente novamente.",

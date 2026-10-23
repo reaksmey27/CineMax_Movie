@@ -1,6 +1,9 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "We couldn't sign you out right now.": "目前無法登出。",
+  "Sign out?": "登出？",
+  "Are you sure you want to sign out?": "您確定要登出嗎？",
   "Did you mean?": "您是否要找？",
   "No trailer is available for this movie yet.": "這部電影尚未提供預告片。",
   "Could not clear notifications. Try again.": "無法清除通知。請再試一次。",

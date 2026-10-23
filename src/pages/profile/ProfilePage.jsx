@@ -9,6 +9,7 @@ import ProfileSkeleton from "./components/ProfileSkeleton";
 import ProfileCollection from "./components/ProfileCollection";
 import ProfileForm from "./components/ProfileForm";
 import { useLanguage } from "../../context/LanguageContext";
+import SignOutDialog from "../../components/auth/SignOutDialog";
 
 // ─── ProfilePage: account, stats & collections ────────────────────────────────
 
@@ -17,12 +18,15 @@ const ProfilePage = () => {
   const profile = useProfile();
   const navigate = useNavigate();
   const [signingOut, setSigningOut] = useState(false);
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
   const [failedAvatar, setFailedAvatar] = useState(null);
   const handleLogout = async () => {
     if (signingOut) return;
     setSigningOut(true);
     try {
-      if (await profile.logout()) navigate("/", { replace: true });
+      const success = await profile.logout();
+      if (success) navigate("/", { replace: true });
+      return success;
     } finally {
       setSigningOut(false);
     }
@@ -42,6 +46,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] px-4 pb-20 pt-28 sm:px-8 sm:pt-40 lg:px-12">
+      {confirmSignOut && <SignOutDialog onCancel={() => setConfirmSignOut(false)} onConfirm={handleLogout} />}
       <div className="mx-auto max-w-6xl">
         <header className="flex flex-col gap-5 rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6 lg:flex-row lg:items-center lg:justify-between sm:p-8">
           <div className="flex min-w-0 items-center gap-4">
@@ -84,7 +89,7 @@ const ProfilePage = () => {
             </button>
             <button
               type="button"
-              onClick={handleLogout}
+              onClick={() => setConfirmSignOut(true)}
               disabled={signingOut}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[var(--color-border)] px-5 py-3 text-sm font-semibold text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500 disabled:cursor-wait disabled:opacity-60"
             >

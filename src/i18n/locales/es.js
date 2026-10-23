@@ -1,6 +1,9 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "We couldn't sign you out right now.": "No se pudo cerrar tu sesión en este momento.",
+  "Sign out?": "¿Cerrar sesión?",
+  "Are you sure you want to sign out?": "¿Seguro que quieres cerrar sesión?",
   "Did you mean?": "¿Quisiste decir…?",
   "No trailer is available for this movie yet.": "Todavía no hay un tráiler disponible para esta película.",
   "Could not clear notifications. Try again.": "No se pudieron borrar las notificaciones. Inténtalo de nuevo.",

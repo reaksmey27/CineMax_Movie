@@ -1,6 +1,9 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "We couldn't sign you out right now.": "지금 로그아웃할 수 없습니다.",
+  "Sign out?": "로그아웃할까요?",
+  "Are you sure you want to sign out?": "정말 로그아웃하시겠습니까?",
   "Did you mean?": "이 제목을 찾으셨나요?",
   "No trailer is available for this movie yet.": "이 영화의 예고편은 아직 없습니다.",
   "Could not clear notifications. Try again.": "알림을 지우지 못했습니다. 다시 시도하세요.",

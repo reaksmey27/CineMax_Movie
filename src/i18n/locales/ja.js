@@ -1,6 +1,9 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "We couldn't sign you out right now.": "現在ログアウトできません。",
+  "Sign out?": "ログアウトしますか？",
+  "Are you sure you want to sign out?": "本当にログアウトしますか？",
   "Did you mean?": "こちらをお探しですか？",
   "No trailer is available for this movie yet.": "この映画の予告編はまだありません。",
   "Could not clear notifications. Try again.": "通知を削除できませんでした。もう一度お試しください。",

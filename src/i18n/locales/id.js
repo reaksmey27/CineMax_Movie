@@ -1,6 +1,9 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "We couldn't sign you out right now.": "Saat ini Anda tidak dapat keluar.",
+  "Sign out?": "Keluar?",
+  "Are you sure you want to sign out?": "Yakin ingin keluar?",
   "Did you mean?": "Maksud Anda?",
   "No trailer is available for this movie yet.": "Trailer untuk film ini belum tersedia.",
   "Could not clear notifications. Try again.": "Tidak dapat menghapus notifikasi. Coba lagi.",

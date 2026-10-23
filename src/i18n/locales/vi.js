@@ -1,6 +1,9 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "We couldn't sign you out right now.": "Hiện không thể đăng xuất.",
+  "Sign out?": "Đăng xuất?",
+  "Are you sure you want to sign out?": "Bạn có chắc muốn đăng xuất không?",
   "Did you mean?": "Có phải bạn muốn tìm?",
   "No trailer is available for this movie yet.": "Phim này chưa có đoạn giới thiệu.",
   "Could not clear notifications. Try again.": "Không thể xóa thông báo. Hãy thử lại.",

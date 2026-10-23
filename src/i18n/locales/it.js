@@ -1,6 +1,9 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "We couldn't sign you out right now.": "Non è stato possibile disconnetterti al momento.",
+  "Sign out?": "Uscire?",
+  "Are you sure you want to sign out?": "Vuoi davvero uscire?",
   "Did you mean?": "Forse cercavi:",
   "No trailer is available for this movie yet.": "Non è ancora disponibile un trailer per questo film.",
   "Could not clear notifications. Try again.": "Impossibile cancellare le notifiche. Riprova.",

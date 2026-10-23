@@ -1,6 +1,9 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "We couldn't sign you out right now.": "Du kannst gerade nicht abgemeldet werden.",
+  "Sign out?": "Abmelden?",
+  "Are you sure you want to sign out?": "Möchtest du dich wirklich abmelden?",
   "Did you mean?": "Meintest du?",
   "No trailer is available for this movie yet.": "Für diesen Film ist noch kein Trailer verfügbar.",
   "Could not clear notifications. Try again.": "Benachrichtigungen konnten nicht gelöscht werden. Versuche es erneut.",

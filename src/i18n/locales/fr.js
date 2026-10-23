@@ -1,6 +1,9 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "We couldn't sign you out right now.": "Impossible de vous déconnecter pour le moment.",
+  "Sign out?": "Se déconnecter ?",
+  "Are you sure you want to sign out?": "Voulez-vous vraiment vous déconnecter ?",
   "Did you mean?": "Vouliez-vous dire ?",
   "No trailer is available for this movie yet.": "Aucune bande-annonce n’est encore disponible pour ce film.",
   "Could not clear notifications. Try again.": "Impossible d’effacer les notifications. Réessayez.",

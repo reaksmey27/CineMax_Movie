@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import SignOutDialog from "../../auth/SignOutDialog";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import { useAuth } from "../../../context/AuthContext";
@@ -12,6 +13,7 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
   const navigate = useNavigate();
   const { user, logout, isAuthenticated } = useAuth();
   const { t } = useLanguage();
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
 
   const wasMenuOpen = useRef(false);
 
@@ -34,14 +36,16 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
       return undefined;
     }
 
+    const justOpened = !wasMenuOpen.current;
     wasMenuOpen.current = true;
     const focusableElements = () =>
       menuRef.current?.querySelectorAll(
         'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
       ) || [];
-    focusableElements()[0]?.focus();
+    if (justOpened) focusableElements()[0]?.focus();
 
     const handleMenuKeyDown = (event) => {
+      if (confirmSignOut) return;
       if (event.key === "Escape") {
         event.preventDefault();
         onClose();
@@ -69,13 +73,17 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
 
     document.addEventListener("keydown", handleMenuKeyDown);
     return () => document.removeEventListener("keydown", handleMenuKeyDown);
-  }, [isOpen, onClose, menuRef, toggleRef]);
+  }, [isOpen, onClose, menuRef, toggleRef, confirmSignOut]);
 
   // ─── Handlers: logout ────────────────────────────────────────────────────────
 
   const handleLogout = async () => {
-    await logout();
-    navigate("/");
+    const success = await logout();
+    if (success) {
+      onClose();
+      navigate("/");
+    }
+    return success;
   };
 
   const modalState = { backgroundLocation: location };
@@ -86,6 +94,7 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
 
   return (
     <div className="xl:hidden">
+      {confirmSignOut && <SignOutDialog onCancel={() => setConfirmSignOut(false)} onConfirm={handleLogout} />}
       <button
         type="button"
         className="fixed inset-x-0 bottom-0 top-20 z-[100] bg-black/60 backdrop-blur-sm sm:top-28"
@@ -171,10 +180,7 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
         {isAuthenticated && (
           <button
             type="button"
-            onClick={() => {
-              onClose();
-              handleLogout();
-            }}
+            onClick={() => setConfirmSignOut(true)}
             className="mt-5 flex w-full items-center justify-between rounded-xl border border-red-500/30 px-4 py-3 text-sm font-black text-red-300 transition hover:bg-red-500/10 hover:text-red-200"
           >
             {t("Logout")}

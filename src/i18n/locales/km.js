@@ -1,6 +1,9 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "We couldn't sign you out right now.": "មិនអាចចាកចេញបាននៅពេលនេះទេ។",
+  "Sign out?": "ចាកចេញ?",
+  "Are you sure you want to sign out?": "តើអ្នកប្រាកដថាចង់ចាកចេញមែនទេ?",
   "Did you mean?": "តើអ្នកចង់ស្វែងរកនេះមែនទេ?",
   "No trailer is available for this movie yet.": "មិនទាន់មានឈុតខ្លីសម្រាប់ភាពយន្តនេះទេ។",
   "Could not clear notifications. Try again.": "មិនអាចសម្អាតការជូនដំណឹងបានទេ។ សូមព្យាយាមម្តងទៀត។",
