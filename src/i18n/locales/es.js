@@ -1,9 +1,6 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
-  "Confirm your password.": "Confirma tu contraseña.",
-  "Enter a valid email address.": "Introduce una dirección de correo válida.",
-  "Enter at least 2 characters for your name.": "Introduce al menos 2 caracteres para tu nombre.",
   "Passwords match.": "Las contraseñas coinciden.",
   "At least one number or symbol": "Al menos un número o símbolo",
   "At least one letter": "Al menos una letra",

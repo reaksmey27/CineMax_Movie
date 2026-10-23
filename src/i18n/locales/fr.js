@@ -1,9 +1,6 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
-  "Confirm your password.": "Confirmez votre mot de passe.",
-  "Enter a valid email address.": "Saisissez une adresse e-mail valide.",
-  "Enter at least 2 characters for your name.": "Saisissez au moins 2 caractères pour votre nom.",
   "Passwords match.": "Les mots de passe correspondent.",
   "At least one number or symbol": "Au moins un chiffre ou un symbole",
   "At least one letter": "Au moins une lettre",

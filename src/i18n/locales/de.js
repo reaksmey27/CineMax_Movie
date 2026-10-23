@@ -1,9 +1,6 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
-  "Confirm your password.": "Bestätige dein Passwort.",
-  "Enter a valid email address.": "Gib eine gültige E-Mail-Adresse ein.",
-  "Enter at least 2 characters for your name.": "Gib mindestens 2 Zeichen für deinen Namen ein.",
   "Passwords match.": "Die Passwörter stimmen überein.",
   "At least one number or symbol": "Mindestens eine Ziffer oder ein Sonderzeichen",
   "At least one letter": "Mindestens ein Buchstabe",

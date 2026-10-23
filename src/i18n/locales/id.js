@@ -1,9 +1,6 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
-  "Confirm your password.": "Konfirmasi kata sandi Anda.",
-  "Enter a valid email address.": "Masukkan alamat email yang valid.",
-  "Enter at least 2 characters for your name.": "Masukkan minimal 2 karakter untuk nama Anda.",
   "Passwords match.": "Kata sandi cocok.",
   "At least one number or symbol": "Minimal satu angka atau simbol",
   "At least one letter": "Minimal satu huruf",

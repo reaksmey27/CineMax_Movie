@@ -1,9 +1,6 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
-  "Confirm your password.": "비밀번호를 확인하세요.",
-  "Enter a valid email address.": "유효한 이메일 주소를 입력하세요.",
-  "Enter at least 2 characters for your name.": "이름을 2자 이상 입력하세요.",
   "Passwords match.": "비밀번호가 일치합니다.",
   "At least one number or symbol": "숫자 또는 기호 1자 이상",
   "At least one letter": "영문자 1자 이상",

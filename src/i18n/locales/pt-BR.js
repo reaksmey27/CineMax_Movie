@@ -1,9 +1,6 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
-  "Confirm your password.": "Confirme sua senha.",
-  "Enter a valid email address.": "Digite um endereço de e-mail válido.",
-  "Enter at least 2 characters for your name.": "Digite pelo menos 2 caracteres para seu nome.",
   "Passwords match.": "As senhas coincidem.",
   "At least one number or symbol": "Pelo menos um número ou símbolo",
   "At least one letter": "Pelo menos uma letra",

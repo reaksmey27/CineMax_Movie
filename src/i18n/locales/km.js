@@ -1,9 +1,6 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
-  "Confirm your password.": "សូមបញ្ជាក់ពាក្យសម្ងាត់របស់អ្នក។",
-  "Enter a valid email address.": "សូមបញ្ចូលអាសយដ្ឋានអ៊ីមែលត្រឹមត្រូវ។",
-  "Enter at least 2 characters for your name.": "សូមបញ្ចូលឈ្មោះយ៉ាងហោចណាស់ 2 តួអក្សរ។",
   "Passwords match.": "ពាក្យសម្ងាត់ដូចគ្នា។",
   "At least one number or symbol": "យ៉ាងហោចណាស់លេខ ឬនិមិត្តសញ្ញាមួយ",
   "At least one letter": "យ៉ាងហោចណាស់អក្សរមួយ",

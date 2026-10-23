@@ -27,7 +27,7 @@ for (const pageName of ["signup", "reset-password"]) {
       await expect(feedback).toHaveText(translate("Passwords do not match."));
       await confirmation.fill("");
       await expect(feedback).toBeEmpty();
-      await expect(confirmation).toHaveAttribute("aria-invalid", pageName === "signup" ? "true" : "false");
+      await expect(confirmation).toHaveAttribute("aria-invalid", "false");
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     });
   }

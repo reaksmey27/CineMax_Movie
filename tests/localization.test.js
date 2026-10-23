@@ -29,9 +29,6 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
-  "Enter at least 2 characters for your name.",
-  "Enter a valid email address.",
-  "Confirm your password.",
   "At least one number or symbol",
   "At least one letter",
   "At least one capital letter",
