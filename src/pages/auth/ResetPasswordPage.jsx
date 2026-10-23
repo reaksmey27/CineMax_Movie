@@ -1,4 +1,5 @@
 import PasswordRequirements from "../../components/auth/PasswordRequirements";
+import PasswordConfirmation from "../../components/auth/PasswordConfirmation";
 import { meetsPasswordRequirements } from "../../utils/passwordRequirements";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -204,6 +205,8 @@ function ResetForm({ search }) {
                 minLength={8}
                 value={confirm}
                 name="confirmPassword"
+                aria-describedby="reset-password-confirmation"
+                aria-invalid={confirm.length > 0 && password !== confirm}
                 disabled={status === "saving"}
                 onChange={(event) => {
                   setConfirm(event.target.value);
@@ -213,6 +216,7 @@ function ResetForm({ search }) {
                 className={INPUT}
               />
             </label>
+            <PasswordConfirmation id="reset-password-confirmation" password={password} confirmation={confirm} />
             <PasswordRequirements id="reset-password-requirements" password={password} visible={passwordFocused} />
             {error && (
               <p role="alert" className="text-sm text-[var(--color-text)]">

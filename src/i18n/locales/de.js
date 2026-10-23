@@ -1,6 +1,7 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Passwords match.": "Die Passwörter stimmen überein.",
   "At least one number or symbol": "Mindestens eine Ziffer oder ein Sonderzeichen",
   "At least one letter": "Mindestens ein Buchstabe",
   "At least one capital letter": "Mindestens ein Großbuchstabe",

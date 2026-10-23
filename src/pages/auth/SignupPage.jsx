@@ -1,4 +1,5 @@
 import PasswordRequirements from "../../components/auth/PasswordRequirements";
+import PasswordConfirmation from "../../components/auth/PasswordConfirmation";
 import React, { useState } from "react";
 import { ArrowRightIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
@@ -89,6 +90,8 @@ const SignupPage = () => {
               label={t("Confirm Password")}
               confirmation
               name="confirmPassword"
+              aria-describedby="signup-password-confirmation"
+              aria-invalid={formData.confirmPassword.length > 0 && formData.password !== formData.confirmPassword}
               value={formData.confirmPassword}
               onChange={handleChange}
               autoComplete="new-password"
@@ -96,6 +99,7 @@ const SignupPage = () => {
             />
           </div>
 
+          <PasswordConfirmation id="signup-password-confirmation" password={formData.password} confirmation={formData.confirmPassword} />
           <PasswordRequirements id="signup-password-requirements" password={formData.password} visible={passwordFocused} />
 
           {error && (

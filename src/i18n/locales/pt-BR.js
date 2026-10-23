@@ -1,6 +1,7 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Passwords match.": "As senhas coincidem.",
   "At least one number or symbol": "Pelo menos um número ou símbolo",
   "At least one letter": "Pelo menos uma letra",
   "At least one capital letter": "Pelo menos uma letra maiúscula",

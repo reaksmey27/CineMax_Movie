@@ -1,6 +1,7 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Passwords match.": "비밀번호가 일치합니다.",
   "At least one number or symbol": "숫자 또는 기호 1자 이상",
   "At least one letter": "영문자 1자 이상",
   "At least one capital letter": "영문 대문자 1자 이상",

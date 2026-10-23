@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Passwords match.": "Le password coincidono.",
   "At least one number or symbol": "Almeno un numero o simbolo",
   "At least one letter": "Almeno una lettera",
   "At least one capital letter": "Almeno una maiuscola",
