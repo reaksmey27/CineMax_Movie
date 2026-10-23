@@ -1,6 +1,9 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Confirm your password.": "Xác nhận mật khẩu của bạn.",
+  "Enter a valid email address.": "Nhập địa chỉ email hợp lệ.",
+  "Enter at least 2 characters for your name.": "Nhập ít nhất 2 ký tự cho tên của bạn.",
   "Passwords match.": "Mật khẩu khớp.",
   "At least one number or symbol": "Ít nhất một chữ số hoặc ký hiệu",
   "At least one letter": "Ít nhất một chữ cái",

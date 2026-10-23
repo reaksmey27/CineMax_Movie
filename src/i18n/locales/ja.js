@@ -1,6 +1,9 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Confirm your password.": "パスワードを確認してください。",
+  "Enter a valid email address.": "有効なメールアドレスを入力してください。",
+  "Enter at least 2 characters for your name.": "名前を2文字以上で入力してください。",
   "Passwords match.": "パスワードが一致しています。",
   "At least one number or symbol": "数字または記号を1文字以上",
   "At least one letter": "英字を1文字以上",

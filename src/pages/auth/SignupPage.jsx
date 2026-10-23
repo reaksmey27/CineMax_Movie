@@ -1,7 +1,7 @@
 import PasswordRequirements from "../../components/auth/PasswordRequirements";
 import PasswordConfirmation from "../../components/auth/PasswordConfirmation";
 import React, { useState } from "react";
-import { ArrowRightIcon, UserPlusIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, UserPlusIcon, CheckIcon, ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import PasswordField from "../../components/auth/PasswordField";
 import LoginButton from "../../components/auth/LoginButton";
@@ -12,7 +12,7 @@ import { useLanguage } from "../../context/LanguageContext";
 
 const SignupPage = () => {
   const { t } = useLanguage();
-  const { formData, error, isBusy, handleChange, handleSubmit } =
+  const { formData, fieldErrors, touched, isBusy, handleChange, handleBlur, handleSubmit } =
     useAuthForm("register");
   const location = useLocation();
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -37,76 +37,76 @@ const SignupPage = () => {
         <form
           className="mt-6 space-y-3"
           onSubmit={handleSubmit}
+          noValidate
           onFocusCapture={(event) => setPasswordFocused(["password", "confirmPassword"].includes(event.target.name))}
           onBlurCapture={(event) => {
             if (!event.currentTarget.contains(event.relatedTarget)) setPasswordFocused(false);
           }}
         >
-          <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
-            <label className="flex h-full min-w-0 flex-col">
-              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-                {t("Full Name")}
-              </span>
-              <input
-                autoFocus
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                autoComplete="name"
-                placeholder={t("Movie lover name")}
-                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-              />
-            </label>
-
-            <label className="flex h-full min-w-0 flex-col">
-              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-                {t("Enter Your Email")}
-              </span>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                autoComplete="email"
-                placeholder={t("Enter your Email")}
-                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-              />
-            </label>
+          <div className="grid min-w-0 grid-cols-1 items-start gap-3 min-[480px]:grid-cols-2">
+            {[
+              { name: "name", label: "Full Name", placeholder: "Movie lover name", type: "text", autoComplete: "name" },
+              { name: "email", label: "Enter Your Email", placeholder: "Enter your Email", type: "email", autoComplete: "email" },
+            ].map(({ name, label, placeholder, ...attributes }) => (
+              <div key={name} className="min-w-0">
+                <label htmlFor={`signup-${name}`} className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">{t(label)}</label>
+                <div className="relative">
+                  <input
+                    {...attributes}
+                    id={`signup-${name}`}
+                    name={name}
+                    autoFocus={name === "name"}
+                    value={formData[name]}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder={t(placeholder)}
+                    aria-invalid={Boolean(fieldErrors[name])}
+                    aria-describedby={fieldErrors[name] ? `signup-${name}-error` : undefined}
+                    className="min-h-11 w-full rounded-md border border-white/10 bg-white py-2 pl-3.5 pr-10 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20 aria-invalid:border-red-400 aria-invalid:focus:ring-red-400/30"
+                  />
+                  {touched[name] && (fieldErrors[name]
+                    ? <ExclamationCircleIcon aria-hidden="true" className="pointer-events-none absolute right-3 top-3 h-5 w-5 text-red-500" />
+                    : <CheckIcon aria-hidden="true" className="pointer-events-none absolute right-3 top-3 h-5 w-5 text-green-600" />)}
+                </div>
+                <p id={`signup-${name}-error`} aria-live="polite" className="mt-1 min-h-8 text-[11px] leading-4 text-red-400">{fieldErrors[name] && t(fieldErrors[name])}</p>
+              </div>
+            ))}
           </div>
-
-          <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
-            <PasswordField
-              label={t("Password")}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              autoComplete="new-password"
-              placeholder={t("At least 8 characters")}
-              aria-describedby="signup-password-requirements"
-            />
-
-            <PasswordField
-              label={t("Confirm Password")}
-              confirmation
-              name="confirmPassword"
-              aria-describedby="signup-password-confirmation"
-              aria-invalid={formData.confirmPassword.length > 0 && formData.password !== formData.confirmPassword}
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              autoComplete="new-password"
-              placeholder={t("Repeat your password")}
-            />
-          </div>
-
-          <PasswordConfirmation id="signup-password-confirmation" password={formData.password} confirmation={formData.confirmPassword} />
-          <PasswordRequirements id="signup-password-requirements" password={formData.password} visible={passwordFocused} />
-
-          {error && (
-            <div className="rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3 text-sm text-purple-100">
-              {t(error)}
+          <div className="grid min-w-0 grid-cols-1 items-start gap-3 min-[480px]:grid-cols-2">
+            <div className="min-w-0">
+              <PasswordField
+                label={t("Password")}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                autoComplete="new-password"
+                placeholder={t("At least 8 characters")}
+                aria-invalid={Boolean(fieldErrors.password)}
+                aria-describedby="signup-password-error signup-password-requirements"
+              />
+              <p id="signup-password-error" aria-live="polite" className="mt-1 min-h-8 text-[11px] leading-4 text-red-400">{fieldErrors.password && t(fieldErrors.password)}</p>
             </div>
-          )}
+            <div className="min-w-0">
+              <PasswordField
+                label={t("Confirm Password")}
+                confirmation
+                name="confirmPassword"
+                aria-describedby="signup-confirmPassword-error signup-password-confirmation"
+                aria-invalid={Boolean(fieldErrors.confirmPassword) || (formData.confirmPassword.length > 0 && formData.password !== formData.confirmPassword)}
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                autoComplete="new-password"
+                placeholder={t("Repeat your password")}
+              />
+              <div className="mt-1 min-h-8">
+                <p id="signup-confirmPassword-error" aria-live="polite" className="text-[11px] leading-4 text-red-400">{!formData.confirmPassword && fieldErrors.confirmPassword && t(fieldErrors.confirmPassword)}</p>
+                <PasswordConfirmation id="signup-password-confirmation" password={formData.password} confirmation={formData.confirmPassword} />
+              </div>
+            </div>
+          </div>
+          <PasswordRequirements id="signup-password-requirements" password={formData.password} visible={passwordFocused} />
 
           <button
             type="submit"

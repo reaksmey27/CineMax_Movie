@@ -1,6 +1,9 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Confirm your password.": "請確認您的密碼。",
+  "Enter a valid email address.": "請輸入有效的電子郵件地址。",
+  "Enter at least 2 characters for your name.": "姓名請至少輸入 2 個字元。",
   "Passwords match.": "密碼相符。",
   "At least one number or symbol": "至少一個數字或符號",
   "At least one letter": "至少一個英文字母",

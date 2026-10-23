@@ -43,7 +43,7 @@ test("signup shows live requirements and blocks incomplete passwords before send
   await page.getByRole("button", { name: "Create Account", exact: true }).click();
   await expect(page.getByText("Meet all password requirements before continuing.")).toBeVisible();
   expect(attempts).toBe(0);
-  await expect(page.locator("#signup-password-requirements")).toBeHidden();
+  await expect(password).toBeFocused();
   await password.fill("Abcdefg!");
   await expect(page.locator("#signup-password-requirements li[data-met=true]")).toHaveCount(3);
   await password.fill("Abcdefg1");

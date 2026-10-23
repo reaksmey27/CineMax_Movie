@@ -24,7 +24,7 @@ test("Caps Lock warnings follow each focused password field without changing its
   await expect(warning).toHaveCount(0);
   await confirmation.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
   await expect(confirmation).toHaveAccessibleDescription("Caps Lock is on");
-  await expect(password).toHaveAttribute("aria-describedby", "signup-password-requirements");
+  await expect(password).toHaveAttribute("aria-describedby", "signup-password-error signup-password-requirements");
   await page.getByRole("button", { name: "Show confirmation password", exact: true }).click();
   await expect(warning).toHaveCount(0);
   await confirmation.focus();

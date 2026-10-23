@@ -1,6 +1,9 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Confirm your password.": "Conferma la password.",
+  "Enter a valid email address.": "Inserisci un indirizzo email valido.",
+  "Enter at least 2 characters for your name.": "Inserisci almeno 2 caratteri per il nome.",
   "Passwords match.": "Le password coincidono.",
   "At least one number or symbol": "Almeno un numero o simbolo",
   "At least one letter": "Almeno una lettera",

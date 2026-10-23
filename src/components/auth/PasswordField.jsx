@@ -40,7 +40,7 @@ export default function PasswordField({ label, confirmation = false, ...inputPro
               setCapsLockOn(false);
               inputProps.onBlur?.(event);
             }}
-            className="min-h-11 w-full rounded-md border border-white/10 bg-white py-2 pl-3.5 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
+            className="min-h-11 w-full rounded-md border border-white/10 bg-white py-2 pl-3.5 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20 aria-invalid:border-red-400 aria-invalid:focus:ring-red-400/30"
           />
           <button
             type="button"

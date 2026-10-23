@@ -1,4 +1,5 @@
 import { meetsPasswordRequirements } from "../../utils/passwordRequirements";
+import { validateSignup } from "../../utils/signupValidation";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAuthRedirect } from "../../utils/authRedirect";
@@ -24,6 +25,13 @@ const useAuthForm = (mode = "login") => {
   const [formData, setFormData] = useState(createInitialState);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [touched, setTouched] = useState({});
+  const signupErrors = mode === "register" ? validateSignup(formData) : {};
+  const fieldErrors = Object.fromEntries(Object.entries(signupErrors).filter(([name]) => touched[name]));
+  const handleBlur = (event) => {
+    const { name } = event.target;
+    if (mode === "register") setTouched((previous) => ({ ...previous, [name]: true }));
+  };
 
   // ─── Helpers: field validation ────────────────────────────────────────────────
 
@@ -76,7 +84,15 @@ const useAuthForm = (mode = "login") => {
       return;
     }
 
-    const validationError = validate();
+    if (mode === "register") {
+      setTouched({ name: true, email: true, password: true, confirmPassword: true });
+      const firstInvalid = Object.keys(signupErrors)[0];
+      if (firstInvalid) {
+        event.currentTarget.elements.namedItem(firstInvalid)?.focus();
+        return;
+      }
+    }
+    const validationError = mode === "register" ? "" : validate();
 
     if (validationError) {
       setError(validationError);
@@ -114,6 +130,9 @@ const useAuthForm = (mode = "login") => {
   return {
     formData,
     error,
+    fieldErrors,
+    touched,
+    handleBlur,
     isBusy: authenticating || submitting,
     handleChange,
     handleSubmit,
