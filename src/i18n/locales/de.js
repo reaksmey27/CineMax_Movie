@@ -1,6 +1,11 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "At least one letter": "Mindestens ein Buchstabe",
+  "At least one capital letter": "Mindestens ein Großbuchstabe",
+  "At least one number": "Mindestens eine Ziffer",
+  "Met": "Erfüllt",
+  "Not met": "Nicht erfüllt",
   "Password requirements": "Passwortanforderungen",
   "At least 8 characters": "Mindestens 8 Zeichen",
   "Lowercase letter (a-z)": "Kleinbuchstabe (a-z)",

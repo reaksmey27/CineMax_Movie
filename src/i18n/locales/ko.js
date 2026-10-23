@@ -1,6 +1,11 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "At least one letter": "영문자 1자 이상",
+  "At least one capital letter": "영문 대문자 1자 이상",
+  "At least one number": "숫자 1자 이상",
+  "Met": "충족",
+  "Not met": "미충족",
   "Password requirements": "비밀번호 요구 사항",
   "At least 8 characters": "8자 이상",
   "Lowercase letter (a-z)": "영문 소문자 (a-z)",

@@ -1,6 +1,11 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "At least one letter": "Au moins une lettre",
+  "At least one capital letter": "Au moins une majuscule",
+  "At least one number": "Au moins un chiffre",
+  "Met": "Respecté",
+  "Not met": "Non respecté",
   "Password requirements": "Exigences du mot de passe",
   "At least 8 characters": "Au moins 8 caractères",
   "Lowercase letter (a-z)": "Lettre minuscule (a-z)",

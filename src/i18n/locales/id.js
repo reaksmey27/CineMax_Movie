@@ -1,6 +1,11 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "At least one letter": "Minimal satu huruf",
+  "At least one capital letter": "Minimal satu huruf besar",
+  "At least one number": "Minimal satu angka",
+  "Met": "Terpenuhi",
+  "Not met": "Belum terpenuhi",
   "Password requirements": "Persyaratan kata sandi",
   "At least 8 characters": "Minimal 8 karakter",
   "Lowercase letter (a-z)": "Huruf kecil (a-z)",

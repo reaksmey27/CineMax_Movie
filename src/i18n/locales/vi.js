@@ -1,6 +1,11 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "At least one letter": "Ít nhất một chữ cái",
+  "At least one capital letter": "Ít nhất một chữ hoa",
+  "At least one number": "Ít nhất một chữ số",
+  "Met": "Đã đạt",
+  "Not met": "Chưa đạt",
   "Password requirements": "Yêu cầu mật khẩu",
   "At least 8 characters": "Ít nhất 8 ký tự",
   "Lowercase letter (a-z)": "Chữ thường (a-z)",

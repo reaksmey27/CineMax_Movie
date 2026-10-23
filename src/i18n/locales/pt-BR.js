@@ -1,6 +1,11 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "At least one letter": "Pelo menos uma letra",
+  "At least one capital letter": "Pelo menos uma letra maiúscula",
+  "At least one number": "Pelo menos um número",
+  "Met": "Atendido",
+  "Not met": "Não atendido",
   "Password requirements": "Requisitos da senha",
   "At least 8 characters": "Pelo menos 8 caracteres",
   "Lowercase letter (a-z)": "Letra minúscula (a-z)",

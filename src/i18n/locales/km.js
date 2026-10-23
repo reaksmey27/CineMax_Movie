@@ -1,6 +1,11 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "At least one letter": "យ៉ាងហោចណាស់អក្សរមួយ",
+  "At least one capital letter": "យ៉ាងហោចណាស់អក្សរធំមួយ",
+  "At least one number": "យ៉ាងហោចណាស់លេខមួយ",
+  "Met": "បានបំពេញ",
+  "Not met": "មិនទាន់បានបំពេញ",
   "Password requirements": "លក្ខខណ្ឌពាក្យសម្ងាត់",
   "At least 8 characters": "យ៉ាងហោចណាស់ 8 តួអក្សរ",
   "Lowercase letter (a-z)": "អក្សរតូច (a-z)",

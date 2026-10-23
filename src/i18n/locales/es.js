@@ -1,6 +1,11 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "At least one letter": "Al menos una letra",
+  "At least one capital letter": "Al menos una mayúscula",
+  "At least one number": "Al menos un número",
+  "Met": "Cumplido",
+  "Not met": "No cumplido",
   "Password requirements": "Requisitos de la contraseña",
   "At least 8 characters": "Al menos 8 caracteres",
   "Lowercase letter (a-z)": "Letra minúscula (a-z)",

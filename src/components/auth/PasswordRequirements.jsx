@@ -1,20 +1,25 @@
 import { useLanguage } from "../../context/LanguageContext";
 import { passwordRequirements } from "../../utils/passwordRequirements";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
 export default function PasswordRequirements({ password, id }) {
   const { t } = useLanguage();
   return (
-    <div id={id} className="rounded-xl border border-purple-400/20 bg-purple-400/5 p-3 text-sm">
-      <p className="mb-2 font-semibold text-purple-400">{t("Password requirements")}</p>
-      <ul className="grid gap-1.5 sm:grid-cols-2">
-        {passwordRequirements.map(({ label, test }) => (
-          <li key={label}>
-            <label className="flex items-start gap-2 text-[var(--color-text-muted)]">
-              <input type="checkbox" checked={test(password)} disabled className="mt-1 shrink-0 accent-purple-500" />
-              <span>{t(label)}</span>
-            </label>
-          </li>
-        ))}
+    <div id={id} className="text-xs leading-5">
+      <ul aria-label={t("Password requirements")} className="space-y-0.5">
+        {passwordRequirements.map(({ label, test }) => {
+          const met = test(password);
+          const Icon = met ? CheckIcon : XMarkIcon;
+          return (
+            <li key={label} data-met={met} className={`flex items-start gap-1.5 font-normal ${met ? "text-green-500" : "text-red-400"}`}>
+              <Icon aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>
+                <span className="sr-only">{met ? t("Met") : t("Not met")}: </span>
+                {t(label)}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

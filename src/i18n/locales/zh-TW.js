@@ -1,6 +1,11 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "At least one letter": "至少一個英文字母",
+  "At least one capital letter": "至少一個大寫英文字母",
+  "At least one number": "至少一個數字",
+  "Met": "已符合",
+  "Not met": "未符合",
   "Password requirements": "密碼要求",
   "At least 8 characters": "至少 8 個字元",
   "Lowercase letter (a-z)": "小寫英文字母 (a-z)",

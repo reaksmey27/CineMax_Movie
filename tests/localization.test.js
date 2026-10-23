@@ -28,6 +28,11 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "At least one letter",
+  "At least one capital letter",
+  "At least one number",
+  "Met",
+  "Not met",
   "Password requirements",
   "At least 8 characters",
   "Lowercase letter (a-z)",

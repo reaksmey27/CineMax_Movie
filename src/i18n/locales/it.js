@@ -1,6 +1,11 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "At least one letter": "Almeno una lettera",
+  "At least one capital letter": "Almeno una maiuscola",
+  "At least one number": "Almeno un numero",
+  "Met": "Soddisfatto",
+  "Not met": "Non soddisfatto",
   "Password requirements": "Requisiti della password",
   "At least 8 characters": "Almeno 8 caratteri",
   "Lowercase letter (a-z)": "Lettera minuscola (a-z)",
