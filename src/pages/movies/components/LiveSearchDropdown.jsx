@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FilmIcon, StarIcon } from "@heroicons/react/24/outline";
 
 import { tmdbService } from "../../../services/tmdbService";
@@ -6,6 +6,15 @@ import { useLanguage } from "../../../context/LanguageContext";
 import ListSkeleton from "../../../components/ui/ListSkeleton";
 
 const LIVE_SEARCH_LIMIT = 6;
+
+function SearchPoster({ src }) {
+  const [failed, setFailed] = useState(false);
+  return src && !failed ? (
+    <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" onError={() => setFailed(true)} />
+  ) : (
+    <FilmIcon aria-hidden="true" className="h-5 w-5 text-[var(--color-text-muted)]" />
+  );
+}
 
 // ─── Helpers: year, rating & poster formatting ────────────────────────────────
 
@@ -102,16 +111,7 @@ const LiveSearchDropdown = ({
                     }`}
                   >
                     <div className="flex h-14 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[var(--color-border-soft)] bg-[var(--color-surface-1)]">
-                      {posterUrl ? (
-                        <img
-                          src={posterUrl}
-                          alt=""
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <FilmIcon className="h-5 w-5 text-gray-500" />
-                      )}
+                      <SearchPoster key={posterUrl} src={posterUrl} />
                     </div>
 
                     <div className="min-w-0 flex-1 space-y-1">
@@ -123,7 +123,7 @@ const LiveSearchDropdown = ({
 
                       <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-muted)]">
                         <span>{year || t("Year unavailable")}</span>
-                        <span aria-hidden="true">?</span>
+                        <span aria-hidden="true">&middot;</span>
                         <span className="inline-flex items-center gap-1.5">
                           <StarIcon className="h-3.5 w-3.5 text-yellow-400" />
                           {formatVoteAverage(movie.vote_average)}

@@ -15,6 +15,7 @@ export default function useNavSearch() {
     error: false,
   });
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [attempt, setAttempt] = useState(0);
   const trimmed = query.trim();
   const loading = response.query !== trimmed;
   const results = loading ? [] : response.results;
@@ -44,7 +45,7 @@ export default function useNavSearch() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [open, trimmed]);
+  }, [open, trimmed, attempt]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,7 +61,15 @@ export default function useNavSearch() {
   const selectMovie = (movie) => {
     setOpen(false);
     setActiveIndex(-1);
+    inputRef.current?.blur();
     navigate(`/movie/${movie.id}`);
+  };
+
+  const retry = () => {
+    setResponse({ query: "", results: [], error: false });
+    setActiveIndex(-1);
+    setAttempt((value) => value + 1);
+    inputRef.current?.focus();
   };
 
   // ─── Render: search input & results dropdown ──────────────────────────────────
@@ -81,6 +90,7 @@ export default function useNavSearch() {
     results,
     showResults,
     selectMovie,
+    retry,
     navigate,
   };
 }

@@ -23,6 +23,7 @@ export default function NavSearch({ onOpen }) {
     results,
     showResults,
     selectMovie,
+    retry,
     navigate,
   } = useNavSearch();
 
@@ -93,6 +94,7 @@ export default function NavSearch({ onOpen }) {
               setOpen(true);
             }}
             onKeyDown={(event) => {
+              if (event.nativeEvent.isComposing || event.keyCode === 229) return;
               if (event.key === "Escape") {
                 event.preventDefault();
                 setOpen(false);
@@ -140,14 +142,18 @@ export default function NavSearch({ onOpen }) {
         {showResults && (
           <div className="relative sm:absolute sm:right-0 sm:top-full sm:w-[26rem] sm:max-w-[calc(100vw-3rem)]">
             {!loading && response.error ? (
-              <p
-                role="status"
+              <div
                 className="mt-2 rounded-xl bg-[var(--color-panel-bg)] p-4 text-sm text-[var(--color-text)]"
               >
+                <p role="status">
                 {t(
                   "Live search is unavailable. Press Enter to try the results page.",
                 )}
-              </p>
+                </p>
+                <button type="button" onClick={retry} className="mt-2 min-h-11 rounded-lg bg-purple-600 px-4 font-semibold text-white hover:bg-purple-500">
+                  {t("Try again")}
+                </button>
+              </div>
             ) : (
               <LiveSearchDropdown
                 listId="nav-live-search-results"
