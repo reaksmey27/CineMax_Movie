@@ -1,6 +1,7 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Caps Lock is on": "Caps Lock aktif",
   "Show password": "Tampilkan kata sandi",
   "Hide password": "Sembunyikan kata sandi",
   "Show confirmation password": "Tampilkan konfirmasi kata sandi",

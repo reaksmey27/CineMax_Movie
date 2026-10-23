@@ -1,6 +1,7 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Caps Lock is on": "Caps Lock がオンになっています",
   "Show password": "パスワードを表示",
   "Hide password": "パスワードを非表示",
   "Show confirmation password": "確認用パスワードを表示",

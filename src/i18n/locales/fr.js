@@ -1,6 +1,7 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Caps Lock is on": "Le verrouillage des majuscules est activé",
   "Show password": "Afficher le mot de passe",
   "Hide password": "Masquer le mot de passe",
   "Show confirmation password": "Afficher le mot de passe de confirmation",

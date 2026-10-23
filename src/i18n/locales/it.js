@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Caps Lock is on": "Bloc Maiusc è attivo",
   "Show password": "Mostra password",
   "Hide password": "Nascondi password",
   "Show confirmation password": "Mostra password di conferma",

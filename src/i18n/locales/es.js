@@ -1,6 +1,7 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Caps Lock is on": "Bloq Mayús está activado",
   "Show password": "Mostrar contraseña",
   "Hide password": "Ocultar contraseña",
   "Show confirmation password": "Mostrar contraseña de confirmación",

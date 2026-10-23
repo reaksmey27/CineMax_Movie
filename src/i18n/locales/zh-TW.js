@@ -1,6 +1,7 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Caps Lock is on": "大寫鎖定已開啟",
   "Show password": "顯示密碼",
   "Hide password": "隱藏密碼",
   "Show confirmation password": "顯示確認密碼",

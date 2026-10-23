@@ -1,6 +1,7 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Caps Lock is on": "Die Feststelltaste ist aktiviert",
   "Show password": "Passwort anzeigen",
   "Hide password": "Passwort verbergen",
   "Show confirmation password": "Bestätigungspasswort anzeigen",

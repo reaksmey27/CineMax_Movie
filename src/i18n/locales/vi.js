@@ -1,6 +1,7 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Caps Lock is on": "Caps Lock đang bật",
   "Show password": "Hiện mật khẩu",
   "Hide password": "Ẩn mật khẩu",
   "Show confirmation password": "Hiện mật khẩu xác nhận",

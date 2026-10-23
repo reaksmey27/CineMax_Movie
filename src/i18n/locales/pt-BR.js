@@ -1,6 +1,7 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Caps Lock is on": "Caps Lock está ativado",
   "Show password": "Mostrar senha",
   "Hide password": "Ocultar senha",
   "Show confirmation password": "Mostrar confirmação de senha",

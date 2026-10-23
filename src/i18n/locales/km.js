@@ -1,6 +1,7 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Caps Lock is on": "Caps Lock កំពុងបើក",
   "Show password": "បង្ហាញពាក្យសម្ងាត់",
   "Hide password": "លាក់ពាក្យសម្ងាត់",
   "Show confirmation password": "បង្ហាញពាក្យសម្ងាត់បញ្ជាក់",

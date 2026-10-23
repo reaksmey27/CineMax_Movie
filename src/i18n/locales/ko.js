@@ -1,6 +1,7 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Caps Lock is on": "Caps Lock이 켜져 있습니다",
   "Show password": "비밀번호 표시",
   "Hide password": "비밀번호 숨기기",
   "Show confirmation password": "확인 비밀번호 표시",
