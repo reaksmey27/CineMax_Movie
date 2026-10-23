@@ -6,6 +6,7 @@ import {
   blockFocusRedirect,
 } from "../../utils/player/adGuards";
 import useMovieDetailsData from "./useMovieDetailsData";
+import { readPreferredServer, savePreferredServer } from "../../utils/player/serverPreference";
 
 const PLAYER_TIMEOUT_MS = 12000;
 
@@ -21,7 +22,7 @@ const useMovieDetail = (id) => {
   const [showTrailer, setShowTrailer] = useState(false);
   const [playRequested, setIsPlaying] = useState(false);
   const isPlaying = playRequested && isAuthenticated && !authLoading;
-  const [activeServer, setActiveServer] = useState(SERVERS[0].name);
+  const [activeServer, setActiveServer] = useState(readPreferredServer);
   const [iframeLoading, setIframeLoading] = useState(false);
   const [playerMessage, setPlayerMessage] = useState("");
   const [playerInstance, setPlayerInstance] = useState(0);
@@ -37,7 +38,7 @@ const useMovieDetail = (id) => {
   useEffect(() => {
     setIsPlaying(false);
     setShowTrailer(false);
-    setActiveServer(SERVERS[0].name);
+    setActiveServer(readPreferredServer());
     setIframeLoading(false);
     setPlayerMessage("");
     setPlayerInstance(0);
@@ -80,7 +81,12 @@ const useMovieDetail = (id) => {
   const currentServerUrl = movie ? currentServer.url(movie.id) : "";
   const nextServer = SERVERS[(activeServerIndex + 1) % SERVERS.length];
 
-  const goToNextServer = () => setActiveServer(nextServer.name);
+  const selectServer = (name) => {
+    if (!SERVERS.some((server) => server.name === name)) return;
+    setActiveServer(name);
+    savePreferredServer(name);
+  };
+  const goToNextServer = () => selectServer(nextServer.name);
 
   const reloadPlayer = () => {
     setPlayerMessage("");
@@ -108,6 +114,7 @@ const useMovieDetail = (id) => {
     setIsPlaying,
     activeServer,
     setActiveServer,
+    selectServer,
     currentServer,
     iframeLoading,
     playerMessage,

@@ -92,6 +92,7 @@ const MoviePlayer = ({
         {SERVERS.map((server) => (
           <button
             key={server.name}
+            aria-pressed={activeServer === server.name}
             onClick={() => onServerChange(server.name)}
             className={`shrink-0 px-6 py-2 rounded-full text-sm font-semibold  transition-all ${
               activeServer === server.name

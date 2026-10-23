@@ -48,6 +48,7 @@ const MovieDetailContent = ({ id }) => {
     setIsPlaying,
     activeServer,
     setActiveServer,
+    selectServer,
     currentServer,
     iframeLoading,
     playerMessage,
@@ -135,7 +136,7 @@ const MovieDetailContent = ({ id }) => {
             playerMessage={playerMessage}
             playerInstance={playerInstance}
             nextServerName={nextServerName}
-            onServerChange={setActiveServer}
+            onServerChange={selectServer}
             onIframeLoad={handleIframeLoad}
             onIframeError={handleIframeError}
             onNextServer={goToNextServer}
