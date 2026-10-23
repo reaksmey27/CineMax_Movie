@@ -105,7 +105,7 @@ const AuthShell = ({ children, onClose }) => {
       role="presentation"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.05),transparent_40%)]" />
-      <div className="mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[840px] items-center">
+      <div className="mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[960px] items-center">
         <div
           ref={dialogRef}
           className={`${isClosing ? "animate-auth-modal-out" : "animate-auth-modal"} relative grid h-[min(46rem,calc(100svh_-_5rem))] w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]`}
