@@ -1,6 +1,7 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Clear all filters": "清除所有篩選條件",
   "Passwords match.": "密碼相符。",
   "At least one number or symbol": "至少一個數字或符號",
   "At least one letter": "至少一個英文字母",

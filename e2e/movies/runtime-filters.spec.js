@@ -30,7 +30,7 @@ test("runtime discovery sends exact bounds, resets pagination and clears with fi
   await page.reload();
   await expect(trigger).toHaveAttribute("data-value", "long");
   await page
-    .getByRole("button", { name: "Reset filters", exact: true })
+    .getByRole("button", { name: "Clear all filters", exact: true })
     .click();
   await expect(trigger).toHaveAttribute("data-value", "");
   await expect(page).not.toHaveURL(/runtime=/);
@@ -71,7 +71,7 @@ test("runtime works with search across pages and keeps the search query", async 
     page.getByRole("link", { name: "Long Film", exact: true }),
   ).toHaveCount(0);
   await page
-    .getByRole("button", { name: "Reset filters", exact: true })
+    .getByRole("button", { name: "Clear all filters", exact: true })
     .click();
   await expect(page).toHaveURL(/q=Film/);
   await expect(page).not.toHaveURL(/runtime=/);

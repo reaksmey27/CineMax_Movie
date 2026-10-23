@@ -1,6 +1,7 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Clear all filters": "សម្អាតតម្រងទាំងអស់",
   "Passwords match.": "ពាក្យសម្ងាត់ដូចគ្នា។",
   "At least one number or symbol": "យ៉ាងហោចណាស់លេខ ឬនិមិត្តសញ្ញាមួយ",
   "At least one letter": "យ៉ាងហោចណាស់អក្សរមួយ",

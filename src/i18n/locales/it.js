@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Clear all filters": "Cancella tutti i filtri",
   "Passwords match.": "Le password coincidono.",
   "At least one number or symbol": "Almeno un numero o simbolo",
   "At least one letter": "Almeno una lettera",

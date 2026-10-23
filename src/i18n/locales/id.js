@@ -1,6 +1,7 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Clear all filters": "Hapus semua filter",
   "Passwords match.": "Kata sandi cocok.",
   "At least one number or symbol": "Minimal satu angka atau simbol",
   "At least one letter": "Minimal satu huruf",

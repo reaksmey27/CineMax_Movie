@@ -111,12 +111,16 @@ const MoviesHeader = ({
         genres={genres}
         genresLoading={genresLoading}
         genresError={genresError}
-        hasActiveFilters={hasActiveFilters}
+        hasActiveFilters={hasActiveFilters || Boolean(yearInput)}
         hasSearchQuery={hasSearchQuery}
         minRating={minRating}
         runtime={runtime}
         onRuntimeChange={onRuntimeChange}
-        onClearFilters={onClearFilters}
+        onClearFilters={() => {
+          setYearInput("");
+          setOpenSelect(null);
+          onClearFilters();
+        }}
         onGenreChange={onGenreChange}
         onRatingChange={onRatingChange}
         onRetryGenres={onRetryGenres}

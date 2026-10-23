@@ -1,6 +1,7 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Clear all filters": "すべてのフィルターをクリア",
   "Passwords match.": "パスワードが一致しています。",
   "At least one number or symbol": "数字または記号を1文字以上",
   "At least one letter": "英字を1文字以上",

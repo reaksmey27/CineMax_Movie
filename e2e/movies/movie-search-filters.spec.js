@@ -27,7 +27,7 @@ test("search survives filter changes and reset, including matches on later pages
     page.getByRole("link", { name: "Alien Horror", exact: true }),
   ).toHaveCount(0);
   await page
-    .getByRole("button", { name: "Reset filters", exact: true })
+    .getByRole("button", { name: "Clear all filters", exact: true })
     .click();
   await expect(page).toHaveURL(/q=Alien/);
   await expect(

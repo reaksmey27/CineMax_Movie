@@ -1,6 +1,7 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Clear all filters": "Effacer tous les filtres",
   "Passwords match.": "Les mots de passe correspondent.",
   "At least one number or symbol": "Au moins un chiffre ou un symbole",
   "At least one letter": "Au moins une lettre",
