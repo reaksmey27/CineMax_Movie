@@ -1,6 +1,8 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Remove filter: {filter}": "필터 제거: {filter}",
+  "Active filters": "적용된 필터",
   "Clear all filters": "모든 필터 지우기",
   "Passwords match.": "비밀번호가 일치합니다.",
   "At least one number or symbol": "숫자 또는 기호 1자 이상",

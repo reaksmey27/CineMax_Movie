@@ -1,6 +1,8 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Remove filter: {filter}": "ដកតម្រងចេញ៖ {filter}",
+  "Active filters": "តម្រងដែលកំពុងប្រើ",
   "Clear all filters": "សម្អាតតម្រងទាំងអស់",
   "Passwords match.": "ពាក្យសម្ងាត់ដូចគ្នា។",
   "At least one number or symbol": "យ៉ាងហោចណាស់លេខ ឬនិមិត្តសញ្ញាមួយ",

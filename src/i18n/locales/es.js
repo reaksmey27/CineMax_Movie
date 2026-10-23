@@ -1,6 +1,8 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Remove filter: {filter}": "Quitar filtro: {filter}",
+  "Active filters": "Filtros activos",
   "Clear all filters": "Borrar todos los filtros",
   "Passwords match.": "Las contraseñas coinciden.",
   "At least one number or symbol": "Al menos un número o símbolo",

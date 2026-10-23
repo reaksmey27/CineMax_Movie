@@ -1,6 +1,8 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Remove filter: {filter}": "Supprimer le filtre : {filter}",
+  "Active filters": "Filtres actifs",
   "Clear all filters": "Effacer tous les filtres",
   "Passwords match.": "Les mots de passe correspondent.",
   "At least one number or symbol": "Au moins un chiffre ou un symbole",

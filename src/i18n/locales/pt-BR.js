@@ -1,6 +1,8 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Remove filter: {filter}": "Remover filtro: {filter}",
+  "Active filters": "Filtros ativos",
   "Clear all filters": "Limpar todos os filtros",
   "Passwords match.": "As senhas coincidem.",
   "At least one number or symbol": "Pelo menos um número ou símbolo",

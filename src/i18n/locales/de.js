@@ -1,6 +1,8 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Remove filter: {filter}": "Filter entfernen: {filter}",
+  "Active filters": "Aktive Filter",
   "Clear all filters": "Alle Filter löschen",
   "Passwords match.": "Die Passwörter stimmen überein.",
   "At least one number or symbol": "Mindestens eine Ziffer oder ein Sonderzeichen",

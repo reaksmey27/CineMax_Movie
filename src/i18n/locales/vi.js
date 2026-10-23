@@ -1,6 +1,8 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Remove filter: {filter}": "Xóa bộ lọc: {filter}",
+  "Active filters": "Bộ lọc đang dùng",
   "Clear all filters": "Xóa tất cả bộ lọc",
   "Passwords match.": "Mật khẩu khớp.",
   "At least one number or symbol": "Ít nhất một chữ số hoặc ký hiệu",

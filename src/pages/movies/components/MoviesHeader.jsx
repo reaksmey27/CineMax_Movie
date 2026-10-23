@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from "react";
 
 import { useLanguage } from "../../../context/LanguageContext";
 import MoviesFilters from "./MoviesFilters";
+import ActiveFilterChips from "./ActiveFilterChips";
 import MoviesSearch from "./MoviesSearch";
 import { getHeadingState, getSubtitle } from "./moviesHeaderCopy";
 
@@ -131,6 +132,22 @@ const MoviesHeader = ({
         toggleSelect={toggleSelect}
         yearInput={yearInput}
         setYearInput={setYearInput}
+      />
+      <ActiveFilterChips
+        genres={genres}
+        selectedGenre={selectedGenre}
+        releaseYear={releaseYear}
+        minRating={minRating}
+        runtime={runtime}
+        sortBy={sortBy}
+        onGenreChange={onGenreChange}
+        onYearChange={(value) => {
+          setYearInput(value);
+          onYearChange(value);
+        }}
+        onRatingChange={onRatingChange}
+        onRuntimeChange={onRuntimeChange}
+        onSortChange={onSortChange}
       />
     </div>
   );
