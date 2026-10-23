@@ -1,6 +1,7 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Did you mean?": "こちらをお探しですか？",
   "No trailer is available for this movie yet.": "この映画の予告編はまだありません。",
   "Could not clear notifications. Try again.": "通知を削除できませんでした。もう一度お試しください。",
   "Remove filter: {filter}": "フィルターを削除: {filter}",

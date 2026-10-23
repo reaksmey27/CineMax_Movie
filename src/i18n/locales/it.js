@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Did you mean?": "Forse cercavi:",
   "No trailer is available for this movie yet.": "Non è ancora disponibile un trailer per questo film.",
   "Could not clear notifications. Try again.": "Impossibile cancellare le notifiche. Riprova.",
   "Remove filter: {filter}": "Rimuovi filtro: {filter}",

@@ -7,6 +7,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import useMovies from "../../hooks/movies/useMovies";
 import MovieHeader from "./components/MoviesHeader";
 import Pagination from "./components/Pagination";
+import SearchSuggestions from "./components/SearchSuggestions";
 
 // ─── Helpers: empty-state copy for search/filter ──────────────────────────────
 
@@ -131,6 +132,9 @@ const MoviesPage = () => {
           <MovieGridSkeleton />
         ) : (
           <>
+            {movies.length === 0 && searchQuery && !hasActiveFilters && (
+              <SearchSuggestions key={searchQuery} query={searchQuery} onSearch={handleSearch} />
+            )}
             <MovieGrid
               movies={movies}
               onReset={resetResults}
