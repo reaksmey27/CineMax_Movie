@@ -1,6 +1,7 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Could not clear notifications. Try again.": "알림을 지우지 못했습니다. 다시 시도하세요.",
   "Remove filter: {filter}": "필터 제거: {filter}",
   "Active filters": "적용된 필터",
   "Clear all filters": "모든 필터 지우기",

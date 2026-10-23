@@ -1,6 +1,7 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Could not clear notifications. Try again.": "通知を削除できませんでした。もう一度お試しください。",
   "Remove filter: {filter}": "フィルターを削除: {filter}",
   "Active filters": "適用中のフィルター",
   "Clear all filters": "すべてのフィルターをクリア",

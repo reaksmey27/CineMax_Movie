@@ -1,6 +1,7 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Could not clear notifications. Try again.": "Không thể xóa thông báo. Hãy thử lại.",
   "Remove filter: {filter}": "Xóa bộ lọc: {filter}",
   "Active filters": "Bộ lọc đang dùng",
   "Clear all filters": "Xóa tất cả bộ lọc",

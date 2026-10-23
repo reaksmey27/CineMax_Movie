@@ -1,6 +1,7 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Could not clear notifications. Try again.": "Impossible d’effacer les notifications. Réessayez.",
   "Remove filter: {filter}": "Supprimer le filtre : {filter}",
   "Active filters": "Filtres actifs",
   "Clear all filters": "Effacer tous les filtres",

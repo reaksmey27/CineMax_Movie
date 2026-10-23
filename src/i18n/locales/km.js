@@ -1,6 +1,7 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Could not clear notifications. Try again.": "មិនអាចសម្អាតការជូនដំណឹងបានទេ។ សូមព្យាយាមម្តងទៀត។",
   "Remove filter: {filter}": "ដកតម្រងចេញ៖ {filter}",
   "Active filters": "តម្រងដែលកំពុងប្រើ",
   "Clear all filters": "សម្អាតតម្រងទាំងអស់",

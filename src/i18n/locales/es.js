@@ -1,6 +1,7 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Could not clear notifications. Try again.": "No se pudieron borrar las notificaciones. Inténtalo de nuevo.",
   "Remove filter: {filter}": "Quitar filtro: {filter}",
   "Active filters": "Filtros activos",
   "Clear all filters": "Borrar todos los filtros",

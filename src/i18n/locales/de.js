@@ -1,6 +1,7 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Could not clear notifications. Try again.": "Benachrichtigungen konnten nicht gelöscht werden. Versuche es erneut.",
   "Remove filter: {filter}": "Filter entfernen: {filter}",
   "Active filters": "Aktive Filter",
   "Clear all filters": "Alle Filter löschen",

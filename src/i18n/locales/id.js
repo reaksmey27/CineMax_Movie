@@ -1,6 +1,7 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Could not clear notifications. Try again.": "Tidak dapat menghapus notifikasi. Coba lagi.",
   "Remove filter: {filter}": "Hapus filter: {filter}",
   "Active filters": "Filter aktif",
   "Clear all filters": "Hapus semua filter",

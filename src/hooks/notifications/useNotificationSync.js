@@ -72,9 +72,11 @@ export const useNotificationSync = ({ authResolved, userId }) => {
       ]);
       await action(db, user, notificationsModule);
       setSyncError("");
+      return true;
     } catch (error) {
       console.error(`[notifications] Failed to ${description}`, error);
       setSyncError(SYNC_ERROR_MESSAGE);
+      return false;
     }
   }, []);
 

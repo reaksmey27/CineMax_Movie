@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Could not clear notifications. Try again.": "Impossibile cancellare le notifiche. Riprova.",
   "Remove filter: {filter}": "Rimuovi filtro: {filter}",
   "Active filters": "Filtri attivi",
   "Clear all filters": "Cancella tutti i filtri",

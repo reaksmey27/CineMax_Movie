@@ -1,6 +1,7 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Could not clear notifications. Try again.": "無法清除通知。請再試一次。",
   "Remove filter: {filter}": "移除篩選條件：{filter}",
   "Active filters": "已套用的篩選條件",
   "Clear all filters": "清除所有篩選條件",

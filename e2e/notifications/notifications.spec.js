@@ -148,9 +148,46 @@ test("notification history filters and supports read, remove, and clear actions"
   ).toBeVisible();
 
   await page.getByRole("button", { name: "Clear history" }).click();
+  await page.getByRole("button", { name: "Cancel clearing notifications" }).click();
+  await expect(listItems).toHaveCount(2);
+  await page.getByRole("button", { name: "Clear history" }).click();
   await page.getByRole("button", { name: "Confirm" }).click();
   await expect(page.getByText("No notifications yet")).toBeVisible();
   await expect(listItems).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByText("No notifications yet")).toBeVisible();
+});
+
+test("clearing notifications waits for completion and retries a failure", async ({ page }) => {
+  await seedNotifications(page, notifications);
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.route("**/src/hooks/notifications/useNotificationHistoryActions.js*", async (route) => {
+    const response = await route.fetch();
+    const source = await response.text();
+    await route.fulfill({ response, body: source.replace(
+      "const clearHistory = useCallback(() => {",
+      `const clearHistory = useCallback(async () => {
+        window.clearAttempts = (window.clearAttempts || 0) + 1;
+        await new Promise(resolve => { window.finishClear = resolve; });
+        if (window.clearAttempts === 1) return false;`,
+    ) });
+  });
+  await page.goto("/notifications");
+  await page.getByRole("button", { name: "Unread (2)" }).click();
+  await page.getByRole("button", { name: "Clear history" }).click();
+  await page.getByRole("button", { name: "Confirm", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Clearing..." })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Cancel clearing notifications" })).toBeDisabled();
+  await page.evaluate(() => window.finishClear());
+  await expect(page.getByRole("alert")).toHaveText("Could not clear notifications. Try again.");
+  await expect(page.locator("main").getByRole("listitem")).toHaveCount(2);
+  await page.getByRole("button", { name: "Try again", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Clearing..." })).toBeDisabled();
+  await page.evaluate(() => window.finishClear());
+  await expect(page.getByText("No notifications yet")).toBeVisible();
+  await expect(page.getByRole("button", { name: "All", exact: true })).toHaveAttribute("aria-pressed", "true");
+  expect(await page.evaluate(() => window.clearAttempts)).toBe(2);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
 
 test("movie notification poster opens the linked movie on a narrow viewport", async ({

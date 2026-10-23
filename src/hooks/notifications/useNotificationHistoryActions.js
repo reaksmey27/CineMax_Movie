@@ -51,16 +51,16 @@ export function useNotificationHistoryActions({
 
   const clearHistory = useCallback(() => {
     if (userId) {
-      void runRemoteAction(
+      return runRemoteAction(
         userId,
         (database, uid, notificationsModule) =>
           notificationsModule.clearNotifications(database, uid, history),
         "clear notification history",
       );
-      return;
     }
 
     setLocalHistory([]);
+    return true;
   }, [history, runRemoteAction, setLocalHistory, userId]);
 
   const removeFromHistory = useCallback(

@@ -1,6 +1,7 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Could not clear notifications. Try again.": "Não foi possível limpar as notificações. Tente novamente.",
   "Remove filter: {filter}": "Remover filtro: {filter}",
   "Active filters": "Filtros ativos",
   "Clear all filters": "Limpar todos os filtros",

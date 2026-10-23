@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { BellAlertIcon } from "@heroicons/react/24/outline";
 import { useNotification } from "../../context/NotificationContext";
 import { useLanguage } from "../../context/LanguageContext";
@@ -31,6 +31,9 @@ const NotificationsPage = () => {
   } = useNotification();
   const [filter, setFilter] = useState("all");
   const [confirmClear, setConfirmClear] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
+  const [clearFailed, setClearFailed] = useState(false);
+  const clearingRef = useRef(false);
 
   // ─── Selectors: filtered history ─────────────────────────────────────────────
 
@@ -44,9 +47,25 @@ const NotificationsPage = () => {
 
   // ─── Handlers: clear with confirmation ───────────────────────────────────────
 
-  const handleClearHistory = () => {
-    clearHistory();
-    setConfirmClear(false);
+  const handleClearHistory = async () => {
+    if (clearingRef.current) return;
+    clearingRef.current = true;
+    setIsClearing(true);
+    setClearFailed(false);
+    try {
+      const cleared = await clearHistory();
+      if (!cleared) {
+        setClearFailed(true);
+        return;
+      }
+      setConfirmClear(false);
+      setFilter("all");
+    } catch {
+      setClearFailed(true);
+    } finally {
+      clearingRef.current = false;
+      setIsClearing(false);
+    }
   };
 
   // ─── Render: header, filters & list ──────────────────────────────────────────
@@ -116,7 +135,12 @@ const NotificationsPage = () => {
           unreadCount={unreadCount}
           hasHistory={history.length > 0}
           confirmClear={confirmClear}
-          onSetConfirmClear={setConfirmClear}
+          isClearing={isClearing}
+          clearFailed={clearFailed}
+          onSetConfirmClear={(value) => {
+            setClearFailed(false);
+            setConfirmClear(value);
+          }}
           onClearHistory={handleClearHistory}
         />
 

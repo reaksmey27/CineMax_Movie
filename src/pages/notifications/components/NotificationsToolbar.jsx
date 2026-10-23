@@ -11,6 +11,8 @@ const NotificationsToolbar = ({
   unreadCount,
   hasHistory,
   confirmClear,
+  isClearing,
+  clearFailed,
   onSetConfirmClear,
   onClearHistory,
 }) => {
@@ -46,7 +48,7 @@ const NotificationsToolbar = ({
         <button
           type="button"
           onClick={markAllAsRead}
-          disabled={unreadCount === 0}
+          disabled={unreadCount === 0 || isClearing}
           className="inline-flex min-h-10 items-center gap-2 rounded-xl px-3 text-xs font-bold text-(--color-text-soft) transition-colors hover:bg-(--color-surface-2) hover:text-(--color-text) disabled:cursor-not-allowed disabled:opacity-50"
         >
           <CheckIcon className="h-4 w-4" aria-hidden="true" />
@@ -60,18 +62,26 @@ const NotificationsToolbar = ({
             <button
               type="button"
               onClick={onClearHistory}
+              disabled={isClearing}
+              aria-busy={isClearing}
               className="min-h-10 rounded-xl bg-red-500/15 px-3 text-xs font-bold text-red-400 transition-colors hover:bg-red-500/25"
             >
-              {t("Confirm")}
+              {isClearing ? t("Clearing...") : clearFailed ? t("Try again") : t("Confirm")}
             </button>
             <button
               type="button"
               onClick={() => onSetConfirmClear(false)}
+              disabled={isClearing}
               className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-xl text-(--color-text-subtle) transition-colors hover:bg-(--color-surface-2) hover:text-(--color-text)"
               aria-label={t("Cancel clearing notifications")}
             >
               <XMarkIcon className="h-4 w-4" aria-hidden="true" />
             </button>
+            {clearFailed && (
+              <p role="alert" className="w-full text-xs text-red-400">
+                {t("Could not clear notifications. Try again.")}
+              </p>
+            )}
           </>
         ) : (
           <button
