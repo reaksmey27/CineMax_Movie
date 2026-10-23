@@ -15,7 +15,7 @@ const SignupPage = () => {
   const { formData, error, isBusy, handleChange, handleSubmit } =
     useAuthForm("register");
   const location = useLocation();
-  const [passwordFocused, setPasswordFocused] = useState(false);
+  const [passwordStarted, setPasswordStarted] = useState(false);
 
   return (
     <>
@@ -37,9 +37,8 @@ const SignupPage = () => {
         <form
           className="mt-6 space-y-3"
           onSubmit={handleSubmit}
-          onFocusCapture={(event) => setPasswordFocused(["password", "confirmPassword"].includes(event.target.name))}
-          onBlurCapture={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget)) setPasswordFocused(false);
+          onFocusCapture={(event) => {
+            if (["password", "confirmPassword"].includes(event.target.name)) setPasswordStarted(true);
           }}
         >
           <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
@@ -100,7 +99,7 @@ const SignupPage = () => {
           </div>
 
           <PasswordConfirmation id="signup-password-confirmation" password={formData.password} confirmation={formData.confirmPassword} />
-          <PasswordRequirements id="signup-password-requirements" password={formData.password} visible={passwordFocused} />
+          <PasswordRequirements id="signup-password-requirements" password={formData.password} visible={passwordStarted} />
 
           {error && (
             <div className="rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3 text-sm text-purple-100">

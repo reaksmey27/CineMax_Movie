@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import km from "../../src/i18n/locales/km.js";
 
-test("Khmer requirements are translated and appear only when editing passwords", async ({ page }) => {
+test("Khmer requirements are translated and appear after starting password entry", async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem("cinemax_language", "km"));
   await page.route("https://api.themoviedb.org/**", route => route.fulfill({ json: { results: [] } }));
   await page.goto("/signup");
@@ -15,7 +15,7 @@ test("Khmer requirements are translated and appear only when editing passwords",
   await page.locator('input[name="confirmPassword"]').focus();
   await expect(checklist).toBeVisible();
   await page.locator('input[name="email"]').focus();
-  await expect(checklist).toBeHidden();
+  await expect(checklist).toBeVisible();
 });
 
 test("signup shows live requirements and blocks incomplete passwords before sending", async ({ page }) => {
@@ -31,6 +31,11 @@ test("signup shows live requirements and blocks incomplete passwords before send
   await page.getByLabel("Enter Your Email", { exact: true }).fill("viewer@example.com");
   const password = page.getByLabel("Password", { exact: true });
   const confirmation = page.getByLabel("Confirm Password", { exact: true });
+  const gap = await confirmation.evaluate((input) => {
+    const button = input.form.querySelector('button[type="submit"]');
+    return button.getBoundingClientRect().top - input.getBoundingClientRect().bottom;
+  });
+  expect(gap).toBeLessThanOrEqual(24);
   await expect(page.locator("#signup-password-requirements li[data-met=true]")).toHaveCount(0);
   await expect(page.locator("#signup-password-requirements")).toBeHidden();
   await password.focus();
@@ -43,7 +48,7 @@ test("signup shows live requirements and blocks incomplete passwords before send
   await page.getByRole("button", { name: "Create Account", exact: true }).click();
   await expect(page.getByText("Meet all password requirements before continuing.")).toBeVisible();
   expect(attempts).toBe(0);
-  await expect(page.locator("#signup-password-requirements")).toBeHidden();
+  await expect(page.locator("#signup-password-requirements")).toBeVisible();
   await password.fill("Abcdefg!");
   await expect(page.locator("#signup-password-requirements li[data-met=true]")).toHaveCount(3);
   await password.fill("Abcdefg1");

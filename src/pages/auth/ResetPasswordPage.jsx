@@ -29,7 +29,7 @@ function ResetForm({ search }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [passwordFocused, setPasswordFocused] = useState(false);
+  const [passwordStarted, setPasswordStarted] = useState(false);
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
   const pending = useRef(false);
@@ -166,10 +166,9 @@ function ResetForm({ search }) {
         ) : (
           <form
             onSubmit={submit}
-            onFocusCapture={(event) => setPasswordFocused(["password", "confirmPassword"].includes(event.target.name))}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) setPasswordFocused(false);
-            }}
+            onFocusCapture={(event) => {
+            if (["password", "confirmPassword"].includes(event.target.name)) setPasswordStarted(true);
+          }}
             aria-busy={status === "saving"}
             className="mt-5 space-y-4"
           >
@@ -217,7 +216,7 @@ function ResetForm({ search }) {
               />
             </label>
             <PasswordConfirmation id="reset-password-confirmation" password={password} confirmation={confirm} />
-            <PasswordRequirements id="reset-password-requirements" password={password} visible={passwordFocused} />
+            <PasswordRequirements id="reset-password-requirements" password={password} visible={passwordStarted} />
             {error && (
               <p role="alert" className="text-sm text-[var(--color-text)]">
                 {t(error)}
