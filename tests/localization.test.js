@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/pages/not-found/NotFoundPage.jsx",
   "src/pages/movies/components/SearchSuggestions.jsx",
   "src/pages/notifications/components/NotificationsToolbar.jsx",
   "src/pages/movies/components/ActiveFilterChips.jsx",
