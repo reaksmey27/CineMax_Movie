@@ -1,6 +1,7 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "At least one number or symbol": "Al menos un número o símbolo",
   "At least one letter": "Al menos una letra",
   "At least one capital letter": "Al menos una mayúscula",
   "At least one number": "Al menos un número",

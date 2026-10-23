@@ -28,6 +28,7 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "At least one number or symbol",
   "At least one letter",
   "At least one capital letter",
   "At least one number",

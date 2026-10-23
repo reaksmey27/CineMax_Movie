@@ -1,6 +1,7 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "At least one number or symbol": "យ៉ាងហោចណាស់លេខ ឬនិមិត្តសញ្ញាមួយ",
   "At least one letter": "យ៉ាងហោចណាស់អក្សរមួយ",
   "At least one capital letter": "យ៉ាងហោចណាស់អក្សរធំមួយ",
   "At least one number": "យ៉ាងហោចណាស់លេខមួយ",

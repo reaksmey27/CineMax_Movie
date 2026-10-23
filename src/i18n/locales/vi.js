@@ -1,6 +1,7 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "At least one number or symbol": "Ít nhất một chữ số hoặc ký hiệu",
   "At least one letter": "Ít nhất một chữ cái",
   "At least one capital letter": "Ít nhất một chữ hoa",
   "At least one number": "Ít nhất một chữ số",

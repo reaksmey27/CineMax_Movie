@@ -1,6 +1,7 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "At least one number or symbol": "数字または記号を1文字以上",
   "At least one letter": "英字を1文字以上",
   "At least one capital letter": "英大文字を1文字以上",
   "At least one number": "数字を1文字以上",

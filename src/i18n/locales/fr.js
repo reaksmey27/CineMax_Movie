@@ -1,6 +1,7 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "At least one number or symbol": "Au moins un chiffre ou un symbole",
   "At least one letter": "Au moins une lettre",
   "At least one capital letter": "Au moins une majuscule",
   "At least one number": "Au moins un chiffre",

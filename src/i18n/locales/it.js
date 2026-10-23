@@ -1,6 +1,7 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "At least one number or symbol": "Almeno un numero o simbolo",
   "At least one letter": "Almeno una lettera",
   "At least one capital letter": "Almeno una maiuscola",
   "At least one number": "Almeno un numero",

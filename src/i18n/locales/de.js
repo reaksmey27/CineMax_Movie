@@ -1,6 +1,7 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "At least one number or symbol": "Mindestens eine Ziffer oder ein Sonderzeichen",
   "At least one letter": "Mindestens ein Buchstabe",
   "At least one capital letter": "Mindestens ein Großbuchstabe",
   "At least one number": "Mindestens eine Ziffer",
