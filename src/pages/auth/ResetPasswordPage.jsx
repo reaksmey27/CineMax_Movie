@@ -28,6 +28,7 @@ function ResetForm({ search }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [passwordFocused, setPasswordFocused] = useState(false);
   const [error, setError] = useState("");
   const [attempt, setAttempt] = useState(0);
   const pending = useRef(false);
@@ -164,6 +165,10 @@ function ResetForm({ search }) {
         ) : (
           <form
             onSubmit={submit}
+            onFocusCapture={(event) => setPasswordFocused(["password", "confirmPassword"].includes(event.target.name))}
+            onBlurCapture={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setPasswordFocused(false);
+            }}
             aria-busy={status === "saving"}
             className="mt-5 space-y-4"
           >
@@ -180,6 +185,7 @@ function ResetForm({ search }) {
                 minLength={8}
                 aria-describedby="reset-password-requirements"
                 value={password}
+                name="password"
                 disabled={status === "saving"}
                 onChange={(event) => {
                   setPassword(event.target.value);
@@ -197,6 +203,7 @@ function ResetForm({ search }) {
                 required
                 minLength={8}
                 value={confirm}
+                name="confirmPassword"
                 disabled={status === "saving"}
                 onChange={(event) => {
                   setConfirm(event.target.value);
@@ -206,7 +213,7 @@ function ResetForm({ search }) {
                 className={INPUT}
               />
             </label>
-            <PasswordRequirements id="reset-password-requirements" password={password} />
+            <PasswordRequirements id="reset-password-requirements" password={password} visible={passwordFocused} />
             {error && (
               <p role="alert" className="text-sm text-[var(--color-text)]">
                 {t(error)}

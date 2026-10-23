@@ -2,10 +2,10 @@ import { useLanguage } from "../../context/LanguageContext";
 import { passwordRequirements } from "../../utils/passwordRequirements";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 
-export default function PasswordRequirements({ password, id }) {
+export default function PasswordRequirements({ password, id, visible = true }) {
   const { t } = useLanguage();
   return (
-    <div id={id} className="text-[11px] leading-4">
+    <div id={id} aria-hidden={!visible} className={`${visible ? "visible" : "invisible"} text-[11px] leading-4`}>
       <ul aria-label={t("Password requirements")} className="space-y-0">
         {passwordRequirements.map(({ label, test }) => {
           const met = test(password);

@@ -1,5 +1,5 @@
 import PasswordRequirements from "../../components/auth/PasswordRequirements";
-import React from "react";
+import React, { useState } from "react";
 import { ArrowRightIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import PasswordField from "../../components/auth/PasswordField";
@@ -14,6 +14,7 @@ const SignupPage = () => {
   const { formData, error, isBusy, handleChange, handleSubmit } =
     useAuthForm("register");
   const location = useLocation();
+  const [passwordFocused, setPasswordFocused] = useState(false);
 
   return (
     <>
@@ -32,7 +33,14 @@ const SignupPage = () => {
           {t("Fill in your details to get started.")}
         </p>
 
-        <form className="mt-6 space-y-3" onSubmit={handleSubmit}>
+        <form
+          className="mt-6 space-y-3"
+          onSubmit={handleSubmit}
+          onFocusCapture={(event) => setPasswordFocused(["password", "confirmPassword"].includes(event.target.name))}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setPasswordFocused(false);
+          }}
+        >
           <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
             <label className="flex h-full min-w-0 flex-col">
               <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
@@ -88,11 +96,11 @@ const SignupPage = () => {
             />
           </div>
 
-          <PasswordRequirements id="signup-password-requirements" password={formData.password} />
+          <PasswordRequirements id="signup-password-requirements" password={formData.password} visible={passwordFocused} />
 
           {error && (
             <div className="rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3 text-sm text-purple-100">
-              {error}
+              {t(error)}
             </div>
           )}
 
