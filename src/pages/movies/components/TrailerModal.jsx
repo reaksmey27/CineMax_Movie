@@ -1,7 +1,7 @@
 import TrailerFrame from "./TrailerFrame";
 import useTrailerDialog from "../hooks/useTrailerDialog";
 import { createPortal } from "react-dom";
-import { ArrowsPointingOutIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowsPointingOutIcon, MinusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── TrailerFrame: iframe with load skeleton ──────────────────────────────────
@@ -36,9 +36,9 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
           : `${movie.title} trailer player`
       }
       aria-modal={isMinimized ? undefined : "true"}
-      onMouseDown={(event) => {
+      onClick={(event) => {
         if (!isMinimized && event.target === event.currentTarget) {
-          minimizePlayer();
+          stopPlayer();
         }
       }}
     >
@@ -83,6 +83,7 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
                 </button>
               </>
             ) : (
+              <>
               <button
                 ref={minimizeRef}
                 type="button"
@@ -91,8 +92,18 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
                 onClick={minimizePlayer}
                 className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
               >
+                <MinusIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                aria-label={t("Stop trailer")}
+                title={t("Stop trailer")}
+                onClick={stopPlayer}
+                className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-red-500/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+              >
                 <XMarkIcon className="h-5 w-5" aria-hidden="true" />
               </button>
+              </>
             )}
           </div>
         </div>

@@ -31,6 +31,7 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "No trailer is available for this movie yet.",
   "At least one number or symbol",
   "At least one letter",
   "At least one capital letter",

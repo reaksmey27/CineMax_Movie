@@ -106,13 +106,17 @@ const MovieInfo = ({
           </button>
 
           <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
-            {movie.trailerKey && (
+            {movie.trailerKey ? (
               <button
                 onClick={onTrailer}
                 className="col-span-2 flex min-h-14 min-w-0 items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-4 py-3 text-sm font-semibold leading-relaxed text-[var(--color-text)] transition-all backdrop-blur-md hover:bg-[var(--color-surface-2)] active:scale-95 sm:min-w-35 sm:px-8 sm:py-5"
               >
                 {t("Watch Trailer")}
               </button>
+            ) : (
+              <p className="col-span-2 self-center px-1 py-3 text-sm text-(--color-text-subtle)">
+                {t("No trailer is available for this movie yet.")}
+              </p>
             )}
 
             <button

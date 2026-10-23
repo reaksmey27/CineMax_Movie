@@ -1,6 +1,7 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "No trailer is available for this movie yet.": "이 영화의 예고편은 아직 없습니다.",
   "Could not clear notifications. Try again.": "알림을 지우지 못했습니다. 다시 시도하세요.",
   "Remove filter: {filter}": "필터 제거: {filter}",
   "Active filters": "적용된 필터",

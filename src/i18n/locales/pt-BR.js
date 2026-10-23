@@ -1,6 +1,7 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "No trailer is available for this movie yet.": "Ainda não há trailer disponível para este filme.",
   "Could not clear notifications. Try again.": "Não foi possível limpar as notificações. Tente novamente.",
   "Remove filter: {filter}": "Remover filtro: {filter}",
   "Active filters": "Filtros ativos",

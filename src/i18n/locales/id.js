@@ -1,6 +1,7 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "No trailer is available for this movie yet.": "Trailer untuk film ini belum tersedia.",
   "Could not clear notifications. Try again.": "Tidak dapat menghapus notifikasi. Coba lagi.",
   "Remove filter: {filter}": "Hapus filter: {filter}",
   "Active filters": "Filter aktif",

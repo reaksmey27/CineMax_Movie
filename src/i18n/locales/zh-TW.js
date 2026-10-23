@@ -1,6 +1,7 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "No trailer is available for this movie yet.": "這部電影尚未提供預告片。",
   "Could not clear notifications. Try again.": "無法清除通知。請再試一次。",
   "Remove filter: {filter}": "移除篩選條件：{filter}",
   "Active filters": "已套用的篩選條件",

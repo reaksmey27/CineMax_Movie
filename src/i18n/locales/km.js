@@ -1,6 +1,7 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "No trailer is available for this movie yet.": "មិនទាន់មានឈុតខ្លីសម្រាប់ភាពយន្តនេះទេ។",
   "Could not clear notifications. Try again.": "មិនអាចសម្អាតការជូនដំណឹងបានទេ។ សូមព្យាយាមម្តងទៀត។",
   "Remove filter: {filter}": "ដកតម្រងចេញ៖ {filter}",
   "Active filters": "តម្រងដែលកំពុងប្រើ",

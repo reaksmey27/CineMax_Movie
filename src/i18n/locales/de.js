@@ -1,6 +1,7 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "No trailer is available for this movie yet.": "Für diesen Film ist noch kein Trailer verfügbar.",
   "Could not clear notifications. Try again.": "Benachrichtigungen konnten nicht gelöscht werden. Versuche es erneut.",
   "Remove filter: {filter}": "Filter entfernen: {filter}",
   "Active filters": "Aktive Filter",

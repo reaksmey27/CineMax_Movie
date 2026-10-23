@@ -5,7 +5,6 @@ export default function useTrailerDialog(movie, isOpen, onClose) {
   const minimizeRef = useRef(null);
   const expandRef = useRef(null);
   const openerRef = useRef(null);
-  const previousOverflowRef = useRef("");
   const [isMinimized, setIsMinimized] = useState(false);
   const hasTrailer = Boolean(movie.trailerKey);
   const isActive = hasTrailer && (isOpen || isMinimized);
@@ -15,9 +14,8 @@ export default function useTrailerDialog(movie, isOpen, onClose) {
   useEffect(() => {
     if (isOpen) {
       openerRef.current = document.activeElement;
-      previousOverflowRef.current = document.body.style.overflow;
-      requestAnimationFrame(() => minimizeRef.current?.focus());
-      return undefined;
+      const frame = requestAnimationFrame(() => minimizeRef.current?.focus());
+      return () => cancelAnimationFrame(frame);
     }
 
     if (
@@ -30,8 +28,10 @@ export default function useTrailerDialog(movie, isOpen, onClose) {
   }, [isOpen]);
 
   useEffect(() => {
-    document.body.style.overflow =
-      isOpen && !isMinimized ? "hidden" : previousOverflowRef.current;
+    if (!isOpen || isMinimized) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
   }, [isOpen, isMinimized]);
 
   useEffect(() => {
@@ -40,8 +40,8 @@ export default function useTrailerDialog(movie, isOpen, onClose) {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        setIsMinimized(true);
-        requestAnimationFrame(() => expandRef.current?.focus());
+        setIsMinimized(false);
+        onClose();
         return;
       }
 
@@ -79,14 +79,7 @@ export default function useTrailerDialog(movie, isOpen, onClose) {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("focusin", handleFocusIn);
     };
-  }, [isActive, isMinimized]);
-
-  useEffect(
-    () => () => {
-      document.body.style.overflow = previousOverflowRef.current;
-    },
-    [],
-  );
+  }, [isActive, isMinimized, onClose]);
 
   // ─── Handlers: minimize, expand & stop ────────────────────────────────────────
 

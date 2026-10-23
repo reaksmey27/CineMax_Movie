@@ -1,6 +1,7 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "No trailer is available for this movie yet.": "Todavía no hay un tráiler disponible para esta película.",
   "Could not clear notifications. Try again.": "No se pudieron borrar las notificaciones. Inténtalo de nuevo.",
   "Remove filter: {filter}": "Quitar filtro: {filter}",
   "Active filters": "Filtros activos",

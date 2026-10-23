@@ -1,6 +1,7 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "No trailer is available for this movie yet.": "Phim này chưa có đoạn giới thiệu.",
   "Could not clear notifications. Try again.": "Không thể xóa thông báo. Hãy thử lại.",
   "Remove filter: {filter}": "Xóa bộ lọc: {filter}",
   "Active filters": "Bộ lọc đang dùng",
