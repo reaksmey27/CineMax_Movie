@@ -1,6 +1,10 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Show password": "Mostrar contraseña",
+  "Hide password": "Ocultar contraseña",
+  "Show confirmation password": "Mostrar contraseña de confirmación",
+  "Hide confirmation password": "Ocultar contraseña de confirmación",
   "Details (optional)": "Detalles (opcional)",
   "Describe what happened...": "Describe lo que ocurrió...",
   "Report playback problem": "Informar de un problema de reproducción",

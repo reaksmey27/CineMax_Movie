@@ -1,6 +1,10 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Show password": "비밀번호 표시",
+  "Hide password": "비밀번호 숨기기",
+  "Show confirmation password": "확인 비밀번호 표시",
+  "Hide confirmation password": "확인 비밀번호 숨기기",
   "Details (optional)": "상세 내용 (선택 사항)",
   "Describe what happened...": "어떤 문제가 발생했는지 설명하세요...",
   "Report playback problem": "재생 문제 신고",

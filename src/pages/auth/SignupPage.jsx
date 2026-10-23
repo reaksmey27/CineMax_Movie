@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowRightIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
+import PasswordField from "../../components/auth/PasswordField";
 import LoginButton from "../../components/auth/LoginButton";
 import useAuthForm from "../../hooks/auth/useAuthForm";
 import { useLanguage } from "../../context/LanguageContext";
@@ -65,35 +66,24 @@ const SignupPage = () => {
           </div>
 
           <div className="grid min-w-0 grid-cols-1 gap-3 min-[480px]:grid-cols-2">
-            <label className="flex h-full min-w-0 flex-col">
-              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-                {t("Password")}
-              </span>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                autoComplete="new-password"
-                placeholder={t("At least 6 characters")}
-                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-              />
-            </label>
+            <PasswordField
+              label={t("Password")}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              autoComplete="new-password"
+              placeholder={t("At least 6 characters")}
+            />
 
-            <label className="flex h-full min-w-0 flex-col">
-              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-                {t("Confirm Password")}
-              </span>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                autoComplete="new-password"
-                placeholder={t("Repeat your password")}
-                className="mt-auto w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-              />
-            </label>
+            <PasswordField
+              label={t("Confirm Password")}
+              confirmation
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              autoComplete="new-password"
+              placeholder={t("Repeat your password")}
+            />
           </div>
 
           {error && (

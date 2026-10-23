@@ -1,6 +1,10 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Show password": "បង្ហាញពាក្យសម្ងាត់",
+  "Hide password": "លាក់ពាក្យសម្ងាត់",
+  "Show confirmation password": "បង្ហាញពាក្យសម្ងាត់បញ្ជាក់",
+  "Hide confirmation password": "លាក់ពាក្យសម្ងាត់បញ្ជាក់",
   "Details (optional)": "ព័ត៌មានលម្អិត (មិនបាច់បំពេញក៏បាន)",
   "Describe what happened...": "ពិពណ៌នាអំពីបញ្ហាដែលបានកើតឡើង...",
   "Report playback problem": "រាយការណ៍បញ្ហាចាក់វីដេអូ",

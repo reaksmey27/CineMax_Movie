@@ -1,6 +1,10 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Show password": "Mostrar senha",
+  "Hide password": "Ocultar senha",
+  "Show confirmation password": "Mostrar confirmação de senha",
+  "Hide confirmation password": "Ocultar confirmação de senha",
   "Details (optional)": "Detalhes (opcional)",
   "Describe what happened...": "Descreva o que aconteceu...",
   "Report playback problem": "Relatar problema de reprodução",

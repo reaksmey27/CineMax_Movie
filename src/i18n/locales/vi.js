@@ -1,6 +1,10 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Show password": "Hiện mật khẩu",
+  "Hide password": "Ẩn mật khẩu",
+  "Show confirmation password": "Hiện mật khẩu xác nhận",
+  "Hide confirmation password": "Ẩn mật khẩu xác nhận",
   "Details (optional)": "Chi tiết (không bắt buộc)",
   "Describe what happened...": "Mô tả điều đã xảy ra...",
   "Report playback problem": "Báo lỗi phát phim",

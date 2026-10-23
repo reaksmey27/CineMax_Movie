@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { ArrowRightIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
+import PasswordField from "../../components/auth/PasswordField";
 import LoginButton from "../../components/auth/LoginButton";
 import useAuthForm from "../../hooks/auth/useAuthForm";
 import { useLanguage } from "../../context/LanguageContext";
@@ -61,20 +62,14 @@ const LoginPage = () => {
               />
             </label>
 
-            <label className="block">
-              <span className="mb-2 block text-[10px] font-black uppercase tracking-[0.25em] text-white/45">
-                {t("Password")}
-              </span>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                autoComplete="current-password"
-                placeholder={t("Enter your password")}
-                className="w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
-              />
-            </label>
+            <PasswordField
+              label={t("Password")}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              autoComplete="current-password"
+              placeholder={t("Enter your password")}
+            />
 
             {error && (
               <div className="rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3 text-sm text-purple-100">

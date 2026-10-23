@@ -1,6 +1,10 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Show password": "顯示密碼",
+  "Hide password": "隱藏密碼",
+  "Show confirmation password": "顯示確認密碼",
+  "Hide confirmation password": "隱藏確認密碼",
   "Details (optional)": "詳細說明（選填）",
   "Describe what happened...": "請描述發生的問題...",
   "Report playback problem": "回報播放問題",

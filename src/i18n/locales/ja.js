@@ -1,6 +1,10 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Show password": "パスワードを表示",
+  "Hide password": "パスワードを非表示",
+  "Show confirmation password": "確認用パスワードを表示",
+  "Hide confirmation password": "確認用パスワードを非表示",
   "Details (optional)": "詳細（任意）",
   "Describe what happened...": "発生した問題を説明してください...",
   "Report playback problem": "再生の問題を報告",

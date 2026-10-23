@@ -1,6 +1,10 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Show password": "Tampilkan kata sandi",
+  "Hide password": "Sembunyikan kata sandi",
+  "Show confirmation password": "Tampilkan konfirmasi kata sandi",
+  "Hide confirmation password": "Sembunyikan konfirmasi kata sandi",
   "Details (optional)": "Detail (opsional)",
   "Describe what happened...": "Jelaskan apa yang terjadi...",
   "Report playback problem": "Laporkan masalah pemutaran",

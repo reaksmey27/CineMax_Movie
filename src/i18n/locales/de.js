@@ -1,6 +1,10 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Show password": "Passwort anzeigen",
+  "Hide password": "Passwort verbergen",
+  "Show confirmation password": "Bestätigungspasswort anzeigen",
+  "Hide confirmation password": "Bestätigungspasswort verbergen",
   "Details (optional)": "Details (optional)",
   "Describe what happened...": "Beschreibe, was passiert ist...",
   "Report playback problem": "Wiedergabeproblem melden",

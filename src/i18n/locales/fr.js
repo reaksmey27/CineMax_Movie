@@ -1,6 +1,10 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Show password": "Afficher le mot de passe",
+  "Hide password": "Masquer le mot de passe",
+  "Show confirmation password": "Afficher le mot de passe de confirmation",
+  "Hide confirmation password": "Masquer le mot de passe de confirmation",
   "Details (optional)": "Détails (facultatif)",
   "Describe what happened...": "Décrivez ce qui s’est passé...",
   "Report playback problem": "Signaler un problème de lecture",

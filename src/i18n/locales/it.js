@@ -1,6 +1,10 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Show password": "Mostra password",
+  "Hide password": "Nascondi password",
+  "Show confirmation password": "Mostra password di conferma",
+  "Hide confirmation password": "Nascondi password di conferma",
   "Details (optional)": "Dettagli (facoltativo)",
   "Describe what happened...": "Descrivi cosa è successo...",
   "Report playback problem": "Segnala un problema di riproduzione",
