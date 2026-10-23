@@ -1,3 +1,4 @@
+import PasswordRequirements from "../../components/auth/PasswordRequirements";
 import React from "react";
 import { ArrowRightIcon, UserPlusIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
@@ -72,7 +73,8 @@ const SignupPage = () => {
               value={formData.password}
               onChange={handleChange}
               autoComplete="new-password"
-              placeholder={t("At least 6 characters")}
+              placeholder={t("At least 8 characters")}
+              aria-describedby="signup-password-requirements"
             />
 
             <PasswordField
@@ -85,6 +87,8 @@ const SignupPage = () => {
               placeholder={t("Repeat your password")}
             />
           </div>
+
+          <PasswordRequirements id="signup-password-requirements" password={formData.password} />
 
           {error && (
             <div className="rounded-xl border border-purple-500/20 bg-purple-500/10 px-4 py-3 text-sm text-purple-100">

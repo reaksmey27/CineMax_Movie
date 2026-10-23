@@ -1,6 +1,13 @@
 // ─── es: Spanish UI strings (fallback: en) ────────────────────────────────────
 
 const es = {
+  "Password requirements": "Requisitos de la contraseña",
+  "At least 8 characters": "Al menos 8 caracteres",
+  "Lowercase letter (a-z)": "Letra minúscula (a-z)",
+  "Uppercase letter (A-Z)": "Letra mayúscula (A-Z)",
+  "Number (0-9)": "Número (0-9)",
+  "Symbol (e.g. !@#$)": "Símbolo (p. ej. !@#$)",
+  "Meet all password requirements before continuing.": "Cumple todos los requisitos de la contraseña antes de continuar.",
   "Caps Lock is on": "Bloq Mayús está activado",
   "Show password": "Mostrar contraseña",
   "Hide password": "Ocultar contraseña",

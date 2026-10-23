@@ -1,6 +1,13 @@
 // ─── ko: Korean UI strings (fallback: en) ─────────────────────────────────────
 
 const ko = {
+  "Password requirements": "비밀번호 요구 사항",
+  "At least 8 characters": "8자 이상",
+  "Lowercase letter (a-z)": "영문 소문자 (a-z)",
+  "Uppercase letter (A-Z)": "영문 대문자 (A-Z)",
+  "Number (0-9)": "숫자 (0-9)",
+  "Symbol (e.g. !@#$)": "기호 (예: !@#$)",
+  "Meet all password requirements before continuing.": "계속하려면 모든 비밀번호 요구 사항을 충족하세요.",
   "Caps Lock is on": "Caps Lock이 켜져 있습니다",
   "Show password": "비밀번호 표시",
   "Hide password": "비밀번호 숨기기",

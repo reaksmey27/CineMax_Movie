@@ -1,6 +1,13 @@
 // ─── id: Indonesian UI strings (fallback: en) ─────────────────────────────────
 
 const id = {
+  "Password requirements": "Persyaratan kata sandi",
+  "At least 8 characters": "Minimal 8 karakter",
+  "Lowercase letter (a-z)": "Huruf kecil (a-z)",
+  "Uppercase letter (A-Z)": "Huruf besar (A-Z)",
+  "Number (0-9)": "Angka (0-9)",
+  "Symbol (e.g. !@#$)": "Simbol (mis. !@#$)",
+  "Meet all password requirements before continuing.": "Penuhi semua persyaratan kata sandi sebelum melanjutkan.",
   "Caps Lock is on": "Caps Lock aktif",
   "Show password": "Tampilkan kata sandi",
   "Hide password": "Sembunyikan kata sandi",

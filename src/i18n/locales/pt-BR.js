@@ -1,6 +1,13 @@
 // ─── pt-BR: Portuguese (BR) UI strings (fallback: en) ─────────────────────────
 
 const ptBR = {
+  "Password requirements": "Requisitos da senha",
+  "At least 8 characters": "Pelo menos 8 caracteres",
+  "Lowercase letter (a-z)": "Letra minúscula (a-z)",
+  "Uppercase letter (A-Z)": "Letra maiúscula (A-Z)",
+  "Number (0-9)": "Número (0-9)",
+  "Symbol (e.g. !@#$)": "Símbolo (ex.: !@#$)",
+  "Meet all password requirements before continuing.": "Atenda a todos os requisitos da senha antes de continuar.",
   "Caps Lock is on": "Caps Lock está ativado",
   "Show password": "Mostrar senha",
   "Hide password": "Ocultar senha",

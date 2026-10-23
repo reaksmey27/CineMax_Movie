@@ -1,3 +1,4 @@
+import { meetsPasswordRequirements } from "../../utils/passwordRequirements";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAuthRedirect } from "../../utils/authRedirect";
@@ -38,7 +39,11 @@ const useAuthForm = (mode = "login") => {
       return "Enter a valid email address to continue.";
     }
 
-    if (formData.password.length < 6) {
+    if (mode === "register" && !meetsPasswordRequirements(formData.password)) {
+      return "Meet all password requirements before continuing.";
+    }
+
+    if (mode !== "register" && formData.password.length < 6) {
       return "Your password must be at least 6 characters long.";
     }
 

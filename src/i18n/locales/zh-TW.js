@@ -1,6 +1,13 @@
 // ─── zh-TW: Traditional Chinese UI strings (fallback: en) ─────────────────────
 
 const zhTW = {
+  "Password requirements": "密碼要求",
+  "At least 8 characters": "至少 8 個字元",
+  "Lowercase letter (a-z)": "小寫英文字母 (a-z)",
+  "Uppercase letter (A-Z)": "大寫英文字母 (A-Z)",
+  "Number (0-9)": "數字 (0-9)",
+  "Symbol (e.g. !@#$)": "符號（例如 !@#$）",
+  "Meet all password requirements before continuing.": "請先符合所有密碼要求再繼續。",
   "Caps Lock is on": "大寫鎖定已開啟",
   "Show password": "顯示密碼",
   "Hide password": "隱藏密碼",

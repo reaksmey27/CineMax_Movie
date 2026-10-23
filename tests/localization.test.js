@@ -28,6 +28,13 @@ const sources = [
   "src/components/ui/MovieCard.jsx",
 ];
 const keys = new Set([
+  "Password requirements",
+  "At least 8 characters",
+  "Lowercase letter (a-z)",
+  "Uppercase letter (A-Z)",
+  "Number (0-9)",
+  "Symbol (e.g. !@#$)",
+  "Meet all password requirements before continuing.",
   "Video won't load",
   "No sound",
   "Wrong movie",

@@ -21,7 +21,7 @@ test("valid link checks code, validates confirmation and resets password on site
   await expect(
     page.getByText("viewer@example.com", { exact: true }),
   ).toBeVisible();
-  await page.getByLabel("Password", { exact: true }).fill("new-password-123");
+  await page.getByLabel("Password", { exact: true }).fill("New-password-123");
   await page
     .getByLabel("Confirm password", { exact: true })
     .fill("different-password");
@@ -32,7 +32,7 @@ test("valid link checks code, validates confirmation and resets password on site
   expect(writes).toHaveLength(0);
   await page
     .getByLabel("Confirm password", { exact: true })
-    .fill("new-password-123");
+    .fill("New-password-123");
   await page
     .getByRole("button", { name: "Reset password", exact: true })
     .click();
@@ -42,7 +42,7 @@ test("valid link checks code, validates confirmation and resets password on site
   expect(writes).toHaveLength(1);
   expect(writes[0]).toMatchObject({
     oobCode: "test-code",
-    newPassword: "new-password-123",
+    newPassword: "New-password-123",
   });
   expect(
     await page.evaluate(
@@ -95,8 +95,8 @@ test("verification failure retries and weak password remains editable", async ({
   await expect(page.getByRole("button", { name: "Try again" })).toBeVisible();
   failVerification = false;
   await page.getByRole("button", { name: "Try again" }).click();
-  await page.getByLabel("Password", { exact: true }).fill("abcdef");
-  await page.getByLabel("Confirm password", { exact: true }).fill("abcdef");
+  await page.getByLabel("Password", { exact: true }).fill("Stronger-pass-123");
+  await page.getByLabel("Confirm password", { exact: true }).fill("Stronger-pass-123");
   await page
     .getByRole("button", { name: "Reset password", exact: true })
     .click();

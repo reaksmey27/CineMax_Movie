@@ -1,6 +1,13 @@
 // ─── km: Khmer UI strings (fallback: en) ──────────────────────────────────────
 
 const km = {
+  "Password requirements": "លក្ខខណ្ឌពាក្យសម្ងាត់",
+  "At least 8 characters": "យ៉ាងហោចណាស់ 8 តួអក្សរ",
+  "Lowercase letter (a-z)": "អក្សរតូច (a-z)",
+  "Uppercase letter (A-Z)": "អក្សរធំ (A-Z)",
+  "Number (0-9)": "លេខ (0-9)",
+  "Symbol (e.g. !@#$)": "និមិត្តសញ្ញា (ឧ. !@#$)",
+  "Meet all password requirements before continuing.": "បំពេញលក្ខខណ្ឌពាក្យសម្ងាត់ទាំងអស់មុនពេលបន្ត។",
   "Caps Lock is on": "Caps Lock កំពុងបើក",
   "Show password": "បង្ហាញពាក្យសម្ងាត់",
   "Hide password": "លាក់ពាក្យសម្ងាត់",

@@ -14,7 +14,7 @@ test("Caps Lock warnings follow each focused password field without changing its
   // Explicit modifier state makes the test independent of the host keyboard lock.
   await password.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
   await expect(warning).toBeVisible();
-  await expect(password).toHaveAccessibleDescription("Caps Lock is on");
+  await expect(password).toHaveAccessibleDescription(/Caps Lock is on/);
   await expect(password).toHaveValue("Example-password");
   await password.dispatchEvent("keyup", { key: "CapsLock", modifierCapsLock: false });
   await expect(warning).toHaveCount(0);
@@ -24,7 +24,7 @@ test("Caps Lock warnings follow each focused password field without changing its
   await expect(warning).toHaveCount(0);
   await confirmation.dispatchEvent("keydown", { key: "A", modifierCapsLock: true });
   await expect(confirmation).toHaveAccessibleDescription("Caps Lock is on");
-  await expect(password).not.toHaveAttribute("aria-describedby");
+  await expect(password).toHaveAttribute("aria-describedby", "signup-password-requirements");
   await page.getByRole("button", { name: "Show confirmation password", exact: true }).click();
   await expect(warning).toHaveCount(0);
   await confirmation.focus();

@@ -1,6 +1,13 @@
 // ─── de: German UI strings (fallback: en) ─────────────────────────────────────
 
 const de = {
+  "Password requirements": "Passwortanforderungen",
+  "At least 8 characters": "Mindestens 8 Zeichen",
+  "Lowercase letter (a-z)": "Kleinbuchstabe (a-z)",
+  "Uppercase letter (A-Z)": "Großbuchstabe (A-Z)",
+  "Number (0-9)": "Ziffer (0-9)",
+  "Symbol (e.g. !@#$)": "Sonderzeichen (z. B. !@#$)",
+  "Meet all password requirements before continuing.": "Erfülle alle Passwortanforderungen, bevor du fortfährst.",
   "Caps Lock is on": "Die Feststelltaste ist aktiviert",
   "Show password": "Passwort anzeigen",
   "Hide password": "Passwort verbergen",

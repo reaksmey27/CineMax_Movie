@@ -1,6 +1,13 @@
 // ─── ja: Japanese UI strings (fallback: en) ───────────────────────────────────
 
 const ja = {
+  "Password requirements": "パスワードの要件",
+  "At least 8 characters": "8文字以上",
+  "Lowercase letter (a-z)": "英小文字 (a-z)",
+  "Uppercase letter (A-Z)": "英大文字 (A-Z)",
+  "Number (0-9)": "数字 (0-9)",
+  "Symbol (e.g. !@#$)": "記号 (例: !@#$)",
+  "Meet all password requirements before continuing.": "続行する前にパスワードのすべての要件を満たしてください。",
   "Caps Lock is on": "Caps Lock がオンになっています",
   "Show password": "パスワードを表示",
   "Hide password": "パスワードを非表示",

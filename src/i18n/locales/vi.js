@@ -1,6 +1,13 @@
 // ─── vi: Vietnamese UI strings (fallback: en) ─────────────────────────────────
 
 const vi = {
+  "Password requirements": "Yêu cầu mật khẩu",
+  "At least 8 characters": "Ít nhất 8 ký tự",
+  "Lowercase letter (a-z)": "Chữ thường (a-z)",
+  "Uppercase letter (A-Z)": "Chữ hoa (A-Z)",
+  "Number (0-9)": "Số (0-9)",
+  "Symbol (e.g. !@#$)": "Ký hiệu (ví dụ: !@#$)",
+  "Meet all password requirements before continuing.": "Đáp ứng tất cả yêu cầu mật khẩu trước khi tiếp tục.",
   "Caps Lock is on": "Caps Lock đang bật",
   "Show password": "Hiện mật khẩu",
   "Hide password": "Ẩn mật khẩu",

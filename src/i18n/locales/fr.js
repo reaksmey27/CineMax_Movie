@@ -1,6 +1,13 @@
 // ─── fr: French UI strings (fallback: en) ─────────────────────────────────────
 
 const fr = {
+  "Password requirements": "Exigences du mot de passe",
+  "At least 8 characters": "Au moins 8 caractères",
+  "Lowercase letter (a-z)": "Lettre minuscule (a-z)",
+  "Uppercase letter (A-Z)": "Lettre majuscule (A-Z)",
+  "Number (0-9)": "Chiffre (0-9)",
+  "Symbol (e.g. !@#$)": "Symbole (ex. !@#$)",
+  "Meet all password requirements before continuing.": "Respectez toutes les exigences du mot de passe avant de continuer.",
   "Caps Lock is on": "Le verrouillage des majuscules est activé",
   "Show password": "Afficher le mot de passe",
   "Hide password": "Masquer le mot de passe",

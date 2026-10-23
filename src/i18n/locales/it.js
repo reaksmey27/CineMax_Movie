@@ -1,6 +1,13 @@
 // ─── it: Italian UI strings (fallback: en) ────────────────────────────────────
 
 const it = {
+  "Password requirements": "Requisiti della password",
+  "At least 8 characters": "Almeno 8 caratteri",
+  "Lowercase letter (a-z)": "Lettera minuscola (a-z)",
+  "Uppercase letter (A-Z)": "Lettera maiuscola (A-Z)",
+  "Number (0-9)": "Numero (0-9)",
+  "Symbol (e.g. !@#$)": "Simbolo (es. !@#$)",
+  "Meet all password requirements before continuing.": "Soddisfa tutti i requisiti della password prima di continuare.",
   "Caps Lock is on": "Bloc Maiusc è attivo",
   "Show password": "Mostra password",
   "Hide password": "Nascondi password",

@@ -1,3 +1,5 @@
+import PasswordRequirements from "../../components/auth/PasswordRequirements";
+import { meetsPasswordRequirements } from "../../utils/passwordRequirements";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
@@ -58,6 +60,10 @@ function ResetForm({ search }) {
   const submit = async (event) => {
     event.preventDefault();
     if (pending.current || status !== "ready") return;
+    if (!meetsPasswordRequirements(password)) {
+      setError("Meet all password requirements before continuing.");
+      return;
+    }
     if (password !== confirm) {
       setError("Passwords do not match.");
       return;
@@ -171,7 +177,8 @@ function ResetForm({ search }) {
                 type="password"
                 autoComplete="new-password"
                 required
-                minLength={6}
+                minLength={8}
+                aria-describedby="reset-password-requirements"
                 value={password}
                 disabled={status === "saving"}
                 onChange={(event) => {
@@ -188,7 +195,7 @@ function ResetForm({ search }) {
                 type="password"
                 autoComplete="new-password"
                 required
-                minLength={6}
+                minLength={8}
                 value={confirm}
                 disabled={status === "saving"}
                 onChange={(event) => {
@@ -199,6 +206,7 @@ function ResetForm({ search }) {
                 className={INPUT}
               />
             </label>
+            <PasswordRequirements id="reset-password-requirements" password={password} />
             {error && (
               <p role="alert" className="text-sm text-[var(--color-text)]">
                 {t(error)}
