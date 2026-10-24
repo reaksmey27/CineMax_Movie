@@ -94,7 +94,12 @@ const MobileMenu = ({ isOpen, onClose, menuRef, toggleRef }) => {
 
   return (
     <div className="xl:hidden">
-      {confirmSignOut && <SignOutDialog onCancel={() => setConfirmSignOut(false)} onConfirm={handleLogout} />}
+      {confirmSignOut && (
+        <SignOutDialog
+          onCancel={() => setConfirmSignOut(false)}
+          onConfirm={handleLogout}
+        />
+      )}
       <button
         type="button"
         className="fixed inset-x-0 bottom-0 top-20 z-[100] bg-black/60 backdrop-blur-sm sm:top-28"

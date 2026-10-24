@@ -1,15 +1,11 @@
 import TrailerFrame from "./TrailerFrame";
 import useTrailerDialog from "../hooks/useTrailerDialog";
 import { createPortal } from "react-dom";
-import { ArrowsPointingOutIcon, MinusIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
-
-// ─── TrailerFrame: iframe with load skeleton ──────────────────────────────────
+import TrailerControls from "./TrailerControls";
 
 // ─── TrailerModal: YouTube trailer dialog ─────────────────────────────────────
 
 const TrailerModal = ({ movie, isOpen, onClose }) => {
-  const { t } = useLanguage();
   const {
     playerRef,
     minimizeRef,
@@ -56,56 +52,14 @@ const TrailerModal = ({ movie, isOpen, onClose }) => {
               ? `Now playing: ${movie.title} trailer`
               : `${movie.title} trailer`}
           </h2>
-          <div className="flex shrink-0 items-center gap-1">
-            {isMinimized ? (
-              <>
-                <button
-                  ref={expandRef}
-                  type="button"
-                  aria-label={t("Expand trailer player")}
-                  title={t("Expand player")}
-                  onClick={expandPlayer}
-                  className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
-                >
-                  <ArrowsPointingOutIcon
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                  />
-                </button>
-                <button
-                  type="button"
-                  aria-label={t("Stop trailer")}
-                  title={t("Stop trailer")}
-                  onClick={stopPlayer}
-                  className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-red-500/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
-                >
-                  <XMarkIcon className="h-5 w-5" aria-hidden="true" />
-                </button>
-              </>
-            ) : (
-              <>
-              <button
-                ref={minimizeRef}
-                type="button"
-                aria-label={t("Minimize trailer and keep watching")}
-                title={t("Minimize and keep watching")}
-                onClick={minimizePlayer}
-                className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
-              >
-                <MinusIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                aria-label={t("Stop trailer")}
-                title={t("Stop trailer")}
-                onClick={stopPlayer}
-                className="flex min-h-10 min-w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-red-500/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
-              >
-                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              </>
-            )}
-          </div>
+          <TrailerControls
+            isMinimized={isMinimized}
+            minimizeRef={minimizeRef}
+            expandRef={expandRef}
+            onMinimize={minimizePlayer}
+            onExpand={expandPlayer}
+            onStop={stopPlayer}
+          />
         </div>
         <TrailerFrame
           src={`https://www.youtube.com/embed/${movie.trailerKey}?autoplay=1&rel=0`}

@@ -46,7 +46,12 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)] px-4 pb-20 pt-28 sm:px-8 sm:pt-40 lg:px-12">
-      {confirmSignOut && <SignOutDialog onCancel={() => setConfirmSignOut(false)} onConfirm={handleLogout} />}
+      {confirmSignOut && (
+        <SignOutDialog
+          onCancel={() => setConfirmSignOut(false)}
+          onConfirm={handleLogout}
+        />
+      )}
       <div className="mx-auto max-w-6xl">
         <header className="flex flex-col gap-5 rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6 lg:flex-row lg:items-center lg:justify-between sm:p-8">
           <div className="flex min-w-0 items-center gap-4">
@@ -70,9 +75,7 @@ const ProfilePage = () => {
               </div>
             )}
             <div className="min-w-0">
-              <h1 className="page-heading page-heading--cyan">
-                {user.name}
-              </h1>
+              <h1 className="page-heading page-heading--cyan">{user.name}</h1>
               <p className="mt-2 break-all text-sm text-[var(--color-text-muted)] sm:text-base">
                 {user.email}
               </p>

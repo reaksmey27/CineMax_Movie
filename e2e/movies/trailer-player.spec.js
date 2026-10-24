@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 const mockMovieDetails = async (page, hasTrailer = true) => {
-  await page.route("https://www.youtube.com/embed/**", route => route.fulfill({ body: "" }));
+  await page.route("https://www.youtube.com/embed/**", (route) =>
+    route.fulfill({ body: "" }),
+  );
   await page.route("**/*", async (route) => {
     const requestUrl = new URL(route.request().url());
     if (requestUrl.hostname !== "api.themoviedb.org") {
@@ -9,7 +11,9 @@ const mockMovieDetails = async (page, hasTrailer = true) => {
       return;
     }
     if (!requestUrl.pathname.endsWith("/movie/42")) {
-      await route.fulfill({ json: { results: [], genres: [], total_pages: 0 } });
+      await route.fulfill({
+        json: { results: [], genres: [], total_pages: 0 },
+      });
       return;
     }
 
@@ -26,13 +30,15 @@ const mockMovieDetails = async (page, hasTrailer = true) => {
         runtime: 100,
         genres: [{ name: "Drama" }],
         videos: {
-          results: hasTrailer ? [
-            {
-              site: "YouTube",
-              type: "Trailer",
-              key: "test-trailer-key",
-            },
-          ] : [],
+          results: hasTrailer
+            ? [
+                {
+                  site: "YouTube",
+                  type: "Trailer",
+                  key: "test-trailer-key",
+                },
+              ]
+            : [],
         },
       },
     });
@@ -55,7 +61,9 @@ test("trailer player supports Escape, focus trapping, minimize, expand, and stop
     window.trailerFrameForTest = element;
   });
 
-  await page.getByRole("button", { name: "Minimize trailer and keep watching" }).click();
+  await page
+    .getByRole("button", { name: "Minimize trailer and keep watching" })
+    .click();
   await expect(
     page.getByRole("dialog", {
       name: "Example Film minimized trailer player",
@@ -88,7 +96,9 @@ test("trailer player supports Escape, focus trapping, minimize, expand, and stop
 
   await page.keyboard.press("Escape");
   await expect(iframe).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Watch Trailer" })).toBeFocused();
+  await expect(
+    page.getByRole("button", { name: "Watch Trailer" }),
+  ).toBeFocused();
   await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
   await page.getByRole("button", { name: "Watch Trailer" }).click();
   await page
@@ -101,20 +111,28 @@ test("trailer player supports Escape, focus trapping, minimize, expand, and stop
   await expect(iframe).toHaveCount(0);
 });
 
-test("outside click and close button remove the trailer iframe", async ({ page }) => {
+test("outside click and close button remove the trailer iframe", async ({
+  page,
+}) => {
   await mockMovieDetails(page);
-  await page.route("https://www.youtube.com/embed/**", route => route.fulfill({ body: "" }));
+  await page.route("https://www.youtube.com/embed/**", (route) =>
+    route.fulfill({ body: "" }),
+  );
   await page.goto("/movie/42");
   for (const action of ["outside", "button"]) {
     await page.getByRole("button", { name: "Watch Trailer" }).click();
     await expect(page.getByTitle("Example Film trailer")).toBeVisible();
     if (action === "outside") {
-      await page.getByRole("dialog", { name: "Example Film trailer player" }).click({ position: { x: 2, y: 2 } });
+      await page
+        .getByRole("dialog", { name: "Example Film trailer player" })
+        .click({ position: { x: 2, y: 2 } });
     } else {
       await page.getByRole("button", { name: "Stop trailer" }).click();
     }
     await expect(page.getByTitle("Example Film trailer")).toHaveCount(0);
-    await expect(page.getByRole("button", { name: "Watch Trailer" })).toBeFocused();
+    await expect(
+      page.getByRole("button", { name: "Watch Trailer" }),
+    ).toBeFocused();
     await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
   }
 });
@@ -122,8 +140,12 @@ test("outside click and close button remove the trailer iframe", async ({ page }
 test("missing trailer shows an explanation", async ({ page }) => {
   await mockMovieDetails(page, false);
   await page.goto("/movie/42");
-  await expect(page.getByText("No trailer is available for this movie yet.")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Watch Trailer" })).toHaveCount(0);
+  await expect(
+    page.getByText("No trailer is available for this movie yet."),
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: "Watch Trailer" })).toHaveCount(
+    0,
+  );
 });
 
 test("trailer modal and minimized player fit a 320px mobile viewport", async ({
