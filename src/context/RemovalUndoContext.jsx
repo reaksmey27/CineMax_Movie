@@ -10,6 +10,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "./AuthContext";
 import { useLanguage } from "./LanguageContext";
+import { useToastTimers } from "../hooks/notifications/useToastTimers";
 
 const Context = createContext(null);
 function Session({ userId, children }) {
@@ -17,6 +18,7 @@ function Session({ userId, children }) {
   const [items, setItems] = useState([]);
   const active = useRef(true);
   const pending = useRef(new Set());
+  const scheduleDismiss = useToastTimers();
   useEffect(() => {
     active.current = true;
     return () => {
@@ -38,8 +40,13 @@ function Session({ userId, children }) {
         ...current.filter((item) => item.key !== entry.key),
         entry,
       ]);
+      scheduleDismiss(() => {
+        setItems((current) =>
+          current.filter((item) => item.token !== entry.token),
+        );
+      }, 5000);
     },
-    [userId],
+    [userId, scheduleDismiss],
   );
   const undo = async (entry) => {
     if (pending.current.has(entry.key) || !active.current) return;
@@ -74,7 +81,7 @@ function Session({ userId, children }) {
     <Context.Provider value={offerUndo}>
       {children}
       {items.length > 0 && (
-        <div className="fixed bottom-4 left-4 right-4 z-[150] flex max-h-[45vh] flex-col gap-2 overflow-y-auto sm:right-auto sm:w-96">
+        <div className="fixed bottom-4 left-4 right-4 z-[2100] flex max-h-[45vh] flex-col gap-2 overflow-y-auto sm:right-auto sm:w-96">
           {items.map((entry) => (
             <div
               key={entry.key}
