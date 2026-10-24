@@ -63,6 +63,7 @@ const MoviesPage = () => {
     page,
     totalPages,
     error,
+    retry,
     handleGenreChange,
     handleSearch,
     clearSearch,
@@ -119,22 +120,47 @@ const MoviesPage = () => {
           onClearFilters={clearFilters}
         />
 
-        {error ? (
+        {error && movies.length > 0 && (
+          <div
+            role="alert"
+            className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-200"
+          >
+            <p>
+              {t("Could not refresh movies. Showing previously loaded movies.")}
+            </p>
+            <button
+              type="button"
+              onClick={retry}
+              className="min-h-11 rounded-xl border border-amber-400/40 px-4 font-semibold"
+            >
+              {t("Try again")}
+            </button>
+          </div>
+        )}
+        {error && movies.length === 0 ? (
           <PageError
             message={error}
+            onRetry={retry}
             buttonLabel={t("Retry Connection")}
             buttonColor="bg-white text-black hover:bg-red-500 hover:text-white"
             icon={XMarkIcon}
             iconColor="text-red-500"
             borderColor="border-red-500/10 bg-red-500/5"
           />
-        ) : loading ? (
+        ) : loading && movies.length === 0 ? (
           <MovieGridSkeleton />
         ) : (
           <>
-            {movies.length === 0 && searchQuery && !hasActiveFilters && (
-              <SearchSuggestions key={searchQuery} query={searchQuery} onSearch={handleSearch} />
-            )}
+            {!error &&
+              movies.length === 0 &&
+              searchQuery &&
+              !hasActiveFilters && (
+                <SearchSuggestions
+                  key={searchQuery}
+                  query={searchQuery}
+                  onSearch={handleSearch}
+                />
+              )}
             <MovieGrid
               movies={movies}
               onReset={resetResults}
@@ -142,7 +168,7 @@ const MoviesPage = () => {
               emptyTitle={emptyTitle}
               emptyMessage={emptyMessage}
             />
-            {totalPages > 1 && (
+            {!error && !loading && totalPages > 1 && (
               <Pagination
                 page={page}
                 totalPages={totalPages}

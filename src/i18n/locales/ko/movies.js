@@ -1,5 +1,6 @@
 // ko movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "영화를 새로 불러오지 못했습니다. 이전에 불러온 영화를 표시합니다.",
   "{count} matches": "{count}개 결과",
   "{duration} remaining": "{duration} 남음",
   "Across the movies you saved.": "저장한 영화의 평균입니다.",

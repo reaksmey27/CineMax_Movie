@@ -1,5 +1,6 @@
 // id movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "Tidak dapat memuat ulang film. Menampilkan film yang sebelumnya dimuat.",
   "{count} matches": "{count} hasil",
   "{duration} remaining": "Tersisa {duration}",
   "Across the movies you saved.": "Dari semua film yang Anda simpan.",

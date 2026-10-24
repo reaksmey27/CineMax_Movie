@@ -1,5 +1,6 @@
 // km movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "មិនអាចផ្ទុកភាពយន្តឡើងវិញបានទេ។ កំពុងបង្ហាញភាពយន្តដែលបានផ្ទុកពីមុន។",
   "{count} matches": "មានលទ្ធផល {count}",
   "{duration} remaining": "នៅសល់ {duration}",
   "Across the movies you saved.": "ជាមធ្យមលើភាពយន្តដែលអ្នកបានរក្សាទុក។",

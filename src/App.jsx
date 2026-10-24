@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/core/ErrorBoundary.jsx";
 import RouteTitleManager from "./components/core/RouteTitleManager.jsx";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
+import ConnectionBanner from "./components/layout/ConnectionBanner";
 import BackToTopButton from "./components/ui/BackToTopButton";
 import DonationButton from "./components/ui/DonationButton";
 import PageSkeleton from "./components/ui/PageSkeleton";
@@ -39,7 +40,9 @@ const AppContent = ({ theme, toggleTheme }) => {
   const backgroundLocation = location.state?.backgroundLocation;
   const baseLocation = backgroundLocation || location;
   // Keep the auth layout mounted when only the form route changes.
-  const pageKey = ["/login", "/signup", "/register"].includes(baseLocation.pathname)
+  const pageKey = ["/login", "/signup", "/register"].includes(
+    baseLocation.pathname,
+  )
     ? "auth"
     : baseLocation.pathname;
 
@@ -49,6 +52,7 @@ const AppContent = ({ theme, toggleTheme }) => {
       <RouteTitleManager />
       <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
         <Navbar theme={theme} onToggleTheme={toggleTheme} />
+        <ConnectionBanner />
         <main className="relative">
           <Suspense fallback={<PageSkeleton />}>
             <div key={pageKey} className="animate-page-enter">

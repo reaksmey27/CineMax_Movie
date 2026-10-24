@@ -1,5 +1,6 @@
 // ja movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "映画を更新できませんでした。以前に読み込んだ映画を表示しています。",
   "{count} matches": "{count}件",
   "{duration} remaining": "残り{duration}",
   "Across the movies you saved.": "保存した映画全体の平均です。",

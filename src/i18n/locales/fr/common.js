@@ -1,5 +1,8 @@
 // fr common messages. English keys remain the fallback.
 export default {
+  "Connection status": "État de la connexion",
+  "You're offline. Some features are unavailable.": "Vous êtes hors ligne. Certaines fonctionnalités sont indisponibles.",
+  "Connection restored. Retry any failed requests.": "Connexion rétablie. Réessayez les requêtes échouées.",
   " World": " monde",
   "{label} copied.": "{label} copié.",
   "90–120 minutes": "90–120 minutes",

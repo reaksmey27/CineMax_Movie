@@ -1,5 +1,8 @@
 // vi common messages. English keys remain the fallback.
 export default {
+  "Connection status": "Trạng thái kết nối",
+  "You're offline. Some features are unavailable.": "Bạn đang ngoại tuyến. Một số tính năng không khả dụng.",
+  "Connection restored. Retry any failed requests.": "Đã kết nối lại. Hãy thử lại các yêu cầu thất bại.",
   " World": " thế giới",
   "{label} copied.": "Đã sao chép {label}.",
   "90–120 minutes": "90–120 phút",

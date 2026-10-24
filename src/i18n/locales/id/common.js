@@ -1,5 +1,8 @@
 // id common messages. English keys remain the fallback.
 export default {
+  "Connection status": "Status koneksi",
+  "You're offline. Some features are unavailable.": "Anda sedang offline. Beberapa fitur tidak tersedia.",
+  "Connection restored. Retry any failed requests.": "Koneksi pulih. Coba lagi permintaan yang gagal.",
   " World": " dunia",
   "{label} copied.": "{label} disalin.",
   "90–120 minutes": "90–120 menit",

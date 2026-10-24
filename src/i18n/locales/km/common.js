@@ -1,5 +1,8 @@
 // km common messages. English keys remain the fallback.
 export default {
+  "Connection status": "ស្ថានភាពការតភ្ជាប់",
+  "You're offline. Some features are unavailable.": "អ្នកគ្មានអ៊ីនធឺណិត។ មុខងារខ្លះមិនអាចប្រើបានទេ។",
+  "Connection restored. Retry any failed requests.": "ការតភ្ជាប់បានស្តារឡើងវិញ។ សូមព្យាយាមសំណើដែលបរាជ័យម្តងទៀត។",
   " World": " ពិភពលោក",
   "{label} copied.": "បានចម្លង {label}។",
   "90–120 minutes": "៩០–១២០ នាទី",

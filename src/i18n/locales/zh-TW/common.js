@@ -1,5 +1,8 @@
 // zh-TW common messages. English keys remain the fallback.
 export default {
+  "Connection status": "連線狀態",
+  "You're offline. Some features are unavailable.": "您已離線。部分功能無法使用。",
+  "Connection restored. Retry any failed requests.": "連線已恢復。請重試失敗的請求。",
   " World": "世界",
   "{label} copied.": "已複製{label}。",
   "90–120 minutes": "90–120 分鐘",

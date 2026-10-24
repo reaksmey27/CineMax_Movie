@@ -24,7 +24,7 @@ const useMovies = () => {
     hasActiveFilters,
   } = filters;
   const { genres, genresLoading, genresError, retryGenres } = useMovieGenres();
-  const { movies, loading, totalPages, error, setError } =
+  const { movies, loading, totalPages, error, setError, retry } =
     useMovieResults(filters);
 
   // ─── URL Helpers: write filter updates ────────────────────────────────────────
@@ -131,6 +131,7 @@ const useMovies = () => {
   );
 
   return {
+    retry,
     collectionTitle,
     movies,
     genres,

@@ -3,6 +3,7 @@ import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const sources = [
+  "src/components/layout/ConnectionBanner.jsx",
   "src/hooks/movies/useMoviePlaybackActions.js",
   "src/pages/movies/components/MovieDetailUnavailable.jsx",
   "src/components/auth/SignOutDialog.jsx",

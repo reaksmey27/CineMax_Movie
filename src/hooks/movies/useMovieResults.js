@@ -17,6 +17,7 @@ export default function useMovieResults({
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(null);
+  const [retryVersion, setRetryVersion] = useState(0);
 
   useEffect(() => {
     let ignore = false;
@@ -25,6 +26,7 @@ export default function useMovieResults({
       setLoading(true);
       setError(null);
       try {
+        if (!navigator.onLine) throw new Error("Failed to fetch: offline");
         let response;
         if (searchQuery.trim()) {
           const hasSearchFilters =
@@ -113,7 +115,15 @@ export default function useMovieResults({
     searchQuery,
     selectedGenre,
     sortBy,
+    retryVersion,
   ]);
 
-  return { movies, loading, totalPages, error, setError };
+  return {
+    movies,
+    loading,
+    totalPages,
+    error,
+    setError,
+    retry: () => setRetryVersion((version) => version + 1),
+  };
 }

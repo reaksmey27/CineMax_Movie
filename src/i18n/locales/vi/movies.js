@@ -1,5 +1,6 @@
 // vi movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "Không thể tải lại phim. Đang hiển thị các phim đã tải trước đó.",
   "{count} matches": "{count} kết quả",
   "{duration} remaining": "Còn {duration}",
   "A better way to choose what to watch": "Cách chọn phim phù hợp dễ dàng hơn",

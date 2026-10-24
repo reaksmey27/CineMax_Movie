@@ -1,5 +1,6 @@
 // zh-TW movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "無法重新載入電影。目前顯示先前載入的電影。",
   "{count} matches": "{count} 個結果",
   "{duration} remaining": "剩餘 {duration}",
   "A better way to choose what to watch": "更輕鬆地挑選想看的電影",

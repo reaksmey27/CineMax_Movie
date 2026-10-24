@@ -1,5 +1,6 @@
 // pt-BR movies messages. English keys remain the fallback.
 export default {
+  "Could not refresh movies. Showing previously loaded movies.": "Não foi possível atualizar os filmes. Exibindo os carregados anteriormente.",
   "{count} matches": "{count} correspondências",
   "{duration} remaining": "{duration} restantes",
   "A better way to choose what to watch":
