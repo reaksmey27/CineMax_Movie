@@ -170,6 +170,7 @@ const MoviePlayer = ({
                 className="h-full w-full bg-black"
                 frameBorder="0"
                 scrolling="no"
+                sandbox="allow-scripts allow-same-origin allow-presentation"
                 allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
                 allowFullScreen
                 loading="eager"
