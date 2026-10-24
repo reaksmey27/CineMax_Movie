@@ -52,6 +52,11 @@ test("unknown preferred server falls back and next-server action saves preferenc
     page.getByRole("button", { name: "Server 1", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await expect(
+    page.getByText(
+      "This source is taking too long to respond. Try reloading or switch servers.",
+    ),
+  ).toBeVisible({ timeout: 18000 });
+  await expect(
     page.getByRole("button", { name: "Try Server 2", exact: true }),
   ).toBeVisible({ timeout: 18000 });
   await page.getByRole("button", { name: "Try Server 2", exact: true }).click();
@@ -63,6 +68,40 @@ test("unknown preferred server falls back and next-server action saves preferenc
       localStorage.getItem("cinemax_preferred_movie_server"),
     ),
   ).toBe("Server 2");
+});
+
+test("quick server switching cycles all servers on mobile and preserves the sandbox", async ({
+  page,
+}) => {
+  await setupPlaybackHistory(page);
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/movie/42");
+  await page.getByRole("button", { name: "Play Movie", exact: true }).click();
+  for (const number of [2, 3, 4, 1]) {
+    const button = page.getByRole("button", {
+      name: `Try Server ${number}`,
+      exact: true,
+    });
+    await expect(button).toBeVisible();
+    const bounds = await button.boundingBox();
+    expect(bounds.height).toBeGreaterThanOrEqual(44);
+    await button.click();
+    await expect(
+      page.getByRole("button", { name: `Server ${number}`, exact: true }),
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(page.getByTitle("Cinema Player")).toHaveAttribute(
+      "sandbox",
+      "allow-scripts allow-same-origin allow-presentation",
+    );
+    expect(
+      await page.evaluate(() =>
+        localStorage.getItem("cinemax_preferred_movie_server"),
+      ),
+    ).toBe(`Server ${number}`);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(320);
+  }
 });
 
 test("server switching works when preference storage is blocked", async ({

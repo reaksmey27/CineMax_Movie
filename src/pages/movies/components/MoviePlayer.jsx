@@ -108,7 +108,7 @@ const MoviePlayer = ({
       <div className="mx-auto w-full max-w-5xl space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
           <div className="space-y-1">
-            <p className="text-sm font-semibold text-white">
+            <p aria-live="polite" className="text-sm font-semibold text-white">
               {t("Now playing on {server}", { server: activeServer })}
             </p>
             <p className="text-sm font-bold text-gray-400">
@@ -116,16 +116,26 @@ const MoviePlayer = ({
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 flex-wrap items-center gap-3">
             <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">
               {t(currentServer.qualityLabel)}
             </span>
             <button
+              type="button"
               onClick={onReloadPlayer}
-              className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 active:scale-95"
+              className="min-h-11 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 active:scale-95"
             >
               {t("Reload player")}
             </button>
+            {SERVERS.length > 1 && (
+              <button
+                type="button"
+                onClick={onNextServer}
+                className="min-h-11 rounded-full bg-purple-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-purple-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400 active:scale-95"
+              >
+                {t("Try {server}", { server: nextServerName })}
+              </button>
+            )}
           </div>
         </div>
 
@@ -233,12 +243,6 @@ const MoviePlayer = ({
               className="px-4 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-white text-sm font-semibold active:scale-95"
             >
               {t("Reload")}
-            </button>
-            <button
-              onClick={onNextServer}
-              className="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-400 text-white text-sm font-semibold active:scale-95"
-            >
-              {t("Try {server}", { server: nextServerName })}
             </button>
           </div>
         </div>
