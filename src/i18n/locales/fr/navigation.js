@@ -1,0 +1,23 @@
+// fr navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "Tous droits réservés.",
+  "Back to top": "Retour en haut",
+  "Choose language": "Choisir une langue",
+  "Close menu": "Fermer le menu",
+  "Could not load this language.": "Impossible de charger cette langue.",
+  Explore: "Explorer",
+  Home: "Accueil",
+  "Loading language...": "Chargement de la langue...",
+  "Main navigation": "Navigation principale",
+  "Mobile navigation": "Navigation mobile",
+  Movies: "Films",
+  "Open menu": "Ouvrir le menu",
+  "Privacy Policy": "Politique de confidentialité",
+  "Share menu opened.": "Menu de partage ouvert.",
+  "Switch language": "Changer de langue",
+  "Switch to dark mode": "Passer en mode sombre",
+  "Switch to light mode": "Passer en mode clair",
+  "Terms of Use": "Conditions d’utilisation",
+  Trending: "Tendances",
+  Upcoming: "Prochainement",
+};

@@ -1,0 +1,23 @@
+// ko navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "모든 권리 보유.",
+  "Back to top": "맨 위로",
+  "Choose language": "언어 선택",
+  "Close menu": "메뉴 닫기",
+  "Could not load this language.": "이 언어를 불러오지 못했습니다.",
+  Explore: "둘러보기",
+  Home: "홈",
+  "Loading language...": "언어 불러오는 중...",
+  "Main navigation": "기본 탐색",
+  "Mobile navigation": "모바일 탐색",
+  Movies: "영화",
+  "Open menu": "메뉴 열기",
+  "Privacy Policy": "개인정보 처리방침",
+  "Share menu opened.": "공유 메뉴가 열렸습니다.",
+  "Switch language": "언어 변경",
+  "Switch to dark mode": "다크 모드로 전환",
+  "Switch to light mode": "라이트 모드로 전환",
+  "Terms of Use": "이용 약관",
+  Trending: "인기",
+  Upcoming: "개봉 예정",
+};

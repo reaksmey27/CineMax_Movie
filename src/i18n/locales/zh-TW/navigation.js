@@ -1,0 +1,23 @@
+// zh-TW navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "保留所有權利。",
+  "Back to top": "回到頂端",
+  "Choose language": "選擇語言",
+  "Close menu": "關閉選單",
+  "Could not load this language.": "無法載入此語言。",
+  Explore: "探索",
+  Home: "首頁",
+  "Loading language...": "正在載入語言...",
+  "Main navigation": "主導覽",
+  "Mobile navigation": "行動版導覽",
+  Movies: "電影",
+  "Open menu": "開啟選單",
+  "Privacy Policy": "隱私權政策",
+  "Share menu opened.": "已開啟分享選單。",
+  "Switch language": "切換語言",
+  "Switch to dark mode": "切換至深色模式",
+  "Switch to light mode": "切換至淺色模式",
+  "Terms of Use": "使用條款",
+  Trending: "熱門",
+  Upcoming: "即將上映",
+};

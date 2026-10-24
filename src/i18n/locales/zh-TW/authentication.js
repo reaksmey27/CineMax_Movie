@@ -1,0 +1,97 @@
+// zh-TW authentication messages. English keys remain the fallback.
+export default {
+  "Already have an account?": "已經有帳戶？",
+  "Are you sure you want to sign out?": "您確定要登出嗎？",
+  "At least 6 characters": "至少 6 個字元",
+  "At least 8 characters": "至少 8 個字元",
+  "At least one capital letter": "至少一個大寫英文字母",
+  "At least one letter": "至少一個英文字母",
+  "At least one number": "至少一個數字",
+  "At least one number or symbol": "至少一個數字或符號",
+  "Back to sign in": "返回登入",
+  "Caps Lock is on": "大寫鎖定已開啟",
+  "Checking login...": "正在檢查登入狀態...",
+  "Checking reset link...": "正在檢查連結...",
+  "Choose a new password.": "請設定新密碼。",
+  "Close auth popup": "關閉登入視窗",
+  "Confirm password": "確認密碼",
+  "Confirm Password": "確認密碼",
+  Continue: "繼續",
+  "Continue with Google": "使用 Google 繼續",
+  "Could not reset your password. Please try again.":
+    "無法重設密碼，請再試一次。",
+  "Could not send the reset link. Please try again.":
+    "無法傳送重設連結，請再試一次。",
+  "Create Account": "建立帳戶",
+  "Creating Account...": "正在建立帳戶...",
+  "Don't have account?": "還沒有帳戶？",
+  "Email address": "電子郵件地址",
+  "Enter your details.": "請輸入你的資料。",
+  "Enter your Email": "請輸入電子郵件",
+  "Enter Your Email": "請輸入電子郵件",
+  "Enter your email to receive a password reset link.":
+    "輸入電子郵件以接收密碼重設連結。",
+  "Enter your password": "請輸入密碼",
+  "Fill in your details to get started.": "填寫資料以開始使用。",
+  "Forgot password?": "忘記密碼？",
+  "Full Name": "姓名",
+  "Hide confirmation password": "隱藏確認密碼",
+  "Hide password": "隱藏密碼",
+  "If an account exists for this email, a reset link will arrive shortly. Check your inbox and spam folder.":
+    "如果此電子郵件有對應帳戶，你將很快收到重設連結。請查看收件匣和垃圾郵件資料夾。",
+  "If you use Google, continue with Google on the sign-in screen.":
+    "如果你使用 Google，請在登入畫面選擇透過 Google 繼續。",
+  "Log in to Watch": "登入後觀看",
+  "Log in to watch this movie.": "登入以觀看這部電影。",
+  "Log out": "登出",
+  "Logging out...": "正在登出...",
+  Login: "登入",
+  Logout: "登出",
+  "Lowercase letter (a-z)": "小寫英文字母 (a-z)",
+  "Meet all password requirements before continuing.":
+    "請先符合所有密碼要求再繼續。",
+  "Member Access": "會員登入",
+  Met: "已符合",
+  "Not met": "未符合",
+  Or: "或",
+  Password: "密碼",
+  "Password requirements": "密碼要求",
+  "Password reset. You can now sign in.": "密碼已重設，您現在可以登入。",
+  "Passwords do not match.": "密碼不一致。",
+  "Passwords match.": "密碼相符。",
+  "Repeat your password": "再次輸入密碼",
+  "Reset password": "重設密碼",
+  "Save movies from the catalog to build a personal queue that updates instantly anywhere you sign in.":
+    "從電影目錄儲存電影，建立個人片單，並在登入的裝置上即時同步。",
+  "Secure sign-in powered by Firebase Authentication":
+    "由 Firebase Authentication 提供安全登入",
+  "Secure sign-up powered by Firebase Authentication":
+    "由 Firebase Authentication 提供安全註冊",
+  "Send reset link": "傳送重設連結",
+  "Sending reset link...": "正在傳送連結...",
+  "Show confirmation password": "顯示確認密碼",
+  "Show password": "顯示密碼",
+  "Sign in": "登入",
+  "Sign In": "登入",
+  "Sign in to save favorites": "登入以儲存收藏",
+  "Sign in to save movies to your account and keep your watchlist synced across devices.":
+    "登入以將電影儲存至帳戶，並在不同裝置間同步待看清單。",
+  "Sign in to save your favorite movies and sync your collection across devices.":
+    "登入以儲存喜愛的電影，並在不同裝置間同步收藏。",
+  "Sign in to sync your favorite movies with your account and access them on any device.":
+    "登入帳戶以同步收藏的電影，並在任何裝置上存取。",
+  "Sign in to use your watchlist": "登入以使用待看清單",
+  "Sign Out": "登出",
+  "Sign out?": "登出？",
+  "Sign up": "註冊",
+  "Signing In...": "正在登入...",
+  "This reset link is invalid or expired. Request a new one.":
+    "此連結無效或已過期，請要求新連結。",
+  "Uppercase letter (A-Z)": "大寫英文字母 (A-Z)",
+  "Use a stronger password that meets your account requirements.":
+    "請使用符合帳戶要求的更強密碼。",
+  "We couldn't sign you out right now.": "目前無法登出。",
+  "Welcome Back": "歡迎回來",
+  "Your email is managed by your sign-in account.":
+    "你的電子郵件由登入帳戶管理。",
+};

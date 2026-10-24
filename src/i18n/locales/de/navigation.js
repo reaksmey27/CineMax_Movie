@@ -1,0 +1,23 @@
+// de navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "Alle Rechte vorbehalten.",
+  "Back to top": "Nach oben",
+  "Choose language": "Sprache wählen",
+  "Close menu": "Menü schließen",
+  "Could not load this language.": "Diese Sprache konnte nicht geladen werden.",
+  Explore: "Entdecken",
+  Home: "Startseite",
+  "Loading language...": "Sprache wird geladen...",
+  "Main navigation": "Hauptnavigation",
+  "Mobile navigation": "Mobile Navigation",
+  Movies: "Filme",
+  "Open menu": "Menü öffnen",
+  "Privacy Policy": "Datenschutzerklärung",
+  "Share menu opened.": "Teilen-Menü geöffnet.",
+  "Switch language": "Sprache wechseln",
+  "Switch to dark mode": "Zum dunklen Modus wechseln",
+  "Switch to light mode": "Zum hellen Modus wechseln",
+  "Terms of Use": "Nutzungsbedingungen",
+  Trending: "Im Trend",
+  Upcoming: "Demnächst",
+};

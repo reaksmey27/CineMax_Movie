@@ -1,0 +1,23 @@
+// vi navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "Đã đăng ký bản quyền.",
+  "Back to top": "Lên đầu trang",
+  "Choose language": "Chọn ngôn ngữ",
+  "Close menu": "Đóng menu",
+  "Could not load this language.": "Không thể tải ngôn ngữ này.",
+  Explore: "Khám phá",
+  Home: "Trang chủ",
+  "Loading language...": "Đang tải ngôn ngữ...",
+  "Main navigation": "Điều hướng chính",
+  "Mobile navigation": "Điều hướng trên điện thoại",
+  Movies: "Phim",
+  "Open menu": "Mở menu",
+  "Privacy Policy": "Chính sách quyền riêng tư",
+  "Share menu opened.": "Đã mở menu chia sẻ.",
+  "Switch language": "Đổi ngôn ngữ",
+  "Switch to dark mode": "Chuyển sang giao diện tối",
+  "Switch to light mode": "Chuyển sang giao diện sáng",
+  "Terms of Use": "Điều khoản sử dụng",
+  Trending: "Thịnh hành",
+  Upcoming: "Sắp ra mắt",
+};

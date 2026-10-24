@@ -1,0 +1,23 @@
+// id navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "Hak cipta dilindungi.",
+  "Back to top": "Kembali ke atas",
+  "Choose language": "Pilih bahasa",
+  "Close menu": "Tutup menu",
+  "Could not load this language.": "Bahasa ini tidak dapat dimuat.",
+  Explore: "Jelajahi",
+  Home: "Beranda",
+  "Loading language...": "Memuat bahasa...",
+  "Main navigation": "Navigasi utama",
+  "Mobile navigation": "Navigasi seluler",
+  Movies: "Film",
+  "Open menu": "Buka menu",
+  "Privacy Policy": "Kebijakan Privasi",
+  "Share menu opened.": "Menu berbagi dibuka.",
+  "Switch language": "Ganti bahasa",
+  "Switch to dark mode": "Beralih ke mode gelap",
+  "Switch to light mode": "Beralih ke mode terang",
+  "Terms of Use": "Ketentuan Penggunaan",
+  Trending: "Populer",
+  Upcoming: "Segera tayang",
+};

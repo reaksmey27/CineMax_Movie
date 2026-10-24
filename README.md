@@ -195,15 +195,17 @@ The Movies page supports `q`, `genre`, `year`, `rating`, `sort`, and `page` quer
 
 The UI ships in 12 languages: English, Khmer, Traditional Chinese, Spanish, French, Japanese, Korean, Vietnamese, Indonesian, German, Italian, and Brazilian Portuguese. The language selector is in the navbar; the choice persists in `localStorage` (`cinemax_language`) and sets `document.documentElement.lang`.
 
-English is the source language: translation keys are the English strings themselves, so `src/i18n/locales/en.js` is intentionally empty and any untranslated key falls back to English. Every other locale in [`src/i18n/locales/`](src/i18n/locales) maps those English strings to translations. All locales are registered in [`src/i18n/translations.js`](src/i18n/translations.js).
+English is the source language: translation keys are the English strings themselves, so `src/i18n/locales/en.js` is intentionally empty and any untranslated key falls back to English. Each other locale has an entry file (for example `fr.js`) that combines feature dictionaries from its folder (`fr/`). The feature files are `authentication.js`, `movies.js`, `collections.js`, `navigation.js`, `profile.js`, `notifications.js`, and `common.js` for shared text. Keep each key in the same feature file across languages.
+
+The picker is registered in [`src/i18n/translations.js`](src/i18n/translations.js); [`src/i18n/localeLoader.js`](src/i18n/localeLoader.js) loads only the selected language and caches it. To validate translation coverage, feature placement, duplicate keys, and placeholders, run `node --test --test-isolation=none tests/localization.test.js tests/locale-structure.test.js`. `tests/fixtures/locale-fallbacks.json` records pre-existing English fallbacks; new translation gaps should be fixed rather than added to that list.
 
 UI text renders in Plus Jakarta Sans; when the language is Khmer, the page switches to Kantumruy Pro via the `[lang="km"]` rule in `src/index.css`. Both fonts load from Google Fonts in `index.html`.
 
 To add a language:
 
-1. Create `src/i18n/locales/<code>.js` by copying the key set from an existing locale (for example `de.js`) and translating the values, keeping `{placeholders}` intact.
+1. Create `src/i18n/locales/<code>/` with the seven feature dictionaries and translate the full key set across existing locales, keeping `{placeholders}` intact. Add `<code>.js` alongside the folder to import and merge those dictionaries, following an existing locale entry.
 2. Add a flag image under `src/assets/flags/`.
-3. Register it in `src/i18n/translations.js`: import the locale and flag, add a `LANGUAGES` entry (code, label, flag), and add the locale to the `translations` map.
+3. Import the flag and add a `LANGUAGES` entry (code, label, flag) in `src/i18n/translations.js`. Add a dynamic import for the locale entry in `src/i18n/localeLoader.js`.
 
 ## Project structure
 
@@ -221,7 +223,7 @@ src/
   hooks/
     auth/         Authentication forms and profile editing
     movies/       Discovery, collections, details, player state
-  i18n/           Language registry and per-language locale files
+  i18n/           Language registry, lazy loader, and feature dictionaries per locale
   pages/          Route pages: home, movies, profile, saved lists, notifications, auth, legal, 404
   services/       TMDB requests, caching, data formatting
   utils/          Theme and authentication redirect helpers

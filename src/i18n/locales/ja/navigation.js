@@ -1,0 +1,23 @@
+// ja navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "無断転載を禁じます。",
+  "Back to top": "ページ上部へ",
+  "Choose language": "言語を選択",
+  "Close menu": "メニューを閉じる",
+  "Could not load this language.": "この言語を読み込めませんでした。",
+  Explore: "探す",
+  Home: "ホーム",
+  "Loading language...": "言語を読み込み中...",
+  "Main navigation": "メインナビゲーション",
+  "Mobile navigation": "モバイルナビゲーション",
+  Movies: "映画",
+  "Open menu": "メニューを開く",
+  "Privacy Policy": "プライバシーポリシー",
+  "Share menu opened.": "共有メニューを開きました。",
+  "Switch language": "言語を変更",
+  "Switch to dark mode": "ダークモードに切り替え",
+  "Switch to light mode": "ライトモードに切り替え",
+  "Terms of Use": "利用規約",
+  Trending: "人気作品",
+  Upcoming: "近日公開",
+};

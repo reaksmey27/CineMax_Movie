@@ -1,0 +1,216 @@
+// fr movies messages. English keys remain the fallback.
+export default {
+  "{count} matches": "{count} résultats",
+  "{duration} remaining": "{duration} restantes",
+  "Across the movies you saved.": "Pour l’ensemble des films enregistrés.",
+  Action: "Action",
+  "Active filters": "Filtres actifs",
+  "Add a location, genre, and bio to finish your identity.":
+    "Ajoutez une ville, un genre et une biographie pour compléter votre profil.",
+  "Ahead of Time": "À venir",
+  Animation: "Animation",
+  "Any Rating": "Toutes les notes",
+  "Any runtime": "Toutes les durées",
+  "Average Rating": "Note moyenne",
+  "Browse Movies": "Parcourir les films",
+  "Cast & crew": "Distribution et équipe",
+  "Cast information unavailable.": "Distribution indisponible.",
+  "Changing any filter will clear the current search and switch back to TMDB discover results.":
+    "Modifier un filtre effacera la recherche actuelle et réaffichera les résultats de découverte TMDB.",
+  "Cinema Player": "Lecteur vidéo",
+  Cinematic: "Cinématographique",
+  "CineMax Logo": "Logo CineMax",
+  "Clear all": "Tout effacer",
+  "Clear all filters": "Effacer tous les filtres",
+  "Clear search": "Effacer la recherche",
+  "Clear Search": "Effacer la recherche",
+  "Close Player": "Fermer le lecteur",
+  Comedy: "Comédie",
+  "Could not load genres.": "Impossible de charger les genres.",
+  "Could not load related movies.": "Impossible de charger les films associés.",
+  "Could not share this movie. Try again.":
+    "Impossible de partager ce film. Réessayez.",
+  "Could not submit the report. Try again.":
+    "Impossible d’envoyer le signalement. Réessayez.",
+  Crime: "Policier",
+  "Describe what happened...": "Décrivez ce qui s’est passé...",
+  "Details (optional)": "Détails (facultatif)",
+  "Did you mean?": "Vouliez-vous dire ?",
+  Director: "Réalisation",
+  "Director information unavailable.":
+    "Informations sur la réalisation indisponibles.",
+  "Discover filters": "Explorer les filtres",
+  "Discover results tailored to your filters. Page {page} of {totalPages}.":
+    "Découvrez les résultats correspondant à vos filtres. Page {page} sur {totalPages}.",
+  Dismiss: "Fermer",
+  Drama: "Drame",
+  "e.g. 2024": "ex. 2024",
+  "Enjoying CineMax? Your support helps me keep building and improving it. Every coffee is appreciated.":
+    "Vous aimez CineMax ? Votre soutien m’aide à continuer son développement. Chaque café est apprécié !",
+  "Estimated finish: {time}": "Fin estimée : {time}",
+  "Expand player": "Agrandir le lecteur",
+  "Expand trailer player": "Agrandir le lecteur de bande-annonce",
+  "Explore more genres": "Explorer plus de genres",
+  "Explore movies": "Explorer les films",
+  "Explore Movies": "Explorer les films",
+  Family: "Famille",
+  Fantasy: "Fantastique",
+  "Fastest default source": "Source par défaut la plus rapide",
+  Featured: "À la une",
+  "Featured movies": "Films à la une",
+  Filtered: "Filtré",
+  "Find movies": "Trouver des films",
+  "Find movies by genre, release year, rating, and sort order.":
+    "Trouvez des films par genre, année de sortie, note et ordre de tri.",
+  "Future Releases": "Prochaines sorties",
+  Genre: "Genre",
+  "Go Back": "Retour",
+  "Go to page {page}": "Aller à la page {page}",
+  Horror: "Horreur",
+  "Join CineMax": "Rejoindre CineMax",
+  "Keep up with updates from your CineMax movie experience.":
+    "Suivez les nouveautés de votre expérience cinéma CineMax.",
+  "Live search is unavailable. Press Enter to try the results page.":
+    "La recherche instantanée est indisponible. Appuyez sur Entrée pour afficher les résultats.",
+  "Loading related movies...": "Chargement des films associés...",
+  "Minimize and keep watching": "Réduire et continuer à regarder",
+  "Minimize player": "Réduire le lecteur",
+  "Minimize trailer and keep watching": "Réduire la bande-annonce et continuer",
+  "Minimum Rating": "Note minimale",
+  movie: "film",
+  "Movie link copied.": "Lien du film copié.",
+  "Movie lover name": "Nom du cinéphile",
+  "Movie not found": "Film introuvable",
+  "Movie pages": "Pages des films",
+  "Movie suggestions": "Suggestions de films",
+  "Movies you start watching will appear here.":
+    "Les films que vous commencez apparaîtront ici.",
+  Mystery: "Mystère",
+  "Newest Release": "Sorties les plus récentes",
+  "Next featured movie": "Film à la une suivant",
+  "Next page": "Page suivante",
+  "No genre trend yet.": "Aucune tendance de genre pour le moment.",
+  "No Movies Found": "Aucun film trouvé",
+  "No Movies Match These Filters": "Aucun film ne correspond à ces filtres",
+  "No recent searches": "Aucune recherche récente",
+  "No related movies available yet.":
+    "Aucun film associé disponible pour le moment.",
+  "No results found for {query}": "Aucun résultat trouvé pour {query}",
+  "No Search Results": "Aucun résultat",
+  "No trailer is available for this movie yet.":
+    "Aucune bande-annonce n’est encore disponible pour ce film.",
+  "Not rated": "Non noté",
+  "Not yet rated": "Pas encore noté",
+  "Now Playing": "À l’affiche",
+  "Now playing on {server}": "Lecture sur {server}",
+  "Older source with broad compatibility":
+    "Ancienne source largement compatible",
+  "Oldest Release": "Sorties les plus anciennes",
+  "Open trailer player": "Ouvrir le lecteur de bande-annonce",
+  "Over 2 hours": "Plus de 2 heures",
+  "Page {page} of {totalPages}": "Page {page} sur {totalPages}",
+  "Play Movie": "Lire le film",
+  Popularity: "Popularité",
+  "Previous featured movie": "Film à la une précédent",
+  "Previous page": "Page précédente",
+  "Rated {rating} out of 10": "Note : {rating} sur 10",
+  "Related movies": "Films associés",
+  "Release Year": "Année de sortie",
+  Reload: "Recharger",
+  "Reload player": "Recharger le lecteur",
+  "Remove filter: {filter}": "Supprimer le filtre : {filter}",
+  "Report playback problem": "Signaler un problème de lecture",
+  "Report submitted. Thank you.": "Signalement envoyé. Merci.",
+  "Reset filters": "Réinitialiser les filtres",
+  "Reset Filters": "Réinitialiser les filtres",
+  "Reset Results": "Réinitialiser les résultats",
+  Results: "Résultats",
+  "Retry {title}": "Réessayer {title}",
+  "Retry Connection": "Réessayer la connexion",
+  "Retry Loading": "Réessayer le chargement",
+  Return: "Retour",
+  Runtime: "Durée",
+  "Save movies you want to watch and find them here whenever you are ready.":
+    "Enregistrez les films que vous souhaitez voir et retrouvez-les ici quand vous le voulez.",
+  "Scroll {direction} through {title}":
+    "Faire défiler {title} vers la {direction}",
+  "Search movies": "Rechercher des films",
+  "Search results for {query}": "Résultats de recherche pour {query}",
+  Searching: "Recherche",
+  'Searching for "{query}" movies. Page {page} of {totalPages}.':
+    'Recherche de films "{query}". Page {page} sur {totalPages}.',
+  "Searching for {query} movies. Page {page} of {totalPages}.":
+    "Recherche de films {query}. Page {page} sur {totalPages}.",
+  "Searching movies...": "Recherche de films...",
+  "Searching...": "Recherche...",
+  "Share movie": "Partager le film",
+  "Show featured movie {number}": "Afficher le film à la une {number}",
+  "Show fewer genres": "Afficher moins de genres",
+  "Showing {count} of {total} movies": "Films affichés : {count} sur {total}",
+  "Softer streams usually look better at this size or in fullscreen than stretched edge to edge.":
+    "Les flux de qualité moyenne sont généralement plus nets à cette taille ou en plein écran, sans étirement.",
+  "Sort By": "Trier par",
+  Stay: "Bientôt",
+  "Stop trailer": "Arrêter la bande-annonce",
+  Storyline: "Synopsis",
+  "Submit report": "Envoyer le signalement",
+  "Submitting...": "Envoi...",
+  Subtitles: "Sous-titres",
+  "The most anticipated cinematic experiences soon to hit the screens. Mark your calendars.":
+    "Les films les plus attendus arrivent bientôt sur les écrans. Notez la date.",
+  "These movies could not load. You can keep browsing or try again.":
+    "Impossible de charger ces films. Vous pouvez continuer à parcourir le site ou réessayer.",
+  "This page is unavailable. Find your next movie in the catalog.":
+    "Cette page est indisponible. Trouvez votre prochain film dans le catalogue.",
+  "This source could not be loaded. Switch to another server.":
+    "Impossible de charger cette source. Essayez un autre serveur.",
+  "This source is taking too long to respond. Try reloading or switch servers.":
+    "Cette source met trop de temps à répondre. Rechargez-la ou changez de serveur.",
+  "This video source does not include subtitle tracks yet.":
+    "Cette source vidéo ne propose pas encore de sous-titres.",
+  "Tip: Switch servers if the picture looks soft or the stream is slow.":
+    "Astuce : changez de serveur si l’image est floue ou si la lecture est lente.",
+  "To watch": "À regarder",
+  "Top Genre": "Genre préféré",
+  Trailer: "Bande-annonce",
+  "Try {server}": "Essayer {server}",
+  "Try a different title or a shorter keyword.":
+    "Essayez un autre titre ou un mot-clé plus court.",
+  "Try adjusting your search or filters to explore more titles.":
+    "Modifiez votre recherche ou vos filtres pour découvrir d’autres titres.",
+  "Try browsing a different genre or checking back for more titles.":
+    "Explorez un autre genre ou revenez plus tard pour découvrir de nouveaux titres.",
+  "Try this if playback is slow":
+    "Essayez cette source si la lecture est lente",
+  "Try widening your filters or reset them to discover more results.":
+    "Élargissez vos filtres ou réinitialisez-les pour obtenir plus de résultats.",
+  "Under 90 minutes": "Moins de 90 minutes",
+  "Use arrow keys to browse, Enter to select, Esc to close":
+    "Utilisez les flèches pour parcourir, Entrée pour choisir et Échap pour fermer",
+  "Use the caption button in the player controls if subtitle tracks are available.":
+    "Utilisez le bouton des sous-titres si des pistes sont disponibles.",
+  "Useful when other servers fail":
+    "Utile si les autres serveurs ne fonctionnent pas",
+  "View all": "Tout voir",
+  "View all {title} movies": "Voir tous les films {title}",
+  "View all results": "Voir tous les résultats",
+  "Watch now": "Regarder",
+  "Watch progress": "Progression de lecture",
+  "Watch status": "État de visionnage",
+  "Watch Trailer": "Voir la bande-annonce",
+  'We couldn’t find any movies for "{query}". Try a different title or keyword.':
+    "Aucun film trouvé pour « {query} ». Essayez un autre titre ou mot-clé.",
+  "We couldn’t find any movies for {query}. Try a different title or keyword.":
+    "Aucun film trouvé pour {query}. Essayez un autre titre ou mot-clé.",
+  "What went wrong?": "Quel est le problème ?",
+  "Wrong movie": "Mauvais film",
+  "Year unavailable": "Année indisponible",
+  "Your movie DNA": "Vos goûts cinématographiques",
+  "Your next movie is waiting": "Votre prochain film vous attend",
+  "Your recent movie searches will appear here for quick access.":
+    "Vos recherches récentes de films apparaîtront ici pour un accès rapide.",
+  "Your search stays active when you change filters. Filters and sorting apply to up to 2,000 search results. Narrow by release year for more specific results.":
+    "Votre recherche reste active lorsque vous modifiez les filtres. Les filtres et le tri portent sur un maximum de 2 000 résultats. Précisez l’année de sortie pour affiner la recherche.",
+  "Your ultimate destination for the latest blockbusters and timeless classics. Explore, discover, and enjoy the world of cinema.":
+    "Votre destination pour les derniers succès et les grands classiques. Explorez, découvrez et profitez du monde du cinéma.",
+};

@@ -1,0 +1,23 @@
+// km navigation messages. English keys remain the fallback.
+export default {
+  "All rights reserved.": "រក្សាសិទ្ធិគ្រប់យ៉ាង។",
+  "Back to top": "ត្រឡប់ទៅខាងលើ",
+  "Choose language": "ជ្រើសរើសភាសា",
+  "Close menu": "បិទម៉ឺនុយ",
+  "Could not load this language.": "មិនអាចផ្ទុកភាសានេះបានទេ។",
+  Explore: "ស្វែងយល់",
+  Home: "ទំព័រដើម",
+  "Loading language...": "កំពុងផ្ទុកភាសា...",
+  "Main navigation": "ម៉ឺនុយមេ",
+  "Mobile navigation": "ម៉ឺនុយចល័ត",
+  Movies: "ភាពយន្ត",
+  "Open menu": "បើកម៉ឺនុយ",
+  "Privacy Policy": "គោលការណ៍ឯកជនភាព",
+  "Share menu opened.": "បានបើកម៉ឺនុយចែករំលែក។",
+  "Switch language": "ប្តូរភាសា",
+  "Switch to dark mode": "ប្តូរទៅរបៀបងងឹត",
+  "Switch to light mode": "ប្តូរទៅរបៀបភ្លឺ",
+  "Terms of Use": "លក្ខខណ្ឌប្រើប្រាស់",
+  Trending: "កំពុងពេញនិយម",
+  Upcoming: "ចេញឆាប់ៗនេះ",
+};

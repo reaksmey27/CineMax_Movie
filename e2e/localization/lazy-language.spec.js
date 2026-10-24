@@ -28,12 +28,24 @@ test("downloads only selected languages and reuses loaded translations", async (
   expect(requests).toEqual([]);
   await choose(page, "Français");
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  expect(requests).toEqual(["/src/i18n/locales/fr.js"]);
+  const frenchFiles = [
+    "/src/i18n/locales/fr.js",
+    ...[
+      "common",
+      "authentication",
+      "movies",
+      "collections",
+      "navigation",
+      "profile",
+      "notifications",
+    ].map((feature) => `/src/i18n/locales/fr/${feature}.js`),
+  ];
+  expect([...requests].sort()).toEqual(frenchFiles.sort());
   await choose(page, "English");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await choose(page, "Français");
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  expect(requests).toHaveLength(1);
+  expect(requests).toHaveLength(frenchFiles.length);
 });
 
 test("a slow earlier selection cannot replace the latest language", async ({
