@@ -63,7 +63,7 @@ const MovieCard = ({
           aria-label={t("View {title}", { title: movie.title })}
           className="block h-full overflow-hidden rounded-t-2xl bg-[var(--color-bg-elevated)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500"
         >
-          <MoviePoster src={poster} />
+          <MoviePoster src={poster} title={movie.title} />
         </Link>
         {showActions && (
           <div className="absolute right-2 top-2 z-10 flex gap-1.5">

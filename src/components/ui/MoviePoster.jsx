@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FilmIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
 
-function PosterImage({ src, className, imageClassName }) {
+function PosterImage({ src, title, compact, className, imageClassName }) {
   const { t } = useLanguage();
   const [status, setStatus] = useState(src ? "loading" : "error");
   return (
@@ -14,12 +14,22 @@ function PosterImage({ src, className, imageClassName }) {
         <div aria-hidden="true" className="skeleton-shimmer absolute inset-0" />
       )}
       {status === "error" ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-[var(--color-bg-elevated)] to-[var(--color-surface-2)] px-2 text-center text-[var(--color-text-muted)]">
+        <div
+          title={title || t("Poster unavailable")}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-purple-500/15 via-[var(--color-bg-elevated)] to-[var(--color-surface-2)] px-2 text-center text-[var(--color-text-muted)]"
+        >
           <FilmIcon
-            className="h-10 w-10 shrink-0 opacity-60"
+            className={`${compact ? "h-5 w-5" : "h-8 w-8"} shrink-0 text-purple-400/80`}
             aria-hidden="true"
           />
-          <span className="text-xs">{t("Poster unavailable")}</span>
+          {!compact && title && (
+            <span className="line-clamp-2 max-w-full break-words text-xs font-semibold leading-relaxed text-[var(--color-text)]">
+              {title}
+            </span>
+          )}
+          <span className={compact ? "sr-only" : "text-[10px] leading-relaxed"}>
+            {t("Poster unavailable")}
+          </span>
         </div>
       ) : (
         <img
@@ -38,6 +48,8 @@ function PosterImage({ src, className, imageClassName }) {
 
 export default function MoviePoster({
   src,
+  title = "",
+  compact = false,
   className = "h-full w-full",
   imageClassName = "",
 }) {
@@ -46,6 +58,8 @@ export default function MoviePoster({
     <PosterImage
       key={src || "missing"}
       src={src}
+      title={title}
+      compact={compact}
       className={className}
       imageClassName={imageClassName}
     />

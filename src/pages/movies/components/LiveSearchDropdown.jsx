@@ -1,20 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { FilmIcon, StarIcon } from "@heroicons/react/24/outline";
+import MoviePoster from "../../../components/ui/MoviePoster";
 
 import { tmdbService } from "../../../services/tmdbService";
 import { useLanguage } from "../../../context/LanguageContext";
 import ListSkeleton from "../../../components/ui/ListSkeleton";
 
 const LIVE_SEARCH_LIMIT = 6;
-
-function SearchPoster({ src }) {
-  const [failed, setFailed] = useState(false);
-  return src && !failed ? (
-    <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" decoding="async" onError={() => setFailed(true)} />
-  ) : (
-    <FilmIcon aria-hidden="true" className="h-5 w-5 text-[var(--color-text-muted)]" />
-  );
-}
 
 // ─── Helpers: year, rating & poster formatting ────────────────────────────────
 
@@ -111,7 +103,11 @@ const LiveSearchDropdown = ({
                     }`}
                   >
                     <div className="flex h-14 w-10 shrink-0 items-center justify-center overflow-hidden rounded-md border border-[var(--color-border-soft)] bg-[var(--color-surface-1)]">
-                      <SearchPoster key={posterUrl} src={posterUrl} />
+                      <MoviePoster
+                        src={posterUrl}
+                        title={movie.title}
+                        compact
+                      />
                     </div>
 
                     <div className="min-w-0 flex-1 space-y-1">

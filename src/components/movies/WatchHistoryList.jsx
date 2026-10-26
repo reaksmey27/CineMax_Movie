@@ -41,6 +41,7 @@ export default function WatchHistoryList({ compact = false, movies }) {
               className="block self-start w-full overflow-hidden focus-visible:outline-2 focus-visible:outline-purple-400"
             >
               <MoviePoster
+                title={item.title}
                 src={item.posterImage || item.image}
                 className="aspect-[4/5] max-h-72 w-full"
                 imageClassName="object-top"
