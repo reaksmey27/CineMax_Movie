@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
+import ClearSearchButton from "./ClearSearchButton";
 const LABEL_CLASS =
   "mb-1.5 block text-xs font-semibold text-[var(--color-text-muted)]";
 
@@ -163,35 +164,43 @@ const FilterSelect = ({
         <div className="absolute inset-x-0 top-full z-50 mt-1 origin-top transition-all duration-150">
           <div className="rounded-2xl border border-purple-500/25 bg-[var(--color-bg-elevated)] p-1.5 shadow-xl shadow-black/30">
             {searchPlaceholder && (
-              <input
-                ref={searchRef}
-                type="search"
-                aria-label={t(searchPlaceholder)}
-                placeholder={t(searchPlaceholder)}
-                aria-controls={`${triggerId}-menu`}
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.nativeEvent.isComposing) return;
-                  if (["ArrowDown", "ArrowUp"].includes(event.key)) {
-                    event.preventDefault();
-                    const items =
-                      menuRef.current?.querySelectorAll('[role="option"]');
-                    (event.key === "ArrowDown"
-                      ? items?.[0]
-                      : items?.[items.length - 1]
-                    )?.focus();
-                  } else if (event.key === "Enter") {
-                    event.preventDefault();
-                    if (visibleOptions.length === 1) {
-                      onChange(visibleOptions[0].value);
-                      onClose();
-                      triggerRef.current?.focus();
+              <div className="relative mb-1.5">
+                <input
+                  ref={searchRef}
+                  type="search"
+                  aria-label={t(searchPlaceholder)}
+                  placeholder={t(searchPlaceholder)}
+                  aria-controls={`${triggerId}-menu`}
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.nativeEvent.isComposing) return;
+                    if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+                      event.preventDefault();
+                      const items =
+                        menuRef.current?.querySelectorAll('[role="option"]');
+                      (event.key === "ArrowDown"
+                        ? items?.[0]
+                        : items?.[items.length - 1]
+                      )?.focus();
+                    } else if (event.key === "Enter") {
+                      event.preventDefault();
+                      if (visibleOptions.length === 1) {
+                        onChange(visibleOptions[0].value);
+                        onClose();
+                        triggerRef.current?.focus();
+                      }
                     }
-                  }
-                }}
-                className="mb-1.5 min-h-11 w-full min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-2 focus:outline-purple-500"
-              />
+                  }}
+                  className="min-h-11 w-full min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] pl-3 pr-11 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-2 focus:outline-purple-500 [&::-webkit-search-cancel-button]:appearance-none"
+                />
+                {query && (
+                  <ClearSearchButton
+                    inputRef={searchRef}
+                    onClear={() => setQuery("")}
+                  />
+                )}
+              </div>
             )}
             <ul
               ref={menuRef}
