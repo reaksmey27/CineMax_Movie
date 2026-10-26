@@ -1,5 +1,6 @@
 // vi movies messages. English keys remain the fallback.
 export default {
+  "Filters ({count})": "Bộ lọc ({count})",
   "Search countries...": "Tìm quốc gia...",
   "No countries found": "Không tìm thấy quốc gia",
   Country: "Quốc gia",

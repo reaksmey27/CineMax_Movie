@@ -42,6 +42,7 @@ test("country filter combines with other filters, persists and clears without ex
   });
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/movies?genre=18&year=2025&rating=7");
+  await page.getByRole("button", { name: "Filters (3)", exact: true }).click();
   const country = page.locator("#filter-select-country");
   await country.click();
   const search = page.getByRole("searchbox", { name: "Search countries..." });
@@ -71,6 +72,7 @@ test("country filter combines with other filters, persists and clears without ex
     ),
   ).toBe(true);
   await page.goto("/movies?q=Film&country=KH");
+  await page.getByRole("button", { name: "Filters (1)", exact: true }).click();
   await expect(
     page.getByRole("link", { name: "Cambodian Film", exact: true }),
   ).toBeVisible();

@@ -1,5 +1,6 @@
 // km movies messages. English keys remain the fallback.
 export default {
+  "Filters ({count})": "តម្រង ({count})",
   "Search countries...": "ស្វែងរកប្រទេស...",
   "No countries found": "រកមិនឃើញប្រទេស",
   Country: "ប្រទេស",
