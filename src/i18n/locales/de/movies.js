@@ -1,6 +1,5 @@
 // de movies messages. English keys remain the fallback.
 export default {
-  "Filters ({count})": "Filter ({count})",
   "Search countries...": "Länder suchen...",
   "No countries found": "Keine Länder gefunden",
   Country: "Land",

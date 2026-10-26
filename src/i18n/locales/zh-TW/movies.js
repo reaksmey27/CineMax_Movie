@@ -1,6 +1,5 @@
 // zh-TW movies messages. English keys remain the fallback.
 export default {
-  "Filters ({count})": "篩選 ({count})",
   "Search countries...": "搜尋國家...",
   "No countries found": "找不到國家",
   Country: "國家",

@@ -1,6 +1,5 @@
 // ko movies messages. English keys remain the fallback.
 export default {
-  "Filters ({count})": "필터 ({count})",
   "Search countries...": "국가 검색...",
   "No countries found": "국가를 찾을 수 없습니다",
   Country: "국가",

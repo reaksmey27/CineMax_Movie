@@ -1,6 +1,5 @@
 // pt-BR movies messages. English keys remain the fallback.
 export default {
-  "Filters ({count})": "Filtros ({count})",
   "Search countries...": "Buscar países...",
   "No countries found": "Nenhum país encontrado",
   Country: "País",

@@ -1,9 +1,4 @@
 import { memo, useEffect, useState } from "react";
-import {
-  AdjustmentsHorizontalIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/outline";
-import { DEFAULT_DISCOVER_SORT } from "../../../config/movieFilters";
 
 import { useLanguage } from "../../../context/LanguageContext";
 import MoviesFilters from "./MoviesFilters";
@@ -46,16 +41,6 @@ const MoviesHeader = ({
 
   const [yearInput, setYearInput] = useState(releaseYear);
   const [openSelect, setOpenSelect] = useState(null);
-  const [filtersExpanded, setFiltersExpanded] = useState(false);
-  const activeFilterCount = [
-    selectedGenre !== null,
-    releaseYear,
-    minRating,
-    country,
-    runtime,
-    sortBy && sortBy !== DEFAULT_DISCOVER_SORT,
-    collectionTitle,
-  ].filter(Boolean).length;
   const [prevReleaseYear, setPrevReleaseYear] = useState(releaseYear);
   if (prevReleaseYear !== releaseYear) {
     setPrevReleaseYear(releaseYear);
@@ -125,58 +110,33 @@ const MoviesHeader = ({
         />
       </div>
 
-      <button
-        type="button"
-        aria-expanded={filtersExpanded}
-        aria-controls="movie-filter-panel"
-        onClick={() => {
+      <MoviesFilters
+        genres={genres}
+        genresLoading={genresLoading}
+        genresError={genresError}
+        hasActiveFilters={hasActiveFilters || Boolean(yearInput)}
+        hasSearchQuery={hasSearchQuery}
+        minRating={minRating}
+        country={country}
+        onCountryChange={onCountryChange}
+        runtime={runtime}
+        onRuntimeChange={onRuntimeChange}
+        onClearFilters={() => {
+          setYearInput("");
           setOpenSelect(null);
-          setFiltersExpanded((expanded) => !expanded);
+          onClearFilters();
         }}
-        className="flex min-h-11 w-full items-center gap-3 rounded-xl border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-sm font-semibold text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-purple-400 sm:hidden"
-      >
-        <AdjustmentsHorizontalIcon
-          aria-hidden="true"
-          className="h-5 w-5 text-purple-400"
-        />
-        <span>{t("Filters ({count})", { count: activeFilterCount })}</span>
-        <ChevronDownIcon
-          aria-hidden="true"
-          className={`ml-auto h-4 w-4 ${filtersExpanded ? "rotate-180" : ""}`}
-        />
-      </button>
-      <div
-        id="movie-filter-panel"
-        className={`${filtersExpanded ? "block" : "hidden"} sm:block`}
-      >
-        <MoviesFilters
-          genres={genres}
-          genresLoading={genresLoading}
-          genresError={genresError}
-          hasActiveFilters={hasActiveFilters || Boolean(yearInput)}
-          hasSearchQuery={hasSearchQuery}
-          minRating={minRating}
-          country={country}
-          onCountryChange={onCountryChange}
-          runtime={runtime}
-          onRuntimeChange={onRuntimeChange}
-          onClearFilters={() => {
-            setYearInput("");
-            setOpenSelect(null);
-            onClearFilters();
-          }}
-          onGenreChange={onGenreChange}
-          onRatingChange={onRatingChange}
-          onRetryGenres={onRetryGenres}
-          onSortChange={onSortChange}
-          openSelect={openSelect}
-          selectedGenre={selectedGenre}
-          sortBy={sortBy}
-          toggleSelect={toggleSelect}
-          yearInput={yearInput}
-          setYearInput={setYearInput}
-        />
-      </div>
+        onGenreChange={onGenreChange}
+        onRatingChange={onRatingChange}
+        onRetryGenres={onRetryGenres}
+        onSortChange={onSortChange}
+        openSelect={openSelect}
+        selectedGenre={selectedGenre}
+        sortBy={sortBy}
+        toggleSelect={toggleSelect}
+        yearInput={yearInput}
+        setYearInput={setYearInput}
+      />
       <ActiveFilterChips
         genres={genres}
         selectedGenre={selectedGenre}

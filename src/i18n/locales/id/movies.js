@@ -1,6 +1,5 @@
 // id movies messages. English keys remain the fallback.
 export default {
-  "Filters ({count})": "Filter ({count})",
   "Search countries...": "Cari negara...",
   "No countries found": "Negara tidak ditemukan",
   Country: "Negara",
