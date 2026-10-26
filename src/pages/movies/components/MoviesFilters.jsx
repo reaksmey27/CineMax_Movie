@@ -1,3 +1,4 @@
+import { movieYearOptions } from "../../../config/movieYears";
 import {
   MOVIE_COUNTRIES,
   movieCountryName,
@@ -10,7 +11,7 @@ import {
 } from "../../../config/movieFilters";
 import { useLanguage } from "../../../context/LanguageContext";
 import FilterSelect from "./FilterSelect";
-import { GENRE_BTN_BASE, INPUT_CLASS, LABEL_CLASS } from "./filterStyles";
+import { GENRE_BTN_BASE } from "./filterStyles";
 
 // ─── MoviesFilters: genre/year/rating/sort bar ────────────────────────────────
 
@@ -34,8 +35,8 @@ const MoviesFilters = ({
   selectedGenre,
   sortBy,
   toggleSelect,
-  yearInput,
-  setYearInput,
+  releaseYear,
+  onYearChange,
 }) => {
   const { t, language } = useLanguage();
   // ─── Render: filter toolbar ──────────────────────────────────────────────────
@@ -138,20 +139,20 @@ const MoviesFilters = ({
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-        <label className="space-y-2">
-          <span className={LABEL_CLASS}>{t("Release Year")}</span>
-          <input
-            type="text"
-            inputMode="numeric"
-            maxLength={4}
-            placeholder={t("e.g. 2024")}
-            value={yearInput}
-            onChange={(e) =>
-              setYearInput(e.target.value.replace(/\D/g, "").slice(0, 4))
-            }
-            className={INPUT_CLASS}
-          />
-        </label>
+        <FilterSelect
+          label="Release Year"
+          searchPlaceholder="Search years..."
+          emptySearchMessage="No years found"
+          value={releaseYear}
+          options={[
+            { value: "", label: t("All years") },
+            ...movieYearOptions(releaseYear),
+          ]}
+          isOpen={openSelect === "year"}
+          onToggle={() => toggleSelect("year")}
+          onClose={() => toggleSelect(null)}
+          onChange={onYearChange}
+        />
 
         <FilterSelect
           label="Minimum Rating"

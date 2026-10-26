@@ -1,5 +1,8 @@
 // km movies messages. English keys remain the fallback.
 export default {
+  "All years": "គ្រប់ឆ្នាំ",
+  "Search years...": "ស្វែងរកឆ្នាំ...",
+  "No years found": "រកមិនឃើញឆ្នាំ",
   "Search countries...": "ស្វែងរកប្រទេស...",
   "No countries found": "រកមិនឃើញប្រទេស",
   Country: "ប្រទេស",

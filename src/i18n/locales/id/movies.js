@@ -1,5 +1,8 @@
 // id movies messages. English keys remain the fallback.
 export default {
+  "All years": "Semua tahun",
+  "Search years...": "Cari tahun...",
+  "No years found": "Tahun tidak ditemukan",
   "Search countries...": "Cari negara...",
   "No countries found": "Negara tidak ditemukan",
   Country: "Negara",

@@ -1,5 +1,8 @@
 // fr movies messages. English keys remain the fallback.
 export default {
+  "All years": "Toutes les années",
+  "Search years...": "Rechercher une année...",
+  "No years found": "Aucune année trouvée",
   "Search countries...": "Rechercher un pays...",
   "No countries found": "Aucun pays trouvé",
   Country: "Pays",

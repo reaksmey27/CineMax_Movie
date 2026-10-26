@@ -1,5 +1,8 @@
 // ja movies messages. English keys remain the fallback.
 export default {
+  "All years": "すべての年",
+  "Search years...": "年を検索...",
+  "No years found": "年が見つかりません",
   "Search countries...": "国を検索...",
   "No countries found": "国が見つかりません",
   Country: "国",

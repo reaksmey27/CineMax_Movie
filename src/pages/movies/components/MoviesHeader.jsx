@@ -1,12 +1,10 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 import { useLanguage } from "../../../context/LanguageContext";
 import MoviesFilters from "./MoviesFilters";
 import ActiveFilterChips from "./ActiveFilterChips";
 import MoviesSearch from "./MoviesSearch";
 import { getHeadingState, getSubtitle } from "./moviesHeaderCopy";
-
-const YEAR_DEBOUNCE = 250;
 
 // ─── MoviesHeader: title, search & filters ────────────────────────────────────
 
@@ -39,18 +37,12 @@ const MoviesHeader = ({
   const { t } = useLanguage();
   // ─── State: search input & refs ──────────────────────────────────────────────
 
-  const [yearInput, setYearInput] = useState(releaseYear);
   const [openSelect, setOpenSelect] = useState(null);
-  const [prevReleaseYear, setPrevReleaseYear] = useState(releaseYear);
-  if (prevReleaseYear !== releaseYear) {
-    setPrevReleaseYear(releaseYear);
-    setYearInput(releaseYear);
-  }
 
   const [prevFilterSort, setPrevFilterSort] = useState(
-    `${minRating}|${sortBy}|${runtime}|${country}`,
+    `${minRating}|${sortBy}|${runtime}|${country}|${releaseYear}`,
   );
-  const filterSortKey = `${minRating}|${sortBy}|${runtime}|${country}`;
+  const filterSortKey = `${minRating}|${sortBy}|${runtime}|${country}|${releaseYear}`;
   if (prevFilterSort !== filterSortKey) {
     setPrevFilterSort(filterSortKey);
     setOpenSelect(null);
@@ -80,12 +72,6 @@ const MoviesHeader = ({
 
   const toggleSelect = (key) =>
     setOpenSelect((current) => (current === key ? null : key));
-  useEffect(() => {
-    if (yearInput === releaseYear || (yearInput !== "" && yearInput.length < 4))
-      return undefined;
-    const id = window.setTimeout(() => onYearChange(yearInput), YEAR_DEBOUNCE);
-    return () => window.clearTimeout(id);
-  }, [onYearChange, releaseYear, yearInput]);
 
   // ─── Render: title, search bar & filters ─────────────────────────────────────
 
@@ -114,7 +100,7 @@ const MoviesHeader = ({
         genres={genres}
         genresLoading={genresLoading}
         genresError={genresError}
-        hasActiveFilters={hasActiveFilters || Boolean(yearInput)}
+        hasActiveFilters={hasActiveFilters}
         hasSearchQuery={hasSearchQuery}
         minRating={minRating}
         country={country}
@@ -122,7 +108,6 @@ const MoviesHeader = ({
         runtime={runtime}
         onRuntimeChange={onRuntimeChange}
         onClearFilters={() => {
-          setYearInput("");
           setOpenSelect(null);
           onClearFilters();
         }}
@@ -134,8 +119,8 @@ const MoviesHeader = ({
         selectedGenre={selectedGenre}
         sortBy={sortBy}
         toggleSelect={toggleSelect}
-        yearInput={yearInput}
-        setYearInput={setYearInput}
+        releaseYear={releaseYear}
+        onYearChange={onYearChange}
       />
       <ActiveFilterChips
         genres={genres}
@@ -147,10 +132,7 @@ const MoviesHeader = ({
         runtime={runtime}
         sortBy={sortBy}
         onGenreChange={onGenreChange}
-        onYearChange={(value) => {
-          setYearInput(value);
-          onYearChange(value);
-        }}
+        onYearChange={onYearChange}
         onRatingChange={onRatingChange}
         onRuntimeChange={onRuntimeChange}
         onSortChange={onSortChange}

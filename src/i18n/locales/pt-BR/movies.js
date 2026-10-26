@@ -1,5 +1,8 @@
 // pt-BR movies messages. English keys remain the fallback.
 export default {
+  "All years": "Todos os anos",
+  "Search years...": "Buscar anos...",
+  "No years found": "Nenhum ano encontrado",
   "Search countries...": "Buscar países...",
   "No countries found": "Nenhum país encontrado",
   Country: "País",

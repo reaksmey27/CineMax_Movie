@@ -1,5 +1,8 @@
 // zh-TW movies messages. English keys remain the fallback.
 export default {
+  "All years": "所有年份",
+  "Search years...": "搜尋年份...",
+  "No years found": "找不到年份",
   "Search countries...": "搜尋國家...",
   "No countries found": "找不到國家",
   Country: "國家",

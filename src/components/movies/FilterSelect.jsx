@@ -16,6 +16,7 @@ const FilterSelect = ({
   onClose: controlledClose,
   onChange,
   searchPlaceholder,
+  emptySearchMessage = "No countries found",
 }) => {
   const { t } = useLanguage();
   const [localOpen, setLocalOpen] = useState(false);
@@ -248,7 +249,7 @@ const FilterSelect = ({
                 role="status"
                 className="px-3 py-4 text-sm text-[var(--color-text-muted)]"
               >
-                {t("No countries found")}
+                {t(emptySearchMessage)}
               </p>
             )}
           </div>

@@ -1,5 +1,8 @@
 // vi movies messages. English keys remain the fallback.
 export default {
+  "All years": "Tất cả các năm",
+  "Search years...": "Tìm năm...",
+  "No years found": "Không tìm thấy năm",
   "Search countries...": "Tìm quốc gia...",
   "No countries found": "Không tìm thấy quốc gia",
   Country: "Quốc gia",

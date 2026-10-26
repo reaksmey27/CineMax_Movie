@@ -1,5 +1,8 @@
 // ko movies messages. English keys remain the fallback.
 export default {
+  "All years": "모든 연도",
+  "Search years...": "연도 검색...",
+  "No years found": "연도를 찾을 수 없습니다",
   "Search countries...": "국가 검색...",
   "No countries found": "국가를 찾을 수 없습니다",
   Country: "국가",
