@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import ClearSearchButton from "../../../components/movies/ClearSearchButton";
 import {
   ClockIcon,
   MagnifyingGlassIcon,
@@ -31,6 +33,7 @@ const MoviesSearchBar = ({
   setHasTypedSinceFocus,
 }) => {
   const { t } = useLanguage();
+  const inputRef = useRef(null);
   return (
     <div ref={searchRef} className="group relative w-full md:w-96">
       <MagnifyingGlassIcon
@@ -42,6 +45,7 @@ const MoviesSearchBar = ({
       />
 
       <input
+        ref={inputRef}
         aria-autocomplete="list"
         aria-controls="movie-live-search-results"
         aria-expanded={shouldShowLiveDropdown}
@@ -61,16 +65,13 @@ const MoviesSearchBar = ({
       />
 
       {inputValue && (
-        <button
-          type="button"
-          onClick={() => {
+        <ClearSearchButton
+          inputRef={inputRef}
+          onClear={() => {
             setHasTypedSinceFocus(true);
             onClear();
           }}
-          className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 transition-colors hover:text-white"
-        >
-          <XMarkIcon className="h-6 w-6" />
-        </button>
+        />
       )}
 
       {shouldShowLiveDropdown ? (

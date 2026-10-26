@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import ClearSearchButton from "./ClearSearchButton";
 import FilterSelect from "./FilterSelect";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
@@ -19,6 +21,7 @@ export default function CollectionFilters({
   count,
   reset,
 }) {
+  const inputRef = useRef(null);
   const { t } = useLanguage();
   const select = (label, value, onChange, options) => (
     <FilterSelect
@@ -51,12 +54,19 @@ export default function CollectionFilters({
                 className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]"
               />
               <input
+                ref={inputRef}
                 type="search"
                 placeholder={t("Search movies") + "…"}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                className={`${CONTROL} pl-11 pr-3 placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
+                className={`${CONTROL} pl-11 pr-11 [&::-webkit-search-cancel-button]:appearance-none placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
               />
+              {query && (
+                <ClearSearchButton
+                  inputRef={inputRef}
+                  onClear={() => setQuery("")}
+                />
+              )}
             </span>
           </label>
           {setStatus &&

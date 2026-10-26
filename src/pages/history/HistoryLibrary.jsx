@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import ClearSearchButton from "../../components/movies/ClearSearchButton";
 import FilterSelect from "../../components/movies/FilterSelect";
 import CollectionState from "../../components/movies/CollectionState";
 import useCollectionFilters from "../../hooks/useCollectionFilters";
@@ -9,6 +11,7 @@ const CONTROL =
   "min-h-11 w-full min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";
 
 export default function HistoryLibrary({ header, history }) {
+  const inputRef = useRef(null);
   const { t, language } = useLanguage();
   const { query, setQuery, status, setStatus, sort, setSort, reset } =
     useCollectionFilters("history");
@@ -43,12 +46,19 @@ export default function HistoryLibrary({ header, history }) {
                 className="pointer-events-none absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--color-text-muted)]"
               />
               <input
+                ref={inputRef}
                 type="search"
                 placeholder={t("Search movies") + "…"}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                className={`${CONTROL} pl-11 pr-3 placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
+                className={`${CONTROL} pl-11 pr-11 [&::-webkit-search-cancel-button]:appearance-none placeholder:text-[var(--color-text-muted)] placeholder:opacity-80`}
               />
+              {query && (
+                <ClearSearchButton
+                  inputRef={inputRef}
+                  onClear={() => setQuery("")}
+                />
+              )}
             </span>
           </label>
           <FilterSelect
