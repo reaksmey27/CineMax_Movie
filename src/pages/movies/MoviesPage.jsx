@@ -56,6 +56,7 @@ const MoviesPage = () => {
     searchQuery,
     releaseYear,
     minRating,
+    country,
     runtime,
     sortBy,
     hasActiveFilters,
@@ -71,6 +72,7 @@ const MoviesPage = () => {
     retryGenres,
     handleYearChange,
     handleRatingChange,
+    handleCountryChange,
     handleRuntimeChange,
     handleSortChange,
     clearFilters,
@@ -107,6 +109,8 @@ const MoviesPage = () => {
           selectedGenre={selectedGenre}
           releaseYear={releaseYear}
           minRating={minRating}
+          country={country}
+          onCountryChange={handleCountryChange}
           runtime={runtime}
           onRuntimeChange={handleRuntimeChange}
           sortBy={sortBy}

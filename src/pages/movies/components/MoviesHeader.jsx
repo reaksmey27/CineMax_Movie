@@ -22,6 +22,8 @@ const MoviesHeader = ({
   selectedGenre,
   releaseYear,
   minRating,
+  country,
+  onCountryChange,
   runtime,
   onRuntimeChange,
   sortBy,
@@ -46,9 +48,9 @@ const MoviesHeader = ({
   }
 
   const [prevFilterSort, setPrevFilterSort] = useState(
-    `${minRating}|${sortBy}|${runtime}`,
+    `${minRating}|${sortBy}|${runtime}|${country}`,
   );
-  const filterSortKey = `${minRating}|${sortBy}|${runtime}`;
+  const filterSortKey = `${minRating}|${sortBy}|${runtime}|${country}`;
   if (prevFilterSort !== filterSortKey) {
     setPrevFilterSort(filterSortKey);
     setOpenSelect(null);
@@ -115,6 +117,8 @@ const MoviesHeader = ({
         hasActiveFilters={hasActiveFilters || Boolean(yearInput)}
         hasSearchQuery={hasSearchQuery}
         minRating={minRating}
+        country={country}
+        onCountryChange={onCountryChange}
         runtime={runtime}
         onRuntimeChange={onRuntimeChange}
         onClearFilters={() => {
@@ -138,6 +142,8 @@ const MoviesHeader = ({
         selectedGenre={selectedGenre}
         releaseYear={releaseYear}
         minRating={minRating}
+        country={country}
+        onCountryChange={onCountryChange}
         runtime={runtime}
         sortBy={sortBy}
         onGenreChange={onGenreChange}

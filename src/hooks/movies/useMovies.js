@@ -19,6 +19,7 @@ const useMovies = () => {
     searchQuery,
     releaseYear,
     minRating,
+    country,
     runtime,
     sortBy,
     hasActiveFilters,
@@ -90,6 +91,14 @@ const useMovies = () => {
     [setError, updateParams],
   );
 
+  const handleCountryChange = useCallback(
+    (value) => {
+      updateParams({ country: value || null, page: 1 });
+      setError(null);
+    },
+    [setError, updateParams],
+  );
+
   const handleRuntimeChange = useCallback(
     (value) => {
       updateParams({ runtime: value || null, page: 1 });
@@ -114,6 +123,7 @@ const useMovies = () => {
       genre: null,
       year: null,
       rating: null,
+      country: null,
       runtime: null,
       sort: null,
       page: 1,
@@ -141,6 +151,7 @@ const useMovies = () => {
     searchQuery,
     releaseYear,
     minRating,
+    country,
     runtime,
     sortBy,
     hasActiveFilters,
@@ -153,6 +164,7 @@ const useMovies = () => {
     clearSearch,
     handleYearChange,
     handleRatingChange,
+    handleCountryChange,
     handleRuntimeChange,
     handleSortChange,
     clearFilters,

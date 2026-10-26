@@ -1,3 +1,4 @@
+import { MOVIE_COUNTRIES } from "../../config/movieCountries.js";
 import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
@@ -17,9 +18,13 @@ export function parseMovieSearchParams(searchParams) {
   const parsedGenre = genreParam ? parseInt(genreParam, 10) : null;
   const selectedGenre = Number.isNaN(parsedGenre) ? null : parsedGenre;
   const collectionParam = searchParams.get("collection");
+  const country = MOVIE_COUNTRIES.includes(searchParams.get("country"))
+    ? searchParams.get("country")
+    : "";
   const collection =
     ["top-rated", "now-playing"].includes(collectionParam) &&
-    !runtimeRange(searchParams.get("runtime"))?.min
+    !runtimeRange(searchParams.get("runtime"))?.min &&
+    !country
       ? collectionParam
       : "";
   const collectionTitle =
@@ -40,6 +45,7 @@ export function parseMovieSearchParams(searchParams) {
     : DEFAULT_DISCOVER_SORT;
 
   const hasActiveFilters = Boolean(
+    country ||
     collection ||
     selectedGenre ||
     releaseYear ||
@@ -48,6 +54,7 @@ export function parseMovieSearchParams(searchParams) {
     sortBy !== DEFAULT_DISCOVER_SORT,
   );
   return {
+    country,
     page,
     selectedGenre,
     collection,

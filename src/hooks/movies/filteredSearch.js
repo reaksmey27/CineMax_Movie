@@ -6,6 +6,7 @@ export async function filteredSearch(
   filters,
   isCancelled = () => false,
   fetchRuntime,
+  fetchCountries,
 ) {
   const first = await fetchPage(1);
   const pages = Math.min(first.total_pages || 0, 100);
@@ -33,6 +34,25 @@ export async function filteredSearch(
       (!filters.minRating ||
         Number(movie.vote_average || 0) >= Number(filters.minRating)),
   );
+  if (filters.country) {
+    const countryMatches = [];
+    for (let offset = 0; offset < matches.length; offset += 4) {
+      if (isCancelled()) return null;
+      const batch = await Promise.all(
+        matches.slice(offset, offset + 4).map(async (movie) => ({
+          movie,
+          countries: movie.origin_country ?? (await fetchCountries(movie.id)),
+        })),
+      );
+      countryMatches.push(
+        ...batch
+          .filter(({ countries }) => countries.includes(filters.country))
+          .map(({ movie }) => movie),
+      );
+    }
+    if (isCancelled()) return null;
+    matches = countryMatches;
+  }
   const range = runtimeRange(filters.runtime);
   if (range?.min) {
     const timed = [];

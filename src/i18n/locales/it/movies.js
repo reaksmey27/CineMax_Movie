@@ -1,6 +1,9 @@
 // it movies messages. English keys remain the fallback.
 export default {
-  "Could not refresh movies. Showing previously loaded movies.": "Impossibile aggiornare i film. Sono visualizzati quelli caricati in precedenza.",
+  Country: "Paese",
+  "All countries": "Tutti i paesi",
+  "Could not refresh movies. Showing previously loaded movies.":
+    "Impossibile aggiornare i film. Sono visualizzati quelli caricati in precedenza.",
   "{count} matches": "{count} risultati",
   "{duration} remaining": "{duration} rimanenti",
   "A better way to choose what to watch":

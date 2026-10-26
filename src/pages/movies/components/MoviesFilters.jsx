@@ -1,4 +1,8 @@
 import {
+  MOVIE_COUNTRIES,
+  movieCountryName,
+} from "../../../config/movieCountries";
+import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
   MIN_RATING_OPTIONS,
@@ -17,6 +21,8 @@ const MoviesFilters = ({
   hasActiveFilters,
   hasSearchQuery,
   minRating,
+  country,
+  onCountryChange,
   runtime,
   onRuntimeChange,
   onClearFilters,
@@ -31,7 +37,7 @@ const MoviesFilters = ({
   yearInput,
   setYearInput,
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   // ─── Render: filter toolbar ──────────────────────────────────────────────────
 
   return (
@@ -46,13 +52,15 @@ const MoviesFilters = ({
           </p>
         </div>
 
-        {hasActiveFilters && <button
-          type="button"
-          onClick={onClearFilters}
-          className="min-h-11 rounded-lg border border-white/10 px-3 py-1.5 text-sm font-semibold text-white transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:border-purple-500/40 hover:bg-purple-500/10"
-        >
-          {t("Clear all filters")}
-        </button>}
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={onClearFilters}
+            className="min-h-11 rounded-lg border border-white/10 px-3 py-1.5 text-sm font-semibold text-white transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:border-purple-500/40 hover:bg-purple-500/10"
+          >
+            {t("Clear all filters")}
+          </button>
+        )}
       </div>
 
       {hasSearchQuery && (
@@ -129,7 +137,7 @@ const MoviesFilters = ({
         )}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
         <label className="space-y-2">
           <span className={LABEL_CLASS}>{t("Release Year")}</span>
           <input
@@ -153,6 +161,22 @@ const MoviesFilters = ({
           onToggle={() => toggleSelect("rating")}
           onClose={() => toggleSelect(null)}
           onChange={onRatingChange}
+        />
+
+        <FilterSelect
+          label="Country"
+          value={country}
+          options={[
+            { value: "", label: t("All countries") },
+            ...MOVIE_COUNTRIES.map((value) => ({
+              value,
+              label: movieCountryName(value, language),
+            })),
+          ]}
+          isOpen={openSelect === "country"}
+          onToggle={() => toggleSelect("country")}
+          onClose={() => toggleSelect(null)}
+          onChange={onCountryChange}
         />
 
         <FilterSelect

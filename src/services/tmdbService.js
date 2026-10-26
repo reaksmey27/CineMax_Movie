@@ -61,6 +61,7 @@ export const tmdbService = {
         page,
         sort_by: filters.sortBy,
         with_genres: filters.genreId,
+        with_origin_country: filters.country,
         primary_release_year: filters.releaseYear,
         "vote_average.gte": filters.minRating,
         "with_runtime.gte": range?.min,
@@ -72,6 +73,15 @@ export const tmdbService = {
 
   getMoviesByGenre: async (genreId, page = 1) => {
     return await tmdbService.discoverMovies(page, { genreId });
+  },
+
+  getMovieCountries: async (id) => {
+    const details = await fetchFromTMDB(
+      `/movie/${id}`,
+      {},
+      { ttl: LONG_CACHE_TTL },
+    );
+    return details.origin_country || [];
   },
 
   getMovieRuntime: async (id) => {

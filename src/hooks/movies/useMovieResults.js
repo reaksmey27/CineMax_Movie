@@ -6,6 +6,7 @@ import { DEFAULT_DISCOVER_SORT } from "../../config/movieFilters";
 export default function useMovieResults({
   collection,
   minRating,
+  country,
   runtime,
   page,
   releaseYear,
@@ -33,6 +34,7 @@ export default function useMovieResults({
             selectedGenre ||
             releaseYear ||
             minRating ||
+            country ||
             runtime ||
             sortBy !== DEFAULT_DISCOVER_SORT;
           response = hasSearchFilters
@@ -47,21 +49,24 @@ export default function useMovieResults({
                   selectedGenre,
                   releaseYear,
                   minRating,
+                  country,
                   runtime,
                   sortBy,
                   page,
                 },
                 () => ignore,
                 tmdbService.getMovieRuntime,
+                tmdbService.getMovieCountries,
               )
             : await tmdbService.searchMovies(searchQuery, page);
-        } else if (collection && !runtime) {
+        } else if (collection && !runtime && !country) {
           response = await tmdbService.getMovieCollection(collection, page);
         } else {
           response = await tmdbService.discoverMovies(page, {
             genreId: selectedGenre,
             releaseYear,
             minRating,
+            country,
             runtime,
             sortBy,
           });
@@ -109,6 +114,7 @@ export default function useMovieResults({
   }, [
     collection,
     minRating,
+    country,
     runtime,
     page,
     releaseYear,
