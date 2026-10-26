@@ -1,5 +1,10 @@
 // ko collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "{collection}을 비울까요?",
+  "Remove {count} saved movies? This cannot be undone.":
+    "저장한 영화 {count}개를 삭제할까요? 이 작업은 되돌릴 수 없습니다.",
+  "Could not clear saved movies. Please try again.":
+    "저장한 영화를 삭제하지 못했습니다. 다시 시도해 주세요.",
   "{count} saved titles lean this way.":
     "저장한 작품 {count}개가 이 장르에 속합니다.",
   "Add favorites to unlock insights.": "즐겨찾기를 추가해 통계를 확인하세요.",

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { clearSavedMovies } from "../src/firebase/clearSavedMovies.js";
 import { submitPlaybackReport } from "../src/firebase/playbackReports.js";
 import { restoreMovie } from "../src/firebase/restoreMovie.js";
 import {
@@ -81,6 +82,41 @@ const NOTIFICATION = {
 };
 
 let environment;
+
+for (const collectionName of [FAVORITES_COLLECTION, WATCHLISTS_COLLECTION]) {
+  test(`clear saved movies in ${collectionName} preserves later additions and enforces ownership`, async () => {
+    const db = getAuthenticatedDatabase();
+    const reference = doc(db, collectionName, OWNER_UID);
+    await setDoc(reference, {
+      userId: OWNER_UID,
+      movies: { [MOVIE.id]: MOVIE, [SECOND_MOVIE.id]: SECOND_MOVIE },
+    });
+    const otherDb = environment.authenticatedContext(OTHER_UID).firestore();
+    await assert.rejects(
+      clearSavedMovies(otherDb, OWNER_UID, collectionName, [MOVIE.id]),
+    );
+    assert.equal(
+      Object.keys((await getDoc(reference)).data().movies).length,
+      2,
+    );
+    await clearSavedMovies(db, OWNER_UID, collectionName, [MOVIE.id]);
+    assert.deepEqual((await getDoc(reference)).data().movies, {
+      [SECOND_MOVIE.id]: SECOND_MOVIE,
+    });
+    await clearSavedMovies(db, OWNER_UID, collectionName, [MOVIE.id]);
+    assert.deepEqual((await getDoc(reference)).data().movies, {
+      [SECOND_MOVIE.id]: SECOND_MOVIE,
+    });
+    await clearSavedMovies(db, OWNER_UID, collectionName, [SECOND_MOVIE.id]);
+    assert.deepEqual((await getDoc(reference)).data().movies, {});
+    await deleteDoc(reference);
+    await clearSavedMovies(db, OWNER_UID, collectionName, [MOVIE.id]);
+    assert.equal((await getDoc(reference)).exists(), false);
+    await assert.rejects(
+      clearSavedMovies(db, OWNER_UID, collectionName, ["invalid.id"]),
+    );
+  });
+}
 
 test("playback reports persist once and reject unauthorized or malformed writes", async () => {
   const db = getAuthenticatedDatabase();

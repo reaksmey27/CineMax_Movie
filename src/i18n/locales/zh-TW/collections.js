@@ -1,5 +1,10 @@
 // zh-TW collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "清空{collection}？",
+  "Remove {count} saved movies? This cannot be undone.":
+    "移除 {count} 部已儲存的電影？此操作無法復原。",
+  "Could not clear saved movies. Please try again.":
+    "無法清除已儲存的電影。請再試一次。",
   "{count} saved titles lean this way.": "{count} 部收藏電影屬於此類型。",
   "Add favorites to unlock insights.": "新增收藏以查看相關統計。",
   "Add to favorites": "加入收藏",

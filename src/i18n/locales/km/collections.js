@@ -1,5 +1,10 @@
 // km collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "សម្អាត {collection}?",
+  "Remove {count} saved movies? This cannot be undone.":
+    "លុបភាពយន្តដែលបានរក្សាទុកចំនួន {count}? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។",
+  "Could not clear saved movies. Please try again.":
+    "មិនអាចលុបភាពយន្តដែលបានរក្សាទុកបានទេ។ សូមព្យាយាមម្តងទៀត។",
   "{count} saved titles lean this way.":
     "ចំណងជើងដែលបានរក្សាទុក {count} មានប្រភេទនេះ។",
   "Add favorites to unlock insights.": "បន្ថែមចំណូលចិត្តដើម្បីមើលស្ថិតិ។",

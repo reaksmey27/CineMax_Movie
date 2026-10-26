@@ -1,3 +1,4 @@
+import ClearCollectionButton from "../../components/movies/ClearCollectionButton";
 import CollectionState from "../../components/movies/CollectionState";
 import useCollectionFilters from "../../hooks/useCollectionFilters";
 import { useLanguage } from "../../context/LanguageContext";
@@ -23,6 +24,7 @@ export default function FavoritesLibrary({ header, movies }) {
         count={visible.length}
         reset={reset}
       />
+      <ClearCollectionButton collection="favorites" movies={movies} />
       {visible.length ? (
         <MovieGrid movies={visible} />
       ) : (

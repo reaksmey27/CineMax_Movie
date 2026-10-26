@@ -67,9 +67,81 @@ async function fixture(page, collection) {
     `${storage}
     export async function restoreMovie(db,uid,c,movie){if(localStorage.getItem('fail-restore'))throw Error('offline');const items=read(c,uid);if(!items.some(x=>x.id===movie.id))write(c,uid,[movie,...items]);}`,
   );
+  await module(
+    "firebase/clearSavedMovies.js",
+    `${storage}
+    export async function clearSavedMovies(db,uid,c,ids){
+      await new Promise(resolve=>setTimeout(resolve,300));
+      if(localStorage.getItem('fail-clear'))throw Error('offline');
+      write(c,uid,read(c,uid).filter(movie=>!ids.includes(movie.id)));
+    }`,
+  );
   await page.route("https://api.themoviedb.org/**", (route) =>
     route.fulfill({ json: { results: [] } }),
   );
+}
+
+for (const [collection, path, name] of [
+  ["favorites", "/favorites", "Favorites"],
+  ["watchlists", "/watchlist", "Watchlist"],
+]) {
+  test(`${collection} clearing confirms the full count, cancels and retries`, async ({
+    page,
+  }) => {
+    await fixture(page, collection);
+    await page.setViewportSize({ width: 320, height: 740 });
+    await page.goto(path);
+    await page.getByRole("searchbox").fill("no match");
+    const trigger = page.getByRole("button", {
+      name: `Clear ${name}?`,
+      exact: true,
+    });
+    await trigger.click();
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toContainText(
+      "Remove 1 saved movies? This cannot be undone.",
+    );
+    await expect(
+      dialog.getByRole("button", { name: "Cancel", exact: true }),
+    ).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+    await trigger.click();
+    await dialog.getByRole("button", { name: "Cancel", exact: true }).click();
+    await expect(dialog).toHaveCount(0);
+    await trigger.click();
+    await page.evaluate(() => localStorage.setItem("fail-clear", "1"));
+    await dialog.getByRole("button", { name: "Remove", exact: true }).click();
+    await expect(
+      dialog.getByRole("button", { name: "Clearing...", exact: true }),
+    ).toBeDisabled();
+    await expect(dialog.getByRole("alert")).toHaveText(
+      "Could not clear saved movies. Please try again.",
+    );
+    await page.evaluate((c) => {
+      localStorage.removeItem("fail-clear");
+      const key = `undo-${c}-fan`;
+      localStorage.setItem(
+        key,
+        JSON.stringify([
+          ...JSON.parse(localStorage.getItem(key)),
+          { id: 99, title: "New Film" },
+        ]),
+      );
+      window.dispatchEvent(new Event("saved-change"));
+    }, collection);
+    await dialog
+      .getByRole("button", { name: "Try again", exact: true })
+      .click();
+    await expect(dialog).toHaveCount(0);
+    expect(
+      await page.evaluate(
+        (c) => JSON.parse(localStorage.getItem(`undo-${c}-fan`)),
+        collection,
+      ),
+    ).toEqual([{ id: 99, title: "New Film" }]);
+  });
 }
 
 for (const [collection, path, label] of [

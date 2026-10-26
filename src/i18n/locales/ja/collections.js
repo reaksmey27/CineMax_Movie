@@ -1,5 +1,10 @@
 // ja collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "{collection}を空にしますか？",
+  "Remove {count} saved movies? This cannot be undone.":
+    "保存した映画{count}件を削除しますか？この操作は元に戻せません。",
+  "Could not clear saved movies. Please try again.":
+    "保存した映画を削除できませんでした。もう一度お試しください。",
   "{count} saved titles lean this way.":
     "保存した作品のうち{count}件がこのジャンルです。",
   "Add favorites to unlock insights.":

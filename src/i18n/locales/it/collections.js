@@ -1,5 +1,10 @@
 // it collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "Svuotare {collection}?",
+  "Remove {count} saved movies? This cannot be undone.":
+    "Rimuovere {count} film salvati? Questa azione è irreversibile.",
+  "Could not clear saved movies. Please try again.":
+    "Impossibile eliminare i film salvati. Riprova.",
   "{count} saved titles lean this way.":
     "{count} titoli salvati vanno in questa direzione.",
   "Add favorites to unlock insights.":

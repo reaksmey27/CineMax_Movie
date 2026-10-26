@@ -1,5 +1,10 @@
 // vi collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "Xóa hết {collection}?",
+  "Remove {count} saved movies? This cannot be undone.":
+    "Xóa {count} phim đã lưu? Không thể hoàn tác thao tác này.",
+  "Could not clear saved movies. Please try again.":
+    "Không thể xóa phim đã lưu. Vui lòng thử lại.",
   "{count} saved titles lean this way.":
     "{count} phim đã lưu thuộc thể loại này.",
   "Add favorites to unlock insights.": "Thêm phim yêu thích để xem thống kê.",

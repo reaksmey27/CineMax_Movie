@@ -1,5 +1,10 @@
 // id collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "Kosongkan {collection}?",
+  "Remove {count} saved movies? This cannot be undone.":
+    "Hapus {count} film tersimpan? Tindakan ini tidak dapat dibatalkan.",
+  "Could not clear saved movies. Please try again.":
+    "Tidak dapat menghapus film tersimpan. Coba lagi.",
   "{count} saved titles lean this way.":
     "{count} judul tersimpan termasuk genre ini.",
   "Add favorites to unlock insights.":

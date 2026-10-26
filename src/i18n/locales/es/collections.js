@@ -1,5 +1,10 @@
 // es collections messages. English keys remain the fallback.
 export default {
+  "Clear {collection}?": "¿Vaciar {collection}?",
+  "Remove {count} saved movies? This cannot be undone.":
+    "¿Eliminar {count} películas guardadas? No se puede deshacer.",
+  "Could not clear saved movies. Please try again.":
+    "No se pudieron eliminar las películas guardadas. Inténtalo de nuevo.",
   "{count} saved titles lean this way.":
     "{count} títulos guardados pertenecen a este género.",
   "Add favorites to unlock insights.": "Añade favoritos para ver estadísticas.",

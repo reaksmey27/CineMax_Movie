@@ -1,3 +1,4 @@
+import ClearCollectionButton from "../../components/movies/ClearCollectionButton";
 import CollectionState from "../../components/movies/CollectionState";
 import useCollectionFilters from "../../hooks/useCollectionFilters";
 import MovieCard from "../../components/ui/MovieCard";
@@ -32,6 +33,7 @@ export default function WatchlistLibrary({
         count={visible.length}
         reset={reset}
       />
+      <ClearCollectionButton collection="watchlists" movies={movies} />
       {visible.length ? (
         <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
           {visible.map((movie) => (
