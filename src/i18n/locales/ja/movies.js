@@ -1,5 +1,7 @@
 // ja movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "国を検索...",
+  "No countries found": "国が見つかりません",
   Country: "国",
   "All countries": "すべての国",
   "Could not refresh movies. Showing previously loaded movies.":

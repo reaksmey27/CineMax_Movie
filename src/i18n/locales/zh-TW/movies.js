@@ -1,5 +1,7 @@
 // zh-TW movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "搜尋國家...",
+  "No countries found": "找不到國家",
   Country: "國家",
   "All countries": "所有國家",
   "Could not refresh movies. Showing previously loaded movies.":

@@ -1,5 +1,7 @@
 // id movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "Cari negara...",
+  "No countries found": "Negara tidak ditemukan",
   Country: "Negara",
   "All countries": "Semua negara",
   "Could not refresh movies. Showing previously loaded movies.":

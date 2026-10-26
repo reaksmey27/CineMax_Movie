@@ -1,5 +1,7 @@
 // vi movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "Tìm quốc gia...",
+  "No countries found": "Không tìm thấy quốc gia",
   Country: "Quốc gia",
   "All countries": "Tất cả quốc gia",
   "Could not refresh movies. Showing previously loaded movies.":

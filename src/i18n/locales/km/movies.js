@@ -1,5 +1,7 @@
 // km movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "ស្វែងរកប្រទេស...",
+  "No countries found": "រកមិនឃើញប្រទេស",
   Country: "ប្រទេស",
   "All countries": "គ្រប់ប្រទេស",
   "Could not refresh movies. Showing previously loaded movies.":

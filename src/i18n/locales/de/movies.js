@@ -1,5 +1,7 @@
 // de movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "Länder suchen...",
+  "No countries found": "Keine Länder gefunden",
   Country: "Land",
   "All countries": "Alle Länder",
   "Could not refresh movies. Showing previously loaded movies.":

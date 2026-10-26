@@ -14,11 +14,17 @@ const FilterSelect = ({
   onToggle: controlledToggle,
   onClose: controlledClose,
   onChange,
+  searchPlaceholder,
 }) => {
   const { t } = useLanguage();
   const [localOpen, setLocalOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const isOpen = controlledOpen ?? localOpen;
-  const onToggle = controlledToggle ?? (() => setLocalOpen((open) => !open));
+  const onToggle = () => {
+    setQuery("");
+    if (controlledToggle) controlledToggle();
+    else setLocalOpen((open) => !open);
+  };
   const onClose = useCallback(() => {
     if (controlledClose) controlledClose();
     else setLocalOpen(false);
@@ -26,6 +32,17 @@ const FilterSelect = ({
   const containerRef = useRef(null);
   const triggerRef = useRef(null);
   const menuRef = useRef(null);
+  const searchRef = useRef(null);
+  const normalize = (text) =>
+    text.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase();
+  const visibleOptions =
+    searchPlaceholder && query.trim()
+      ? options.filter((option) =>
+          normalize(
+            `${t(option.label)} ${option.searchText || ""} ${option.value}`,
+          ).includes(normalize(query.trim())),
+        )
+      : options;
   const triggerId = `filter-select-${label.toLowerCase().replace(/\s+/g, "-")}`;
   const selected =
     options.find((option) => option.value === value) ?? options[0];
@@ -34,13 +51,17 @@ const FilterSelect = ({
 
   useEffect(() => {
     if (!isOpen) return undefined;
+    if (searchPlaceholder) {
+      searchRef.current?.focus();
+      return undefined;
+    }
 
     const optionButtons = menuRef.current?.querySelectorAll('[role="option"]');
     const selectedOption = Array.from(optionButtons ?? []).find(
       (option) => option.getAttribute("aria-selected") === "true",
     );
     selectedOption?.focus();
-  }, [isOpen]);
+  }, [isOpen, searchPlaceholder]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -77,6 +98,10 @@ const FilterSelect = ({
     if (currentIndex < 0 || optionButtons.length === 0) return;
 
     event.preventDefault();
+    if (searchPlaceholder && event.key === "ArrowUp" && currentIndex === 0) {
+      searchRef.current?.focus();
+      return;
+    }
     const nextIndex =
       event.key === "Home"
         ? 0
@@ -137,6 +162,37 @@ const FilterSelect = ({
       {isOpen && (
         <div className="absolute inset-x-0 top-full z-50 mt-1 origin-top transition-all duration-150">
           <div className="rounded-2xl border border-purple-500/25 bg-[var(--color-bg-elevated)] p-1.5 shadow-xl shadow-black/30">
+            {searchPlaceholder && (
+              <input
+                ref={searchRef}
+                type="search"
+                aria-label={t(searchPlaceholder)}
+                placeholder={t(searchPlaceholder)}
+                aria-controls={`${triggerId}-menu`}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.nativeEvent.isComposing) return;
+                  if (["ArrowDown", "ArrowUp"].includes(event.key)) {
+                    event.preventDefault();
+                    const items =
+                      menuRef.current?.querySelectorAll('[role="option"]');
+                    (event.key === "ArrowDown"
+                      ? items?.[0]
+                      : items?.[items.length - 1]
+                    )?.focus();
+                  } else if (event.key === "Enter") {
+                    event.preventDefault();
+                    if (visibleOptions.length === 1) {
+                      onChange(visibleOptions[0].value);
+                      onClose();
+                      triggerRef.current?.focus();
+                    }
+                  }
+                }}
+                className="mb-1.5 min-h-11 w-full min-w-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-1)] px-3 text-sm text-[var(--color-text)] placeholder:text-[var(--color-text-muted)] focus:outline-2 focus:outline-purple-500"
+              />
+            )}
             <ul
               ref={menuRef}
               id={`${triggerId}-menu`}
@@ -144,7 +200,7 @@ const FilterSelect = ({
               aria-label={t(label)}
               className="max-h-64 space-y-1 overflow-y-auto overscroll-contain"
             >
-              {options.map((option) => {
+              {visibleOptions.map((option) => {
                 const isSelected = option.value === selected.value;
 
                 return (
@@ -178,6 +234,14 @@ const FilterSelect = ({
                 );
               })}
             </ul>
+            {searchPlaceholder && visibleOptions.length === 0 && (
+              <p
+                role="status"
+                className="px-3 py-4 text-sm text-[var(--color-text-muted)]"
+              >
+                {t("No countries found")}
+              </p>
+            )}
           </div>
         </div>
       )}

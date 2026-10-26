@@ -165,12 +165,14 @@ const MoviesFilters = ({
 
         <FilterSelect
           label="Country"
+          searchPlaceholder="Search countries..."
           value={country}
           options={[
             { value: "", label: t("All countries") },
             ...MOVIE_COUNTRIES.map((value) => ({
               value,
               label: movieCountryName(value, language),
+              searchText: movieCountryName(value, "en"),
             })),
           ]}
           isOpen={openSelect === "country"}

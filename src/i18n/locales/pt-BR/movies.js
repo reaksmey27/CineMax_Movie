@@ -1,5 +1,7 @@
 // pt-BR movies messages. English keys remain the fallback.
 export default {
+  "Search countries...": "Buscar países...",
+  "No countries found": "Nenhum país encontrado",
   Country: "País",
   "All countries": "Todos os países",
   "Could not refresh movies. Showing previously loaded movies.":

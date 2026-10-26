@@ -44,6 +44,14 @@ test("country filter combines with other filters, persists and clears without ex
   await page.goto("/movies?genre=18&year=2025&rating=7");
   const country = page.locator("#filter-select-country");
   await country.click();
+  const search = page.getByRole("searchbox", { name: "Search countries..." });
+  await expect(search).toBeFocused();
+  await search.fill("Thai");
+  await expect(
+    page.getByText("No countries found", { exact: true }),
+  ).toBeVisible();
+  await search.fill("cAmBo");
+  await expect(page.getByRole("option")).toHaveCount(1);
   await expect(
     page.getByRole("option", { name: "Thailand", exact: true }),
   ).toHaveCount(0);
@@ -79,6 +87,12 @@ test("country filter combines with other filters, persists and clears without ex
     page.getByRole("link", { name: "Thai Film", exact: true }),
   ).toBeVisible();
   await country.click();
+  await expect(search).toHaveValue("");
+  await search.fill("KH");
+  await search.press("ArrowDown");
+  await expect(
+    page.getByRole("option", { name: "Cambodia", exact: true }),
+  ).toBeFocused();
   await page.getByRole("option", { name: "Cambodia", exact: true }).click();
   await page
     .getByRole("button", { name: "Clear all filters", exact: true })
