@@ -13,11 +13,13 @@ import { useLanguage } from "./LanguageContext";
 import { useToastTimers } from "../hooks/notifications/useToastTimers";
 
 const Context = createContext(null);
+const UNDO_DURATION_MS = 5000;
 function Session({ userId, children }) {
   const { t } = useLanguage();
   const [items, setItems] = useState([]);
   const active = useRef(true);
   const pending = useRef(new Set());
+  const nextId = useRef(0);
   const scheduleDismiss = useToastTimers();
   useEffect(() => {
     active.current = true;
@@ -29,6 +31,7 @@ function Session({ userId, children }) {
     (collection, movie) => {
       if (!userId || !active.current || !movie) return;
       const entry = {
+        id: nextId.current++,
         key: `${collection}-${movie.id}`,
         collection,
         movie: { ...movie },
@@ -44,7 +47,7 @@ function Session({ userId, children }) {
         setItems((current) =>
           current.filter((item) => item.token !== entry.token),
         );
-      }, 5000);
+      }, UNDO_DURATION_MS);
     },
     [userId, scheduleDismiss],
   );
@@ -84,7 +87,7 @@ function Session({ userId, children }) {
         <div className="fixed bottom-4 left-4 right-4 z-[2100] flex max-h-[45vh] flex-col gap-2 overflow-y-auto sm:right-auto sm:w-96">
           {items.map((entry) => (
             <div
-              key={entry.key}
+              key={entry.id}
               className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-3 text-[var(--color-text)] shadow-2xl"
             >
               <p role="status" className="break-words text-sm leading-relaxed">
@@ -126,6 +129,15 @@ function Session({ userId, children }) {
                 >
                   <XMarkIcon aria-hidden="true" className="h-5 w-5" />
                 </button>
+              </div>
+              <div
+                aria-hidden="true"
+                className="mt-3 h-1 overflow-hidden rounded-full bg-purple-500/15"
+              >
+                <div
+                  className="undo-countdown h-full origin-left rounded-full bg-purple-500"
+                  style={{ "--undo-duration": `${UNDO_DURATION_MS}ms` }}
+                />
               </div>
             </div>
           ))}

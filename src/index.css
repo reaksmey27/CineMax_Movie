@@ -517,6 +517,26 @@ html.theme-light
   outline-offset: 3px;
 }
 
+@keyframes undo-countdown {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+.undo-countdown {
+  animation: undo-countdown var(--undo-duration) linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .undo-countdown {
+    animation-duration: var(--undo-duration) !important;
+    animation-timing-function: steps(5, end);
+  }
+}
+
 /* Keep option focus rings inside the scrollable dropdown panel. */
 [role="listbox"] [role="option"]:focus-visible {
   outline-offset: -2px;
