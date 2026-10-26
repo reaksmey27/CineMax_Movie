@@ -173,7 +173,9 @@ const MoviesFilters = ({
               value,
               label: movieCountryName(value, language),
               searchText: movieCountryName(value, "en"),
-            })),
+            })).sort((first, second) =>
+              first.label.localeCompare(second.label, language),
+            ),
           ]}
           isOpen={openSelect === "country"}
           onToggle={() => toggleSelect("country")}
