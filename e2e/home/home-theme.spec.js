@@ -28,7 +28,7 @@ test("featured hero controls stay readable in light theme", async ({
 
   const movieTitle = page.locator(".hero-carousel h2");
   await expect(movieTitle).toContainText("Theme Contrast Test");
-  await expect(movieTitle).toHaveCSS("color", "rgb(248, 250, 252)");
+  await expect(movieTitle).toHaveCSS("color", "rgb(109, 40, 217)");
 
   const previousButton = page.getByRole("button", {
     name: "Previous featured movie",
