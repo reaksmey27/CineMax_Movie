@@ -24,6 +24,8 @@ const MoviesSearchBar = ({
   onInputChange,
   onInputFocus,
   onInputKeyDown,
+  onCompositionStart,
+  onCompositionEnd,
   onResultHover,
   onResultSelect,
   searchHistory,
@@ -61,6 +63,8 @@ const MoviesSearchBar = ({
         onBlur={onInputBlur}
         onChange={onInputChange}
         onKeyDown={onInputKeyDown}
+        onCompositionStart={onCompositionStart}
+        onCompositionEnd={onCompositionEnd}
         className="w-full rounded-2xl border-2 border-white/5 bg-white/5 px-14 py-3.5 font-bold text-white outline-none transition-all placeholder:text-gray-600 focus:border-purple-500/50 focus:bg-white/10 sm:py-4"
       />
 

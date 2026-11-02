@@ -9,6 +9,7 @@ export default function useNavSearch() {
   const toggleRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [isComposing, setIsComposing] = useState(false);
   const [response, setResponse] = useState({
     query: "",
     results: [],
@@ -19,12 +20,12 @@ export default function useNavSearch() {
   const trimmed = query.trim();
   const loading = response.query !== trimmed;
   const results = loading ? [] : response.results;
-  const showResults = open && trimmed.length >= 2;
+  const showResults = open && !isComposing && trimmed.length >= 2;
 
   // ─── Effects: debounced TMDB search & dismiss ─────────────────────────────────
 
   useEffect(() => {
-    if (!open || trimmed.length < 2) return;
+    if (!open || isComposing || trimmed.length < 2) return;
     let cancelled = false;
     const timer = window.setTimeout(async () => {
       try {
@@ -45,7 +46,7 @@ export default function useNavSearch() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [open, trimmed, attempt]);
+  }, [open, trimmed, attempt, isComposing]);
 
   useEffect(() => {
     if (!open) return;
@@ -82,6 +83,8 @@ export default function useNavSearch() {
     setOpen,
     query,
     setQuery,
+    isComposing,
+    setIsComposing,
     response,
     activeIndex,
     setActiveIndex,

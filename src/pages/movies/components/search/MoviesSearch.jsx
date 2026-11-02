@@ -9,6 +9,7 @@ const SEARCH_DEBOUNCE = 250;
 export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState(searchQuery);
+  const [isComposing, setIsComposing] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [hasTypedSinceFocus, setHasTypedSinceFocus] = useState(false);
 
@@ -37,10 +38,14 @@ export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
     isLiveSearchLoading,
     activeResultIndex,
     setActiveResultIndex,
-  } = useLiveSearch({ enabled: isSearchFocused, query: trimmedInput });
+  } = useLiveSearch({
+    enabled: isSearchFocused && !isComposing,
+    query: trimmedInput,
+  });
 
   const isTyping = inputValue !== searchQuery;
-  const shouldShowLiveDropdown = isSearchFocused && trimmedInput.length >= 2;
+  const shouldShowLiveDropdown =
+    isSearchFocused && !isComposing && trimmedInput.length >= 2;
   const shouldShowHistoryDropdown =
     isSearchFocused &&
     !hasTypedSinceFocus &&
@@ -88,6 +93,7 @@ export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
     };
 
     const handleEscape = (e) => {
+      if (isComposing || e.isComposing || e.keyCode === 229) return;
       if (e.key === "Escape") {
         setHasTypedSinceFocus(false);
         setIsSearchFocused(false);
@@ -102,9 +108,10 @@ export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
       document.removeEventListener("mousedown", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [isSearchFocused, setActiveResultIndex]);
+  }, [isSearchFocused, setActiveResultIndex, isComposing]);
 
   useEffect(() => {
+    if (isComposing) return undefined;
     if (inputValue === searchQuery) return undefined;
     if (skipNextDebounceRef.current) {
       skipNextDebounceRef.current = false;
@@ -116,7 +123,7 @@ export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
       SEARCH_DEBOUNCE,
     );
     return () => window.clearTimeout(id);
-  }, [inputValue, runSearch, searchQuery]);
+  }, [inputValue, runSearch, searchQuery, isComposing]);
 
   return (
     <MoviesSearchBar
@@ -152,6 +159,8 @@ export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
         setIsSearchFocused(true);
       }}
       onInputKeyDown={(e) => {
+        if (isComposing || e.nativeEvent.isComposing || e.keyCode === 229)
+          return;
         if (shouldShowLiveDropdown && liveResults.length > 0) {
           if (e.key === "ArrowDown") {
             e.preventDefault();
@@ -188,6 +197,11 @@ export default function MoviesSearch({ searchQuery, onSearch, onClear }) {
         }
       }}
       onResultHover={setActiveResultIndex}
+      onCompositionStart={() => setIsComposing(true)}
+      onCompositionEnd={(event) => {
+        setInputValue(event.currentTarget.value);
+        setIsComposing(false);
+      }}
       onResultSelect={handleResultSelect}
       searchHistory={searchHistory}
       searchRef={searchRef}

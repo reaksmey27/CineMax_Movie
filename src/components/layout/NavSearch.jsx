@@ -15,6 +15,8 @@ export default function NavSearch({ onOpen }) {
     setOpen,
     query,
     setQuery,
+    isComposing,
+    setIsComposing,
     response,
     activeIndex,
     setActiveIndex,
@@ -59,7 +61,7 @@ export default function NavSearch({ onOpen }) {
         className={`${open ? "block" : "hidden"} absolute inset-x-2 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-panel-bg)] p-3 shadow-xl md:static md:mt-0 md:block md:w-48 lg:w-64 xl:w-48 md:rounded-full md:bg-[var(--color-surface-1)] md:p-0 md:shadow-none 2xl:w-84`}
         onSubmit={(event) => {
           event.preventDefault();
-          if (!trimmed) return;
+          if (isComposing || !trimmed) return;
           setOpen(false);
           inputRef.current?.blur();
           navigate(`/movies?q=${encodeURIComponent(trimmed)}`);
@@ -93,8 +95,20 @@ export default function NavSearch({ onOpen }) {
               setActiveIndex(-1);
               setOpen(true);
             }}
+            onCompositionStart={() => setIsComposing(true)}
+            onCompositionEnd={(event) => {
+              setQuery(event.currentTarget.value);
+              setIsComposing(false);
+            }}
             onKeyDown={(event) => {
-              if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+              if (
+                isComposing ||
+                event.nativeEvent.isComposing ||
+                event.keyCode === 229
+              ) {
+                if (event.key === "Enter") event.preventDefault();
+                return;
+              }
               if (event.key === "Escape") {
                 event.preventDefault();
                 setOpen(false);
@@ -142,15 +156,17 @@ export default function NavSearch({ onOpen }) {
         {showResults && (
           <div className="relative sm:absolute sm:right-0 sm:top-full sm:w-[26rem] sm:max-w-[calc(100vw-3rem)]">
             {!loading && response.error ? (
-              <div
-                className="mt-2 rounded-xl bg-[var(--color-panel-bg)] p-4 text-sm text-[var(--color-text)]"
-              >
+              <div className="mt-2 rounded-xl bg-[var(--color-panel-bg)] p-4 text-sm text-[var(--color-text)]">
                 <p role="status">
-                {t(
-                  "Live search is unavailable. Press Enter to try the results page.",
-                )}
+                  {t(
+                    "Live search is unavailable. Press Enter to try the results page.",
+                  )}
                 </p>
-                <button type="button" onClick={retry} className="mt-2 min-h-11 rounded-lg bg-purple-600 px-4 font-semibold text-white hover:bg-purple-500">
+                <button
+                  type="button"
+                  onClick={retry}
+                  className="mt-2 min-h-11 rounded-lg bg-purple-600 px-4 font-semibold text-white hover:bg-purple-500"
+                >
                   {t("Try again")}
                 </button>
               </div>
