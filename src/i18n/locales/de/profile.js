@@ -1,5 +1,6 @@
 // de profile messages. English keys remain the fallback.
 export default {
+  "Guest visitor": "Gastbesucher",
   "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "Bei angemeldeten Besuchen erscheint Ihr Profilfoto öffentlich unter den letzten Besuchern. Wir speichern die Foto-URL und den Zeitpunkt Ihres letzten Besuchs. Gäste bleiben anonym.",
   "Visitor": "Besucher",
   "Recent visitors": "Letzte Besucher",

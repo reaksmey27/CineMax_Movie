@@ -1,5 +1,6 @@
 // vi profile messages. English keys remain the fallback.
 export default {
+  "Guest visitor": "Khách chưa đăng nhập",
   "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "Khi truy cập lúc đã đăng nhập, ảnh hồ sơ của bạn hiển thị công khai trong khách truy cập gần đây. Chúng tôi lưu URL ảnh và thời gian truy cập gần nhất. Khách chưa đăng nhập vẫn ẩn danh.",
   "Visitor": "Khách truy cập",
   "Recent visitors": "Khách truy cập gần đây",

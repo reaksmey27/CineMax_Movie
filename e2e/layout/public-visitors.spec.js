@@ -37,7 +37,10 @@ for (const signedIn of [true, false]) {
       ).toBe("fan");
     } else {
       await expect(page.getByRole("contentinfo")).toBeVisible();
-      await expect(visitors).toHaveCount(0);
+      await expect(visitors.locator("li")).toHaveCount(1);
+      await expect(
+        visitors.getByRole("img", { name: "Guest visitor" }),
+      ).toBeVisible();
       expect(
         await page.evaluate(() => localStorage.getItem("published-visitor")),
       ).toBeNull();

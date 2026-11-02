@@ -1,5 +1,6 @@
 // zh-TW profile messages. English keys remain the fallback.
 export default {
+  "Guest visitor": "未登入訪客",
   "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "登入後造訪時，您的個人照片會公開顯示在最近訪客中。我們儲存照片網址和最後造訪時間。未登入訪客維持匿名。",
   "Visitor": "訪客",
   "Recent visitors": "最近訪客",

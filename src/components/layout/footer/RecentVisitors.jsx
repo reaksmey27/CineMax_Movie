@@ -3,11 +3,14 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../../context/AuthContext";
 import { useLanguage } from "../../../context/LanguageContext";
 
-function Avatar({ photoURL }) {
+function Avatar({ photoURL, guest = false }) {
   const { t } = useLanguage();
   const [failed, setFailed] = useState(false);
   return (
-    <span className="grid h-9 w-9 place-items-center overflow-hidden rounded-full border-2 border-[var(--color-bg)] bg-purple-500/15 text-purple-400">
+    <span
+      title={t(guest ? "Guest visitor" : "Visitor")}
+      className="grid h-9 w-9 place-items-center overflow-hidden rounded-full border-2 border-[var(--color-bg)] bg-purple-500/15 text-purple-400"
+    >
       {photoURL && !failed ? (
         <img
           src={photoURL}
@@ -18,14 +21,20 @@ function Avatar({ photoURL }) {
           className="h-full w-full object-cover"
         />
       ) : (
-        <UserIcon aria-label={t("Visitor")} className="h-5 w-5" />
+        <UserIcon
+          role="img"
+          aria-hidden={false}
+          aria-label={t(guest ? "Guest visitor" : "Visitor")}
+          className="h-5 w-5"
+        />
       )}
     </span>
   );
 }
 
 export default function RecentVisitors() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
+  const showGuest = !authLoading && !user;
   const uid = user?.uid;
   const avatar = user?.avatar;
   const photoURL = user?.photoURL;
@@ -60,7 +69,7 @@ export default function RecentVisitors() {
       active = false;
     };
   }, [uid, avatar, photoURL]);
-  if (!visitors.length) return null;
+  if (!visitors.length && !showGuest) return null;
   return (
     <div className="space-y-2">
       <p className="text-xs text-gray-400">{t("Recent visitors")}</p>
@@ -68,7 +77,12 @@ export default function RecentVisitors() {
         aria-label={t("Recent visitors")}
         className="flex justify-center -space-x-1 md:justify-start"
       >
-        {visitors.map((visitor) => (
+        {showGuest && (
+          <li>
+            <Avatar guest />
+          </li>
+        )}
+        {visitors.slice(0, showGuest ? 5 : 6).map((visitor) => (
           <li key={visitor.id}>
             <Avatar key={visitor.photoURL} photoURL={visitor.photoURL} />
           </li>

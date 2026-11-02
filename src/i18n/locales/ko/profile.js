@@ -1,5 +1,6 @@
 // ko profile messages. English keys remain the fallback.
 export default {
+  "Guest visitor": "비로그인 방문자",
   "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "로그인 상태로 방문하면 프로필 사진이 최근 방문자에 공개됩니다. 사진 URL과 최근 방문 시간을 저장합니다. 비로그인 방문자는 익명으로 유지됩니다。",
   "Visitor": "방문자",
   "Recent visitors": "최근 방문자",
