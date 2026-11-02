@@ -41,6 +41,7 @@ const MovieDetailContent = ({ id }) => {
   } = useMovieDetail(id);
   const collections = useMovieCollectionActions(movie);
   const playback = useMoviePlaybackActions(id, {
+    movie,
     isPlaying,
     setIsPlaying,
     setActiveServer,

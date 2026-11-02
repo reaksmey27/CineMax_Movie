@@ -9,7 +9,7 @@ const movies = [
   { id: 5, title: "Invalid Date", release_date: "2027-02-30" },
 ];
 
-test("upcoming page and homepage exclude released titles even if the API returns them", async ({
+test("upcoming page excludes released titles even if the API returns them", async ({
   page,
 }) => {
   await page.clock.setFixedTime(new Date("2026-10-21T18:00:00Z"));
@@ -29,12 +29,6 @@ test("upcoming page and homepage exclude released titles even if the API returns
     "Oct 23, 2026",
   );
   expect(upcomingRequests).toContain("2026-10-23");
-  await page.goto("/");
-  const upcoming = page.getByRole("region", { name: "Upcoming", exact: true });
-  await expect(upcoming.locator("article.movie-card")).toHaveCount(1);
-  await expect(
-    upcoming.getByRole("link", { name: "Tomorrow Release", exact: true }),
-  ).toBeVisible();
 });
 
 test("an upcoming response with no future dates shows an empty state", async ({
@@ -52,3 +46,65 @@ test("an upcoming response with no future dates shows an empty state", async ({
   ).toBeVisible();
   await expect(page.locator("article.movie-card")).toHaveCount(0);
 });
+
+for (const release of [
+  { date: "2026-10-23", upcoming: true },
+  { date: "2026-10-22", upcoming: false },
+  { date: "", upcoming: false },
+  { date: "2027-02-30", upcoming: false },
+]) {
+  test(`featured and detail actions match release date ${release.date || "unknown"}`, async ({
+    page,
+  }) => {
+    await page.clock.setFixedTime(new Date("2026-10-21T18:00:00Z"));
+    const movie = {
+      id: 42,
+      title: "Release Status Film",
+      release_date: release.date,
+      genres: [],
+      genre_ids: [],
+      credits: {},
+      videos: {
+        results: [{ site: "YouTube", type: "Trailer", key: "trailer-test" }],
+      },
+    };
+    await page.route("https://api.themoviedb.org/**", (route) => {
+      const path = new URL(route.request().url()).pathname;
+      return route.fulfill({
+        json: path.endsWith("/movie/42")
+          ? movie
+          : {
+              results: path.endsWith("/recommendations") ? [] : [movie],
+              total_pages: 1,
+            },
+      });
+    });
+    await page.goto("/");
+    const hero = page.getByRole("region", {
+      name: "Featured movies",
+      exact: true,
+    });
+    const action = hero.getByRole("link", {
+      name: release.upcoming ? "Upcoming" : "Watch now",
+      exact: true,
+    });
+    await expect(action).toBeVisible();
+    await action.click();
+    await expect(
+      page.getByRole("heading", { name: movie.title, level: 1 }),
+    ).toBeVisible();
+    if (release.upcoming) {
+      await expect(
+        page.getByRole("button", { name: "Upcoming", exact: true }),
+      ).toBeDisabled();
+      await expect(
+        page.getByRole("button", { name: "Watch Trailer", exact: true }),
+      ).toBeEnabled();
+      await expect(page.locator("iframe")).toHaveCount(0);
+    } else {
+      await expect(
+        page.getByRole("button", { name: "Log in to Watch", exact: true }),
+      ).toBeEnabled();
+    }
+  });
+}

@@ -1,7 +1,9 @@
 import { memo, useState } from "react";
+import { isUpcomingRelease } from "../../../../services/tmdb/upcomingMovies";
 import { Link } from "react-router-dom";
 import {
   ChevronLeftIcon,
+  CalendarIcon,
   ChevronRightIcon,
   HeartIcon,
   PlayCircleIcon,
@@ -60,6 +62,8 @@ const HeroSection = ({ trendingMovies = [] }) => {
   if (featured.length === 0) return null;
 
   const movie = featured[currentIndex % featured.length];
+  const upcoming = isUpcomingRelease(movie.release_date);
+  const ActionIcon = upcoming ? CalendarIcon : PlayCircleIcon;
   const isFav = isFavorite(movie.id);
   const favoritePending = isSavingFavorite(movie.id);
 
@@ -136,8 +140,8 @@ const HeroSection = ({ trendingMovies = [] }) => {
             to={`/movie/${movie.id}`}
             className="group flex min-h-14 items-center justify-center gap-4 rounded-2xl bg-purple-600 px-6 py-4 text-sm font-semibold text-white shadow-xl shadow-purple-600/20 transition-all hover:bg-purple-500 active:scale-95 sm:px-10 sm:py-5"
           >
-            <PlayCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:scale-110" />
-            <span>{t("Watch now")}</span>
+            <ActionIcon className="h-5 w-5 sm:h-6 sm:w-6 transition-transform group-hover:scale-110" />
+            <span>{upcoming ? t("Upcoming") : t("Watch now")}</span>
           </Link>
 
           <div className="flex w-full flex-wrap items-stretch gap-3 sm:w-auto sm:flex-nowrap sm:items-center sm:gap-4">

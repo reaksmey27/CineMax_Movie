@@ -3,14 +3,16 @@ import { useAuth } from "../../context/AuthContext";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { SERVERS } from "../../config/playerServers";
+import { isUpcomingRelease } from "../../services/tmdb/upcomingMovies";
 
 export default function useMoviePlaybackActions(
   id,
-  { isPlaying, setIsPlaying, setActiveServer },
+  { movie, isPlaying, setIsPlaying, setActiveServer },
 ) {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useLanguage();
+  const upcoming = isUpcomingRelease(movie?.release_date);
   const { isAuthenticated, loading: authLoading } = useAuth();
   const {
     history,
@@ -23,7 +25,7 @@ export default function useMoviePlaybackActions(
   );
 
   const play = () => {
-    if (authLoading || historyLoading || historyError) return;
+    if (upcoming || authLoading || historyLoading || historyError) return;
     if (!isAuthenticated) {
       navigate("/login", {
         state: { backgroundLocation: location, returnTo: `/movie/${id}` },
@@ -43,15 +45,19 @@ export default function useMoviePlaybackActions(
     goBack: () => (isPlaying ? setIsPlaying(false) : navigate(-1)),
     infoProps: {
       progress: saved,
-      playLabel: authLoading
-        ? t("Checking login...")
-        : isAuthenticated
-          ? saved
-            ? t("Continue watching")
-            : t("Play Movie")
-          : t("Log in to Watch"),
+      playLabel: upcoming
+        ? t("Upcoming")
+        : authLoading
+          ? t("Checking login...")
+          : isAuthenticated
+            ? saved
+              ? t("Continue watching")
+              : t("Play Movie")
+            : t("Log in to Watch"),
       playDisabled:
-        authLoading || (isAuthenticated && (historyLoading || historyError)),
+        upcoming ||
+        authLoading ||
+        (isAuthenticated && (historyLoading || historyError)),
       onPlay: play,
     },
   };
