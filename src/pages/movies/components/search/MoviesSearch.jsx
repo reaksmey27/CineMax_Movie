@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MoviesSearchBar from "./MoviesSearchBar";
-import { useSearchHistory } from "../hooks/useSearchHistory";
-import { useLiveSearch } from "../hooks/useLiveSearch";
+import { useSearchHistory } from "../../hooks/useSearchHistory";
+import { useLiveSearch } from "../../hooks/useLiveSearch";
 
 const SEARCH_DEBOUNCE = 250;
 

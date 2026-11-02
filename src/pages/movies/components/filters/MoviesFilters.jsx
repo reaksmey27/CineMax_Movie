@@ -1,15 +1,15 @@
-import { movieYearOptions } from "../../../config/movieYears";
+import { movieYearOptions } from "../../../../config/movieYears";
 import {
   MOVIE_COUNTRIES,
   movieCountryName,
-} from "../../../config/movieCountries";
+} from "../../../../config/movieCountries";
 import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
   MIN_RATING_OPTIONS,
   RUNTIME_OPTIONS,
-} from "../../../config/movieFilters";
-import { useLanguage } from "../../../context/LanguageContext";
+} from "../../../../config/movieFilters";
+import { useLanguage } from "../../../../context/LanguageContext";
 import FilterSelect from "./FilterSelect";
 import { GENRE_BTN_BASE } from "./filterStyles";
 

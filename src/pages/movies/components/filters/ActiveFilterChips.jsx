@@ -1,11 +1,11 @@
-import { movieCountryName } from "../../../config/movieCountries";
+import { movieCountryName } from "../../../../config/movieCountries";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   DEFAULT_DISCOVER_SORT,
   DISCOVER_SORT_OPTIONS,
   RUNTIME_OPTIONS,
-} from "../../../config/movieFilters";
-import { useLanguage } from "../../../context/LanguageContext";
+} from "../../../../config/movieFilters";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function ActiveFilterChips({
   genres,

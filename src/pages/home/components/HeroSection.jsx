@@ -13,7 +13,7 @@ import {
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
 
-import TrailerModal from "../../movies/components/TrailerModal";
+import TrailerModal from "../../movies/components/trailers/TrailerModal";
 
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useLanguage } from "../../../context/LanguageContext";

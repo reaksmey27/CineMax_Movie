@@ -3,7 +3,7 @@ import {
   MinusIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function TrailerControls({
   isMinimized,

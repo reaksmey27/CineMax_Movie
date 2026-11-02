@@ -1,16 +1,16 @@
 import useMovieCollectionActions from "../../hooks/movies/useMovieCollectionActions";
 import useMoviePlaybackActions from "../../hooks/movies/useMoviePlaybackActions";
-import MovieDetailUnavailable from "./components/MovieDetailUnavailable";
-import MovieDetailBackdrop from "./components/MovieDetailBackdrop";
+import MovieDetailUnavailable from "./components/details/MovieDetailUnavailable";
+import MovieDetailBackdrop from "./components/details/MovieDetailBackdrop";
 import { useParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import useMovieDetail from "../../hooks/movies/useMovieDetail";
-import MovieInfo from "./components/MovieInfo";
-import MovieCredits from "./components/MovieCredits";
-import RelatedMovies from "./components/RelatedMovies";
-import MoviePlayer from "./components/MoviePlayer";
-import TrailerModal from "./components/TrailerModal";
-import MovieDetailSkeleton from "./components/MovieDetailSkeleton";
+import MovieInfo from "./components/details/MovieInfo";
+import MovieCredits from "./components/details/MovieCredits";
+import RelatedMovies from "./components/details/RelatedMovies";
+import MoviePlayer from "./components/player/MoviePlayer";
+import TrailerModal from "./components/trailers/TrailerModal";
+import MovieDetailSkeleton from "./components/details/MovieDetailSkeleton";
 import { useLanguage } from "../../context/LanguageContext";
 
 // ─── MovieDetailPage: details, trailer & player ───────────────────────────────

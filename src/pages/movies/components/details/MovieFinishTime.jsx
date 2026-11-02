@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { ClockIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 import {
   getRemainingSeconds,
   formatRemainingDuration,
-} from "../../../utils/player/finishTime";
+} from "../../../../utils/player/finishTime";
 
 export default function MovieFinishTime({ runtimeMinutes, progress }) {
   const { t, language } = useLanguage();

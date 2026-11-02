@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { ShareIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function ShareMovieButton({ movie }) {
   const { t } = useLanguage();

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FlagIcon } from "@heroicons/react/24/outline";
-import { useAuth } from "../../../context/AuthContext";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useAuth } from "../../../../context/AuthContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function PlaybackReport({ movie, server }) {
   const { user } = useAuth();
@@ -51,8 +51,8 @@ export default function PlaybackReport({ movie, server }) {
             setStatus("sending");
             try {
               const [{ db }, { submitPlaybackReport }] = await Promise.all([
-                import("../../../firebase/firestore"),
-                import("../../../firebase/playbackReports"),
+                import("../../../../firebase/firestore"),
+                import("../../../../firebase/playbackReports"),
               ]);
               await submitPlaybackReport(
                 db,

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import PlaybackReport from "./PlaybackReport";
-import usePlaybackHistory from "../../../hooks/movies/usePlaybackHistory";
-import { useLanguage } from "../../../context/LanguageContext";
+import usePlaybackHistory from "../../../../hooks/movies/usePlaybackHistory";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── Helpers: source & track resolution ───────────────────────────────────────
 

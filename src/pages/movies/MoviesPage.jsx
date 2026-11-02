@@ -5,9 +5,9 @@ import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
 import PageError from "../../components/ui/PageError";
 import { useLanguage } from "../../context/LanguageContext";
 import useMovies from "../../hooks/movies/useMovies";
-import MovieHeader from "./components/MoviesHeader";
-import Pagination from "./components/Pagination";
-import SearchSuggestions from "./components/SearchSuggestions";
+import MovieHeader from "./components/listing/MoviesHeader";
+import Pagination from "./components/listing/Pagination";
+import SearchSuggestions from "./components/search/SearchSuggestions";
 
 // ─── Helpers: empty-state copy for search/filter ──────────────────────────────
 

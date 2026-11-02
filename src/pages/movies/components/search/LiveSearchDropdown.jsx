@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { FilmIcon, StarIcon } from "@heroicons/react/24/outline";
-import MoviePoster from "../../../components/ui/MoviePoster";
+import MoviePoster from "../../../../components/ui/MoviePoster";
 
-import { tmdbService } from "../../../services/tmdbService";
-import { useLanguage } from "../../../context/LanguageContext";
-import ListSkeleton from "../../../components/ui/ListSkeleton";
+import { tmdbService } from "../../../../services/tmdbService";
+import { useLanguage } from "../../../../context/LanguageContext";
+import ListSkeleton from "../../../../components/ui/ListSkeleton";
 
 const LIVE_SEARCH_LIMIT = 6;
 

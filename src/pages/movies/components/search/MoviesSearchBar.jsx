@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import ClearSearchButton from "../../../components/movies/ClearSearchButton";
+import ClearSearchButton from "../../../../components/movies/ClearSearchButton";
 import {
   ClockIcon,
   MagnifyingGlassIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 import LiveSearchDropdown from "./LiveSearchDropdown";
 

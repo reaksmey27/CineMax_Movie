@@ -1,5 +1,5 @@
-import useSearchSuggestions from "../hooks/useSearchSuggestions";
-import { useLanguage } from "../../../context/LanguageContext";
+import useSearchSuggestions from "../../hooks/useSearchSuggestions";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function SearchSuggestions({ query, onSearch }) {
   const { t } = useLanguage();

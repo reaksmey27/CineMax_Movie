@@ -1,5 +1,5 @@
 import TrailerFrame from "./TrailerFrame";
-import useTrailerDialog from "../hooks/useTrailerDialog";
+import useTrailerDialog from "../../hooks/useTrailerDialog";
 import { createPortal } from "react-dom";
 import TrailerControls from "./TrailerControls";
 

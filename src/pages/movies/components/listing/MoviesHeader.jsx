@@ -1,9 +1,9 @@
 import { memo, useState } from "react";
 
-import { useLanguage } from "../../../context/LanguageContext";
-import MoviesFilters from "./MoviesFilters";
-import ActiveFilterChips from "./ActiveFilterChips";
-import MoviesSearch from "./MoviesSearch";
+import { useLanguage } from "../../../../context/LanguageContext";
+import MoviesFilters from "../filters/MoviesFilters";
+import ActiveFilterChips from "../filters/ActiveFilterChips";
+import MoviesSearch from "../search/MoviesSearch";
 import { getHeadingState, getSubtitle } from "./moviesHeaderCopy";
 
 // ─── MoviesHeader: title, search & filters ────────────────────────────────────

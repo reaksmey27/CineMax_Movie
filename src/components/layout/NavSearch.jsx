@@ -1,7 +1,7 @@
 import useNavSearch from "./navbar/useNavSearch";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../context/LanguageContext";
-import LiveSearchDropdown from "../../pages/movies/components/LiveSearchDropdown";
+import LiveSearchDropdown from "../../pages/movies/components/search/LiveSearchDropdown";
 
 // ─── NavSearch: navbar live search ────────────────────────────────────────────
 
