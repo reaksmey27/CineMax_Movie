@@ -69,7 +69,15 @@ export default function RecentVisitors() {
       active = false;
     };
   }, [uid, avatar, photoURL]);
-  if (!visitors.length && !showGuest) return null;
+  // The current account's avatar is already available locally. Do not hide it
+  // while Firestore is loading or when public visitor rules are unavailable.
+  const displayedVisitors = uid
+    ? [
+        { id: uid, photoURL: avatar || photoURL || "" },
+        ...visitors.filter((visitor) => visitor.id !== uid),
+      ]
+    : visitors;
+  if (!displayedVisitors.length && !showGuest) return null;
   return (
     <div className="space-y-2">
       <p className="text-xs text-gray-400">{t("Recent visitors")}</p>
@@ -82,7 +90,7 @@ export default function RecentVisitors() {
             <Avatar guest />
           </li>
         )}
-        {visitors.slice(0, showGuest ? 5 : 6).map((visitor) => (
+        {displayedVisitors.slice(0, showGuest ? 5 : 6).map((visitor) => (
           <li key={visitor.id}>
             <Avatar key={visitor.photoURL} photoURL={visitor.photoURL} />
           </li>
