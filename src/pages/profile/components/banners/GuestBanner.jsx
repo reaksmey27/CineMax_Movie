@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PlayIcon, SparklesIcon } from "@heroicons/react/24/solid";
-import LoginButton from "../../../components/auth/LoginButton";
+import LoginButton from "../../../../components/auth/LoginButton";
 
 // ─── Data: feature pills & cards (emptied) ────────────────────────────────────
 

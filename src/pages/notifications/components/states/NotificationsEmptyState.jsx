@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BellIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── NotificationsEmptyState: placeholder for empty filtered history ──────────
 

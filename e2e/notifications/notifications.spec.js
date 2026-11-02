@@ -84,13 +84,14 @@ test("back-to-top becomes visible after scrolling and returns to the page top", 
   page,
 }) => {
   await page.goto("/notifications");
+  await expect(page.getByRole("heading", { name: "Notifications", exact: true })).toBeVisible();
   await page.evaluate(() => {
     document.body.style.minHeight = "200vh";
   });
   const backToTopButton = page.getByRole("button", { name: "Back to top" });
 
   await expect(backToTopButton).toHaveCSS("opacity", "0");
-  await page.evaluate(() => window.scrollTo(0, 400));
+  await page.mouse.wheel(0, 400);
   await expect(backToTopButton).toHaveCSS("opacity", "1");
   await expect(backToTopButton).toHaveCSS("background-image", /gradient/);
 

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../../context/LanguageContext";
-import { useNotification } from "../../../context/NotificationContext";
-import { formatRelativeTime, getTypeLabel } from "./notificationHelpers";
+import { useLanguage } from "../../../../context/LanguageContext";
+import { useNotification } from "../../../../context/NotificationContext";
+import { formatRelativeTime, getTypeLabel } from "../helpers/notificationHelpers";
 
 // ─── NotificationItem: single history row ─────────────────────────────────────
 

@@ -1,5 +1,5 @@
 import { SparklesIcon } from "@heroicons/react/24/solid";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── ProBanner: signed-in profile banner ──────────────────────────────────────
 

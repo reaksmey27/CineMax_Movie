@@ -1,10 +1,10 @@
-import ClearCollectionButton from "../../../components/movies/ClearCollectionButton";
-import CollectionState from "../../../components/movies/CollectionState";
-import useCollectionFilters from "../../../hooks/useCollectionFilters";
-import MovieCard from "../../../components/ui/MovieCard";
-import { useLanguage } from "../../../context/LanguageContext";
-import CollectionFilters from "../../../components/movies/CollectionFilters";
-import { getWatchlistView } from "../watchlistView";
+import ClearCollectionButton from "../../../../components/movies/ClearCollectionButton";
+import CollectionState from "../../../../components/movies/CollectionState";
+import useCollectionFilters from "../../../../hooks/useCollectionFilters";
+import MovieCard from "../../../../components/ui/MovieCard";
+import { useLanguage } from "../../../../context/LanguageContext";
+import CollectionFilters from "../../../../components/movies/CollectionFilters";
+import { getWatchlistView } from "../../watchlistView";
 
 export default function WatchlistLibrary({
   header,

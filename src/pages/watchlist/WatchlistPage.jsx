@@ -4,7 +4,7 @@ import CollectionState, {
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
-import WatchlistLibrary from "./components/WatchlistLibrary";
+import WatchlistLibrary from "./components/library/WatchlistLibrary";
 import { useAuth } from "../../context/AuthContext";
 import { useWatchlist } from "../../context/WatchlistContext";
 import { useLanguage } from "../../context/LanguageContext";

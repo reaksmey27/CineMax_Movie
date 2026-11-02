@@ -2,11 +2,11 @@ import CollectionTabs from "./CollectionTabs";
 import { useRef } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { BookmarkIcon, HeartIcon } from "@heroicons/react/24/outline";
-import { useFavorites } from "../../../context/FavoritesContext";
-import { useWatchlist } from "../../../context/WatchlistContext";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useFavorites } from "../../../../context/FavoritesContext";
+import { useWatchlist } from "../../../../context/WatchlistContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 import SavedMovie from "./SavedMovie";
-import MovieGridSkeleton from "../../../components/ui/MovieGridSkeleton";
+import MovieGridSkeleton from "../../../../components/ui/MovieGridSkeleton";
 
 // ─── ProfileCollection: favorites & watchlist tabs ────────────────────────────
 

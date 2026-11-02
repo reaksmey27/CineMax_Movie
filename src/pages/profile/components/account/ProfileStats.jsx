@@ -5,8 +5,8 @@ import {
   SparklesIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
-import { useFavorites } from "../../../context/FavoritesContext";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useFavorites } from "../../../../context/FavoritesContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── ProfileStats: favorites/watchlist counts ─────────────────────────────────
 

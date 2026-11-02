@@ -1,4 +1,4 @@
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── AuthPosterWall: decorative poster grid beside the auth form ──────────────
 

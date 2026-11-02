@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useWatchHistory } from "../../../context/WatchHistoryContext";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useWatchHistory } from "../../../../context/WatchHistoryContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function ClearHistory() {
   const { history, clear, clearing, canClear } = useWatchHistory();

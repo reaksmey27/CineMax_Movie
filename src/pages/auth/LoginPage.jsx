@@ -5,7 +5,7 @@ import PasswordField from "../../components/auth/PasswordField";
 import LoginButton from "../../components/auth/LoginButton";
 import useAuthForm from "../../hooks/auth/useAuthForm";
 import { useLanguage } from "../../context/LanguageContext";
-import PasswordResetForm from "./components/PasswordResetForm";
+import PasswordResetForm from "./components/forms/PasswordResetForm";
 
 // ─── LoginPage: sign-in form ──────────────────────────────────────────────────
 

@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
-import HeroSection from "./components/HeroSection";
-import HeroSkeleton from "./components/HeroSkeleton";
-import MovieSlider from "./components/MovieSlider";
+import HeroSection from "./components/hero/HeroSection";
+import HeroSkeleton from "./components/hero/HeroSkeleton";
+import MovieSlider from "./components/listing/MovieSlider";
 import MovieSliderSkeleton from "../../components/ui/MovieSliderSkeleton";
 import { useLanguage } from "../../context/LanguageContext";
 import useHomeMovies from "../../hooks/movies/useHomeMovies";

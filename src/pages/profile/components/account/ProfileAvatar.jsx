@@ -6,7 +6,7 @@ import {
   MapPinIcon,
   PlayIcon,
 } from "@heroicons/react/24/solid";
-import { useLanguage } from "../../../context/LanguageContext";
+import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── Helpers: handle & join date ──────────────────────────────────────────────
 

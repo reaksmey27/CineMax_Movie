@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getAuthRedirect } from "../../utils/authRedirect";
-import AuthShell from "./components/AuthShell";
+import AuthShell from "./components/layout/AuthShell";
 
 const AuthLayout = () => {
   const { user, loading } = useAuth();

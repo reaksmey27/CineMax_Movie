@@ -3,10 +3,10 @@ import { BellAlertIcon } from "@heroicons/react/24/outline";
 import { useNotification } from "../../context/NotificationContext";
 import { useLanguage } from "../../context/LanguageContext";
 import ListSkeleton from "../../components/ui/ListSkeleton";
-import NotificationsToolbar from "./components/NotificationsToolbar";
-import NotificationStatusNotices from "./components/NotificationStatusNotices";
-import NotificationsEmptyState from "./components/NotificationsEmptyState";
-import NotificationItem from "./components/NotificationItem";
+import NotificationsToolbar from "./components/toolbar/NotificationsToolbar";
+import NotificationStatusNotices from "./components/states/NotificationStatusNotices";
+import NotificationsEmptyState from "./components/states/NotificationsEmptyState";
+import NotificationItem from "./components/listing/NotificationItem";
 
 // ─── NotificationsPage: history & unread list ─────────────────────────────────
 

@@ -13,11 +13,11 @@ import {
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
 
-import TrailerModal from "../../movies/components/trailers/TrailerModal";
+import TrailerModal from "../../../movies/components/trailers/TrailerModal";
 
-import { useFavorites } from "../../../context/FavoritesContext";
-import { useLanguage } from "../../../context/LanguageContext";
-import { useHeroCarousel } from "../hooks/useHeroCarousel";
+import { useFavorites } from "../../../../context/FavoritesContext";
+import { useLanguage } from "../../../../context/LanguageContext";
+import { useHeroCarousel } from "../../hooks/useHeroCarousel";
 
 // ─── Constants: hero rotation timings ─────────────────────────────────────────
 

@@ -5,9 +5,9 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
 import useProfile from "../../hooks/auth/useProfile";
-import ProfileSkeleton from "./components/ProfileSkeleton";
-import ProfileCollection from "./components/ProfileCollection";
-import ProfileForm from "./components/ProfileForm";
+import ProfileSkeleton from "./components/loading/ProfileSkeleton";
+import ProfileCollection from "./components/collections/ProfileCollection";
+import ProfileForm from "./components/account/ProfileForm";
 import { useLanguage } from "../../context/LanguageContext";
 import SignOutDialog from "../../components/auth/SignOutDialog";
 

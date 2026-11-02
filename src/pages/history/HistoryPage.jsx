@@ -6,8 +6,8 @@ import { ClockIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
-import HistoryLibrary from "./components/HistoryLibrary";
-import ClearHistory from "./components/ClearHistory";
+import HistoryLibrary from "./components/library/HistoryLibrary";
+import ClearHistory from "./components/actions/ClearHistory";
 
 export default function HistoryPage() {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
