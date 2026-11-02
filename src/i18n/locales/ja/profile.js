@@ -1,5 +1,10 @@
 // ja profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "訪問者",
+  "Recent visitors": "最近の訪問者",
+  "Show my photo in recent visitors": "最近の訪問者に自分の写真を表示する",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "写真は誰でも見ることができます。オフにすると公開リストから削除されます。",
+  "Could not update visitor preference.": "訪問者の設定を更新できませんでした。",
   "Viewing statistics": "視聴統計",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "直近50件の履歴に基づきます。上映時間やジャンルが不明な作品は集計から除外されます。",
   "Movies watched": "視聴済みの映画",

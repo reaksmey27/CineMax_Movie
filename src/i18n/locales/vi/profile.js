@@ -1,5 +1,10 @@
 // vi profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "Khách truy cập",
+  "Recent visitors": "Khách truy cập gần đây",
+  "Show my photo in recent visitors": "Hiển thị ảnh của tôi trong khách truy cập gần đây",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "Mọi người sẽ nhìn thấy ảnh của bạn. Tắt tùy chọn này để xóa ảnh khỏi danh sách công khai.",
+  "Could not update visitor preference.": "Không thể cập nhật tùy chọn khách truy cập.",
   "Viewing statistics": "Thống kê xem phim",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "Dựa trên 50 mục lịch sử gần nhất. Bỏ qua thời lượng và thể loại còn thiếu.",
   "Movies watched": "Phim đã xem",

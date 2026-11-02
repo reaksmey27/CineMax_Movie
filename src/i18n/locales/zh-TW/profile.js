@@ -1,5 +1,10 @@
 // zh-TW profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "訪客",
+  "Recent visitors": "最近訪客",
+  "Show my photo in recent visitors": "在最近訪客中顯示我的照片",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "所有人都能看到您的照片。關閉此選項即可從公開名單中移除。",
+  "Could not update visitor preference.": "無法更新訪客偏好設定。",
   "Viewing statistics": "觀影統計",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "根據最近50筆紀錄計算。缺少的片長和類型不納入計算。",
   "Movies watched": "已看電影",

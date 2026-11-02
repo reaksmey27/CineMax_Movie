@@ -349,6 +349,8 @@ Each browser tab session counts once, including guests. Refreshes and route chan
 
 This is a public convenience counter, not unique-person analytics or a fraud-resistant metric: rules restrict writes to increments of one, but automated requests can still increase it. Unavailable counts display a dash instead of a fabricated total. Session tokens, IP addresses, and user identities are not stored with the counter.
 
+Signed-in users can opt in on Profile to show their photo among the six most recent public visitors. The `publicVisitors/{uid}` document stores only `photoURL` and `lastVisitedAt`; it is absent by default. Disabling the preference deletes that document. Publish the updated rules to enable this feature. Guests never get a visitor profile, and visiting the website cannot create an entry without opt-in. Returning opted-in visitors update their timestamp once per tab session. Public avatar lists update live; broken or absent photos use a generic icon. Opt-out removes the listing, but cannot revoke copies of a photo already viewed by others.
+
 ## SEO
 
 - Canonical URLs, Open Graph tags, Twitter cards, and page-specific descriptions are managed in `src/config/routeMeta.js`.

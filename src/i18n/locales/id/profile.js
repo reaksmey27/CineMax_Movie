@@ -1,5 +1,10 @@
 // id profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "Pengunjung",
+  "Recent visitors": "Pengunjung terbaru",
+  "Show my photo in recent visitors": "Tampilkan foto saya di pengunjung terbaru",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "Foto Anda akan terlihat oleh semua orang. Nonaktifkan untuk menghapusnya dari daftar publik.",
+  "Could not update visitor preference.": "Tidak dapat memperbarui preferensi pengunjung.",
   "Viewing statistics": "Statistik tontonan",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "Berdasarkan 50 riwayat terbaru. Durasi dan genre yang tidak tersedia tidak dihitung.",
   "Movies watched": "Film ditonton",

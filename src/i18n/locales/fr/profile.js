@@ -1,5 +1,10 @@
 // fr profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "Visiteur",
+  "Recent visitors": "Visiteurs récents",
+  "Show my photo in recent visitors": "Afficher ma photo parmi les visiteurs récents",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "Votre photo sera visible par tous. Désactivez cette option pour la retirer de la liste publique.",
+  "Could not update visitor preference.": "Impossible de modifier cette préférence.",
   "Viewing statistics": "Statistiques de visionnage",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "Basées sur les 50 dernières entrées. Les durées et genres manquants sont exclus.",
   "Movies watched": "Films regardés",

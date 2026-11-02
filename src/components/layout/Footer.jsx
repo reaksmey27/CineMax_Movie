@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useLanguage } from "../../context/LanguageContext";
 import SiteVisitCount from "./footer/SiteVisitCount";
+import RecentVisitors from "./footer/RecentVisitors";
 
 // ─── Data: nav, genre & social links ──────────────────────────────────────────
 
@@ -50,6 +51,7 @@ const Footer = () => {
               ))}
             </div>
             <SiteVisitCount />
+            <RecentVisitors />
 
             <p className="text-xs leading-relaxed text-gray-500">
               {t(

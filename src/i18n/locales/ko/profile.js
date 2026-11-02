@@ -1,5 +1,10 @@
 // ko profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "방문자",
+  "Recent visitors": "최근 방문자",
+  "Show my photo in recent visitors": "최근 방문자에 내 사진 표시",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "모든 사람이 사진을 볼 수 있습니다. 끄면 공개 목록에서 삭제됩니다.",
+  "Could not update visitor preference.": "방문자 설정을 업데이트하지 못했습니다.",
   "Viewing statistics": "시청 통계",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "최근 기록 50개를 기준으로 합니다. 누락된 상영 시간과 장르는 제외됩니다.",
   "Movies watched": "시청한 영화",

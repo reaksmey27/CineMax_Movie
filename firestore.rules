@@ -1,6 +1,17 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /publicVisitors/{userId} {
+      allow get: if true;
+      allow list: if request.query.limit != null && request.query.limit <= 6;
+      allow create, update: if request.auth != null && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['photoURL', 'lastVisitedAt'])
+        && request.resource.data.photoURL is string
+        && request.resource.data.photoURL.size() <= 2048
+        && (request.resource.data.photoURL == '' || request.resource.data.photoURL.matches('https://.*'))
+        && request.resource.data.lastVisitedAt == request.time;
+      allow delete: if request.auth != null && request.auth.uid == userId;
+    }
     // Public, approximate session counter. Clients may only increment by one.
     match /siteStats/visits {
       allow get: if true;

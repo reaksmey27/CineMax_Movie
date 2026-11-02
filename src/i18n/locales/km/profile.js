@@ -1,5 +1,10 @@
 // km profile messages. English keys remain the fallback.
 export default {
+  "Visitor": "អ្នកចូលមើល",
+  "Recent visitors": "អ្នកចូលមើលថ្មីៗ",
+  "Show my photo in recent visitors": "បង្ហាញរូបខ្ញុំក្នុងបញ្ជីអ្នកចូលមើលថ្មីៗ",
+  "Your photo will be visible to everyone. Turn this off to remove it from the public list.": "អ្នកទាំងអស់អាចមើលឃើញរូបរបស់អ្នក។ បិទជម្រើសនេះដើម្បីដករូបចេញពីបញ្ជីសាធារណៈ។",
+  "Could not update visitor preference.": "មិនអាចធ្វើបច្ចុប្បន្នភាពជម្រើសអ្នកចូលមើលបានទេ។",
   "Viewing statistics": "ស្ថិតិការមើល",
   "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "ផ្អែកលើប្រវត្តិ ៥០ ចុងក្រោយ។ មិនរាប់រយៈពេល និងប្រភេទដែលមិនមានទិន្នន័យ។",
   "Movies watched": "ភាពយន្តបានមើល",
