@@ -259,7 +259,7 @@ src/pages/movies/
   constants/      Filter styles and search-history storage settings
 ```
 
-Other pages use groups that describe their own UI: Auth has `forms/` and `layout/`; Home has `hero/`, `listing/`, and `loading/`; Profile has `account/`, `banners/`, `collections/`, and `loading/`.
+Other pages use groups that describe their own UI: Auth has `forms/` and `layout/`; Home has `hero/` and `listing/`; Profile has `account/`, `collections/`, and `loading/`.
 
 ### Where new files belong
 

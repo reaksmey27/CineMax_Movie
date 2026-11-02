@@ -31,7 +31,6 @@ const sources = [
   "src/pages/movies/components/details/MovieCredits.jsx",
   "src/pages/movies/components/details/RelatedMovies.jsx",
   "src/pages/movies/components/filters/MoviesFilters.jsx",
-  "src/pages/profile/components/banners/ProBanner.jsx",
   "src/pages/profile/components/collections/ProfileCollection.jsx",
   "src/pages/profile/components/account/ProfileForm.jsx",
   "src/pages/profile/ProfilePage.jsx",
