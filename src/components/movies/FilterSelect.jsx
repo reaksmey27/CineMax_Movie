@@ -149,7 +149,7 @@ const FilterSelect = ({
             : "border-[var(--color-border)] bg-[var(--color-bg-elevated)] hover:border-purple-500/50"
         }`}
       >
-        <span className="min-w-0 truncate text-[15px] text-white">
+        <span className="min-w-0 flex-1 whitespace-normal text-[15px] leading-relaxed text-white [overflow-wrap:anywhere]">
           {t(selected.label)}
         </span>
         <ChevronUpDownIcon
