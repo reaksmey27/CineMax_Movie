@@ -30,25 +30,55 @@ const LanguageSelector = ({ className = "" }) => {
       }
     };
 
-    const closeOnEscape = (event) => {
-      if (event.key !== "Escape" || !detailsRef.current?.open) return;
-      detailsRef.current.open = false;
-      summaryRef.current?.focus();
-    };
-
     document.addEventListener("pointerdown", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
     return () => {
       document.removeEventListener("pointerdown", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
     };
   }, []);
+
+  const handleKeyDown = (event) => {
+    const details = detailsRef.current;
+    if (event.key === "Escape" && details.open) {
+      event.preventDefault();
+      event.stopPropagation();
+      details.open = false;
+      summaryRef.current?.focus();
+      return;
+    }
+
+    const fromTrigger = event.target === summaryRef.current;
+    const arrowKey = ["ArrowDown", "ArrowUp"].includes(event.key);
+    if (!arrowKey && (fromTrigger || !["Home", "End"].includes(event.key)))
+      return;
+    if (!details.open && !fromTrigger) return;
+
+    event.preventDefault();
+    details.open = true;
+    const options = [...details.querySelectorAll("button[aria-pressed]")];
+    const currentIndex = options.indexOf(document.activeElement);
+    let nextIndex;
+    if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = options.length - 1;
+    else if (fromTrigger) {
+      nextIndex = event.key === "ArrowDown" ? 0 : options.length - 1;
+    } else {
+      const direction = event.key === "ArrowDown" ? 1 : -1;
+      nextIndex = (currentIndex + direction + options.length) % options.length;
+    }
+    options[nextIndex]?.focus();
+  };
 
   return (
     <details
       ref={detailsRef}
       className={`relative ${className}`}
       data-testid="language-selector"
+      onKeyDown={handleKeyDown}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          event.currentTarget.open = false;
+        }
+      }}
     >
       <summary
         ref={summaryRef}

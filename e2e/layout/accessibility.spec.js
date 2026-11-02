@@ -51,6 +51,45 @@ test("language selection and Escape restore focus to the language trigger", asyn
   await expect(menu).not.toHaveAttribute("open");
 });
 
+test("language dropdown supports arrow keys and closes when focus leaves", async ({
+  page,
+}) => {
+  await page.goto("/notifications");
+  const menu = page.getByTestId("language-selector");
+  const trigger = menu.locator("summary");
+  const options = menu.locator("button[aria-pressed]");
+
+  await trigger.focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(options.first()).toBeFocused();
+  await expect(options.first()).toHaveCSS("outline-style", "solid");
+  await page.keyboard.press("ArrowDown");
+  await expect(options.nth(1)).toBeFocused();
+  await page.keyboard.press("Home");
+  await expect(options.first()).toBeFocused();
+  await page.keyboard.press("ArrowUp");
+  await expect(options.last()).toBeFocused();
+  await page.keyboard.press("ArrowDown");
+  await expect(options.first()).toBeFocused();
+  await page.keyboard.press("End");
+  await expect(options.last()).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(menu).not.toHaveAttribute("open");
+  await expect(trigger).not.toBeFocused();
+
+  await trigger.focus();
+  await page.keyboard.press("ArrowUp");
+  await expect(options.last()).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(menu).not.toHaveAttribute("open");
+  await expect(trigger).toBeFocused();
+
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Shift+Tab");
+  await expect(menu).not.toHaveAttribute("open");
+  await expect(trigger).not.toBeFocused();
+});
+
 test("donation dialog traps keyboard focus, closes with Escape, and respects reduced motion", async ({
   page,
 }) => {
