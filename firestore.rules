@@ -1,6 +1,16 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Public, approximate session counter. Clients may only increment by one.
+    match /siteStats/visits {
+      allow get: if true;
+      allow create: if request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count is int
+        && request.resource.data.count == 1;
+      allow update: if request.resource.data.keys().hasOnly(['count'])
+        && request.resource.data.count is int
+        && request.resource.data.count == resource.data.count + 1;
+    }
     match /playbackReports/{userId}/reports/{reportId} {
       allow get: if request.auth != null && request.auth.uid == userId;
       allow create: if request.auth != null && request.auth.uid == userId

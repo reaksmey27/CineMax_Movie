@@ -1,5 +1,6 @@
 // pt-BR common messages. English keys remain the fallback.
 export default {
+  "Website visits": "Visitas ao site",
   "Connection status": "Status da conexão",
   "You're offline. Some features are unavailable.": "Você está offline. Alguns recursos estão indisponíveis.",
   "Connection restored. Retry any failed requests.": "Conexão restabelecida. Tente novamente as solicitações que falharam.",

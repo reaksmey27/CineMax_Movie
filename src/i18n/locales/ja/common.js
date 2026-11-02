@@ -1,5 +1,6 @@
 // ja common messages. English keys remain the fallback.
 export default {
+  "Website visits": "サイト訪問数",
   "Connection status": "接続状況",
   "You're offline. Some features are unavailable.": "オフラインです。一部の機能は利用できません。",
   "Connection restored. Retry any failed requests.": "接続が回復しました。失敗したリクエストを再試行してください。",

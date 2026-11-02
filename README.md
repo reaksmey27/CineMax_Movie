@@ -341,6 +341,14 @@ Review reports in the Firebase console (or with trusted admin tooling). This fea
 
 Deploy the updated `firestore.rules` to your intended Firebase project before deploying the website: `firebase deploy --only firestore:rules --project YOUR_PROJECT_ID`. The collection is created automatically on the first successful report. No new environment variables are needed.
 
+## Public website visits
+
+The footer shows an approximate visit total from Firestore `siteStats/visits` (`count`). Publish the updated `firestore.rules` in Firebase Console before deploying the frontend. The first successful visit creates the document automatically; no manual collection setup is needed.
+
+Each browser tab session counts once, including guests. Refreshes and route changes reuse a sessionStorage marker. Counts start at activation and do not include historical traffic. If browser storage is blocked, deduplication lasts only until reload. The displayed total is fetched on page load, rather than streamed live.
+
+This is a public convenience counter, not unique-person analytics or a fraud-resistant metric: rules restrict writes to increments of one, but automated requests can still increase it. Unavailable counts display a dash instead of a fabricated total. Session tokens, IP addresses, and user identities are not stored with the counter.
+
 ## SEO
 
 - Canonical URLs, Open Graph tags, Twitter cards, and page-specific descriptions are managed in `src/config/routeMeta.js`.

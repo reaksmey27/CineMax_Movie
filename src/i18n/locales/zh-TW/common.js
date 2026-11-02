@@ -1,5 +1,6 @@
 // zh-TW common messages. English keys remain the fallback.
 export default {
+  "Website visits": "網站瀏覽次數",
   "Connection status": "連線狀態",
   "You're offline. Some features are unavailable.": "您已離線。部分功能無法使用。",
   "Connection restored. Retry any failed requests.": "連線已恢復。請重試失敗的請求。",

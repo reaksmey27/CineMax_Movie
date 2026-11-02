@@ -1,5 +1,6 @@
 // ko common messages. English keys remain the fallback.
 export default {
+  "Website visits": "웹사이트 방문 수",
   "Connection status": "연결 상태",
   "You're offline. Some features are unavailable.": "오프라인입니다. 일부 기능을 사용할 수 없습니다.",
   "Connection restored. Retry any failed requests.": "연결이 복구되었습니다. 실패한 요청을 다시 시도하세요.",
