@@ -1,5 +1,12 @@
 // id collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "Tanggal menonton",
+  "All time": "Semua waktu",
+  "Today": "Hari ini",
+  "This week": "Minggu ini",
+  "This month": "Bulan ini",
+  "Dates use your local time; weeks start on Monday.": "Tanggal menggunakan waktu lokal Anda; minggu dimulai pada hari Senin.",
+  "No movies match these filters.": "Tidak ada film yang sesuai dengan filter ini.",
   "Clear {collection}?": "Kosongkan {collection}?",
   "Remove {count} saved movies? This cannot be undone.":
     "Hapus {count} film tersimpan? Tindakan ini tidak dapat dibatalkan.",

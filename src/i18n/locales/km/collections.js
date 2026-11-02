@@ -1,5 +1,12 @@
 // km collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "កាលបរិច្ឆេទមើល",
+  "All time": "គ្រប់ពេល",
+  "Today": "ថ្ងៃនេះ",
+  "This week": "សប្តាហ៍នេះ",
+  "This month": "ខែនេះ",
+  "Dates use your local time; weeks start on Monday.": "កាលបរិច្ឆេទប្រើម៉ោងក្នុងតំបន់របស់អ្នក។ សប្តាហ៍ចាប់ផ្តើមនៅថ្ងៃចន្ទ។",
+  "No movies match these filters.": "មិនមានភាពយន្តត្រូវនឹងតម្រងទាំងនេះទេ។",
   "Clear {collection}?": "សម្អាត {collection}?",
   "Remove {count} saved movies? This cannot be undone.":
     "លុបភាពយន្តដែលបានរក្សាទុកចំនួន {count}? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។",

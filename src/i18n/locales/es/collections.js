@@ -1,5 +1,12 @@
 // es collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "Fecha de visualización",
+  "All time": "Todo el tiempo",
+  "Today": "Hoy",
+  "This week": "Esta semana",
+  "This month": "Este mes",
+  "Dates use your local time; weeks start on Monday.": "Las fechas usan tu hora local; las semanas comienzan el lunes.",
+  "No movies match these filters.": "Ninguna película coincide con estos filtros.",
   "Clear {collection}?": "¿Vaciar {collection}?",
   "Remove {count} saved movies? This cannot be undone.":
     "¿Eliminar {count} películas guardadas? No se puede deshacer.",

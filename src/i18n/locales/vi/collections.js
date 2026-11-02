@@ -1,5 +1,12 @@
 // vi collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "Ngày xem",
+  "All time": "Mọi thời điểm",
+  "Today": "Hôm nay",
+  "This week": "Tuần này",
+  "This month": "Tháng này",
+  "Dates use your local time; weeks start on Monday.": "Ngày sử dụng giờ địa phương của bạn; tuần bắt đầu vào thứ Hai.",
+  "No movies match these filters.": "Không có phim nào khớp với các bộ lọc này.",
   "Clear {collection}?": "Xóa hết {collection}?",
   "Remove {count} saved movies? This cannot be undone.":
     "Xóa {count} phim đã lưu? Không thể hoàn tác thao tác này.",

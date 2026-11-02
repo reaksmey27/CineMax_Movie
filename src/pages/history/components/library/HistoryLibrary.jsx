@@ -6,6 +6,7 @@ import useCollectionFilters from "../../../../hooks/useCollectionFilters";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../../context/LanguageContext";
 import WatchHistoryList from "../../../../components/movies/WatchHistoryList";
+import { matchesHistoryDate } from "../../utils/historyDateFilter";
 
 const CONTROL =
   "min-h-11 w-full min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";
@@ -13,8 +14,17 @@ const CONTROL =
 export default function HistoryLibrary({ header, history }) {
   const inputRef = useRef(null);
   const { t, language } = useLanguage();
-  const { query, setQuery, status, setStatus, sort, setSort, reset } =
-    useCollectionFilters("history");
+  const {
+    query,
+    setQuery,
+    status,
+    setStatus,
+    sort,
+    setSort,
+    dateRange,
+    setDateRange,
+    reset,
+  } = useCollectionFilters("history");
   const normalize = (value) =>
     value.normalize("NFKC").toLocaleLowerCase(language);
   const search = normalize(query.trim());
@@ -23,6 +33,7 @@ export default function HistoryLibrary({ header, history }) {
     .filter(
       (item) =>
         normalize(item.title || "").includes(search) &&
+        matchesHistoryDate(item.lastWatchedAt, dateRange) &&
         (status === "all" ||
           (status === "watched" ? item.completed : !item.completed)),
     )
@@ -37,8 +48,8 @@ export default function HistoryLibrary({ header, history }) {
     <section aria-label={t("History")}>
       <div className="mb-6 grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-8">
         {header}
-        <div className="ml-auto grid w-full gap-3 text-xs font-semibold text-[var(--color-text-muted)] sm:max-w-[720px] sm:grid-cols-2 2xl:grid-cols-[1.4fr_1fr_1fr]">
-          <label className="min-w-0 sm:col-span-2 2xl:col-span-1">
+        <div className="ml-auto grid w-full gap-3 text-xs font-semibold text-[var(--color-text-muted)] sm:max-w-[720px] sm:grid-cols-3">
+          <label className="min-w-0 sm:col-span-3">
             {t("Search watch history")}
             <span className="relative mt-1.5 block">
               <MagnifyingGlassIcon
@@ -82,6 +93,17 @@ export default function HistoryLibrary({ header, history }) {
             ]}
           />
           <FilterSelect
+            label="Watch date"
+            value={dateRange}
+            onChange={setDateRange}
+            options={[
+              { value: "all", label: "All time" },
+              { value: "today", label: "Today" },
+              { value: "week", label: "This week" },
+              { value: "month", label: "This month" },
+            ]}
+          />
+          <FilterSelect
             label="Sort By"
             value={sort}
             onChange={setSort}
@@ -91,6 +113,9 @@ export default function HistoryLibrary({ header, history }) {
               { value: "title", label: "Title A-Z" },
             ]}
           />
+          <p className="font-normal sm:col-span-3">
+            {t("Dates use your local time; weeks start on Monday.")}
+          </p>
         </div>
       </div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
@@ -100,7 +125,10 @@ export default function HistoryLibrary({ header, history }) {
             total: history.length,
           })}
         </p>
-        {(query || status !== "all" || sort !== "recent") && (
+        {(query ||
+          status !== "all" ||
+          sort !== "recent" ||
+          dateRange !== "all") && (
           <button
             type="button"
             onClick={reset}
@@ -115,7 +143,7 @@ export default function HistoryLibrary({ header, history }) {
       ) : (
         <CollectionState
           title={t("No Movies Found")}
-          message={t("No saved movies match your search or status.")}
+          message={t("No movies match these filters.")}
         />
       )}
     </section>

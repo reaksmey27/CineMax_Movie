@@ -1,5 +1,12 @@
 // ja collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "視聴日",
+  "All time": "すべての期間",
+  "Today": "今日",
+  "This week": "今週",
+  "This month": "今月",
+  "Dates use your local time; weeks start on Monday.": "日付は現地時間を使用し、週は月曜日から始まります。",
+  "No movies match these filters.": "この条件に一致する映画はありません。",
   "Clear {collection}?": "{collection}を空にしますか？",
   "Remove {count} saved movies? This cannot be undone.":
     "保存した映画{count}件を削除しますか？この操作は元に戻せません。",

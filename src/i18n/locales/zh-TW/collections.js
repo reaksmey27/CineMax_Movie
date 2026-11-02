@@ -1,5 +1,12 @@
 // zh-TW collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "觀看日期",
+  "All time": "全部時間",
+  "Today": "今天",
+  "This week": "本週",
+  "This month": "本月",
+  "Dates use your local time; weeks start on Monday.": "日期使用您的當地時間；每週從星期一開始。",
+  "No movies match these filters.": "沒有符合這些篩選條件的電影。",
   "Clear {collection}?": "清空{collection}？",
   "Remove {count} saved movies? This cannot be undone.":
     "移除 {count} 部已儲存的電影？此操作無法復原。",

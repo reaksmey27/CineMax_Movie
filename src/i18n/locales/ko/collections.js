@@ -1,5 +1,12 @@
 // ko collections messages. English keys remain the fallback.
 export default {
+  "Watch date": "시청 날짜",
+  "All time": "전체 기간",
+  "Today": "오늘",
+  "This week": "이번 주",
+  "This month": "이번 달",
+  "Dates use your local time; weeks start on Monday.": "날짜는 현지 시간을 사용하며 한 주는 월요일에 시작합니다.",
+  "No movies match these filters.": "이 필터에 맞는 영화가 없습니다.",
   "Clear {collection}?": "{collection}을 비울까요?",
   "Remove {count} saved movies? This cannot be undone.":
     "저장한 영화 {count}개를 삭제할까요? 이 작업은 되돌릴 수 없습니다.",
