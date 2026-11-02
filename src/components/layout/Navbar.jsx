@@ -63,7 +63,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <img
             src="/images/logo.svg"
             alt={t("CineMax Logo")}
-            className="h-10 w-auto sm:h-12"
+            className="h-auto w-12 min-[360px]:h-10 min-[360px]:w-auto sm:h-12"
             decoding="async"
           />
         </Link>
@@ -111,7 +111,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
           <button
             type="button"
             onClick={onToggleTheme}
-            className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-[var(--nav-accent)] active:scale-95 sm:min-h-11 sm:min-w-11 sm:p-2"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-2)] p-1 text-[var(--color-text)] transition-all hover:border-purple-500/50 hover:text-[var(--nav-accent)] active:scale-95 sm:min-h-11 sm:min-w-11 sm:p-2"
             aria-label={t(themeButtonLabel)}
             title={t(themeButtonLabel)}
           >
@@ -145,7 +145,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
                 setShowNotifPanel(!showNotifPanel);
                 setIsMenuOpen(false);
               }}
-              className={`relative inline-flex min-h-9 min-w-9 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1 text-[var(--color-text)] transition-all active:scale-90 hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 ${
+              className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-transparent bg-[var(--color-surface-2)] p-1 text-[var(--color-text)] transition-all active:scale-90 hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 ${
                 showNotifPanel
                   ? "border-purple-500/40 bg-[var(--color-surface-3)] text-[var(--nav-accent)]"
                   : ""
@@ -183,7 +183,7 @@ const Navbar = ({ theme, onToggleTheme }) => {
               setIsMenuOpen(!isMenuOpen);
               setShowNotifPanel(false);
             }}
-            className="inline-flex min-h-9 min-w-9 items-center justify-center rounded-full p-1 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 xl:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-1 text-[var(--color-text)] transition-colors hover:text-[var(--nav-accent)] sm:min-h-11 sm:min-w-11 sm:p-2 xl:hidden"
             aria-label={isMenuOpen ? t("Close menu") : t("Open menu")}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"

@@ -55,7 +55,7 @@ const LanguageSelector = ({ className = "" }) => {
         aria-label={`${t("Switch language")}: ${currentLanguage.label}`}
         title={currentLanguage.label}
         aria-busy={languageLoading}
-        className="flex min-h-9 cursor-pointer list-none items-center justify-center gap-1 rounded-md px-1 text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500 sm:min-h-11 sm:gap-1.5 sm:px-2 [&::-webkit-details-marker]:hidden"
+        className="flex min-h-11 cursor-pointer list-none items-center justify-center gap-1 rounded-md px-1 text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-2)] focus-visible:outline-2 focus-visible:outline-purple-500 sm:min-h-11 sm:gap-1.5 sm:px-2 [&::-webkit-details-marker]:hidden"
       >
         <img
           src={currentLanguage.flag}

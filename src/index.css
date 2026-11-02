@@ -1,18 +1,5 @@
 @import "tailwindcss";
 
-/* Keep touch controls usable independently of viewport width (including tablets). */
-@layer components {
-  .hero-dot {
-    position: relative;
-  }
-
-  .hero-dot::after {
-    content: "";
-    position: absolute;
-    inset: -18px -4px;
-  }
-}
-
 .trailer-frame {
   width: min(100%, calc((100dvh - 5rem) * 16 / 9));
 }

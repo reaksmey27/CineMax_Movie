@@ -205,7 +205,7 @@ const HeroSection = ({ trendingMovies = [] }) => {
       </div>
 
       {/* ── Dot indicators ── */}
-      <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 sm:bottom-12 sm:gap-4">
+      <div className="absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2 items-center gap-1 sm:bottom-8 sm:gap-2">
         {featured.map((_, idx) => (
           <button
             key={idx}
@@ -214,12 +214,17 @@ const HeroSection = ({ trendingMovies = [] }) => {
             })}
             aria-pressed={idx === currentIndex}
             onClick={() => goTo(idx)}
-            className={`hero-dot h-2 rounded-full transition-all duration-500 ${
-              idx === currentIndex
-                ? "w-10 sm:w-14 bg-purple-600 shadow-lg shadow-purple-500/50"
-                : "w-3 bg-white/30 sm:w-3"
-            }`}
-          />
+            className="flex h-11 min-w-11 shrink-0 items-center justify-center rounded-full"
+          >
+            <span
+              aria-hidden="true"
+              className={`h-2 rounded-full transition-all duration-500 ${
+                idx === currentIndex
+                  ? "w-10 bg-purple-600 shadow-lg shadow-purple-500/50 sm:w-14"
+                  : "w-3 bg-white/30"
+              }`}
+            />
+          </button>
         ))}
       </div>
 

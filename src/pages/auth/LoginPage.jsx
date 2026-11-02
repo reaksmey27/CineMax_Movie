@@ -58,7 +58,7 @@ const LoginPage = () => {
                 onChange={handleChange}
                 autoComplete="email"
                 placeholder={t("Enter your Email")}
-                className="w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
+                className="min-h-11 w-full rounded-md border border-white/10 bg-white px-3.5 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20"
               />
             </label>
 
@@ -80,7 +80,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={isBusy}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-purple-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md bg-purple-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-purple-500 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <span>{isBusy ? t("Signing In...") : t("Continue")}</span>
               <ArrowRightIcon className="h-4 w-4" />
