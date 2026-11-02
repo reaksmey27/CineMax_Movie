@@ -11,7 +11,7 @@ import {
 } from "../../../../config/movieFilters";
 import { useLanguage } from "../../../../context/LanguageContext";
 import FilterSelect from "./FilterSelect";
-import { GENRE_BTN_BASE } from "./filterStyles";
+import { GENRE_BTN_BASE } from "../../constants/filterStyles";
 
 // ─── MoviesFilters: genre/year/rating/sort bar ────────────────────────────────
 

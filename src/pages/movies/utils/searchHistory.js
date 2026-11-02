@@ -1,9 +1,7 @@
-// ─── Constants: search history storage ────────────────────────────────────────
-
-export const SEARCH_HISTORY_KEY = "cinemax-search-history";
-export const SEARCH_HISTORY_LIMIT = 8;
-
-// ─── Helpers: normalize, read, write & update search history ──────────────────
+import {
+  SEARCH_HISTORY_KEY,
+  SEARCH_HISTORY_LIMIT,
+} from "../constants/searchHistory";
 
 export const normalizeSearchQuery = (query) => query.trim();
 

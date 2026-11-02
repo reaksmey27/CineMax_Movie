@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getWatchlistView } from "../src/pages/watchlist/watchlistView.js";
+import { getWatchlistView } from "../src/pages/watchlist/utils/watchlistView.js";
 
 const movies = [
   { id: 1, title: "Zodiac", rating: "7.5", savedAt: "2026-01-01" },

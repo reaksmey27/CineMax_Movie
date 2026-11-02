@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { tmdbService } from "../../../services/tmdbService";
-import { posterCards } from "../authPosterCards";
+import { posterCards } from "../constants/authPosterCards";
 
 // ─── useReleasePosters: fresh TMDB posters for the auth wall ──────────────────
 

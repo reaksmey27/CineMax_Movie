@@ -4,7 +4,7 @@ import { useLanguage } from "../../../../context/LanguageContext";
 import MoviesFilters from "../filters/MoviesFilters";
 import ActiveFilterChips from "../filters/ActiveFilterChips";
 import MoviesSearch from "../search/MoviesSearch";
-import { getHeadingState, getSubtitle } from "./moviesHeaderCopy";
+import { getHeadingState, getSubtitle } from "../../utils/moviesHeaderCopy";
 
 // ─── MoviesHeader: title, search & filters ────────────────────────────────────
 

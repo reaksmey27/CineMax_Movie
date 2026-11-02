@@ -4,7 +4,7 @@ import {
   readSearchHistory,
   writeSearchHistory,
   updateSearchHistory,
-} from "../searchHistory";
+} from "../utils/searchHistory";
 
 // ─── useSearchHistory: persisted recent-search list ───────────────────────────
 

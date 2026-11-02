@@ -4,7 +4,7 @@ import useCollectionFilters from "../../../../hooks/useCollectionFilters";
 import { useLanguage } from "../../../../context/LanguageContext";
 import CollectionFilters from "../../../../components/movies/CollectionFilters";
 import MovieGrid from "../../../../components/ui/MovieGrid";
-import { getWatchlistView } from "../../../watchlist/watchlistView";
+import { getWatchlistView } from "../../../watchlist/utils/watchlistView";
 
 export default function FavoritesLibrary({ header, movies }) {
   const { t } = useLanguage();

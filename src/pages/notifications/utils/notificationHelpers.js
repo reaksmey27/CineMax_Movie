@@ -1,9 +1,3 @@
-// ─── Constants: history filters ───────────────────────────────────────────────
-
-export const FILTERS = ["all", "unread"];
-
-// ─── Helpers: relative time & type labels ─────────────────────────────────────
-
 export const formatRelativeTime = (timestamp, language) => {
   const date = new Date(timestamp);
   if (Number.isNaN(date.getTime())) return "Recently";

@@ -4,7 +4,7 @@ import useCollectionFilters from "../../../../hooks/useCollectionFilters";
 import MovieCard from "../../../../components/ui/MovieCard";
 import { useLanguage } from "../../../../context/LanguageContext";
 import CollectionFilters from "../../../../components/movies/CollectionFilters";
-import { getWatchlistView } from "../../watchlistView";
+import { getWatchlistView } from "../../utils/watchlistView";
 
 export default function WatchlistLibrary({
   header,

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../../context/LanguageContext";
 import AuthPosterWall from "./AuthPosterWall";
-import { CLOSE_ANIMATION_MS } from "../../authPosterCards";
+import { CLOSE_ANIMATION_MS } from "../../constants/authPosterCards";
 import { useReleasePosters } from "../../hooks/useReleasePosters";
 
 // ─── AuthShell: shared auth page layout ───────────────────────────────────────
