@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import MovieCard from "../../../../components/ui/MovieCard";
+import MovieCard from "../../../../components/ui/movies/MovieCard";
 import { useLanguage } from "../../../../context/LanguageContext";
 
 // ─── Helpers: heading id from slider title ────────────────────────────────────

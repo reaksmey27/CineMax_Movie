@@ -6,7 +6,7 @@ import { useFavorites } from "../../../../context/FavoritesContext";
 import { useWatchlist } from "../../../../context/WatchlistContext";
 import { useLanguage } from "../../../../context/LanguageContext";
 import SavedMovie from "./SavedMovie";
-import MovieGridSkeleton from "../../../../components/ui/MovieGridSkeleton";
+import MovieGridSkeleton from "../../../../components/ui/loading/MovieGridSkeleton";
 
 // ─── ProfileCollection: favorites & watchlist tabs ────────────────────────────
 

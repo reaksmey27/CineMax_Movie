@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import SkeletonCard from "../../../../components/ui/SkeletonCard";
+import SkeletonCard from "../../../../components/ui/loading/SkeletonCard";
 
 // ─── MovieDetailSkeleton: detail loading placeholder ──────────────────────────
 

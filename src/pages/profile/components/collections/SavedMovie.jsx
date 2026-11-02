@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../../context/LanguageContext";
-import MovieCard from "../../../../components/ui/MovieCard";
+import MovieCard from "../../../../components/ui/movies/MovieCard";
 
 const SavedMovie = ({ movie, listName, onRemove, onRemoved }) => {
   const { t } = useLanguage();

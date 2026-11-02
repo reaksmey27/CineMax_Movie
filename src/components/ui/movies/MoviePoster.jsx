@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FilmIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 function PosterImage({ src, title, compact, className, imageClassName }) {
   const { t } = useLanguage();

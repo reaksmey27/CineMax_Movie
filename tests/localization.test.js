@@ -35,7 +35,7 @@ const sources = [
   "src/pages/profile/components/collections/ProfileCollection.jsx",
   "src/pages/profile/components/account/ProfileForm.jsx",
   "src/pages/profile/ProfilePage.jsx",
-  "src/components/ui/MovieCard.jsx",
+  "src/components/ui/movies/MovieCard.jsx",
 ];
 const keys = new Set([
   "No trailer is available for this movie yet.",

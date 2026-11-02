@@ -4,7 +4,7 @@ import {
   ExclamationTriangleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import MovieGridSkeleton from "../ui/MovieGridSkeleton";
+import MovieGridSkeleton from "../ui/loading/MovieGridSkeleton";
 
 export function CollectionLoading({ label, history = false }) {
   return (

@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import PageError from "../../../../components/ui/PageError";
+import PageError from "../../../../components/ui/feedback/PageError";
 import { useLanguage } from "../../../../context/LanguageContext";
 
 export default function MovieDetailUnavailable() {

@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { BellAlertIcon } from "@heroicons/react/24/outline";
 import { useNotification } from "../../context/NotificationContext";
 import { useLanguage } from "../../context/LanguageContext";
-import ListSkeleton from "../../components/ui/ListSkeleton";
+import ListSkeleton from "../../components/ui/loading/ListSkeleton";
 import NotificationsToolbar from "./components/toolbar/NotificationsToolbar";
 import NotificationStatusNotices from "./components/states/NotificationStatusNotices";
 import NotificationsEmptyState from "./components/states/NotificationsEmptyState";

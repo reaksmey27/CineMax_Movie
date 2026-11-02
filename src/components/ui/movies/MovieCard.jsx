@@ -11,9 +11,9 @@ import {
   BookmarkIcon,
   HeartIcon as HeartOutline,
 } from "@heroicons/react/24/outline";
-import { useFavorites } from "../../context/FavoritesContext";
-import { useLanguage } from "../../context/LanguageContext";
-import { useWatchlist } from "../../context/WatchlistContext";
+import { useFavorites } from "../../../context/FavoritesContext";
+import { useLanguage } from "../../../context/LanguageContext";
+import { useWatchlist } from "../../../context/WatchlistContext";
 
 // ─── MovieCard: poster card with quick actions ────────────────────────────────
 

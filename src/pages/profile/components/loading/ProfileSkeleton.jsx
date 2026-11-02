@@ -1,5 +1,5 @@
 import { memo } from "react";
-import MovieGridSkeleton from "../../../../components/ui/MovieGridSkeleton";
+import MovieGridSkeleton from "../../../../components/ui/loading/MovieGridSkeleton";
 
 // ─── ProfileSkeleton: profile page loading placeholder ────────────────────────
 

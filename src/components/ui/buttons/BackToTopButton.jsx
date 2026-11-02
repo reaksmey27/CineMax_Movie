@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowUpIcon } from "@heroicons/react/24/solid";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── Constants: scroll threshold for visibility ───────────────────────────────
 

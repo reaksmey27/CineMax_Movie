@@ -1,10 +1,10 @@
-import PaymentRow from "./donation/PaymentRow";
-import useDonationDialog from "./donation/useDonationDialog";
+import PaymentRow from "./PaymentRow";
+import useDonationDialog from "./useDonationDialog";
 import { createPortal } from "react-dom";
 import { XMarkIcon, ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { FaCoffee } from "react-icons/fa";
-import donationQr from "../../assets/images/donation-qr.png";
-import { useLanguage } from "../../context/LanguageContext";
+import donationQr from "../../../assets/images/donation-qr.png";
+import { useLanguage } from "../../../context/LanguageContext";
 
 // ─── Constants: bank account details ──────────────────────────────────────────
 

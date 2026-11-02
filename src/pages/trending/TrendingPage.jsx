@@ -1,9 +1,9 @@
 import React from "react";
 import { FireIcon } from "@heroicons/react/24/outline";
 import useTrendingMovies from "../../hooks/movies/useTrendingMovies";
-import MovieGrid from "../../components/ui/MovieGrid";
-import MovieGridSkeleton from "../../components/ui/MovieGridSkeleton";
-import PageError from "../../components/ui/PageError";
+import MovieGrid from "../../components/ui/movies/MovieGrid";
+import MovieGridSkeleton from "../../components/ui/loading/MovieGridSkeleton";
+import PageError from "../../components/ui/feedback/PageError";
 import { useLanguage } from "../../context/LanguageContext";
 
 // ─── TrendingPage: trending movies grid ───────────────────────────────────────

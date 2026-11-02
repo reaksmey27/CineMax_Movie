@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import HeroSkeleton from "../hero/HeroSkeleton";
-import MovieSliderSkeleton from "../../../../components/ui/MovieSliderSkeleton";
+import MovieSliderSkeleton from "../../../../components/ui/loading/MovieSliderSkeleton";
 
 // ─── HomePageSkeleton: home loading placeholder ───────────────────────────────
 

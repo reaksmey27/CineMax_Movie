@@ -24,7 +24,7 @@ test("posters load without resizing, recover after source changes, and handle mi
     route.fulfill({
       contentType: "application/javascript",
       body: `import React from '/node_modules/.vite/deps/react.js';
-      import MoviePoster from '/src/components/ui/MoviePoster.jsx';
+      import MoviePoster from '/src/components/ui/movies/MoviePoster.jsx';
       export default function Fixture() {
         const [src,setSrc] = React.useState('/slow-poster.png');
         return React.createElement('main', {style:{paddingTop:140}},

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaCoffee } from "react-icons/fa";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "../../../context/LanguageContext";
 import DonationModal from "./DonationModal";
 
 // ─── Component ────────────────────────────────────────────────────────────────

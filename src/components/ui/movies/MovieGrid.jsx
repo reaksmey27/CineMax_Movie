@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "../../../context/LanguageContext";
 import MovieCard from "./MovieCard";
 
 // ─── MovieGrid: responsive movie grid ─────────────────────────────────────────

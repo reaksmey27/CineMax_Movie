@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import HeroSection from "./components/hero/HeroSection";
 import HeroSkeleton from "./components/hero/HeroSkeleton";
 import MovieSlider from "./components/listing/MovieSlider";
-import MovieSliderSkeleton from "../../components/ui/MovieSliderSkeleton";
+import MovieSliderSkeleton from "../../components/ui/loading/MovieSliderSkeleton";
 import { useLanguage } from "../../context/LanguageContext";
 import useHomeMovies from "../../hooks/movies/useHomeMovies";
 

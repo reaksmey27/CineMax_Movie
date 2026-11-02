@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { tmdbService } from "../../../../services/tmdbService";
 import { useLanguage } from "../../../../context/LanguageContext";
-import MovieCard from "../../../../components/ui/MovieCard";
+import MovieCard from "../../../../components/ui/movies/MovieCard";
 
 export default function RelatedMovies({ movieId }) {
   const { t } = useLanguage();

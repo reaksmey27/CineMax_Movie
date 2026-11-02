@@ -1,4 +1,4 @@
-import MoviePoster from "../ui/MoviePoster";
+import MoviePoster from "../ui/movies/MoviePoster";
 import { Link } from "react-router-dom";
 import { CheckIcon, PlayIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useWatchHistory } from "../../context/WatchHistoryContext";
