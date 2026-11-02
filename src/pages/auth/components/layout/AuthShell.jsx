@@ -108,7 +108,7 @@ const AuthShell = ({ children, onClose }) => {
       <div className="mx-auto flex min-h-[calc(100svh-4rem)] w-full max-w-[960px] items-center">
         <div
           ref={dialogRef}
-          className={`${isClosing ? "animate-auth-modal-out" : "animate-auth-modal"} relative grid h-[min(46rem,calc(100svh_-_5rem))] w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#2c2c2c] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]`}
+          className={`${isClosing ? "animate-auth-modal-out" : "animate-auth-modal"} relative grid h-[min(46rem,calc(100svh_-_5rem))] w-full overflow-hidden rounded-[24px] border border-white/10 bg-[var(--color-auth-panel)] shadow-[0_18px_40px_rgba(0,0,0,0.35)] md:grid-cols-[1.08fr_0.92fr]`}
           onClick={(event) => event.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -117,7 +117,7 @@ const AuthShell = ({ children, onClose }) => {
           <button
             type="button"
             onClick={requestClose}
-            className="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-black/35 text-white/80 backdrop-blur transition hover:border-purple-500/40 hover:bg-purple-500/20 hover:text-white"
+            className="absolute right-4 top-4 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/10 bg-[var(--color-surface-2)] text-[var(--color-text)] backdrop-blur transition hover:border-purple-500/40 hover:bg-purple-500/20 hover:text-white"
             aria-label={t("Close auth popup")}
           >
             <XMarkIcon className="h-5 w-5" />
@@ -125,7 +125,7 @@ const AuthShell = ({ children, onClose }) => {
 
           <AuthPosterWall movieCards={movieCards} />
 
-          <section className="flex min-h-0 items-center-safe overflow-y-auto bg-[#23212b] px-5 pb-7 pt-16 sm:px-8 sm:pb-8 sm:pt-16 lg:px-10 lg:py-10">
+          <section className="flex min-h-0 items-center-safe overflow-y-auto auth-form-panel bg-[var(--color-auth-panel)] px-5 pb-7 pt-16 sm:px-8 sm:pb-8 sm:pt-16 lg:px-10 lg:py-10">
             <div className="w-full">
               <div id="auth-modal-title" className="w-full">
                 {children}

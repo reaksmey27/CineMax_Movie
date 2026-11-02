@@ -39,7 +39,7 @@ const AuthPosterWall = ({ movieCards }) => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_35%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.62))]" />
             <div className="absolute inset-x-0 top-0 h-[4.5rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.2),transparent)] opacity-75" />
             <div className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.82))]" />
-            <div className="absolute bottom-0 left-0 right-0 p-3 text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.6)]">
+            <div className="auth-poster-caption absolute bottom-0 left-0 right-0 p-3 text-white drop-shadow-[0_3px_12px_rgba(0,0,0,0.6)]">
               <p className="text-[8px] font-black uppercase tracking-[0.26em] text-white/70">
                 {poster.subtitle}
               </p>

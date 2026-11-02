@@ -30,7 +30,7 @@ function ClearDialog({ userId, collection, ids, onCancel }) {
         cancel();
       }}
       onKeyDown={(event) => event.stopPropagation()}
-      className="fixed inset-0 m-auto w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-(--color-border) bg-(--color-surface-1) p-6 text-(--color-text) shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+      className="fixed inset-0 m-auto w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-(--color-border) bg-(--color-bg-elevated) p-6 text-(--color-text) shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-sm"
     >
       <h2 id="clear-collection-title" className="text-xl font-bold">
         {t("Clear {collection}?", {

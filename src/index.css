@@ -41,6 +41,7 @@
   html.theme-dark {
     --color-bg: #020617;
     --color-bg-elevated: #0f172a;
+    --color-auth-panel: #23212b;
     --color-nav-bg: rgba(2, 6, 23, 0.72);
     --color-panel-bg: rgba(15, 23, 42, 0.95);
     --color-overlay: rgba(2, 6, 23, 0.95);
@@ -81,6 +82,7 @@
   html.theme-light {
     --color-bg: #eef3f9;
     --color-bg-elevated: #ffffff;
+    --color-auth-panel: #ffffff;
     --color-nav-bg: rgba(255, 255, 255, 0.82);
     --color-panel-bg: rgba(255, 255, 255, 0.94);
     --color-overlay: rgba(238, 243, 249, 0.95);
@@ -437,6 +439,26 @@ html.theme-light .page-heading--cyan {
 }
 .page-heading--hero {
   font-size: clamp(1.875rem, 4vw, 3.75rem);
+}
+
+/* Accent controls keep their contrasting label in either theme. */
+@layer utilities {
+  .bg-purple-600.text-white,
+  .auth-poster-caption.text-white {
+    color: #ffffff !important;
+  }
+}
+
+html.theme-light .auth-form-panel :is(
+  .text-white\/35, .text-white\/50, .text-white\/60, .text-white\/70
+) {
+  color: var(--color-text-muted);
+}
+
+html.theme-light .auth-form-panel :is(
+  .text-purple-100, .text-purple-200, .text-purple-300, .text-purple-400
+) {
+  color: #6d28d9;
 }
 
 /* Opaque navigation surfaces keep text readable over changing movie backdrops. */
