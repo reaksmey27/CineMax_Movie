@@ -25,6 +25,8 @@ test("invalid page parameters fall back to the first page", () => {
     "2junk",
     "Infinity",
     "9007199254740992",
+    "101",
+    "999999",
   ]) {
     assert.equal(
       parseMovieSearchParams(new URLSearchParams({ page: value })).page,
@@ -32,6 +34,28 @@ test("invalid page parameters fall back to the first page", () => {
       value,
     );
   }
+});
+
+test("malformed genre and out-of-range ratings are ignored", () => {
+  for (const genre of ["28junk", "28.5", "-28", "0", "9007199254740992"]) {
+    const filters = parseMovieSearchParams(new URLSearchParams({ genre }));
+    assert.equal(filters.selectedGenre, null, genre);
+    assert.equal(filters.hasActiveFilters, false);
+  }
+  for (const rating of ["11", "999", "-1", "7junk", "Infinity"]) {
+    const filters = parseMovieSearchParams(new URLSearchParams({ rating }));
+    assert.equal(filters.minRating, "", rating);
+    assert.equal(filters.hasActiveFilters, false);
+  }
+  assert.equal(
+    parseMovieSearchParams(new URLSearchParams({ page: "100", rating: "10" }))
+      .page,
+    100,
+  );
+  assert.equal(
+    parseMovieSearchParams(new URLSearchParams({ rating: "10" })).minRating,
+    "10",
+  );
 });
 
 test("valid pagination preserves collection and search filters", () => {

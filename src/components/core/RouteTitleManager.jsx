@@ -15,8 +15,8 @@ const RouteTitleManager = () => {
     let active = true;
     const meta = getPageMeta(pathname, search);
     applyPageMeta(meta);
-    const match = pathname.match(/^\/movie\/(\d+)\/?$/);
-    if (match) {
+    const match = pathname.match(/^\/movie\/([1-9]\d*)\/?$/);
+    if (match && Number.isSafeInteger(Number(match[1]))) {
       // The service shares pending requests with the movie detail page.
       tmdbService
         .getMovieDetails(match[1])

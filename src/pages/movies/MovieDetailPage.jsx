@@ -131,5 +131,8 @@ const MovieDetailContent = ({ id }) => {
 
 export default function MovieDetailPage() {
   const { id } = useParams();
+  if (!/^[1-9]\d*$/.test(id || "") || !Number.isSafeInteger(Number(id))) {
+    return <MovieDetailUnavailable error="not-found" />;
+  }
   return <MovieDetailContent key={id} id={id} />;
 }

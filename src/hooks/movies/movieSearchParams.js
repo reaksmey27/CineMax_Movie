@@ -13,10 +13,13 @@ export function parseMovieSearchParams(searchParams) {
   const pageParam = searchParams.get("page") || "1";
   const parsedPage = /^\d+$/.test(pageParam) ? Number(pageParam) : NaN;
   const page =
-    Number.isSafeInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+    Number.isSafeInteger(parsedPage) && parsedPage > 0 && parsedPage <= 100
+      ? parsedPage
+      : 1;
   const genreParam = searchParams.get("genre");
-  const parsedGenre = genreParam ? parseInt(genreParam, 10) : null;
-  const selectedGenre = Number.isNaN(parsedGenre) ? null : parsedGenre;
+  const parsedGenre = /^\d+$/.test(genreParam || "") ? Number(genreParam) : NaN;
+  const selectedGenre =
+    Number.isSafeInteger(parsedGenre) && parsedGenre > 0 ? parsedGenre : null;
   const collectionParam = searchParams.get("collection");
   const country = MOVIE_COUNTRIES.includes(searchParams.get("country"))
     ? searchParams.get("country")
@@ -39,7 +42,10 @@ export function parseMovieSearchParams(searchParams) {
   const minRatingParam = searchParams.get("rating") || "";
   const sortParam = searchParams.get("sort") || DEFAULT_DISCOVER_SORT;
   const releaseYear = /^\d{4}$/.test(releaseYearParam) ? releaseYearParam : "";
-  const minRating = /^\d+(\.\d+)?$/.test(minRatingParam) ? minRatingParam : "";
+  const minRating =
+    /^\d+(\.\d+)?$/.test(minRatingParam) && Number(minRatingParam) <= 10
+      ? minRatingParam
+      : "";
   const sortBy = DISCOVER_SORT_VALUES.has(sortParam)
     ? sortParam
     : DEFAULT_DISCOVER_SORT;
