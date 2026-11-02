@@ -8,6 +8,7 @@ import {
   onSnapshot,
   orderBy,
   query,
+  runTransaction,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -75,6 +76,40 @@ export async function saveWatchHistory(database, userId, movie, details) {
 
 export const finishWatchHistory = (database, userId, movieId) =>
   updateDoc(historyDocument(database, userId, movieId), { completed: true });
+
+export async function setMovieWatched(database, userId, movie, completed) {
+  const reference = historyDocument(database, userId, movie.id);
+  await runTransaction(database, async (transaction) => {
+    const existing = await transaction.get(reference);
+    if (existing.exists()) {
+      // Preserve saved playback progress, server and metadata, even outside the latest 50.
+      transaction.update(reference, {
+        completed: Boolean(completed),
+        ...(completed ? { lastWatchedAt: new Date().toISOString() } : {}),
+      });
+    } else {
+      transaction.set(reference, {
+        id: movie.id,
+        title: movie.title || "",
+        subtitle: movie.subtitle || "",
+        rating: movie.rating || "0.0",
+        posterImage: movie.posterImage || movie.image || "",
+        runtimeMinutes:
+          Number.isFinite(movie.runtimeMinutes) && movie.runtimeMinutes > 0
+            ? movie.runtimeMinutes
+            : 0,
+        genres: Array.isArray(movie.genres)
+          ? movie.genres.filter((genre) => typeof genre === "string")
+          : [],
+        server: "Server 1",
+        positionSeconds: 0,
+        durationSeconds: 0,
+        completed: Boolean(completed),
+        lastWatchedAt: new Date().toISOString(),
+      });
+    }
+  });
+}
 export const markWatchHistoryUnfinished = (database, userId, movieId) =>
   updateDoc(historyDocument(database, userId, movieId), { completed: false });
 export const removeWatchHistory = (database, userId, movieId) =>

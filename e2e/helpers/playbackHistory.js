@@ -49,6 +49,12 @@ export async function setupPlaybackHistory(page) {
     };
     export const saveWatchHistory = async (db,uid,movie,details) => { if(localStorage.getItem('fail-save')) throw Error('offline'); write(uid,[{...movie,...details,lastWatchedAt:new Date().toISOString()},...read(uid).filter(x=>x.id!==movie.id)]); };
     export const finishWatchHistory = async (db,uid,id) => write(uid,read(uid).map(x=>x.id===id?{...x,completed:true}:x));
+    export const setMovieWatched = async (db,uid,movie,completed) => {
+      await new Promise(resolve => setTimeout(resolve, 200));
+      if(localStorage.getItem('fail-status')) throw Error('offline');
+      const items = read(uid);
+      write(uid, items.some(x=>x.id===movie.id) ? items.map(x=>x.id===movie.id?{...x,completed}:x) : [...items,{...movie,completed}]);
+    };
     export const markWatchHistoryUnfinished = async (db,uid,id) => {
       if (localStorage.getItem('fail-status')) throw Error('offline');
       write(uid,read(uid).map(x=>x.id===id?{...x,completed:false}:x));

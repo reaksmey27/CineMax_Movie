@@ -36,6 +36,7 @@ const sources = [
   "src/pages/profile/ProfilePage.jsx",
   "src/pages/profile/components/stats/ViewingStats.jsx",
   "src/components/ui/movies/MovieCard.jsx",
+  "src/components/ui/movies/MovieWatchedButton.jsx",
 ];
 const keys = new Set([
   "No trailer is available for this movie yet.",

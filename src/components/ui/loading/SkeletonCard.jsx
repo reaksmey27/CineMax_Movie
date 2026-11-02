@@ -19,6 +19,7 @@ const SkeletonCard = ({ className = "" }) => (
         <div className="h-4 w-10 rounded bg-[var(--color-surface-2)] skeleton-shimmer sm:h-5" />
         <div className="h-6.5 w-12 rounded bg-[var(--color-surface-2)] skeleton-shimmer" />
       </div>
+      <div className="h-11 rounded-xl bg-[var(--color-surface-2)] skeleton-shimmer" />
     </div>
   </div>
 );

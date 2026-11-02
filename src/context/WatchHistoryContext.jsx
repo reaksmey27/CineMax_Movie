@@ -91,7 +91,7 @@ function Session({ userId, children }) {
   );
 
   const change = useCallback(
-    async (movieId, action) => {
+    async (movieId, action, movie) => {
       if (!userId || clearingRef.current || pending.current.has(movieId))
         return false;
       const removedMovie =
@@ -108,7 +108,11 @@ function Session({ userId, children }) {
             : action === "unfinished"
               ? storage.markWatchHistoryUnfinished
               : storage.finishWatchHistory;
-        await update(db, userId, movieId);
+        if (movie) {
+          await storage.setMovieWatched(db, userId, movie, action === "finish");
+        } else {
+          await update(db, userId, movieId);
+        }
         if (removedMovie) offerUndo("watchHistory", removedMovie);
         setSaveError(false);
         return true;
@@ -149,6 +153,8 @@ function Session({ userId, children }) {
       canClear: busy.size === 0,
       record,
       finish: (id) => change(id, "finish"),
+      setWatched: (movie, completed) =>
+        change(movie.id, completed ? "finish" : "unfinished", movie),
       markUnfinished: (id) => change(id, "unfinished"),
       remove: (id) => change(id, "remove"),
       isBusy: (id) => clearing || busy.has(id),
