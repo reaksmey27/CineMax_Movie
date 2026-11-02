@@ -5,6 +5,7 @@ import {
   BookmarkIcon as BookmarkSolidIcon,
   HeartIcon,
   StarIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/24/solid";
 import {
   ArrowPathIcon,
@@ -14,6 +15,7 @@ import {
 import { useFavorites } from "../../../context/FavoritesContext";
 import { useLanguage } from "../../../context/LanguageContext";
 import { useWatchlist } from "../../../context/WatchlistContext";
+import { useWatchHistory } from "../../../context/WatchHistoryContext";
 
 // ─── MovieCard: poster card with quick actions ────────────────────────────────
 
@@ -25,6 +27,15 @@ const MovieCard = ({
   showReleaseDate = false,
 }) => {
   const { t, language } = useLanguage();
+  const {
+    history,
+    loading: historyLoading,
+    error: historyError,
+  } = useWatchHistory();
+  const watched =
+    !historyLoading &&
+    !historyError &&
+    history.some((entry) => entry.id === movie.id && entry.completed === true);
   const { toggleFavorite, isFavorite, isSavingFavorite } = useFavorites();
   const { toggleWatchlist, isInWatchlist, isSavingToWatchlist } =
     useWatchlist();
@@ -65,6 +76,20 @@ const MovieCard = ({
         >
           <MoviePoster src={poster} title={movie.title} />
         </Link>
+        {watched && (
+          <span
+            aria-label={t("Watched: {title}", { title: movie.title })}
+            className="pointer-events-none absolute bottom-2 left-2 right-2 flex justify-start"
+          >
+            <span className="inline-flex max-w-full items-center gap-1 rounded-lg border border-emerald-300/30 bg-slate-950/90 px-2 py-1 text-xs font-semibold text-emerald-300 shadow-sm">
+              <CheckCircleIcon
+                className="h-4 w-4 shrink-0"
+                aria-hidden="true"
+              />
+              <span className="min-w-0 break-words">{t("Watched")}</span>
+            </span>
+          </span>
+        )}
         {showActions && (
           <div className="absolute right-2 top-2 z-10 flex gap-1.5">
             <button
