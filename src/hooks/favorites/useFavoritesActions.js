@@ -1,5 +1,5 @@
 import { useRemovalUndo } from "../../context/RemovalUndoContext";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export default function useFavoritesActions({
   favorites,
@@ -8,6 +8,13 @@ export default function useFavoritesActions({
   showNotification,
 }) {
   const offerUndo = useRemovalUndo();
+  const active = useRef(true);
+  useEffect(() => {
+    active.current = true;
+    return () => {
+      active.current = false;
+    };
+  }, []);
   const pendingRef = useRef(new Set());
   const [pendingFavoriteIds, setPendingFavoriteIds] = useState(() => new Set());
 
@@ -29,6 +36,7 @@ export default function useFavoritesActions({
       }
 
       if (favoriteIds.has(movie.id)) {
+        if (!active.current) return false;
         showNotification(
           `${movie.title} is already in your favorites.`,
           "info",
@@ -50,6 +58,7 @@ export default function useFavoritesActions({
             import("../../firebase/favorites"),
           ]);
         await addMovieToFavorites(db, userId, movie);
+        if (!active.current) return false;
         showNotification(
           `${movie.title} added to your favorites.`,
           "success",
@@ -58,6 +67,7 @@ export default function useFavoritesActions({
         return true;
       } catch (saveError) {
         console.error("[favorites] Failed to add movie", saveError);
+        if (!active.current) return false;
         showNotification(
           "We couldn't add that movie to your favorites.",
           "error",
@@ -104,7 +114,7 @@ export default function useFavoritesActions({
             import("../../firebase/favorites"),
           ]);
         const removed = await removeMovieFromFavorites(db, userId, movieId);
-        if (!removed) return false;
+        if (!active.current || !removed) return false;
         offerUndo("favorites", movie);
         showNotification(
           `Removed ${movie.title} from favorites.`,
@@ -114,6 +124,7 @@ export default function useFavoritesActions({
         return true;
       } catch (removeError) {
         console.error("[favorites] Failed to remove movie", removeError);
+        if (!active.current) return false;
         showNotification(
           "We couldn't remove that movie right now.",
           "error",

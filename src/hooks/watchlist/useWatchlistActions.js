@@ -1,5 +1,5 @@
 import { useRemovalUndo } from "../../context/RemovalUndoContext";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 
 export default function useWatchlistActions({
@@ -9,6 +9,13 @@ export default function useWatchlistActions({
   showNotification,
 }) {
   const offerUndo = useRemovalUndo();
+  const active = useRef(true);
+  useEffect(() => {
+    active.current = true;
+    return () => {
+      active.current = false;
+    };
+  }, []);
   const pendingRef = useRef(new Set());
   const { t } = useLanguage();
   const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
@@ -33,6 +40,7 @@ export default function useWatchlistActions({
       }
 
       if (watchlistIds.has(movie.id)) {
+        if (!active.current) return false;
         showNotification(
           `${movie.title} is already in your watchlist.`,
           "info",
@@ -54,6 +62,7 @@ export default function useWatchlistActions({
             import("../../firebase/watchlist"),
           ]);
         await addMovieToWatchlist(db, userId, movie);
+        if (!active.current) return false;
         showNotification(
           `${movie.title} added to your watchlist.`,
           "success",
@@ -62,6 +71,7 @@ export default function useWatchlistActions({
         return true;
       } catch (error) {
         console.error("[watchlist] Failed to add movie", error);
+        if (!active.current) return false;
         showNotification(
           "We couldn't add that movie to your watchlist.",
           "error",
@@ -110,7 +120,7 @@ export default function useWatchlistActions({
             import("../../firebase/watchlist"),
           ]);
         const removed = await removeMovieFromWatchlist(db, userId, movieId);
-        if (!removed) return false;
+        if (!active.current || !removed) return false;
         offerUndo("watchlists", movie);
         showNotification(
           `Removed ${movie.title} from your watchlist.`,
@@ -120,6 +130,7 @@ export default function useWatchlistActions({
         return true;
       } catch (error) {
         console.error("[watchlist] Failed to remove movie", error);
+        if (!active.current) return false;
         showNotification(
           "We couldn't remove that movie right now.",
           "error",
@@ -170,6 +181,7 @@ export default function useWatchlistActions({
           movie.id,
           watched,
         );
+        if (!active.current) return false;
         if (!updated)
           showNotification(
             t("This movie is no longer in your watchlist."),
@@ -179,6 +191,7 @@ export default function useWatchlistActions({
         return updated;
       } catch (error) {
         console.error("[watchlist] Failed to update watched status", error);
+        if (!active.current) return false;
         showNotification(
           t("We couldn't update watched status. Please try again."),
           "error",

@@ -39,11 +39,13 @@ export default function useWatchlistSync(userId, showNotification) {
         unsubscribe = firestore.onSnapshot(
           watchlistDocRef,
           (snapshot) => {
+            if (cancelled) return;
             setWatchlist(watchlistModule.getWatchlistMovies(snapshot));
             setError(false);
             setLoading(false);
           },
           (subscriptionError) => {
+            if (cancelled) return;
             console.error("[watchlist] Failed to subscribe", subscriptionError);
             setError(true);
             setLoading(false);

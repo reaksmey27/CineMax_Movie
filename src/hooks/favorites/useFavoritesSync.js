@@ -40,11 +40,13 @@ export default function useFavoritesSync(userId, showNotification) {
         unsubscribe = firestore.onSnapshot(
           favoritesDocRef,
           (snapshot) => {
+            if (cancelled) return;
             setFavorites(favoritesModule.getFavoriteMovies(snapshot));
             setError(false);
             setLoading(false);
           },
           (subscriptionError) => {
+            if (cancelled) return;
             console.error("[favorites] Failed to subscribe", subscriptionError);
             setError(true);
             setLoading(false);
