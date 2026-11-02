@@ -29,7 +29,8 @@ test("Back restores movie results, filters, page, and scroll position", async ({
       body: `import React from '/node_modules/.vite/deps/react.js'; export default function Detail() { return React.createElement('div', {style:{height:2000,paddingTop:150}}, 'Movie detail fixture'); }`,
     }),
   );
-  const url = "/movies?page=2&year=2024&rating=7";
+  const url =
+    "/movies?page=2&year=2024&rating=7&country=JP&sort=vote_average.desc";
   await page.goto(url);
   const target = page.getByRole("link", { name: "Movie 25", exact: true });
   await target.scrollIntoViewIfNeeded();
@@ -39,9 +40,7 @@ test("Back restores movie results, filters, page, and scroll position", async ({
   await expect(page).toHaveURL(/\/movie\/25$/);
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
   await page.goBack();
-  await expect(page).toHaveURL(
-    new RegExp("/movies\\?page=2&year=2024&rating=7$"),
-  );
+  await expect(page).toHaveURL(`http://127.0.0.1:4173${url}`);
   await expect(target).toBeVisible();
   await expect
     .poll(async () =>
@@ -49,7 +48,17 @@ test("Back restores movie results, filters, page, and scroll position", async ({
     )
     .toBeLessThan(3);
   expect(requests).toBe(1);
-  await expect(page.getByLabel("Release Year")).toHaveValue("2024");
+  await expect(
+    page.getByLabel("Release Year", { exact: true }),
+  ).toHaveAttribute("data-value", "2024");
+  await expect(page.getByLabel("Country", { exact: true })).toHaveAttribute(
+    "data-value",
+    "JP",
+  );
+  await expect(page.getByLabel("Sort By", { exact: true })).toHaveAttribute(
+    "data-value",
+    "vote_average.desc",
+  );
   await expect(page.locator("#filter-select-minimum-rating")).toHaveAttribute(
     "data-value",
     "7",
