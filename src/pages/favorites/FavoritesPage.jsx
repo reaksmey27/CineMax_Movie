@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useAuth } from "../../context/AuthContext";
-import FavoritesLibrary from "./FavoritesLibrary";
+import FavoritesLibrary from "./components/FavoritesLibrary";
 import { useLanguage } from "../../context/LanguageContext";
 
 // ─── FavoritesPage: saved favorites grid ──────────────────────────────────────

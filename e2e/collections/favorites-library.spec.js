@@ -8,7 +8,7 @@ test("favorites search, sorting and reset fit mobile and desktop", async ({
     route.fulfill({
       contentType: "application/javascript",
       body: `import React from '/node_modules/.vite/deps/react.js';
-      import FavoritesLibrary from '/src/pages/favorites/FavoritesLibrary.jsx';
+      import FavoritesLibrary from '/src/pages/favorites/components/FavoritesLibrary.jsx';
       const movies = [
         { id: 1, title: 'Zodiac', rating: '7.5', savedAt: '2026-03-01' },
         { id: 2, title: 'Alien', rating: '8.5', savedAt: '2026-01-01' },

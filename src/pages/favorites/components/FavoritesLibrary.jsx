@@ -1,10 +1,10 @@
-import ClearCollectionButton from "../../components/movies/ClearCollectionButton";
-import CollectionState from "../../components/movies/CollectionState";
-import useCollectionFilters from "../../hooks/useCollectionFilters";
-import { useLanguage } from "../../context/LanguageContext";
-import CollectionFilters from "../../components/movies/CollectionFilters";
-import MovieGrid from "../../components/ui/MovieGrid";
-import { getWatchlistView } from "../watchlist/watchlistView";
+import ClearCollectionButton from "../../../components/movies/ClearCollectionButton";
+import CollectionState from "../../../components/movies/CollectionState";
+import useCollectionFilters from "../../../hooks/useCollectionFilters";
+import { useLanguage } from "../../../context/LanguageContext";
+import CollectionFilters from "../../../components/movies/CollectionFilters";
+import MovieGrid from "../../../components/ui/MovieGrid";
+import { getWatchlistView } from "../../watchlist/watchlistView";
 
 export default function FavoritesLibrary({ header, movies }) {
   const { t } = useLanguage();

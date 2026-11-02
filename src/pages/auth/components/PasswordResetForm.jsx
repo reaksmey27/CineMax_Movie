@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../firebase/config";
-import { useLanguage } from "../../context/LanguageContext";
+import { auth } from "../../../firebase/config";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default function PasswordResetForm({ initialEmail = "", onBack }) {
   const { t, language } = useLanguage();

@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import ClearSearchButton from "../../components/movies/ClearSearchButton";
-import FilterSelect from "../../components/movies/FilterSelect";
-import CollectionState from "../../components/movies/CollectionState";
-import useCollectionFilters from "../../hooks/useCollectionFilters";
+import ClearSearchButton from "../../../components/movies/ClearSearchButton";
+import FilterSelect from "../../../components/movies/FilterSelect";
+import CollectionState from "../../../components/movies/CollectionState";
+import useCollectionFilters from "../../../hooks/useCollectionFilters";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useLanguage } from "../../context/LanguageContext";
-import WatchHistoryList from "../../components/movies/WatchHistoryList";
+import { useLanguage } from "../../../context/LanguageContext";
+import WatchHistoryList from "../../../components/movies/WatchHistoryList";
 
 const CONTROL =
   "min-h-11 w-full min-w-0 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-elevated)] text-sm font-normal text-[var(--color-text)] transition-colors hover:border-purple-500/50 focus:border-purple-500 focus:outline-2 focus:outline-offset-2 focus:outline-purple-500/40";

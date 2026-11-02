@@ -8,7 +8,7 @@ test("watchlist, profile and accessible labels update live and preserve language
       contentType: "application/javascript",
       body: `
       import React from '/node_modules/.vite/deps/react.js';
-      import WatchlistLibrary from '/src/pages/watchlist/WatchlistLibrary.jsx';
+      import WatchlistLibrary from '/src/pages/watchlist/components/WatchlistLibrary.jsx';
       import ProfileCollection from '/src/pages/profile/components/ProfileCollection.jsx';
       export default function Fixture() {
         return React.createElement('main', { style: { padding: '120px 16px 40px' } },

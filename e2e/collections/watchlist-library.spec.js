@@ -12,7 +12,7 @@ test("watchlist controls filter, sort, toggle and reset on mobile", async ({
       body: `
       import React from '/node_modules/.vite/deps/react.js';
       const { useState } = React;
-      import WatchlistLibrary from '/src/pages/watchlist/WatchlistLibrary.jsx';
+      import WatchlistLibrary from '/src/pages/watchlist/components/WatchlistLibrary.jsx';
       export default function Fixture() {
         const [movies, setMovies] = useState([
           { id: 1, title: 'Zodiac', rating: '7.5', savedAt: '2026-01-01' },
