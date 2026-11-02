@@ -211,25 +211,74 @@ To add a language:
 
 ```text
 src/
-  assets/        Flag, icon, and image assets
+  assets/         Flag, icon, and image assets
   components/
+    auth/         Shared authentication controls and dialogs
     core/         Error boundary and route title/SEO manager
     layout/       Navigation, global search, footer
-    ui/           Shared movie cards, grids, loaders, donation dialog
-    auth/         Google sign-in button
+    movies/       Shared collection filters, actions, and history UI
+    ui/
+      buttons/    Floating navigation buttons
+      donation/   Donation button, dialog, payment rows, and dialog hook
+      feedback/   Page error state
+      loading/    Loaders and skeletons
+      movies/     Movie cards, posters, and grids
   config/         Routes, page metadata, and movie filter options
-  context/        Authentication, favorites, watchlist, notifications
-  firebase/       Firebase setup and watchlist persistence
-  hooks/
-    auth/         Authentication forms and profile editing
-    movies/       Discovery, collections, details, player state
+  context/        App-wide providers and account/collection state
+  firebase/       Firebase setup and persistence operations
+  hooks/          Shared hooks, grouped by feature
   i18n/           Language registry, lazy loader, and feature dictionaries per locale
-  pages/          Route pages: home, movies, profile, saved lists, notifications, auth, legal, 404
+  pages/          Route pages and their local components, hooks, utils, and constants
   services/       TMDB requests, caching, data formatting
-  utils/          Theme and authentication redirect helpers
+  utils/          Shared helpers such as theme, authentication redirects, and playback utilities
   index.css       Shared styles, theme variables, and animations
 public/           Static assets and crawler files
+tests/            Node tests, including Firestore emulator tests
+e2e/              Playwright tests grouped by feature, plus shared test helpers
 ```
+
+### Page folder conventions
+
+Keep each route entry at the root of its page folder. Group supporting components by purpose inside `components/`, and add `hooks/`, `utils/`, or `constants/` when that page needs them. Simple pages can remain a single file; empty folders are unnecessary.
+
+For example, the Movies page is organized as:
+
+```text
+src/pages/movies/
+  MoviesPage.jsx
+  MovieDetailPage.jsx
+  components/
+    details/      Metadata, cast, related movies, sharing, and detail states
+    filters/      Filter controls and selected-filter chips
+    listing/      Page header and pagination
+    player/       Movie player and playback reports
+    search/       Search fields, live results, and suggestions
+    trailers/     Trailer dialog, frame, and controls
+  hooks/          Search history, live search, suggestions, and trailer dialog state
+  utils/          Search-history operations and page-heading helpers
+  constants/      Filter styles and search-history storage settings
+```
+
+Other pages use groups that describe their own UI: Auth has `forms/` and `layout/`; Home has `hero/`, `listing/`, and `loading/`; Profile has `account/`, `banners/`, `collections/`, and `loading/`.
+
+### Where new files belong
+
+| File responsibility | Location | Existing example |
+| --- | --- | --- |
+| Route composition | `src/pages/<page>/` | [MoviesPage.jsx](src/pages/movies/MoviesPage.jsx) |
+| Page-specific UI | `src/pages/<page>/components/<group>/` | [MovieInfo.jsx](src/pages/movies/components/details/MovieInfo.jsx) |
+| Reusable UI | `src/components/<feature>/` or `src/components/ui/<group>/` | [MovieCard.jsx](src/components/ui/movies/MovieCard.jsx) |
+| Page-specific React state/effects | `src/pages/<page>/hooks/` | [useSearchHistory.js](src/pages/movies/hooks/useSearchHistory.js) |
+| Shared React state/effects | `src/hooks/<feature>/` | [useMovies.js](src/hooks/movies/useMovies.js) |
+| Formatting, filtering, or storage helpers | Page `utils/`, or `src/utils/` when shared | [watchlistView.js](src/pages/watchlist/utils/watchlistView.js) |
+| Page data, limits, and style constants | `src/pages/<page>/constants/` | [authPosterCards.js](src/pages/auth/constants/authPosterCards.js) |
+| App-wide configuration | `src/config/` | [movieFilters.js](src/config/movieFilters.js) |
+| Database operations | `src/firebase/` | [watchlist.js](src/firebase/watchlist.js) |
+| External movie API access | `src/services/` | [tmdbService.js](src/services/tmdbService.js) |
+
+Use PascalCase for React component files, `use` prefixes for hooks, and descriptive camelCase names for helpers and constants modules. Keep a helper with its owning feature until broader reuse warrants moving it to a shared folder.
+
+When moving a file, update its relative imports, all consumers, dynamic imports, and test fixtures that reference source paths. In particular, check `tests/localization.test.js` and Playwright fixtures that import `/src/...` modules. Run lint, the affected tests, and a production build after source-file moves. See [the browser test guide](e2e/README.md) for test organization.
 
 ## Deployment
 
@@ -282,7 +331,7 @@ Provider reference: [VidSrc player documentation](https://vidsrc.sh/vidsrc/docs/
 
 Movie metadata and artwork are fetched through [`tmdbService.js`](src/services/tmdbService.js). Playback sources are configured separately in [`useMovieDetail.js`](src/hooks/movies/useMovieDetail.js); TMDB does not supply the embedded video streams.
 
-Donation account details and the QR image are configured in [`DonationModal.jsx`](src/components/ui/DonationModal.jsx) and `src/assets/images/donation-qr.png`. Update both together when customizing the app. Review `public/robots.txt` and `public/sitemap.xml` for your deployment domain.
+Donation account details and the QR image are configured in [`DonationModal.jsx`](src/components/ui/donation/DonationModal.jsx) and `src/assets/images/donation-qr.png`. Update both together when customizing the app. Review `public/robots.txt` and `public/sitemap.xml` for your deployment domain.
 
 ## Playback problem reports
 
