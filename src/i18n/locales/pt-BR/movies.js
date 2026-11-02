@@ -1,5 +1,6 @@
 // pt-BR movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "Não foi possível carregar os detalhes do filme.",
   "All years": "Todos os anos",
   "Search years...": "Buscar anos...",
   "No years found": "Nenhum ano encontrado",

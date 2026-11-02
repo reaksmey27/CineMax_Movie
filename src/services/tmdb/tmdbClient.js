@@ -66,6 +66,11 @@ export const fetchFromTMDB = async (
       });
 
       if (!response.ok) {
+        if (response.status === 404) {
+          const error = new Error("TMDB API Error: 404");
+          error.status = 404;
+          throw error;
+        }
         if (response.status === 401) {
           throw new Error(
             "Invalid TMDB credentials. Please check VITE_TMDB_API_KEY or VITE_TMDB_READ_ACCESS_TOKEN in your .env file.",

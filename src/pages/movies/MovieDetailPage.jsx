@@ -20,6 +20,8 @@ const MovieDetailContent = ({ id }) => {
   const {
     movie,
     loading,
+    error,
+    retry,
     SERVERS,
     showTrailer,
     setShowTrailer,
@@ -53,7 +55,7 @@ const MovieDetailContent = ({ id }) => {
     return <MovieDetailSkeleton />;
   }
 
-  if (!movie) return <MovieDetailUnavailable />;
+  if (!movie) return <MovieDetailUnavailable error={error} onRetry={retry} />;
 
   // ─── Render: backdrop, player & info ──────────────────────────────────────────
 

@@ -1,5 +1,6 @@
 // km movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "មិនអាចផ្ទុកព័ត៌មានលម្អិតភាពយន្តបានទេ។",
   "All years": "គ្រប់ឆ្នាំ",
   "Search years...": "ស្វែងរកឆ្នាំ...",
   "No years found": "រកមិនឃើញឆ្នាំ",

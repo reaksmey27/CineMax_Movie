@@ -4,12 +4,15 @@ import { tmdbService } from "../../services/tmdbService";
 export default function useMovieDetailsData(id) {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [retryVersion, setRetryVersion] = useState(0);
 
   useEffect(() => {
     let ignore = false;
 
     const fetchDetails = async () => {
       setLoading(true);
+      setError(null);
       try {
         const data = await tmdbService.getMovieDetails(id);
         if (!ignore && data) {
@@ -17,7 +20,7 @@ export default function useMovieDetailsData(id) {
         }
       } catch (error) {
         if (!ignore) {
-          console.error("Error fetching movie details:", error);
+          setError(error.status === 404 ? "not-found" : "unavailable");
         }
       } finally {
         if (!ignore) {
@@ -30,7 +33,12 @@ export default function useMovieDetailsData(id) {
     return () => {
       ignore = true;
     };
-  }, [id]);
+  }, [id, retryVersion]);
 
-  return { movie, loading };
+  return {
+    movie,
+    loading,
+    error,
+    retry: () => setRetryVersion((value) => value + 1),
+  };
 }

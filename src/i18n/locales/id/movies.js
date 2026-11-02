@@ -1,5 +1,6 @@
 // id movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "Tidak dapat memuat detail film.",
   "All years": "Semua tahun",
   "Search years...": "Cari tahun...",
   "No years found": "Tahun tidak ditemukan",

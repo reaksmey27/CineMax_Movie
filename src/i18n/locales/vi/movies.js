@@ -1,5 +1,6 @@
 // vi movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "Không thể tải thông tin chi tiết phim.",
   "All years": "Tất cả các năm",
   "Search years...": "Tìm năm...",
   "No years found": "Không tìm thấy năm",

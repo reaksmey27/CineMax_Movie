@@ -1,5 +1,6 @@
 // ja movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "映画の詳細を読み込めませんでした。",
   "All years": "すべての年",
   "Search years...": "年を検索...",
   "No years found": "年が見つかりません",

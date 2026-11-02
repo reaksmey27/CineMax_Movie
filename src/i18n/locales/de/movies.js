@@ -1,5 +1,6 @@
 // de movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "Filmdetails konnten nicht geladen werden.",
   "All years": "Alle Jahre",
   "Search years...": "Jahre suchen...",
   "No years found": "Keine Jahre gefunden",

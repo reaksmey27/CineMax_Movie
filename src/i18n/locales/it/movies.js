@@ -1,5 +1,6 @@
 // it movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "Impossibile caricare i dettagli del film.",
   "All years": "Tutti gli anni",
   "Search years...": "Cerca anni...",
   "No years found": "Nessun anno trovato",

@@ -17,7 +17,7 @@ patchWindowOpen();
 
 const useMovieDetail = (id) => {
   const { isAuthenticated, loading: authLoading } = useAuth();
-  const { movie, loading } = useMovieDetailsData(id);
+  const { movie, loading, error, retry } = useMovieDetailsData(id);
 
   const [showTrailer, setShowTrailer] = useState(false);
   const [playRequested, setIsPlaying] = useState(false);
@@ -107,6 +107,8 @@ const useMovieDetail = (id) => {
   return {
     movie,
     loading,
+    error,
+    retry,
     SERVERS,
     showTrailer,
     setShowTrailer,

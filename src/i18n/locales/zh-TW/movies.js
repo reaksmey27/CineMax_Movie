@@ -1,5 +1,6 @@
 // zh-TW movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "無法載入電影詳細資訊。",
   "All years": "所有年份",
   "Search years...": "搜尋年份...",
   "No years found": "找不到年份",

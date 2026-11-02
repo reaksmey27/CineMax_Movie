@@ -1,5 +1,6 @@
 // ko movies messages. English keys remain the fallback.
 export default {
+  "Could not load movie details.": "영화 정보를 불러오지 못했습니다.",
   "All years": "모든 연도",
   "Search years...": "연도 검색...",
   "No years found": "연도를 찾을 수 없습니다",
