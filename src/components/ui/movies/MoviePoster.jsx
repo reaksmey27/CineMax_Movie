@@ -2,7 +2,15 @@ import { useState } from "react";
 import { FilmIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../../../context/LanguageContext";
 
-function PosterImage({ src, title, compact, className, imageClassName }) {
+function PosterImage({
+  src,
+  title,
+  alt,
+  loading,
+  compact,
+  className,
+  imageClassName,
+}) {
   const { t } = useLanguage();
   const [status, setStatus] = useState(src ? "loading" : "error");
   return (
@@ -34,8 +42,8 @@ function PosterImage({ src, title, compact, className, imageClassName }) {
       ) : (
         <img
           src={src}
-          alt=""
-          loading="lazy"
+          alt={alt}
+          loading={loading}
           decoding="async"
           onLoad={() => setStatus("loaded")}
           onError={() => setStatus("error")}
@@ -49,6 +57,8 @@ function PosterImage({ src, title, compact, className, imageClassName }) {
 export default function MoviePoster({
   src,
   title = "",
+  alt = "",
+  loading = "lazy",
   compact = false,
   className = "h-full w-full",
   imageClassName = "",
@@ -59,6 +69,8 @@ export default function MoviePoster({
       key={src || "missing"}
       src={src}
       title={title}
+      alt={alt}
+      loading={loading}
       compact={compact}
       className={className}
       imageClassName={imageClassName}

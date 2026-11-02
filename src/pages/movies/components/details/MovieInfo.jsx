@@ -1,4 +1,5 @@
 import ShareMovieButton from "./ShareMovieButton";
+import MoviePoster from "../../../../components/ui/movies/MoviePoster";
 import MovieFinishTime from "./MovieFinishTime";
 import React from "react";
 import {
@@ -36,12 +37,12 @@ const MovieInfo = ({
   return (
     <div className="animate-in flex flex-col gap-8 duration-700 slide-in-from-left-6 sm:gap-12 lg:flex-row lg:gap-8 xl:gap-12">
       <div className="mx-auto w-full max-w-sm shrink-0 lg:mx-0 lg:w-72 lg:max-w-none xl:w-80">
-        <img
+        <MoviePoster
           src={movie.posterImage || movie.image}
+          title={movie.title}
           alt={movie.title}
-          className="w-full rounded-2xl border border-[var(--color-border)] shadow-2xl transition-transform duration-500 hover:scale-[1.01] sm:rounded-4xl"
+          className="aspect-[2/3] w-full rounded-2xl border border-[var(--color-border)] shadow-2xl transition-transform duration-500 hover:scale-[1.01] sm:rounded-4xl"
           loading="eager"
-          decoding="async"
         />
       </div>
 

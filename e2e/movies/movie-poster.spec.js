@@ -54,3 +54,66 @@ test("posters load without resizing, recover after source changes, and handle mi
   await expect(poster).toHaveAttribute("data-poster-state", "loaded");
   expect(await poster.boundingBox()).toEqual(bounds);
 });
+
+for (const fails of [false, true]) {
+  test(`detail poster reserves space when loading ${fails ? "fails" : "succeeds"}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    let release;
+    const gate = new Promise((resolve) => {
+      release = resolve;
+    });
+    await page.route("https://api.themoviedb.org/**", (route) => {
+      const path = new URL(route.request().url()).pathname;
+      return route.fulfill({
+        json: path.endsWith("/movie/42")
+          ? {
+              id: 42,
+              title: "Poster Loading Test",
+              poster_path: "/detail-poster.png",
+              backdrop_path: "/backdrop.png",
+              genres: [],
+              credits: {},
+              videos: { results: [] },
+            }
+          : { results: [] },
+      });
+    });
+    await page.route("https://image.tmdb.org/**", async (route) => {
+      if (route.request().url().endsWith("/detail-poster.png")) await gate;
+      await route.fulfill(
+        fails
+          ? { status: 404, body: "" }
+          : {
+              contentType: "image/png",
+              body: Buffer.from(
+                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a8WQAAAAASUVORK5CYII=",
+                "base64",
+              ),
+            },
+      );
+    });
+    await page.goto("/movie/42", { waitUntil: "domcontentloaded" });
+    const poster = page.locator("[data-poster-state]").first();
+    await expect(poster).toHaveAttribute("data-poster-state", "loading");
+    await expect(poster.locator("img")).toHaveAttribute("loading", "eager");
+    await expect(poster.locator("img")).toHaveAttribute(
+      "alt",
+      "Poster Loading Test",
+    );
+    const bounds = await poster.boundingBox();
+    expect(bounds.height / bounds.width).toBeCloseTo(1.5, 1);
+    const heading = page.getByRole("heading", { name: "Poster Loading Test" });
+    const headingBounds = await heading.boundingBox();
+    release();
+    await expect(poster).toHaveAttribute(
+      "data-poster-state",
+      fails ? "error" : "loaded",
+    );
+    expect(await poster.boundingBox()).toEqual(bounds);
+    expect(await heading.boundingBox()).toEqual(headingBounds);
+    if (fails) await expect(poster).toContainText("Poster unavailable");
+  });
+}
