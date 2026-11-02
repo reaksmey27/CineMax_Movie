@@ -10,6 +10,7 @@ import ProfileCollection from "./components/collections/ProfileCollection";
 import ProfileForm from "./components/account/ProfileForm";
 import { useLanguage } from "../../context/LanguageContext";
 import SignOutDialog from "../../components/auth/SignOutDialog";
+import ViewingStats from "./components/stats/ViewingStats";
 
 // ─── ProfilePage: account, stats & collections ────────────────────────────────
 
@@ -104,6 +105,7 @@ const ProfilePage = () => {
             </button>
           </div>
         </header>
+        <ViewingStats />
         <ProfileCollection />
         {isEditing && (
           <ProfileForm

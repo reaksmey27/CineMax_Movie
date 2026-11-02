@@ -1,5 +1,11 @@
 // vi profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "Thống kê xem phim",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "Dựa trên 50 mục lịch sử gần nhất. Bỏ qua thời lượng và thể loại còn thiếu.",
+  "Movies watched": "Phim đã xem",
+  "Estimated hours watched": "Số giờ xem ước tính",
+  "Most-watched genres": "Thể loại xem nhiều nhất",
+  "No genre data yet": "Chưa có dữ liệu thể loại",
   "{list}: {count}": "{list}: {count}",
   "{name}'s profile photo": "Ảnh hồ sơ của {name}",
   "Account Snapshot": "Tổng quan tài khoản",

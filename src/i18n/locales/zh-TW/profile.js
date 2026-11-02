@@ -1,5 +1,11 @@
 // zh-TW profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "觀影統計",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "根據最近50筆紀錄計算。缺少的片長和類型不納入計算。",
+  "Movies watched": "已看電影",
+  "Estimated hours watched": "預估觀看時數",
+  "Most-watched genres": "最常看的類型",
+  "No genre data yet": "尚無類型資料",
   "{list}: {count}": "{list}：{count}",
   "{name}'s profile photo": "{name}的個人資料照片",
   "Account Snapshot": "帳戶概覽",

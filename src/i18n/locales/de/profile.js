@@ -1,5 +1,11 @@
 // de profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "Sehstatistik",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "Basierend auf den letzten 50 Einträgen. Fehlende Laufzeiten und Genres werden ausgeschlossen.",
+  "Movies watched": "Gesehene Filme",
+  "Estimated hours watched": "Geschätzte Sehstunden",
+  "Most-watched genres": "Meistgesehene Genres",
+  "No genre data yet": "Noch keine Genredaten",
   "{list}: {count}": "{list}: {count}",
   "{name}'s profile photo": "Profilfoto von {name}",
   "Account Snapshot": "Konto-Überblick",

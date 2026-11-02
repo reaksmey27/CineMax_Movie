@@ -1,5 +1,11 @@
 // ko profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "시청 통계",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "최근 기록 50개를 기준으로 합니다. 누락된 상영 시간과 장르는 제외됩니다.",
+  "Movies watched": "시청한 영화",
+  "Estimated hours watched": "예상 시청 시간",
+  "Most-watched genres": "가장 많이 본 장르",
+  "No genre data yet": "장르 정보가 없습니다",
   "{list}: {count}": "{list}: {count}",
   "{name}'s profile photo": "{name}의 프로필 사진",
   "Account Snapshot": "계정 요약",

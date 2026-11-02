@@ -1,5 +1,11 @@
 // ja profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "視聴統計",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "直近50件の履歴に基づきます。上映時間やジャンルが不明な作品は集計から除外されます。",
+  "Movies watched": "視聴済みの映画",
+  "Estimated hours watched": "推定視聴時間",
+  "Most-watched genres": "よく見るジャンル",
+  "No genre data yet": "ジャンル情報はまだありません",
   "{list}: {count}": "{list}：{count}",
   "{name}'s profile photo": "{name}のプロフィール写真",
   "Account Snapshot": "アカウント概要",

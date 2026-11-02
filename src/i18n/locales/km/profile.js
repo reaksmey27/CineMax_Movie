@@ -1,5 +1,11 @@
 // km profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "ស្ថិតិការមើល",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "ផ្អែកលើប្រវត្តិ ៥០ ចុងក្រោយ។ មិនរាប់រយៈពេល និងប្រភេទដែលមិនមានទិន្នន័យ។",
+  "Movies watched": "ភាពយន្តបានមើល",
+  "Estimated hours watched": "ម៉ោងមើលប៉ាន់ស្មាន",
+  "Most-watched genres": "ប្រភេទដែលមើលច្រើនបំផុត",
+  "No genre data yet": "មិនទាន់មានទិន្នន័យប្រភេទ",
   "{list}: {count}": "{list}៖ {count}",
   "{name}'s profile photo": "រូបថតប្រវត្តិរូបរបស់ {name}",
   "Account Snapshot": "សង្ខេបគណនី",

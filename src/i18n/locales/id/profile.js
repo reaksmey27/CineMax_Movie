@@ -1,5 +1,11 @@
 // id profile messages. English keys remain the fallback.
 export default {
+  "Viewing statistics": "Statistik tontonan",
+  "Based on your latest 50 history entries. Missing runtimes and genres are excluded.": "Berdasarkan 50 riwayat terbaru. Durasi dan genre yang tidak tersedia tidak dihitung.",
+  "Movies watched": "Film ditonton",
+  "Estimated hours watched": "Perkiraan jam menonton",
+  "Most-watched genres": "Genre paling sering ditonton",
+  "No genre data yet": "Belum ada data genre",
   "{list}: {count}": "{list}: {count}",
   "{name}'s profile photo": "Foto profil {name}",
   "Account Snapshot": "Ringkasan akun",

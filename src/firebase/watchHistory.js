@@ -62,6 +62,13 @@ export async function saveWatchHistory(database, userId, movie, details) {
     positionSeconds,
     durationSeconds,
     completed: Boolean(completed),
+    runtimeMinutes:
+      Number.isFinite(movie.runtimeMinutes) && movie.runtimeMinutes > 0
+        ? movie.runtimeMinutes
+        : 0,
+    genres: Array.isArray(movie.genres)
+      ? movie.genres.filter((genre) => typeof genre === "string")
+      : [],
     lastWatchedAt: new Date().toISOString(),
   });
 }
