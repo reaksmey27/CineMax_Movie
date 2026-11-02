@@ -8,20 +8,18 @@ const LIVE_SEARCH_DEBOUNCE = 300;
 // ─── useLiveSearch: debounced TMDB search for the dropdown ────────────────────
 
 export const useLiveSearch = ({ enabled, query }) => {
-  const [liveResults, setLiveResults] = useState([]);
-  const [isLiveSearchLoading, setIsLiveSearchLoading] = useState(false);
+  const [response, setResponse] = useState({ query: "", results: [] });
   const [activeResultIndex, setActiveResultIndex] = useState(-1);
+  const canSearch = enabled && query.length >= 2;
+  const isLiveSearchLoading = canSearch && response.query !== query;
+  const liveResults = canSearch && !isLiveSearchLoading ? response.results : [];
 
   useEffect(() => {
     if (!enabled || query.length < 2) {
-      setLiveResults([]);
-      setIsLiveSearchLoading(false);
-      setActiveResultIndex(-1);
       return undefined;
     }
 
     let isActive = true;
-    setIsLiveSearchLoading(true);
 
     const timeoutId = window.setTimeout(async () => {
       try {
@@ -29,15 +27,13 @@ export const useLiveSearch = ({ enabled, query }) => {
         if (!isActive) return;
 
         const results = (response?.results || []).slice(0, 6);
-        setLiveResults(results);
+        setResponse({ query, results });
         setActiveResultIndex(results.length > 0 ? 0 : -1);
       } catch (error) {
         if (!isActive) return;
         console.error("Error fetching live search results:", error);
-        setLiveResults([]);
+        setResponse({ query, results: [] });
         setActiveResultIndex(-1);
-      } finally {
-        if (isActive) setIsLiveSearchLoading(false);
       }
     }, LIVE_SEARCH_DEBOUNCE);
 
@@ -50,7 +46,7 @@ export const useLiveSearch = ({ enabled, query }) => {
   return {
     liveResults,
     isLiveSearchLoading,
-    activeResultIndex,
+    activeResultIndex: liveResults.length ? activeResultIndex : -1,
     setActiveResultIndex,
   };
 };
