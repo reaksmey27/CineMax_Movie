@@ -1,5 +1,5 @@
 import { useRemovalUndo } from "../../context/RemovalUndoContext";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 export default function useFavoritesActions({
   favorites,
@@ -8,6 +8,7 @@ export default function useFavoritesActions({
   showNotification,
 }) {
   const offerUndo = useRemovalUndo();
+  const pendingRef = useRef(new Set());
   const [pendingFavoriteIds, setPendingFavoriteIds] = useState(() => new Set());
 
   const favoriteIds = useMemo(
@@ -36,10 +37,11 @@ export default function useFavoritesActions({
         return false;
       }
 
-      if (pendingFavoriteIds.has(movie.id)) {
+      if (pendingRef.current.has(movie.id)) {
         return false;
       }
 
+      pendingRef.current.add(movie.id);
       setPendingFavoriteIds((previous) => new Set(previous).add(movie.id));
       try {
         const [{ db }, { addToFavorites: addMovieToFavorites }] =
@@ -63,6 +65,7 @@ export default function useFavoritesActions({
         );
         return false;
       } finally {
+        pendingRef.current.delete(movie.id);
         setPendingFavoriteIds((previous) => {
           const next = new Set(previous);
           next.delete(movie.id);
@@ -70,13 +73,7 @@ export default function useFavoritesActions({
         });
       }
     },
-    [
-      favoriteIds,
-      onRequireSignIn,
-      pendingFavoriteIds,
-      showNotification,
-      userId,
-    ],
+    [favoriteIds, onRequireSignIn, showNotification, userId],
   );
 
   const removeFromFavorites = useCallback(
@@ -94,10 +91,11 @@ export default function useFavoritesActions({
         return false;
       }
 
-      if (pendingFavoriteIds.has(movieId)) {
+      if (pendingRef.current.has(movieId)) {
         return false;
       }
 
+      pendingRef.current.add(movieId);
       setPendingFavoriteIds((previous) => new Set(previous).add(movieId));
       try {
         const [{ db }, { removeFromFavorites: removeMovieFromFavorites }] =
@@ -123,6 +121,7 @@ export default function useFavoritesActions({
         );
         return false;
       } finally {
+        pendingRef.current.delete(movieId);
         setPendingFavoriteIds((previous) => {
           const next = new Set(previous);
           next.delete(movieId);
@@ -130,14 +129,7 @@ export default function useFavoritesActions({
         });
       }
     },
-    [
-      offerUndo,
-      favorites,
-      onRequireSignIn,
-      pendingFavoriteIds,
-      showNotification,
-      userId,
-    ],
+    [offerUndo, favorites, onRequireSignIn, showNotification, userId],
   );
 
   const isFavorite = useCallback(

@@ -1,5 +1,5 @@
 import { meetsPasswordRequirements } from "../../utils/passwordRequirements";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAuthRedirect } from "../../utils/authRedirect";
 import { useAuth } from "../../context/AuthContext";
@@ -24,6 +24,7 @@ const useAuthForm = (mode = "login") => {
   const [formData, setFormData] = useState(createInitialState);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const submittingRef = useRef(false);
 
   // ─── Helpers: field validation ────────────────────────────────────────────────
 
@@ -72,7 +73,7 @@ const useAuthForm = (mode = "login") => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (authenticating || submitting) {
+    if (authenticating || submittingRef.current) {
       return;
     }
 
@@ -83,6 +84,7 @@ const useAuthForm = (mode = "login") => {
       return;
     }
 
+    submittingRef.current = true;
     setSubmitting(true);
 
     try {
@@ -105,6 +107,7 @@ const useAuthForm = (mode = "login") => {
         navigate(getAuthRedirect(location.state), { replace: true });
       }
     } finally {
+      submittingRef.current = false;
       setSubmitting(false);
     }
   };

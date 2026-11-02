@@ -1,5 +1,5 @@
 import { useRemovalUndo } from "../../context/RemovalUndoContext";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 
 export default function useWatchlistActions({
@@ -9,6 +9,7 @@ export default function useWatchlistActions({
   showNotification,
 }) {
   const offerUndo = useRemovalUndo();
+  const pendingRef = useRef(new Set());
   const { t } = useLanguage();
   const [pendingWatchlistIds, setPendingWatchlistIds] = useState(
     () => new Set(),
@@ -40,10 +41,11 @@ export default function useWatchlistActions({
         return false;
       }
 
-      if (pendingWatchlistIds.has(movie.id)) {
+      if (pendingRef.current.has(movie.id)) {
         return false;
       }
 
+      pendingRef.current.add(movie.id);
       setPendingWatchlistIds((previous) => new Set(previous).add(movie.id));
       try {
         const [{ db }, { addToWatchlist: addMovieToWatchlist }] =
@@ -67,6 +69,7 @@ export default function useWatchlistActions({
         );
         return false;
       } finally {
+        pendingRef.current.delete(movie.id);
         setPendingWatchlistIds((previous) => {
           const next = new Set(previous);
           next.delete(movie.id);
@@ -74,13 +77,7 @@ export default function useWatchlistActions({
         });
       }
     },
-    [
-      onRequireSignIn,
-      pendingWatchlistIds,
-      showNotification,
-      userId,
-      watchlistIds,
-    ],
+    [onRequireSignIn, showNotification, userId, watchlistIds],
   );
 
   const removeFromWatchlist = useCallback(
@@ -100,10 +97,11 @@ export default function useWatchlistActions({
         return false;
       }
 
-      if (pendingWatchlistIds.has(movieId)) {
+      if (pendingRef.current.has(movieId)) {
         return false;
       }
 
+      pendingRef.current.add(movieId);
       setPendingWatchlistIds((previous) => new Set(previous).add(movieId));
       try {
         const [{ db }, { removeFromWatchlist: removeMovieFromWatchlist }] =
@@ -129,6 +127,7 @@ export default function useWatchlistActions({
         );
         return false;
       } finally {
+        pendingRef.current.delete(movieId);
         setPendingWatchlistIds((previous) => {
           const next = new Set(previous);
           next.delete(movieId);
@@ -136,14 +135,7 @@ export default function useWatchlistActions({
         });
       }
     },
-    [
-      offerUndo,
-      onRequireSignIn,
-      pendingWatchlistIds,
-      showNotification,
-      userId,
-      watchlist,
-    ],
+    [offerUndo, onRequireSignIn, showNotification, userId, watchlist],
   );
 
   const isInWatchlist = useCallback(
@@ -164,7 +156,8 @@ export default function useWatchlistActions({
 
   const setWatched = useCallback(
     async (movie, watched) => {
-      if (!userId || pendingWatchlistIds.has(movie.id)) return false;
+      if (!userId || pendingRef.current.has(movie.id)) return false;
+      pendingRef.current.add(movie.id);
       setPendingWatchlistIds((previous) => new Set(previous).add(movie.id));
       try {
         const [{ db }, { setWatchlistWatched }] = await Promise.all([
@@ -193,6 +186,7 @@ export default function useWatchlistActions({
         );
         return false;
       } finally {
+        pendingRef.current.delete(movie.id);
         setPendingWatchlistIds((previous) => {
           const next = new Set(previous);
           next.delete(movie.id);
@@ -200,7 +194,7 @@ export default function useWatchlistActions({
         });
       }
     },
-    [pendingWatchlistIds, showNotification, userId, t],
+    [showNotification, userId, t],
   );
 
   return {
