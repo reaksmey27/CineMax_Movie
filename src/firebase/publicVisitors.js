@@ -1,12 +1,10 @@
 import {
   collection,
-  deleteDoc,
   doc,
   limit,
   onSnapshot,
   orderBy,
   query,
-  runTransaction,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
@@ -24,46 +22,39 @@ export const subscribeVisitors = (next, error) =>
       next(snapshot.docs.map((item) => ({ id: item.id, ...item.data() }))),
     error,
   );
-export const subscribeVisitorPreference = (uid, next, error) =>
-  onSnapshot(reference(uid), (snapshot) => next(snapshot.exists()), error);
-export const setVisitorPreference = (user, enabled) => {
-  if (!enabled) return deleteDoc(reference(user.uid));
+const visits = new Map();
+export function publishPublicVisitor(user) {
+  if (!user?.uid) return Promise.resolve();
   const candidate = user.avatar || user.photoURL || "";
   const photoURL =
-    /^https:\/\//i.test(candidate) && candidate.length <= 2048 ? candidate : "";
-  return setDoc(reference(user.uid), {
-    photoURL,
-    lastVisitedAt: serverTimestamp(),
-  });
-};
-
-const visits = new Map();
-export function touchPublicVisitor(uid) {
-  if (visits.has(uid)) return visits.get(uid);
-  const key = `cinemax:public-visitor:${uid}`;
+    typeof candidate === "string" &&
+    /^https:\/\//.test(candidate) &&
+    candidate.length <= 2048
+      ? candidate
+      : "";
+  const memoryKey = JSON.stringify([user.uid, photoURL]);
+  if (visits.has(memoryKey)) return visits.get(memoryKey);
+  const key = `cinemax:public-visitor:v2:${user.uid}`;
   try {
-    if (sessionStorage.getItem(key)) return Promise.resolve();
+    if (sessionStorage.getItem(key) === photoURL) return Promise.resolve();
   } catch {
     /* Memory fallback. */
   }
-  const pending = runTransaction(db, async (transaction) => {
-    const target = reference(uid);
-    const snapshot = await transaction.get(target);
-    // Never create a public profile without an explicit opt-in.
-    if (snapshot.exists())
-      transaction.update(target, { lastVisitedAt: serverTimestamp() });
+  const pending = setDoc(reference(user.uid), {
+    photoURL,
+    lastVisitedAt: serverTimestamp(),
   })
     .then(() => {
       try {
-        sessionStorage.setItem(key, "1");
+        sessionStorage.setItem(key, photoURL);
       } catch {
         /* Memory fallback. */
       }
     })
     .catch((error) => {
-      visits.delete(uid);
+      visits.delete(memoryKey);
       throw error;
     });
-  visits.set(uid, pending);
+  visits.set(memoryKey, pending);
   return pending;
 }

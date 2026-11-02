@@ -1,5 +1,6 @@
 // id profile messages. English keys remain the fallback.
 export default {
+  "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "Saat berkunjung setelah masuk, foto profil Anda tampil secara publik di pengunjung terbaru. Kami menyimpan URL foto dan waktu kunjungan terakhir. Tamu tetap anonim.",
   "Visitor": "Pengunjung",
   "Recent visitors": "Pengunjung terbaru",
   "Show my photo in recent visitors": "Tampilkan foto saya di pengunjung terbaru",

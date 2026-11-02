@@ -24,6 +24,7 @@ const SECTIONS = [
     body: [
       "Account details: when you sign in with Google, Firebase Authentication provides your name, email address and profile image. Your Google password is never shared with us.",
       "Profile details: anything you choose to add on the Profile page, such as a display name, bio, location and favorite genre.",
+      "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.",
       "Saved collections: the movies you add to your favorites and watchlist, stored in Cloud Firestore under your account so they sync across devices.",
       "Preferences: your theme and language choice, notification history, and recent searches, which are kept in your browser's local storage.",
     ],

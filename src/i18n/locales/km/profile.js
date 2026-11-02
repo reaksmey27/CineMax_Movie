@@ -1,5 +1,6 @@
 // km profile messages. English keys remain the fallback.
 export default {
+  "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "នៅពេលអ្នកចូលមើលដោយបានចូលគណនី រូបប្រវត្តិរូបរបស់អ្នកបង្ហាញជាសាធារណៈក្នុងអ្នកចូលមើលថ្មីៗ។ យើងរក្សាទុកតំណរូប និងពេលចូលមើលចុងក្រោយ។ ភ្ញៀវនៅតែអនាមិក។",
   "Visitor": "អ្នកចូលមើល",
   "Recent visitors": "អ្នកចូលមើលថ្មីៗ",
   "Show my photo in recent visitors": "បង្ហាញរូបខ្ញុំក្នុងបញ្ជីអ្នកចូលមើលថ្មីៗ",

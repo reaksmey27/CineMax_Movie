@@ -1,5 +1,6 @@
 // ja profile messages. English keys remain the fallback.
 export default {
+  "When you visit while signed in, your profile photo appears publicly among recent visitors. We store its URL and your latest visit time. Guests remain anonymous.": "ログイン中に訪問すると、プロフィール写真が最近の訪問者として公開されます。写真のURLと最終訪問日時を保存します。ゲストは匿名のままです。",
   "Visitor": "訪問者",
   "Recent visitors": "最近の訪問者",
   "Show my photo in recent visitors": "最近の訪問者に自分の写真を表示する",

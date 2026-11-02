@@ -11,7 +11,6 @@ import ProfileForm from "./components/account/ProfileForm";
 import { useLanguage } from "../../context/LanguageContext";
 import SignOutDialog from "../../components/auth/SignOutDialog";
 import ViewingStats from "./components/stats/ViewingStats";
-import PublicVisitorPreference from "./components/account/PublicVisitorPreference";
 
 // ─── ProfilePage: account, stats & collections ────────────────────────────────
 
@@ -107,7 +106,6 @@ const ProfilePage = () => {
           </div>
         </header>
         <ViewingStats />
-        <PublicVisitorPreference key={user.uid} user={user} />
         <ProfileCollection />
         {isEditing && (
           <ProfileForm

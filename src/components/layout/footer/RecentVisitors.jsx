@@ -26,6 +26,9 @@ function Avatar({ photoURL }) {
 
 export default function RecentVisitors() {
   const { user } = useAuth();
+  const uid = user?.uid;
+  const avatar = user?.avatar;
+  const photoURL = user?.photoURL;
   const { t } = useLanguage();
   const [visitors, setVisitors] = useState([]);
   useEffect(() => {
@@ -45,17 +48,18 @@ export default function RecentVisitors() {
     };
   }, []);
   useEffect(() => {
-    if (!user?.uid) return;
+    if (!uid) return;
     let active = true;
     import("../../../firebase/publicVisitors")
       .then((storage) => {
-        if (active) return storage.touchPublicVisitor(user.uid);
+        if (active)
+          return storage.publishPublicVisitor({ uid, avatar, photoURL });
       })
       .catch(() => {});
     return () => {
       active = false;
     };
-  }, [user?.uid]);
+  }, [uid, avatar, photoURL]);
   if (!visitors.length) return null;
   return (
     <div className="space-y-2">
