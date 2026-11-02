@@ -7,11 +7,11 @@ const MovieSliderSkeleton = ({ count = 6 }) => {
   return (
     <section
       aria-hidden="true"
-      className="relative overflow-hidden bg-transparent py-4 sm:py-10"
+      className="relative mx-auto max-w-[1600px] overflow-hidden bg-transparent py-4 sm:py-10"
     >
       <div className="mb-4 px-4 sm:mb-8 sm:px-6 lg:px-24">
-        <div className="flex items-center gap-3">
-          <span className="block h-7 w-40 rounded-full bg-slate-200/10 skeleton-shimmer sm:h-9 sm:w-56 md:h-11 md:w-72" />
+        <div className="flex min-h-11 items-center gap-3">
+          <span className="block h-[clamp(2.1rem,3.5vw,3.15rem)] w-40 rounded-full bg-slate-200/10 skeleton-shimmer sm:w-56 md:w-72" />
           <span className="mt-2 hidden h-0.5 w-12 rounded-full bg-slate-200/10 md:block" />
         </div>
       </div>

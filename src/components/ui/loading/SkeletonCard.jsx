@@ -15,9 +15,9 @@ const SkeletonCard = ({ className = "" }) => (
         <div className="h-4 w-5/6 rounded bg-[var(--color-surface-3)] skeleton-shimmer" />
         <div className="h-4 w-3/5 rounded bg-[var(--color-surface-2)] skeleton-shimmer" />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex min-h-6.5 items-center justify-between">
         <div className="h-4 w-10 rounded bg-[var(--color-surface-2)] skeleton-shimmer sm:h-5" />
-        <div className="h-4 w-12 rounded bg-[var(--color-surface-2)] skeleton-shimmer sm:h-5" />
+        <div className="h-6.5 w-12 rounded bg-[var(--color-surface-2)] skeleton-shimmer" />
       </div>
     </div>
   </div>
