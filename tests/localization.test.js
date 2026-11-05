@@ -36,7 +36,6 @@ const sources = [
   "src/pages/profile/ProfilePage.jsx",
   "src/pages/profile/components/stats/ViewingStats.jsx",
   "src/components/ui/movies/MovieCard.jsx",
-  "src/components/ui/movies/MovieWatchedButton.jsx",
   "src/components/layout/footer/RecentVisitors.jsx",
 ];
 const keys = new Set([

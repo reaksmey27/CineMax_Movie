@@ -12,6 +12,11 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
+import {
+  completionPercent,
+  mergeWatchedRanges,
+  watchedSecondsFromRanges,
+} from "../utils/player/watchTracking.js";
 
 export const WATCH_HISTORY_COLLECTION = "watchHistory";
 const historyCollection = (database, userId) => {
@@ -53,6 +58,14 @@ export async function saveWatchHistory(database, userId, movie, details) {
     durationSeconds > 86400
   )
     throw new Error("Invalid playback progress.");
+  const watchedRanges = mergeWatchedRanges(
+    details.watchedRanges,
+    durationSeconds,
+  );
+  const watchedSeconds = watchedSecondsFromRanges(
+    watchedRanges,
+    durationSeconds,
+  );
   await setDoc(historyDocument(database, userId, movie.id), {
     id: movie.id,
     title: movie.title || "",
@@ -62,6 +75,11 @@ export async function saveWatchHistory(database, userId, movie, details) {
     server,
     positionSeconds,
     durationSeconds,
+    watchedSeconds,
+    watchedRanges,
+    completionPercent: completed
+      ? 100
+      : completionPercent(watchedSeconds, durationSeconds),
     completed: Boolean(completed),
     runtimeMinutes:
       Number.isFinite(movie.runtimeMinutes) && movie.runtimeMinutes > 0
@@ -75,7 +93,10 @@ export async function saveWatchHistory(database, userId, movie, details) {
 }
 
 export const finishWatchHistory = (database, userId, movieId) =>
-  updateDoc(historyDocument(database, userId, movieId), { completed: true });
+  updateDoc(historyDocument(database, userId, movieId), {
+    completed: true,
+    completionPercent: 100,
+  });
 
 export async function setMovieWatched(database, userId, movie, completed) {
   const reference = historyDocument(database, userId, movie.id);
@@ -85,7 +106,12 @@ export async function setMovieWatched(database, userId, movie, completed) {
       // Preserve saved playback progress, server and metadata, even outside the latest 50.
       transaction.update(reference, {
         completed: Boolean(completed),
-        ...(completed ? { lastWatchedAt: new Date().toISOString() } : {}),
+        ...(completed
+          ? {
+              lastWatchedAt: new Date().toISOString(),
+              completionPercent: 100,
+            }
+          : { watchedSeconds: 0, watchedRanges: [], completionPercent: 0 }),
       });
     } else {
       transaction.set(reference, {
@@ -104,6 +130,9 @@ export async function setMovieWatched(database, userId, movie, completed) {
         server: "Server 1",
         positionSeconds: 0,
         durationSeconds: 0,
+        watchedSeconds: 0,
+        watchedRanges: [],
+        completionPercent: completed ? 100 : 0,
         completed: Boolean(completed),
         lastWatchedAt: new Date().toISOString(),
       });
@@ -111,7 +140,12 @@ export async function setMovieWatched(database, userId, movie, completed) {
   });
 }
 export const markWatchHistoryUnfinished = (database, userId, movieId) =>
-  updateDoc(historyDocument(database, userId, movieId), { completed: false });
+  updateDoc(historyDocument(database, userId, movieId), {
+    completed: false,
+    watchedSeconds: 0,
+    watchedRanges: [],
+    completionPercent: 0,
+  });
 export const removeWatchHistory = (database, userId, movieId) =>
   deleteDoc(historyDocument(database, userId, movieId));
 

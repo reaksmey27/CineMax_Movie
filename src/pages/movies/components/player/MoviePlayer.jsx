@@ -51,9 +51,10 @@ const MoviePlayer = ({
     if (Number.isFinite(video.duration) && video.duration > 0)
       persist(
         {
-          positionSeconds: video.currentTime,
+          positionSeconds: Math.min(video.currentTime, video.duration),
           durationSeconds: video.duration,
           completed: video.ended,
+          playing: !video.paused && !video.seeking && !video.ended,
         },
         force,
       );

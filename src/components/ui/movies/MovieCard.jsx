@@ -1,5 +1,4 @@
 import MoviePoster from "./MoviePoster";
-import MovieWatchedButton from "./MovieWatchedButton";
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -204,7 +203,6 @@ const MovieCard = ({
             </span>
           )}
         </div>
-        {showActions && <MovieWatchedButton movie={movie} watched={watched} />}
       </div>
     </article>
   );
