@@ -20,6 +20,30 @@ test("counts once across concurrent mounts and reads on session reload", async (
   assert.equal(await createVisitLoader(deps)(), 12);
 });
 
+test("keeps one visit while browsing and counts again after a 30 minute break", async () => {
+  let count = 0;
+  let time = 1_700_000_000_000;
+  const values = new Map();
+  const deps = {
+    record: async () => ++count,
+    read: async () => count,
+    now: () => time,
+    storage: {
+      getItem: (key) => values.get(key),
+      setItem: (key, value) => values.set(key, value),
+    },
+  };
+  assert.equal(await createVisitLoader(deps)(), 1);
+  time += 29 * 60 * 1000;
+  assert.equal(await createVisitLoader(deps)(), 1);
+  // Browsing again extends the same visit instead of starting a new one.
+  time += 29 * 60 * 1000;
+  assert.equal(await createVisitLoader(deps)(), 1);
+  // A full 30 minutes without browsing starts a new visit.
+  time += 30 * 60 * 1000;
+  assert.equal(await createVisitLoader(deps)(), 2);
+});
+
 test("failed writes can retry and blocked storage counts once per page lifetime", async () => {
   let attempts = 0;
   const load = createVisitLoader({

@@ -18,8 +18,9 @@ const read = async () => {
 export const loadSiteVisits = createVisitLoader({
   record,
   read,
+  // Shared across tabs and reloads so a visit spans the whole browsing window.
   storage: {
-    getItem: (key) => sessionStorage.getItem(key),
-    setItem: (key, value) => sessionStorage.setItem(key, value),
+    getItem: (key) => localStorage.getItem(key),
+    setItem: (key, value) => localStorage.setItem(key, value),
   },
 });
